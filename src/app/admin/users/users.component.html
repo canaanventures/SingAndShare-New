@@ -1,0 +1,191 @@
+<div class="backdrop" [ngStyle]="{'display':display}"></div>
+
+<div class="wrapper container">
+    <div class="main">
+        <main class="content">
+            <div class="container-fluid p-0">
+                <h1 class="h3 mb-3 clearfix">
+                    User Details
+                    <button class='btn btn-primary float-right' (click)='openModal()'>Add User</button>
+                </h1>
+                <div class="row">
+                    <div class="col-md-12 col-xl-12">
+                        <div class="card">
+                            <div class="card-body h-100">
+                                <table class='table-bordered table'>
+                                    <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Joining Date</th>
+                                            <th>User Type</th>
+                                            <th>Mentor</th>
+                                            <th>SNS Name</th>
+                                            <th>Status</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody *ngFor="let user of userlist.data">
+                                        <tr>
+                                            <td>{{user.user_first_name}} {{user.user_last_name}}</td>
+                                            <td>{{user.user_created_date  | date:'dd/MM/yyyy'}}</td>
+                                            <td>{{user.role_name}}</td>
+                                            <td *ngIf='user.mentor_name'>{{user.mentor_name}}</td>
+                                            <td *ngIf='!user.mentor_name'>-</td>
+                                            <td *ngIf='user.srs_name'>{{user.srs_name}}</td>
+                                            <td *ngIf='!user.srs_name'>-</td>
+                                            <td><span [ngClass] = "user.status == 'Enable' ? 'label label-success' : 'label label-danger'"> {{user.status}} </span></td>
+                                            <td>
+                                                <div class='action-img-div'>
+                                                    <img src='assets/img/edit.png' class='action-img' (click)='editUser(user.user_id);' />
+                                                </div>                                              
+                                                <div class='action-img-div'>
+                                                    <div class="form-check form-switch">
+                                                        <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" [attr.checked]="user.status == 'Enable' ? true : null" (change)='changeStatus($event,user.user_id)' />
+                                                    </div>
+                                                </div>
+                                                <div class='action-img-div'>
+                                                    <div class="form-check form-switch">
+                                                        <img src='assets/img/access.png' class='action-img' (click)='toggleAccess(user.user_id);' />
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr id='row{{user.user_id}}' class='table-hidden-row'>
+                                            <td colspan='7'>
+                                                <div class='row px-3'>
+                                                    <div class="star01 s3">
+                                                        <div class="checkbox">
+                                                            <input type="checkbox" class="faChkStr chk_{{user.user_id}}" name="access_check" id="sns_access" [(ngModel)]="access.sns_access">
+                                                            <label for="sns_access"> &nbsp; SNS</label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="star01 s3">
+                                                        <div class="checkbox">
+                                                            <input type="checkbox" class="faChkStr chk_{{user.user_id}}" name="access_check" id="user_access" [(ngModel)]="access.user_access">
+                                                            <label for="user_access"> &nbsp; User</label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="star01 s3">
+                                                        <div class="checkbox">
+                                                            <input type="checkbox" class="faChkStr chk_{{user.user_id}}" name="access_check" id="event_access" [(ngModel)]="access.event_access">
+                                                            <label for="event_access"> &nbsp; Event</label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="star01 s3">
+                                                        <div class="checkbox">
+                                                            <input type="checkbox" class="faChkStr chk_{{user.user_id}}" name="access_check" id="attendance_access" [(ngModel)]="access.attendance_access">
+                                                            <label for="attendance_access"> &nbsp; Attendance</label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="star01 s3">
+                                                        <div class="checkbox">
+                                                            <input type="checkbox" class="faChkStr chk_{{user.user_id}}" name="access_check" id="calendar_access" [(ngModel)]="access.calendar_access">
+                                                            <label for="calendar_access"> &nbsp; Calendar</label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="star01 s3">
+                                                        <div class="checkbox">
+                                                            <input type="checkbox" class="faChkStr chk_{{user.user_id}}" name="access_check" id="calendar_add_access" [(ngModel)]="access.calendar_add_access">
+                                                            <label for="calendar_add_access"> &nbsp; Calendar Add</label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="star01 s3">
+                                                        <div class="checkbox">
+                                                            <input type="checkbox" class="faChkStr chk_{{user.user_id}}" name="access_check" id="blog_access" [(ngModel)]="access.blog_access">
+                                                            <label for="blog_access"> &nbsp; Blog</label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="star01 s3">
+                                                        <div class="checkbox">
+                                                            <input type="checkbox" class="faChkStr chk_{{user.user_id}}" name="access_check" id="blog_status_access" [(ngModel)]="access.blog_change_status_access">
+                                                            <label for="blog_status_access"> &nbsp; Blog Status</label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="star01 s3">
+                                                        <div class="checkbox">
+                                                            <input type="checkbox" class="faChkStr chk_{{user.user_id}}" name="access_check" id="blog_approve_access" [(ngModel)]="access.blog_approve_access">
+                                                            <label for="blog_approve_access"> &nbsp; Blog Approve</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class='row'>
+                                                    <div class='col-md-12'>
+                                                        <button id='assign_btn' class='btn btn-primary w-auto' (click)='assignAccess(user.user_id)'>Assign</button>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</div>
+
+<div id="myModal" class="modal" role="dialog" [ngStyle]="{'display':display}">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                <h5 class='mb-3 card-header'>
+                    <span *ngIf='!edit'>Add User</span>
+                    <span *ngIf='edit'>Edit User</span>
+                    <span class='close modal-close' (click)='closeModal()' data-dismiss="modal">&times;</span>
+                </h5>
+                <input type='hidden' id='hidden_id' />
+                <div class='row px-4'>
+                    <div class='col-md-6'>
+                        <div class='form-group'>
+                            <label for='mentee_first_name'>First Name</label>
+                            <input type='text' placeholder='First Name' class='form-control' id='mentee_first_name' />
+                        </div>
+                    </div>
+                    <div class='col-md-6'>
+                        <div class='form-group'>
+                            <label for='mentee_last_name'>Last Name</label>                      
+                            <input type='text' placeholder='Last Name' class='form-control' id='mentee_last_name' />
+                        </div>
+                    </div>
+                    <div class='col-md-6'>
+                        <div class='form-group'>
+                            <label for='mentee_email_id'>Email ID</label> 
+                            <input type='text' placeholder='Email ID' class='form-control' id='mentee_email_id' />
+                        </div>
+                    </div>
+                    <div class='col-md-6'>
+                        <div class='form-group'>
+                            <label for='mentee_user_type'>User Type</label> 
+                            <select class='form-control' id='mentee_user_type'>
+                                <option value='{{role.role_id}}' *ngFor="let role of userrole.data">{{role.role_name}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class='col-md-6' *ngIf='edit'>
+                        <div class='form-group'>
+                            <label for='mentor_email_id'>Mentor Email Id</label> 
+                            <input type='text' placeholder='Email ID' class='form-control' id='mentor_email_id' />
+                        </div>
+                    </div>
+                    <div class='col-md-6' *ngIf='edit'>
+                        <div class='form-group'>
+                            <label for='sns_name'>SNS Name</label> 
+                            <select class='form-control' id='sns_name' [(ngModel)]='srs_name'>
+                                <option value=''>Select SRS Name</option>
+                                <option value='{{list.srs_id}}' *ngFor="let list of srslist">{{list.srs_name}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class='col-md-6'>
+                        <div class='form-group'>                  
+                            <button id='submit_btn' *ngIf='!edit' class='btn btn-primary' (click)='addUser()'>Submit</button>
+                            <button id='update_btn' *ngIf='edit' class='btn btn-primary' (click)='updateUser()'>Update</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div> 
+    </div>
+</div>

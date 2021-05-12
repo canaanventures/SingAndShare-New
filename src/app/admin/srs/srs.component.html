@@ -1,0 +1,89 @@
+<div class="backdrop" [ngStyle]="{'display':display}"></div>
+
+<div class="wrapper container">
+    <div class="main">
+        <main class="content">
+            <div class="container-fluid p-0">
+                <h1 class="h3 mb-3 clearfix">
+                    Sing And Share List
+                    <button class='btn btn-primary float-right' (click)='openModal()'>Add Branch</button>
+                </h1>
+                <div class="row">
+                    <div class="col-md-12 col-xl-12">
+                        <div class="card">
+                            <div class="card-body h-100">
+                                <table class='table-bordered table'>
+                                    <thead>
+                                        <tr>
+                                            <th>SNS Name</th>
+                                            <th>Captain Name</th>
+                                            <th>Added On</th>
+                                            <th>Status</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let list of srslist">
+                                            <td>{{list.srs_name}}</td>
+                                            <td>{{list.user_first_name}} {{list.user_last_name}}</td>
+                                            <td>{{list.created_on  | date:'dd/MM/yyyy'}}</td>
+                                            <td><span [ngClass] = "list.status == 'Enable' ? 'label label-success' : 'label label-danger'"> {{list.status}} </span></td>
+                                            <td>
+                                                <div class='action-img-div'>
+                                                    <img src='assets/img/edit.png' class='action-img' (click)='editModal(list.srs_id);' />
+                                                </div>
+                                                
+                                                <div class='action-img-div'>
+                                                    <div class="form-check form-switch">
+                                                        <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" [attr.checked]="list.status == 'Enable' ? true : null" (change)='changeStatus($event,list.srs_id)' />
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</div>
+
+<div id="myModal" class="modal" role="dialog" [ngStyle]="{'display':display}">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                <h5 class='mb-3 card-header'>
+                    <span *ngIf='!edit'>Add Branch</span>
+                    <span *ngIf='edit'>Edit Branch</span>
+                    <span class='close modal-close' (click)='closeModal()' data-dismiss="modal">&times;</span>
+                </h5>
+                <div class='row px-4'>
+                    <div class='col-md-12'>
+                        <div class='form-group'>
+                            <label for='srs_name'>SNS Name</label>
+                            <input type='text' placeholder='Name' class='form-control' id='srs_name' [(ngModel)]='srs.srs_name' />
+                        </div>
+                    </div>
+                    <div class='col-md-12'>
+                        <div class='form-group'>
+                            <label for='mentee_email_id'>Captain name</label> 
+                            <select id='captain_name' class='form-control' [(ngModel)]="srs.user_id">
+                                <option value=''>Select the Captain Name</option>
+                                <option value='{{list.user_id}}' *ngFor='let list of caplist'>{{list.user_first_name}} {{list.user_last_name}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class='col-md-6'>
+                        <div class='form-group'>            
+                            <button id='submit_btn' *ngIf='!edit' class='btn btn-primary' (click)='addBranch()'>Submit</button>
+                            <button id='update_btn' *ngIf='edit' class='btn btn-primary' (click)='updateBranch()'>Update</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div> 
+    </div>
+</div>

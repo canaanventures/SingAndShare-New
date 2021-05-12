@@ -1,0 +1,175 @@
+<div class="backdrop" [ngStyle]="{'display':displayBlog}"></div>
+<div class="backdrop" [ngStyle]="{'display':categorydisplay}"></div>
+<div class="backdrop" [ngStyle]="{'display':commentdisplay}"></div>
+
+<div class="wrapper container">
+    <div class="main">
+        <main class="content">
+            <div class="container-fluid p-0">
+                <h1 class="h3 mb-3 clearfix">
+                    Blog List
+                    <button class='btn btn-primary float-right' (click)='openBlogModal()'>Add Blog</button>
+                    <button class='btn btn-primary bg-orange float-right mx-3' (click)='openCatModal()'>Add Category</button>
+                </h1>
+                <div class="row">
+                    <div class="col-md-12 col-xl-12">
+                        <div class="card">
+                            <div class="card-body h-100">
+                                <table class='table-bordered table'>
+                                    <thead>
+                                        <tr>
+                                            <!-- <th>Blog Image</th> -->
+                                            <th>Title</th>
+                                            <th>Category</th>
+                                            <th>Created Date</th>
+                                            <th>Status</th>
+                                            <th>Approval Status</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let blog of bloglist.data">
+                                            <!-- <td class='table-thumbnail-img'>
+                                                <img src={{imgurl}}{{blog.poster_url}} class='w-100' />
+                                            </td> -->
+                                            <td style='text-transform: capitalize;'>{{blog.title}}</td>
+                                            <td>{{blog.category_name}}</td>
+                                            <td>{{blog.created_date  | date:'dd/MM/yyyy'}}</td>
+                                            <td style='text-transform:uppercase;'><span [ngClass] = "blog.status == 'Enable' ? 'label label-success' : 'label label-danger'">{{blog.status}}</span></td>
+                                            <td>
+                                                <img src='assets/img/approve.png' *ngIf="blog.approval_status == 'Y'" class='status-img' />
+                                                <img src='assets/img/disapprove.png' class='status-img' *ngIf="blog.approval_status == 'N'" />
+                                            </td>
+                                            <td class='clearfix'>
+                                                <div class='action-img-div'>
+                                                    <img src='assets/img/edit.png' class='action-img' (click)=[editBlog(blog.blog_id)] />
+                                                </div>
+                                                <div class='action-img-div'>
+                                                    <div class="form-check form-switch">
+                                                        <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" [attr.checked]="blog.status == 'Enable' ? true : null" (change)='[disableBlog($event,blog.blog_id)]' />
+                                                    </div>
+                                                </div>
+                                                <div class='action-img-div'>
+                                                    <i class="fa fa-comments-o" aria-hidden="true" style='color:#630460;margin-left:10px;' (click)=[commentModal(blog.blog_id)]></i>
+                                                </div>
+                                                <!-- <div class='action-img-div' *ngIf='access.blog_change_status_access == 1'>
+                                                    <img src='assets/img/delete.png' class='action-img' (click)=[disableBlog(blog.blog_id)] />
+                                                </div> -->
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</div>
+
+<div class="modal" id="addPostModal" [ngStyle]="{'display':displayBlog}">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header bg-primary text-white">
+                <h5 class="modal-title">Add Blog</h5>
+                <button class="close" data-dismiss="modal"(click)='closeBlogModal();'>
+                    <span>&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="card-body">
+                    <form id='blog_form' name='addBlogForm'> <!-- (ngSubmit)="addBlog($event)" -->
+                        <input type='hidden' name='blog_id' id='blog-id' [value]=edit_id />
+                        <div class="form-group col-md-4">
+                            <label for="title">Title</label>
+                            <input type="text" name='blog_title' class="form-control" id='title' value="" placeholder='Enter the title of the blog' />
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="category">Category</label>
+                            <select class="form-control" name='category' id='category'>
+                                <option value=''>Select Blog Category</option>
+                                <option [value]='list.category_id' *ngFor='let list of blogCatlist'>{{list.category_name}}</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="blog-image">Upload Image</label>
+                            <input type="file" name='blog_image' class="form-control custom-file-input" id="blog-image" (change)='selectImage($event)' />
+                        </div>
+                        <div class="form-group col-md-12">
+                            <label for="description">Description</label>
+                            <angular-editor id='description' name='blog_description' [config]="editorConfig" [(ngModel)]="htmlContent"></angular-editor>
+                        </div>
+                        <div class="form-group col-md-4" *ngIf='edit && access.blog_approve_access == 1'>
+                            <label for="approval_status">Approval Status</label>
+                            <select id='approval_status' name='approval_status' class='form-control'>
+                                <option value=''>Select Status</option>
+                                <option value='Y'>Approve</option>
+                                <option value='N'>Disapprove</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for='updateBlog' *ngIf='edit'></label>
+                            <button class="btn btn-primary" type='submit' (click)='addBlog($event)' [ngStyle]="{'display': (blogtype=='add') ? 'block' : 'none'}" *ngIf='!edit'> Add Blog </button>
+                            <button class="btn btn-primary" id='updateBlog' (click)='updateBlog()' [ngStyle]="{'display': (blogtype=='update') ? 'block' : 'none'}" *ngIf='edit'> Update Blog </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="categoryModal" class="modal" role="dialog" [ngStyle]="{'display':categorydisplay}">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                <h5 class='mb-3 card-header'> Add Category <span class='close modal-close' (click)='closeBlogModal()' data-dismiss="modal">&times;</span> </h5>
+                <div class='px-4'>
+                    <div class='col-md-12'>
+                        <div class='form-group'>
+                            <label for='blog_category_name'>Blog Category Name</label>
+                            <input type='text' id='blog_category_name' class='form-control' placeholder='Add Blog Category Name' [(ngModel)]='addcat.category_name' />
+                        </div>
+                    </div>
+                    <div class='col-md-6'>
+                        <div class='form-group'>
+                            <label for='submit_btn_add'> &nbsp; </label>                        
+                            <button id='submit_btn_add' class='btn btn-primary bg-orange' (click)='addBlogCat()'>Submit</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div> 
+    </div>
+</div>
+
+<div id="commentApprovalModal" class="modal" role="dialog" [ngStyle]="{'display':commentdisplay}">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                <h5 class='mb-3 card-header'> Comment Approval Modal <span class='close modal-close' (click)='closeCommentModal()' data-dismiss="modal">&times;</span> </h5>
+                <div class='px-4'>
+                    <div class='col-md-12 p-0 my-4' *ngFor='let list of commentlist'>
+                        <span id='comment_user'>{{list.name}}</span> 
+                        <span id='comment_date'>{{list.added_on | date:'dd/MM/yyyy'}}</span>
+                        <span [ngClass] = "list.approval_status == 'Y' ? 'label label-success' : 'label label-danger'">
+                            <span *ngIf="list.approval_status == 'Y'">Approved</span>
+                            <span *ngIf="list.approval_status == 'N'">Disapproved</span>
+                            <span *ngIf="list.approval_status == 'D'">Newly Added</span>
+                        </span>
+                        <p id='comment_txt'> 
+                            <i class="fa fa-quote-left" aria-hidden="true"></i>  
+                            {{list.blog_comment}}  
+                            <i class="fa fa-quote-right" aria-hidden="true"></i>
+                        </p>
+                        <p class='m-0'> 
+                            <i class="fa fa-thumbs-o-up" aria-hidden="true" (click)='approveComment(list.comment_id,"Y");'></i> 
+                            <i class="fa fa-thumbs-o-down" aria-hidden="true" (click)='approveComment(list.comment_id,"N");'></i>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div> 
+    </div>
+</div>

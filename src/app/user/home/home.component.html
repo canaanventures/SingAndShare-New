@@ -1,0 +1,209 @@
+<div class="backdrop" [ngStyle]="{'display':display}"></div>
+
+<section id='home-slider'>
+    <div class="product-screens">
+        <video autoplay="" muted="" playsinline="" loop="" id="home_banner" oncanplay="this.play()" onloadedmetadata="this.muted = true" style="height:100%; object-fit: cover;width:100%;">
+            <source src="../../../assets/img/home_banner.mp4" type="video/mp4">
+        </video>   
+        <!-- <swiper effect="coverflow" [config]="config">          
+            <ng-template swiperSlide *ngFor="let slide of imgArr">
+                <div data-toggle='modal' data-target='#event_register_modal' class='swiper-img-div' (click)='openModal(slide.id)'>
+                    <img [src]='slide.url' class='w-100 h-100' />
+                    <div class='home-bg-green'></div>
+                </div>
+            </ng-template> -->
+            <!-- <div class='home-bg-green'></div> -->
+            <!-- <ng-template swiperSlide>
+                <div class='swiper-img-div'>
+                    <img src='assets/img/img-1.jpg' class='w-100 h-100' />
+                </div>
+            </ng-template>
+            <ng-template swiperSlide>
+                <div class='swiper-img-div'>
+                    <img src='assets/img/home-img-2.jpg' class='w-100 h-100' />
+                </div>
+            </ng-template>
+            <ng-template swiperSlide>
+                <div class='swiper-img-div'>
+                    <img src='assets/img/home-img-3.jpg' class='w-100 h-100' />
+                </div>
+            </ng-template>
+            <ng-template swiperSlide>
+                <div class='swiper-img-div'>
+                    <img src='assets/img/home-img-4.jpg' class='w-100 h-100' />
+                </div>
+            </ng-template>
+        </swiper> -->
+    </div>
+</section>
+
+<main id="main">
+    <section id="about" class="section-bg">
+        <div class="container-fluid" data-aos="fade-up">
+            <div class="section-header">
+                <h3 class="section-title">About Us</h3>
+                <span class="section-divider"></span>
+                <p class="section-description"> Mission and vision </p>
+            </div>
+            <div class="row">
+                <div class="col-lg-6 about-img" data-aos="fade-right" dat-aos-delay="100">
+                    <img src="assets/img/about-img-1.jpg" alt="">
+                </div>  
+                <div class="col-lg-6 content" data-aos="fade-left" dat-aos-delay="100">
+                    <div data-aos="fade-up">
+                        <h4 class="title"><a href=""><br>Purpose</a></h4>
+                        <p class="description">Sing and Share is a community of young men and women who follow Jesus wholeheartedly. Our focus is on growing deep and wide. Deep in our relationship with Christ, wide in our relationship with one another. <br><i>"He is the one we proclaim, admonishing and teaching everyone with all wisdom, so that we may present everyone fully mature in Christ." Colossians 2:28</i></p>
+                    </div>
+                    <div data-aos="fade-up">
+                        <h4 class="title"><a href=""><br>What do we do</a></h4>
+                        <p class="description">Regular gathering of believers, worshipping God and deeper Bible studies are key highlights of Sing and Share. We focus on deliberately building relationships, sharing the good news, teaching the <a href="/mission">more....</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="blog" class="blog-area pt-115">
+        <div class="container p-0">
+            <div class="row justify-content-center">
+                <div class="section-header">
+                    <h3 class="section-title">Our Blog</h3>
+                    <span class="section-divider"></span>
+                    <p class="section-description"> All about us </p>
+                </div>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                    <div class=''>
+                        <img src="assets/img/blog_all.jpg" alt="news" class='w-100'>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">                  
+                    <div class="single-blog mt-30 wow fadeInUpBig" data-wow-duration="1s" data-wow-delay="0.4s">
+                        <div class='blog-redirect'>
+                            <div class="blog-image">
+                                <img src="assets/img/news-1.jpg" alt="news" class='w-100 h-100'>
+                            </div>
+                            <div class="blog-content">
+                                <p class='blog-cat'>{{bloglist[0].category_name}}</p>
+                                <h4 class="blog-title">{{bloglist[0].title}}</h4>
+                                <div class="blog-author d-flex align-items-center">                                  
+                                    <div class="author-content media-body">
+                                        <p>{{bloglist[0].description}}</p>
+                                        <div class='read_more'>
+                                            <a href='/singleblog/{{bloglist[0].blog_id}}'>
+                                                Read More <img src='../../../assets/img/right-arrow.png' />
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div> <!-- single blog -->                   
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="gallery">
+        <div class="container-fluid" data-aos="fade-up">
+          <div class="section-header">
+            <h3 class="section-title">Gallery</h3>
+            <span class="section-divider"></span>
+            <p class="section-description">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque</p>
+          </div>
+  
+          <div class="row no-gutters"> 
+            <div class="col-lg-4 col-md-6">
+              <div class="gallery-item">
+                <a href="assets/img/gallery/gallery-1.jpg" data-gall="portfolioGallery" class="gallery-lightbox">
+                  <img src="assets/img/gallery/gallery-1.jpg" alt="">
+                </a>
+              </div>
+            </div>  
+            <div class="col-lg-4 col-md-6">
+              <div class="gallery-item">
+                <a href="assets/img/gallery/gallery-2.jpg" data-gall="portfolioGallery" class="gallery-lightbox">
+                  <img src="assets/img/gallery/gallery-2.jpg" alt="">
+                </a>
+              </div>
+            </div>  
+            <div class="col-lg-4 col-md-6">
+              <div class="gallery-item">
+                <a href="assets/img/gallery/gallery-3.jpg" data-gall="portfolioGallery" class="gallery-lightbox">
+                  <img src="assets/img/gallery/gallery-3.jpg" alt="">
+                </a>
+              </div>
+            </div> 
+            <div class="col-lg-4 col-md-6">
+              <div class="gallery-item">
+                <a href="assets/img/gallery/gallery-4.jpg" data-gall="portfolioGallery" class="gallery-lightbox">
+                  <img src="assets/img/gallery/gallery-4.jpg" alt="">
+                </a>
+              </div>
+            </div> 
+            <div class="col-lg-4 col-md-6">
+              <div class="gallery-item">
+                <a href="assets/img/gallery/gallery-5.jpg" data-gall="portfolioGallery" class="gallery-lightbox">
+                  <img src="assets/img/gallery/gallery-5.jpg" alt="">
+                </a>
+              </div>
+            </div> 
+            <div class="col-lg-4 col-md-6">
+              <div class="gallery-item">
+                <a href="assets/img/gallery/gallery-6.jpg" data-gall="portfolioGallery" class="gallery-lightbox">
+                  <img src="assets/img/gallery/gallery-6.jpg" alt="">
+                </a>
+              </div>
+            </div> 
+          </div>  
+        </div>
+    </section>
+
+    <section id="contact" class='p-0'>
+        <div class="container-fluid p-0" data-aos="fade-up">
+            <div class="row">
+                <div class='col-md-7'>
+                    <div class='section-header'>
+                        <h3 class="section-title text-center">Contact Us</h3>
+                        <span class="section-divider"></span>
+                        <p class="section-description">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque</p>
+                    </div>
+                    <div class="col-lg-7 col-md-7 contact-form">
+                        <app-visitors></app-visitors>
+                    </div>
+                    <div class="col-lg-5 col-md-5 contact-address">
+                        <div class="info">
+                            <div>
+                                <i class="bi bi-geo-alt"></i>
+                                <p>AIG Bangalore Finance Centre<br>Adarsh Palm Retreat, Bellandur, Bengaluru, Karnataka 560103</p>
+                            </div>      
+                            <div>
+                                <i class="bi bi-envelope"></i>
+                                <p>info@example.com</p>
+                            </div>      
+                            <div>
+                                <i class="bi bi-phone"></i>
+                                <p>+91 80672 79400</p>
+                            </div>       
+                        </div>
+                    </div> 
+                </div>               
+                <div class="col-lg-5 col-md-4 contact-img">
+                    <img src='../../../assets/img/contact.jpg' class='w-100 h-100' />
+                </div>
+            </div> 
+        </div>
+    </section><!-- End Contact Section -->
+</main>
+
+<div class="modal" id="event_register_modal" [ngStyle]="{'display':display}">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body clearfix">
+                <span class='close modal-close' (click)='closeModal()' data-dismiss="modal">&times;</span>
+                <app-event-register> </app-event-register>
+            </div>
+        </div>
+    </div>
+</div>

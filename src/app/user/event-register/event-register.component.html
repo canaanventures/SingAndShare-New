@@ -1,0 +1,48 @@
+<input type='hidden' id='event_hidden_id' />
+<div class='form-group hide-first col-md-2'>
+    <label for='contact_sal'>Sal</label>
+    <select class='form-control' id='contact_sal'>
+        <option value='Mr.'>Mr.</option>
+        <option value='Mr.'>Mrs.</option>
+    </select>
+</div>
+<div class='form-group hide-first col-md-5'>
+    <label for='contact_first_name'>First Name</label>
+    <input type='text' class='form-control' id='contact_first_name' placeholder='Enter your First Name' />
+</div>
+<div class='form-group hide-first col-md-5'>
+    <label for='contact_last_name'>Last Name</label>
+    <input type='text' class='form-control' id='contact_last_name' placeholder='Enter your Last Name' />
+</div>
+<div class='form-group col-md-6'>
+    <label for='contact_email_id'>Email ID</label>
+    <input type='text' class='form-control' id='contact_email_id' placeholder='Enter your Email ID' />
+</div>
+<div class='form-group hide-first col-md-6'>
+    <label for='contact_number'>Contact Number</label>
+    <input type='text' class='form-control' id='contact_number' placeholder='Enter your Contact Number' />
+</div>
+<div class='form-group hide-first col-md-6'>
+    <label for='contact_state'>State</label>
+    <select class='form-control' id='contact_state' (change)="print_city($event);"> </select>
+</div>
+<div class='form-group hide-first col-md-6'>
+    <label for='contact_city'>City</label>
+    <select class='form-control'  id="contact_city"> </select>
+</div>
+<div class='form-group hide-first col-md-12'>
+    <label for='contact_referrer'>Referrer</label>
+    <input type='text' class='form-control' id='contact_referrer' placeholder='Enter your Referrer Name' />
+</div>
+<div class='form-group hide-first col-md-12'>
+    <label for='contact_address'>Address</label>
+    <textarea class='form-control' id='contact_address' placeholder='Enter your Address' rows='5'></textarea>
+</div>
+<div class='form-group hide-first col-md-6'>
+    <label for='event_register'> &nbsp; </label>
+    <button class='btn btn-primary' id='event_register' (click)='userEventRegister()'>Event Register</button>
+</div>
+<div class='form-group verify_email_div col-md-6'>
+    <label for='verify_email_btn'> &nbsp; </label>
+    <button class='btn btn-primary' id='verify_email_btn' (click)='verifyEmail()'>Verify Email</button>
+</div>

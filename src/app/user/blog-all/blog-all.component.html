@@ -1,0 +1,38 @@
+<div class="super_container">
+  <div class="blog">
+    <div class="container">
+      <div class="row">
+        <div class="col">
+          <div class="welcome_title">Welcome to our blog!</div>
+        </div>
+      </div>
+  
+      <!-- Blog Posts -->
+      
+      <div class="row blog_row">
+  
+        <!-- Blog Post -->
+        <div class="col-lg-6" *ngFor = 'let list of bloglist'>
+          <div class="blog_post">
+            <div class="blog_image" style="background-image:url(../../../assets/img/blog-all.jpg)"></div>
+            <div class="blog_title_container">
+              <div class="blog_post_category"><a>{{list.category_name}}</a></div>
+              <div class="blog_post_title"><a style='text-transform:uppercase;'>{{list.title}}</a></div>
+              <div class="blog_post_text">
+                <p>{{list.description}}</p>
+              </div>
+              <div class="read_more"><a href="/singleblog/{{list.blog_id}}">Read More <img src="../../../assets/img/right-arrow.png" alt=""></a></div>
+            </div>
+          </div>
+        </div> 
+      </div>
+  
+      <!-- Load More -->
+      <!-- <div class="row">
+        <div class="col">
+          <div class="load_more_button"><a href="#">load more</a></div>
+        </div>
+      </div> -->
+    </div>
+  </div>
+</div>

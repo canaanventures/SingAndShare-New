@@ -1,0 +1,8 @@
+.form-group label{font-size:13px;margin:10px 0;font-weight:600;margin-bottom:5px;}
+.form-control::placeholder{font-size:13px;}
+.form-group{float:left;padding:0 10px;}
+.form-control:focus{box-shadow:none;}
+.btn{background-color:#630460;font-size:13px;margin-top:10px;border-color:#630460;}
+.form-control{font-size:13px;}
+.verify_email_div label{width:100%;}
+.verify_email_div .btn{margin-top:0;}

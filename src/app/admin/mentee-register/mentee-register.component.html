@@ -1,0 +1,53 @@
+<div class='container-fluid clearfix mentee-register-container'>
+    <div class='text-center float-left col-md-6 mentee-left-container'> </div>
+
+    <div class='mentee-right-container float-left col-md-6'>
+        <div class='text-center'>
+            <img src='../../../assets/img/logo.png' class='mt-5 mb-5' />
+        </div>       
+        <h5 class='mb-3 card-header'>Mentee Register</h5>
+        <div class='row px-4'>
+            <div class='col-md-6'>
+                <div class='form-group'>
+                    <label for='mentee_reg_first_name'>First Name</label>
+                    <input type='text' placeholder='First Name' class='form-control' id='mentee_reg_first_name' />
+                </div>
+            </div>
+            <div class='col-md-6'>
+                <div class='form-group'>
+                    <label for='mentee_reg_last_name'>Last Name</label>                      
+                    <input type='text' placeholder='Last Name' class='form-control' id='mentee_reg_last_name' />
+                </div>
+            </div>
+            <div class='col-md-6'>
+                <div class='form-group'>
+                    <label for='mentee_reg_email_id'>Email ID</label> 
+                    <input type='text' placeholder='Email ID' class='form-control' id='mentee_reg_email_id' />
+                </div>
+            </div>
+            <div class='col-md-6'>
+                <div class='form-group'>
+                    <label for='mentor_email_id'>Mentor Email ID</label> 
+                    <input type='text' placeholder='Mentor Email ID' class='form-control' id='mentor_email_id' readonly />
+                </div>
+            </div>
+            <div class='col-md-6'>
+                <div class='form-group'>
+                    <label for='mentee_reg_your_password'>Password</label> 
+                    <input type='password' placeholder='Enter the Password' class='form-control' id='mentee_reg_your_password' />
+                </div>
+            </div>
+            <div class='col-md-6'>
+                <div class='form-group'>
+                    <label for='mentee_reg_contact_number'>Contact Number</label> 
+                    <input type='text' placeholder='Your Contact Number' class='form-control' id='mentee_reg_contact_number' />
+                </div>
+            </div>
+            <div class='col-md-6'>
+                <div class='form-group'>                      
+                    <button id='submit_btn' class='btn btn-primary' (click)='register()'>Submit</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

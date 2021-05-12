@@ -1,0 +1,11 @@
+.backdrop{background-color:rgba(0,0,0,0.6);position:absolute;width:100%;height:100%;z-index: 1049;}
+.swiper-img-div{cursor:pointer;}
+.modal-open{overflow:hidden};
+#user_login{background-color: #630460;border-color: #630460;cursor:pointer;}
+#header .container::before{display:none;}
+#header .navbar{margin:0;}
+#logo{flex:auto;}
+#user-action{display:block;position:absolute;background-color:#fff;border-radius:3px;padding:15px 20px;margin-top:10px;width: 175px;right: -10px;}
+#user-action li a{color:#630460;font-size:13px;font-weight:500;padding:0;}
+#user-action hr{margin:10px 0;}
+.header-transparent ul li a{color:#630460;font-weight:500;}

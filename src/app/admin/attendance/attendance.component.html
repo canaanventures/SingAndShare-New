@@ -1,0 +1,69 @@
+<div class="wrapper container mb-5">
+    <div class="main">
+        <main class="content">
+            <h1 class="h3 mb-3">Attendace Form</h1>
+            <div class="row">
+                <div class="col-md-5 card p-0">
+                    <div class="card-body h-100 p-0">
+                        <h5 class='mb-3 p-4 font-weight-bold card-header'>Add Attendance</h5>
+                        <div class='row px-4'>
+                            <div class='col-md-12'>
+                                <div class='form-group'>
+                                    <label for='attend_sns_name'>SNS Name</label>
+                                    <select class='form-control' id='attend_sns_name' [(ngModel)]='attendancedetails.srs_id' disabled>
+                                        <option value=''>Select the Name</option>
+                                        <option [value]='list.srs_id' *ngFor="let list of srslist">{{list.srs_name}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class='col-md-12'>
+                                <div class='form-group'>
+                                    <label for='meeting_date'>Meeting Date</label>
+                                    <input type='date' class='form-control' placeholder='Select Meeting Date' id='meeting_date' [(ngModel)]='attendancedetails.meeting_date' >
+                                </div>
+                            </div>
+                            <div class='col-md-12'>
+                                <div class='form-group'>
+                                    <label for='people_attended'>No. of people Attended</label>
+                                    <input type='text' class='form-control' placeholder='No. of People Attended' id='people_attended' [(ngModel)]='attendancedetails.attendees' readonly>
+                                </div>
+                            </div>
+                            <div class='col-md-12'>
+                                <div class='form-group'>
+                                    <label for='new_people_attended'>No. of new people Attended</label>
+                                    <input type='text' class='form-control' placeholder='No. of New People Attended' id='new_people_attended' [(ngModel)]='attendancedetails.new_attendees'>
+                                </div>
+                            </div>
+                            <div class='col-md-12 mt-3'>
+                                <div class='form-group'>
+                                    <label for='add_attendance'> &nbsp; </label>
+                                    <button class='btn-primary btn' id='add_attendance' (click)='addAttendance()'>Add the details </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class='col-md-7'>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="drag-container">
+                                <div class="section-heading">Members <span id='user_cnt'>{{total}}</span></div>
+                                <div cdkDropList #pendingList="cdkDropList" [cdkDropListData]="todo" [cdkDropListConnectedTo]="[doneList]" class="item-list" (cdkDropListDropped)="drop($event,'user')">
+                                    <div class="item-box" *ngFor="let item of todo" cdkDrag>{{item.user_first_name}} {{item.user_last_name}}</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="drag-container">
+                                <div class="section-heading">Presentees <span id='present_cnt'>{{attendees}}</span></div>
+                                <div cdkDropList #doneList="cdkDropList" [cdkDropListData]="done" [cdkDropListConnectedTo]="[pendingList]" class="item-list" (cdkDropListDropped)="drop($event,'attendees')">
+                                    <div class="item-box" *ngFor="let item of done" cdkDrag>{{item.user_first_name}} {{item.user_last_name}}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</div>

@@ -1,0 +1,125 @@
+<div class="wrapper container">
+    <div class="main">
+        <main class="content">
+            <div class="container-fluid p-0">
+                <h1 class="h3 mb-3">Profile</h1>
+                <div class="row">
+                    <div class="col-md-4 col-xl-3">
+                        <div class="card mb-3">                           
+                            <div class="card-body text-center pt-3">
+                                <div class='user-img-div'>
+                                    <img src="assets/img/avatar-4.jpg" alt="Christina Mason" class="img-fluid rounded-circle mb-2" width="128" height="128" />
+                                    <div class='user-img-action-div' id='edit-icon'>
+                                        <img src='assets/img/edit.png' class='user-img-action' />
+                                    </div>
+                                    <div class='user-img-action-div' id='delete-icon'>
+                                        <img src='assets/img/delete.png' class='user-img-action' />
+                                    </div>
+                                </div>
+                                <h4 class="card-title mb-1 mt-0">Christina Mason</h4>
+                                <div class="text-muted mb-2">Lead Developer</div>
+                            </div>                         
+                        </div>
+                    </div>
+                    <div class="col-md-8 col-xl-9">
+                        <div class="card">
+                            <div class="card-body h-100">
+                                <h5 class='mb-3 card-header p-4'>Profile Details</h5>
+                                <div class='row px-4'>
+                                    <div class='col-md-6'>
+                                        <div class='form-group'>
+                                            <label for='profile_first_name'>First name</label>
+                                            <input type='text' class='form-control' placeholder='First Name' id='profile_first_name' [value]='userprofile.data[0].user_first_name' />
+                                        </div>
+                                    </div>
+                                    <div class='col-md-6'>
+                                        <div class='form-group'>
+                                            <label for='profile_last_name'>Last name</label>
+                                            <input type='text' class='form-control' placeholder='Last Name' id='profile_last_name' [value]='userprofile.data[0].user_last_name' />
+                                        </div>
+                                    </div>
+                                    <div class='col-md-6'>
+                                        <div class='form-group'>
+                                            <label for='profile_email_id'>Email ID</label>
+                                            <input type='text' class='form-control' placeholder='Email ID' id='profile_email_id' [value]='userprofile.data[0].user_email_id' readonly />
+                                        </div>
+                                    </div>
+                                    <div class='col-md-6'>
+                                        <div class='form-group'>
+                                            <label for='profile_contact_number'>Contact Number</label>
+                                            <input type='text' class='form-control' placeholder='Contact Number' id='profile_contact_number' [value]='userprofile.data[0].user_contact_number' />
+                                        </div>
+                                    </div>
+                                    <div class='col-md-12'>
+                                        <div class='form-group'>
+                                            <label for='profile_address'>Address</label>
+                                            <textarea type='text' class='form-control' id='profile_address' placeholder='Address' rows='3' [value]='userprofile.data[0].user_address'></textarea>
+                                        </div>
+                                    </div>
+                                    <div class='col-md-6'>
+                                        <div class='form-group'>
+                                            <label for='profile_pincode'>Pincode</label>
+                                            <input type='text' class='form-control' placeholder='Pincode' id='profile_pincode' [value]='userprofile.data[0].user_pincode' />
+                                        </div>
+                                    </div>
+                                    <div class='col-md-6'>
+                                        <div class='form-group'>
+                                            <label for='profile_city'>City</label>
+                                            <input type='text' class='form-control' placeholder='City' id='profile_city' [value]='userprofile.data[0].user_city' />
+                                        </div>
+                                    </div>
+                                    <div class='col-md-6'>
+                                        <div class='form-group'>
+                                            <label for='profile_state'>State</label>
+                                            <input type='text' class='form-control' placeholder='State' id='profile_state' [value]='userprofile.data[0].user_state' />
+                                        </div>
+                                    </div>
+                                    <div class='col-md-6'>
+                                        <div class='form-group'>
+                                            <label for='profile_role'>Your Role</label>
+                                            <input type='text' class='form-control' placeholder='Your Role' id='profile_role' [value]='userprofile.data[0].role_name' readonly />
+                                        </div>
+                                    </div>
+                                    <div class='col-md-12 mt-3'>
+                                        <div class='form-group clearfix'>
+                                            <button id='update_profile' class="btn btn-primary btn-block float-right" (click)='updateProfile();' style='width:max-content;'>Update Your Profile</button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <hr class='mb-0' />
+                                <h5 class='mb-3 card-header p-4'>Change Password</h5>
+                                <div class='row px-4'>
+                                    <div class='col-md-6'>
+                                        <div class='form-group'>
+                                            <label for='profile_current_password'>Current Password</label>
+                                            <input type='text' class='form-control' placeholder='Enter your current Password' id='profile_current_password' />
+                                        </div>
+                                    </div>
+                                    <div class='col-md-6'>
+                                        <div class='form-group'>
+                                            <label for='profile_new_password'>New Password</label>
+                                            <input type='text' class='form-control' placeholder='Enter your new Password' id='profile_new_password' />
+                                        </div>
+                                    </div>
+                                    <div class='col-md-6'>
+                                        <div class='form-group'>
+                                            <label for='profile_confirm_password'>Confirm New Password</label>
+                                            <input type='text' class='form-control' placeholder='Confirm your new Password' id='profile_confirm_password' />
+                                        </div>
+                                    </div>
+                                    <div class='col-md-6'>
+                                        <div class='form-group'>
+                                            <label for='reset_password'> &nbsp; </label>
+                                            <a href="#" id='reset_password' class="btn btn-primary btn-block" style='width:max-content;'>Reset Password</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</div>
