@@ -178,7 +178,6 @@ export class AddblogComponent implements OnInit {
       });
   }
 
-  
   editBlog(id){
     this.blogtype = 'update';
     this.edit = true;
