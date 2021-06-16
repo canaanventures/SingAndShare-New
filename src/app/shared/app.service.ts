@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import { url } from './app.constant';
 
 @Injectable()
@@ -35,6 +35,14 @@ export class ApiService {
 
   getMethod(url:any) {
     return this.http.get(this.api + url);
+  }
+
+  getImgMethod(url:any) {
+    return this.http.get(this.api + url, { responseType: 'blob' });
+  }
+
+  getMultipleImgMethod(url:any,obj:any) {
+    return this.http.post(this.api + url,JSON.stringify(obj), { headers: this.httpOptions.headers });
   }
 
   postMethod(url:any,obj:any) {

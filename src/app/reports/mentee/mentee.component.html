@@ -1,0 +1,113 @@
+<div class='container-fluid report-container'>
+    <div class="card-body h-100">
+        <div class='row'>
+            <div class='col-md-12 p-0 mt-3'>
+                <h4 id='report_chart_msg' class='col-md-2'> Mentee-List Report </h4>
+                <div class='form-group col-md-2'>
+                    <label for='from_date'>From Date</label>
+                    <input type='datetime-local' id='from_date' class='form-control' [(ngModel)]='filter.from_date' placeholder='From Date' (change)='fromDateChange();' />
+                </div>
+                <div class='form-group col-md-2'>
+                    <label for='to_date'>To Date</label>
+                    <input type='datetime-local' id='to_date' class='form-control' [(ngModel)]='filter.to_date' placeholder='To Date' />
+                </div>
+                <div class='form-group col-md-3'>
+                    <label for='test' class='w-100'> &nbsp; </label>
+                    <button class='btn btn-primary' id='btn_datefilter' (click)='filterDate();'>Filter</button>
+                    <button class='btn bg-orange' id='btn_resetfilter' (click)='reset();'>Reset</button>
+                </div>  
+                <div class='form-group col-md-2'>
+                    <label for='download_excel' class='w-100'> &nbsp; </label>
+                    <span id='download_excel' class='float-right' (click)="exportData()"><i class="fa fa-file-excel-o" aria-hidden="true"></i></span>
+                </div>                   
+            </div>
+        </div>
+        <div class='row' *ngIf='originalfilter.length == 0'>
+            <div class='col-md-12 p-0'>
+                <h3 class='chart_msg'>No Data to be displayed</h3>
+            </div>
+        </div>
+        <div class='row' *ngIf='originalfilter.length > 0'>
+            <table class='table-bordered table' id="mentee-excel-table">
+                <thead>
+                    <tr>
+                        <th>Name</th> 
+                        <th>Phone no</th>  
+                        <th>Email Id</th> 
+                        <th>Address</th>
+                        <th>City</th>
+                        <th>State</th>
+                        <th>SNS Name</th>
+                        <th>Mentor</th>
+                        <th>Status</th>
+                        <th>Modified Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr> 
+                        <td>
+                            <input type='text' class='form-control filter-fld' id='mentee_name' [(ngModel)]='filter.mentee_name' (keyup)="filterList($event,'mentee_name')" placeholder='Mentee Name' />
+                        </td>
+                        <td>
+                            <input type='text' id='user_contact_number' class='form-control filter-fld' [(ngModel)]='filter.user_contact_number' (keyup)="filterList($event,'user_contact_number')" placeholder='Contact Number' />
+                        </td>
+                        <td>
+                            <input type='text' id='user_email_id' class='form-control filter-fld' [(ngModel)]='filter.user_email_id' placeholder='Email ID' (keyup)="filterList($event,'user_email_id')" />
+                        </td> 
+                        <td>
+                            <input type='text' id='user_address' class='form-control filter-fld' [(ngModel)]='filter.user_address' placeholder='Address' (keyup)="filterList($event,'user_address')" />
+                        </td> 
+                        <td>
+                            <input type='text' id='user_city' class='form-control filter-fld' [(ngModel)]='filter.user_city' placeholder='City' (keyup)="filterList($event,'user_city')" />
+                        </td>
+                        <td>
+                            <input type='text' id='user_state' class='form-control filter-fld' [(ngModel)]='filter.user_state' placeholder='State' (keyup)="filterList($event,'user_state')" />
+                        </td>  
+                        <td>
+                            <input type='text' id='srs_name' class='form-control filter-fld' [(ngModel)]='filter.srs_name' placeholder='SNS Name' (keyup)="filterList($event,'srs_name')" />
+                        </td>
+                        <td>
+                            <input type='text' id='mentor_name' class='form-control filter-fld' [(ngModel)]='filter.mentor_name' placeholder='Mentor Name' (keyup)="filterList($event,'mentor_name')" />
+                        </td>
+                        <td>
+                            <select id='status' class='form-control filter-fld' [(ngModel)]='filter.status' (change)="filterList($event,'status')">
+                                <option value=''>Select</option>
+                                <option value='Enable'>
+                                    <span class='label label-success'>E</span>
+                                </option>
+                                <option value='Disable'>
+                                    <span class='label label-danger'>D</span>
+                                </option>
+                            </select>
+                        </td>
+                        <td> </td>
+                    </tr>
+
+                    <tr *ngIf='menteelist.length == 0 && originalfilter.length > 0'>
+                        <td colspan='10'>
+                            <h3 class='chart_msg'>No Matches Found</h3>
+                        </td>
+                    </tr>
+
+                    <tr *ngFor="let list of menteelist"> 
+                        <td>{{ list.mentee_name }}</td>
+                        <td>{{ list.user_contact_number }}</td>
+                        <td>{{ list.user_email_id }}</td> 
+                        <td>{{ list.user_address }}</td> 
+                        <td>{{ list.user_city }}</td>
+                        <td>{{ list.user_state }}</td>  
+                        <td>{{ list.srs_name }}</td>
+                        <td>
+                            <span *ngIf="list.mentor_name">{{ list.mentor_name }}</span>
+                            <span *ngIf="!list.mentor_name"> - </span>
+                        </td>
+                        <td>
+                            <span [ngClass] = "list.status == 'Enable' ? 'label label-success' : 'label label-danger'"> {{list.status}} </span>
+                        </td>
+                        <td>{{ list.modified_on | date:'dd-MM-yyyy hh:mm' }}</td>
+                    </tr> 
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

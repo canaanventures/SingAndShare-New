@@ -6,4 +6,4 @@ export const url = Object.freeze({
 })
 
 /*apiurl : 'https://singshare-api.padahjobs.com/'
- apiurl : 'http://localhost:3000/' */
+apiurl : 'http://localhost:3000/' */

@@ -69,42 +69,71 @@
                     <span class='close modal-close' (click)='closeModal()' data-dismiss="modal">&times;</span>
                 </h5>
                 <div class='px-4'>
-                    <div class='col-md-6'>
-                        <div class='form-group'>
-                            <label for='event_name'>Event Name</label>
-                            <input type='text' placeholder='Event Name' name='event_name' class='form-control' id='event_name' [(ngModel)]='event.event_name' />
+                    <form  role="form" #f="ngForm" (ngSubmit)="f.form.valid">
+                        <div class='col-md-6'>
+                            <div class='form-group'>
+                                <label for='event_name'>Event Name<span style="color: red;">*</span></label>
+                                <input type='text' placeholder='Event Name' name='event_name' class='form-control' id='event_name' [(ngModel)]='event.event_name' #event_name= 'ngModel' [ngClass]="{'invalid-data': event_name.invalid && f.submitted, 'valid-data': event_name.valid && f.submitted}"  required  />
+                                <div class="error_msg"
+                                    *ngIf="f.submitted && event_name.invalid">
+                                    <div *ngIf="event_name.errors.required">
+                                        <small class="error_text" >Event Name is required</small> 
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                    <div class='col-md-6'>
-                        <div class='form-group'>
-                            <label for='event_start_date'>Event Start Date</label>                      
-                            <input type='datetime-local' name='event_start_date' placeholder='Event Start Date' class='form-control' id='event_start_date' [(ngModel)]="event.event_start_date" min='{{startDate}}' (change)='startDteChange()' />
+                        <div class='col-md-6'>
+                            <div class='form-group'>
+                                <label for='event_start_date'>Event Start Date<span style="color: red;">*</span></label>                      
+                                <input type='datetime-local' name='event_start_date' placeholder='Event Start Date' class='form-control' id='event_start_date' [(ngModel)]="event.event_start_date" min='{{startDate}}' (change)='startDteChange()'  #event_start_date= 'ngModel' [ngClass]="{'invalid-data': event_start_date.invalid && f.submitted, 'valid-data': event_start_date.valid && f.submitted}"  required />
+                                <div class="error_msg"
+                                    *ngIf="f.submitted && event_start_date.invalid">
+                                    <div *ngIf="event_start_date.errors.required">
+                                        <small class="error_text" >Event Start Date is required</small> 
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                    <div class='col-md-6'>
-                        <div class='form-group'>
-                            <label for='event_end_date'>Event End Date</label> 
-                            <input type='datetime-local' name='event_end_date' placeholder='Event End Date' class='form-control' min='{{endDate}}' id='event_end_date' [(ngModel)]='event.event_end_date' />
+                        <div class='col-md-6'>
+                            <div class='form-group'>
+                                <label for='event_end_date'>Event End Date<span style="color: red;">*</span></label> 
+                                <input type='datetime-local' name='event_end_date' placeholder='Event End Date' class='form-control' min='{{endDate}}' id='event_end_date' [(ngModel)]='event.event_end_date' #event_end_date= 'ngModel' [ngClass]="{'invalid-data': event_end_date.invalid && f.submitted, 'valid-data': event_end_date.valid && f.submitted}"  required />
+                                <div class="error_msg" *ngIf="f.submitted && event_end_date.invalid">
+                                    <div *ngIf="event_end_date.errors.required">
+                                        <small class="error_text" >Event End Date is required</small> 
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                    <div class='col-md-12'>
-                        <div class='form-group'>
-                            <label for='select_venue'>Venue Name</label>
-                            <textarea id='select_venue' name='event_venue' class='w-100 form-control' placeholder='Enter your Venue Details' rows='3' [(ngModel)]='event.venue_name'></textarea>
+                        <div class='col-md-12'>
+                            <div class='form-group'>
+                                <label for='select_venue'>Venue Name<span style="color: red;">*</span></label>
+                                <textarea id='select_venue' name='event_venue' class='w-100 form-control' placeholder='Enter your Venue Details' rows='3' [(ngModel)]='event.venue_name' #venue_name= 'ngModel' [ngClass]="{'invalid-data': venue_name.invalid && f.submitted, 'valid-data': venue_name.valid && f.submitted}"  required></textarea>
+                                <div class="error_msg" *ngIf="f.submitted && venue_name.invalid">
+                                    <div *ngIf="venue_name.errors.required">
+                                        <small class="error_text" >Venue Name is required</small> 
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                    <div class='col-md-12'>
-                        <div class='form-group'>
-                            <label for='event_description'>Event Description</label>
-                            <textarea placeholder='Event Description' class='w-100 form-control' id='event_description' name='event_desc' rows='4' [(ngModel)]='event.description'></textarea>
+                        <div class='col-md-12'>
+                            <div class='form-group'>
+                                <label for='event_description'>Event Description<span style="color: red;">*</span></label>
+                                <textarea placeholder='Event Description' class='w-100 form-control' id='event_description' name='event_desc' rows='4' [(ngModel)]='event.description' #description= 'ngModel' [ngClass]="{'invalid-data': description.invalid && f.submitted, 'valid-data': description.valid && f.submitted}"  required></textarea>
+                                <div class="error_msg" *ngIf="f.submitted && description.invalid">
+                                    <div *ngIf="description.errors.required">
+                                        <small class="error_text" >Event Description is required</small> 
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                    <div class='col-md-6'>
-                        <div class='form-group'>
-                            <label for='submit_btn'> &nbsp; </label>                        
-                            <button id='submit_btn' class='btn btn-primary' (click)='addEvent($event)'>Submit</button>
+                        <div class='col-md-6'>
+                            <div class='form-group'>
+                                <label for='submit_btn'> &nbsp; </label>                        
+                                <button id='submit_btn' class='btn btn-primary' (click)='addEvent($event)'>Submit</button>
+                            </div>
                         </div>
-                    </div>
+                    </form>
                 </div>
             </div>
         </div> 

@@ -1,0 +1,134 @@
+<div class='container-fluid report-container'>
+    <!-- <div class='row'>
+        <div class='col-md-3 form-group'>
+            <label for='type'>Select Type</label>
+            <select class='form-control' id='type' [(ngModel)]='report.type'>
+                <option>Select type</option>
+                <option value='attendance'>Attendance</option>
+            </select>
+        </div>
+        <div class='col-md-3 form-group'>
+            <label for='month'>Select Month</label>
+            <input type='month' id='month' class='form-control' placeholder='Select the Month' [(ngModel)]='report.val' />
+        </div>
+        <div class='col-md-6'>
+            <label for='search_report' class='w-100'> &nbsp; </label>
+            <button class='btn btn-primary' id='search_report' (click)='getAttendace();' style='margin-right:10px;'>Display Graph</button>
+        </div>
+    </div>
+    <div class='row' *ngIf='graphresp.length == 0'>
+        <div class='col-md-12 p-0'>
+            <h3 class='chart_msg'>No Graph to be displayed.</h3>
+        </div>
+    </div>
+    <div class='row' *ngIf='graphresp.length > 0'>
+        <div class='col-md-12 p-0'>
+            <google-chart id='report_chart' #chart [title]="title" [type]="type" [data]="data" [options]="options" [height]="height" style='width:100%;'> </google-chart>
+        </div>
+    </div> -->
+
+    <div class="card-body h-100 mt-3">
+        <div class='row'>
+            <div class='col-md-12 p-0 mt-3'>
+                <div class='form-group col-md-3'>
+                    <label for='from_date'>From Date</label>
+                    <input type='datetime-local' id='from_date' class='form-control' [(ngModel)]='filterdate.from_date' placeholder='From Date' (change)='fromDateChange();' />
+                </div>
+                <div class='form-group col-md-3'>
+                    <label for='to_date'>To Date</label>
+                    <input type='datetime-local' id='to_date' class='form-control' [(ngModel)]='filterdate.to_date' placeholder='To Date' />
+                </div>
+                <div class='form-group col-md-3'>
+                    <label for='test' class='w-100'> &nbsp; </label>
+                    <button class='btn btn-primary' id='btn_datefilter' (click)='filterDate();'>Filter</button>
+                    <button class='btn bg-orange' id='btn_resetfilter' (click)='reset();'>Reset</button>
+                </div>  
+                <div class='form-group col-md-3'>
+                    <label for='download_excel' class='w-100'> &nbsp; </label>
+                    <span id='download_excel' class='float-right' (click)="exportData()"><i class="fa fa-file-excel-o" aria-hidden="true"></i></span>
+                </div>                   
+            </div>
+        </div>
+        <div class='row' *ngIf='originalfilter.length == 0'>
+            <div class='col-md-12 p-0'>
+                <h3 class='chart_msg'>No Data to be displayed</h3>
+            </div>
+        </div>
+        <div class='row' *ngIf='originalfilter.length > 0'>
+            <table class='table-bordered table' id="pcs-excel-table">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Email ID</th>
+                        <th>Contact Number</th>
+                        <th>Mentor</th>
+                        <th>SNS</th>                           
+                        <th>Captain</th>
+                        <th>Topic</th>
+                        <th>Speaker</th>
+                        <th>Status</th>
+                        <th>Count</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr> 
+                        <td>
+                            <input type='text' class='form-control filter-fld' id='users_name' [(ngModel)]='filter.users_name' (keyup)="filterList($event,'users_name')" placeholder="Your Team member's Name" />
+                        </td>
+                        <td>
+                            <input type='text' class='form-control filter-fld' id='user_email_id' [(ngModel)]='filter.user_email_id' (keyup)="filterList($event,'user_email_id')" placeholder="Your Team member's Email" />
+                        </td>
+                        <td>
+                            <input type='text' class='form-control filter-fld' id='user_contact_number' [(ngModel)]='filter.user_contact_number' (keyup)="filterList($event,'user_contact_number')" placeholder="Your Team member's Number" />
+                        </td>
+                        <td>
+                            <input type='text' class='form-control filter-fld' id='mentor_name' [(ngModel)]='filter.mentor_name' (keyup)="filterList($event,'mentor_name')" placeholder="Your Team member's Mentor" />
+                        </td>
+                        <td>
+                            <select id='srs_id' class='form-control filter-fld' [(ngModel)]='filter.srs_id' (change)="filterList($event,'srs_id')">
+                                <option value=''>Select the SNS Name</option>
+                                <option value='{{list.srs_id}}' *ngFor='let list of srslist'>{{list.srs_name}}</option>
+                            </select>
+                        </td>
+                        <td>
+                            <input type='text' class='form-control filter-fld' id='captain_name' [(ngModel)]='filter.captain_name' (keyup)="filterList($event,'captain_name')" placeholder="Captain's Name" />
+                        </td>
+                        <td>
+                            <input type='text' class='form-control filter-fld' id='topic_name' [(ngModel)]='filter.topic_name' (keyup)="filterList($event,'topic_name')" placeholder="Topic's Name" />
+                        </td>
+                        <td>
+                            <input type='text' class='form-control filter-fld' id='speaker_name' [(ngModel)]='filter.speaker_name' (keyup)="filterList($event,'speaker_name')" placeholder="Speaker's Name" />
+                        </td>
+                        <td>
+                            <select id='attendance_status' class='form-control filter-fld' [(ngModel)]='filter.attendance_status' (change)="filterList($event,'attendance_status')">
+                                <option value=''>Attendance Status</option>
+                                <option value='P'>Present</option>
+                                <option value='A'>Absent</option>
+                            </select>
+                        </td>
+                        <td> </td>
+                    </tr>
+
+                    <tr *ngIf='attendancelist.length == 0 && originalfilter.length > 0'>
+                        <td colspan='10'>
+                            <h3 class='chart_msg'>No Match Found</h3>
+                        </td>
+                    </tr>
+
+                    <tr *ngFor="let list of attendancelist">
+                        <td>{{ list.users_name }}</td>
+                        <td>{{ list.user_email_id }}</td>
+                        <td>{{ list.user_contact_number }}</td>
+                        <td>{{ list.mentor_name }}</td>
+                        <td>{{ list.srs_name }}</td>                       
+                        <td>{{ list.captain_name }}</td>
+                        <td>{{ list.topic_name }}</td>
+                        <td>{{ list.speaker_name }}</td>
+                        <td>{{ list.attendance_status }}</td>
+                        <td>{{ list.count }}</td>
+                    </tr> 
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

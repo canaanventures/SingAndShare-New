@@ -7,5 +7,5 @@ h5{text-align:center;}
 .mentee-register-container{margin: 0 auto;padding: 0;}
 .mentee-right-container{padding:0;}
 /*body,html{overflow-x:hidden;}*/
-.card-header{border:1px solid #e0e0e0;}
+.card-header{border:1px solid #e0e0e0;padding: 12px;font-weight: 600;background: linear-gradient(45deg, #1de099, #1dc8cd);color: #fff;margin-bottom: 20px!important;}
 #first_name,#last_name{text-transform:capitalize;}

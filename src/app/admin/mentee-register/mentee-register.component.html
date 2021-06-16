@@ -7,47 +7,86 @@
         </div>       
         <h5 class='mb-3 card-header'>Mentee Register</h5>
         <div class='row px-4'>
-            <div class='col-md-6'>
-                <div class='form-group'>
-                    <label for='mentee_reg_first_name'>First Name</label>
-                    <input type='text' placeholder='First Name' class='form-control' id='mentee_reg_first_name' />
+            <form role="form" #f="ngForm" (ngSubmit)="f.form.valid">
+                <div class='col-md-6'>
+                    <div class='form-group'>
+                        <label for='mentee_reg_first_name'>First Name<span style="color: red;">*</span></label>
+                        <input type='text' placeholder='First Name' class='form-control' id='mentee_reg_first_name' [(ngModel)]="userdetails.user_first_name" #user_first_name='ngModel' name="user_first_name"
+                        [ngClass]="{'invalid-data': user_first_name.invalid && f.submitted, 'valid-data': user_first_name.valid && f.submitted}"
+                        required />
+                        <div class="error_msg" *ngIf="f.submitted && user_first_name.invalid">
+                            <div *ngIf="user_first_name.errors.required">
+                                <small class="error_text"> First Name is required</small>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <div class='col-md-6'>
-                <div class='form-group'>
-                    <label for='mentee_reg_last_name'>Last Name</label>                      
-                    <input type='text' placeholder='Last Name' class='form-control' id='mentee_reg_last_name' />
+                <div class='col-md-6'>
+                    <div class='form-group'>
+                        <label for='mentee_reg_last_name'>Last Name<span style="color: red;">*</span></label>                      
+                        <input type='text' placeholder='Last Name' class='form-control' id='mentee_reg_last_name' [(ngModel)]="userdetails.user_last_name" #user_last_name='ngModel' name="user_last_name"
+                        [ngClass]="{'invalid-data': user_last_name.invalid && f.submitted, 'valid-data': user_last_name.valid && f.submitted}"
+                        required />
+                        <div class="error_msg" *ngIf="f.submitted && user_last_name.invalid">
+                            <div *ngIf="user_last_name.errors.required">
+                                <small class="error_text"> Last Name is required</small>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <div class='col-md-6'>
-                <div class='form-group'>
-                    <label for='mentee_reg_email_id'>Email ID</label> 
-                    <input type='text' placeholder='Email ID' class='form-control' id='mentee_reg_email_id' />
+                <div class='col-md-6'>
+                    <div class='form-group'>
+                        <label for='mentee_reg_email_id'>Email ID<span style="color: red;">*</span></label> 
+                        <input type='text' placeholder='Email ID' class='form-control' id='mentee_reg_email_id' [(ngModel)]="userdetails.user_email_id" #user_email_id='ngModel' name="user_email_id"
+                        [ngClass]="{'invalid-data': user_email_id.invalid && f.submitted, 'valid-data': user_email_id.valid && f.submitted}"
+                        required />
+                        <div class="error_msg" *ngIf="f.submitted && user_email_id.invalid">
+                            <div *ngIf="user_email_id.errors.required">
+                                <small class="error_text"> Email Id is required</small>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <div class='col-md-6'>
-                <div class='form-group'>
-                    <label for='mentor_email_id'>Mentor Email ID</label> 
-                    <input type='text' placeholder='Mentor Email ID' class='form-control' id='mentor_email_id' readonly />
+                <div class='col-md-6'>
+                    <div class='form-group'>
+                        <label for='mentor_email_id'>Mentor Email ID</label> 
+                        <input type='text' placeholder='Mentor Email ID' class='form-control' id='mentor_email_id' readonly />
+                    </div>
                 </div>
-            </div>
-            <div class='col-md-6'>
-                <div class='form-group'>
-                    <label for='mentee_reg_your_password'>Password</label> 
-                    <input type='password' placeholder='Enter the Password' class='form-control' id='mentee_reg_your_password' />
+                <div class='col-md-6'>
+                    <div class='form-group'>
+                        <label for='mentee_reg_your_password'>Password<span style="color: red;">*</span></label> 
+                        <input type='password' placeholder='Enter the Password' class='form-control' id='mentee_reg_your_password' [(ngModel)]="userdetails.user_password"
+                        #user_password='ngModel' name="user_password"
+                        [ngClass]="{'invalid-data': user_password.invalid && f.submitted, 'valid-data': user_password.valid && f.submitted}"
+                        required />
+                        <div class="error_msg" *ngIf="f.submitted && user_password.invalid">
+                            <div *ngIf="user_password.errors.required">
+                                <small class="error_text"> Password is required</small>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <div class='col-md-6'>
-                <div class='form-group'>
-                    <label for='mentee_reg_contact_number'>Contact Number</label> 
-                    <input type='text' placeholder='Your Contact Number' class='form-control' id='mentee_reg_contact_number' />
+                <div class='col-md-6'>
+                    <div class='form-group'>
+                        <label for='mentee_reg_contact_number'>Contact Number<span style="color: red;">*</span></label> 
+                        <input type='text' placeholder='Your Contact Number' class='form-control' id='mentee_reg_contact_number' [(ngModel)]="userdetails.user_contact_number"
+                        #user_contact_number='ngModel' name="user_contact_number"
+                        [ngClass]="{'invalid-data': user_contact_number.invalid && f.submitted, 'valid-data': user_contact_number.valid && f.submitted}"
+                        required />
+                        <div class="error_msg" *ngIf="f.submitted && user_contact_number.invalid">
+                            <div *ngIf="user_contact_number.errors.required">
+                                <small class="error_text"> Contact Number is required</small>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <div class='col-md-6'>
-                <div class='form-group'>                      
-                    <button id='submit_btn' class='btn btn-primary' (click)='register()'>Submit</button>
+                <div class='col-md-6'>
+                    <div class='form-group'>                      
+                        <button id='submit_btn' class='btn btn-primary' (click)='register($event)'>Submit</button>
+                    </div>
                 </div>
-            </div>
+            </form>
         </div>
     </div>
 </div>

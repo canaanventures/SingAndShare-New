@@ -1,0 +1,170 @@
+<div class="wrapper container mb-5">
+    <div class="main">
+        <main class="content">
+            <h1 class="h3 mb-3 row" *ngIf="displayform == 'block'">Request List</h1>
+            <div class="row" *ngIf="displayform == 'block'">
+                <div class="col-md-5 card p-0">
+                    <div class="card-body h-100 p-0">
+                        <h5 class='mb-3 p-4 font-weight-bold card-header'>Add The Request</h5>
+                        <div class='row px-4'>
+                            <form  role="form" #f="ngForm" (ngSubmit)="f.form.valid">
+                                <div class='col-md-12'>
+                                    <div class='form-group'>
+                                        <label for='name'>Name <span style="color: red;">*</span></label>
+                                        <input type='text' class='form-control' placeholder='Name of the Person' id='name'[(ngModel)]='pcs.name_of_user' name="name_of_user"
+                                        #name_of_user= 'ngModel' [ngClass]="{'invalid-data': name_of_user.invalid && f.submitted, 'valid-data': name_of_user.valid && f.submitted}" required />
+                                        <div class="error_msg"
+                                            *ngIf="f.submitted && name_of_user.invalid">
+                                            <div *ngIf="name_of_user.errors.required">
+                                                <small class="error_text"> Name of the person is required</small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class='col-md-12'>
+                                    <div class='form-group'>
+                                        <label for='relation'>Relationship With You <span style="color: red;">*</span></label>
+                                        <input type='text' class='form-control' placeholder="How's the person related to you ?" id='relation'[(ngModel)]='pcs.relation_with_user' name="relation_with_user" #relation_with_user='ngModel' [ngClass]="{'invalid-data': relation_with_user.invalid && f.submitted, 'valid-data': relation_with_user.valid && f.submitted}" required>
+                                        <div class="error_msg" *ngIf="f.submitted && relation_with_user.invalid">
+                                            <div *ngIf="relation_with_user.errors.required">
+                                                <small  class="error_text">Relationship with you is required</small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class='col-md-12'>
+                                    <div class='form-group'>
+                                        <label for='contact_state'>State <span style="color: red;">*</span></label>
+                                        <select class='form-control'  id="contact_state" [(ngModel)]='pcs.state' (change)="print_city($event);" name="state"
+                                        #state='ngModel' [ngClass]="{'invalid-data': state.invalid && f.submitted, 'valid-data': state.valid && f.submitted}" required> </select>
+                                        <div class="error_msg" *ngIf="f.submitted && state.invalid">
+                                            <div *ngIf="state.errors.required">
+                                                <small  class="error_text"> State is required</small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class='col-md-12'>
+                                    <div class='form-group'>
+                                        <label for='contact_city'>City <span style="color: red;">*</span></label>
+                                        <select class='form-control'  id="contact_city" [(ngModel)]='pcs.city' name="city" #city='ngModel' [ngClass]="{'invalid-data': city.invalid && f.submitted, 'valid-data': city.valid && f.submitted}" required> </select>
+                                        <div class="error_msg" *ngIf="f.submitted && city.invalid">
+                                            <div *ngIf="city.errors.required">
+                                                <small  class="error_text"> City is required</small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class='col-md-12'>
+                                    <div class='form-group'>
+                                        <label for='action_status'>Action Status <span style="color: red;">*</span></label>
+                                        <select class='form-control' id='action_status' [(ngModel)]='pcs.current_status' name="current_status"
+                                        #current_status='ngModel' [ngClass]="{'invalid-data': current_status.invalid && f.submitted, 'valid-data': current_status.valid && f.submitted}" required>
+                                            <option value=''>Select the Status</option>
+                                            <option>Praying</option>
+                                            <option>Shared Gospel - Accepted</option>
+                                            <option>Shared Gospel - Rejected</option>
+                                            <option>Started Bible Study</option>
+                                        </select>
+                                        <div class="error_msg" *ngIf="f.submitted && current_status.invalid">
+                                            <div *ngIf="current_status.errors.required">
+                                                <small  class="error_text">Action Status is required</small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class='col-md-12'>
+                                    <div class='form-group'>
+                                        <label for='description'>Message <span style="color: red;">*</span></label>
+                                        <textarea class='form-control' rows='4' placeholder='A short Description about the member and reason for adding' id='description' [(ngModel)]='pcs.pcs_description' name="pcs_description"
+                                        #pcs_description='ngModel' [ngClass]="{'invalid-data': pcs_description.invalid && f.submitted, 'valid-data': pcs_description.valid && f.submitted}" required></textarea>
+                                        <div class="error_msg" *ngIf="f.submitted && pcs_description.invalid">
+                                            <div *ngIf="pcs_description.errors.required">
+                                                <small  class="error_text"> Message is required</small> 
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class='col-md-12 mt-3'>
+                                    <div class='form-group'>
+                                        <label for='add_attendance'> &nbsp; </label>
+                                        <button class='btn-primary btn' id='add_attendance' (click)='addPCS($event)' *ngIf='!edit'>Add to your List </button>
+                                        <button class='btn-primary btn' id='update_attendance' (click)='upDatePCS($event)' *ngIf='edit'>Update your List </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class='col-md-7'>
+                    <div class='checklist-card-error' *ngIf='checklist.length == 0'>
+                        <h3 style='text-align:center;'>No Data to be Displayed</h3>
+                    </div>
+                    <div class='col-md-6 checlist-card-parent' *ngFor='let list of checklist'>                   
+                        <div class='row checklist-card'>
+                            <div class='col-md-1' [ngClass] = "list.status == 'Y' ? 'success' : 'danger'" style='padding:0;'> &nbsp; </div>
+                            <div class='col-md-7'>
+                                <p class='person_name'>{{list.name_of_user}}</p>
+                                <span class='current-status'>{{list.current_status}}</span>
+                                <div class='added_on'>{{list.created_on | date:'dd/MM/yyyy'}}</div>
+                            </div>
+                            <div class='col-md-4'>
+                                <div class='action_div clearfix'>
+                                    <i *ngIf='list.current_status != "Started Bible Study"' class="fa fa-pencil-square-o" aria-hidden="true" (click)='getPCS(list.pcs_id,"edit")'></i>
+                                    <div class="form-check form-switch">
+                                        <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" [attr.checked]="list.status == 'Y' ? true : null" (change)='ChangePCSStatus($event,list.pcs_id)' />
+                                    </div>
+                                    <i class="fa fa-eye" aria-hidden="true" (click)='getPCS(list.pcs_id,"view");'></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- <pagination-controls class='my-pagination text-right' (pageChange)="changePagination(p = $event)" maxSize="4" previousLabel="<" nextLabel=">"> </pagination-controls> --> <!-- p = $event -->
+                </div>
+            </div>
+
+            <div class='viewdtls' *ngIf="displayDtls == 'block'">
+                <div class="col-md-12">
+                    <button class='btn btn-primary' id='back' (click)='backToList();'>Back to the list</button>
+                </div>
+                <div class="row">
+                    <div class='form-group col-md-4'>
+                        <label for='view_user_name'>User Name</label>
+                        <p id='view_user_name'>{{viewdata.name_of_user}}</p>
+                    </div>
+                    <div class='form-group col-md-4'>
+                        <label for='view_relation'>Relationship with You ?</label>
+                        <p id='view_relation'>{{viewdata.relation_with_user}}</p>
+                    </div>
+                    <div class='form-group col-md-4'>
+                        <label for='view_added_on'>Added On</label>
+                        <p id='view_added_on'>{{viewdata.created_on | date:'dd/MM/yyyy'}}</p>
+                    </div>
+                    <div class='form-group col-md-3'>
+                        <label for='view_city'>City</label>
+                        <p id='view_city'>{{viewdata.city}}</p>
+                    </div>
+                    <div class='form-group col-md-3'>
+                        <label for='view_state'>State</label>
+                        <p id='view_state'>{{viewdata.state}}</p>
+                    </div>
+                    <div class='form-group col-md-4'>
+                        <label for='view_action_status'>Current Action Status</label>
+                        <p id='view_action_status'>{{viewdata.current_status}}</p>
+                    </div>
+                    <div class='form-group col-md-2'>
+                        <label for='view_status'>Status</label>
+                        <span id='view_status' *ngIf= "viewdata.status == 'Y'" class='label label-success'>Enable</span>
+                        <span id='view_status' *ngIf= "viewdata.status == 'N'" class='label label-danger'>Disable</span>
+                    </div>
+                    <div class='form-group col-md-12'>
+                        <label for='view_description'>Message / Description</label>
+                        <p [innerHTML] = 'viewdata.pcs_description'> </p>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</div>

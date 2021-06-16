@@ -1,45 +1,86 @@
+<div class="backdrop" [ngStyle]="{'display':userModaldisplay}"></div>
+
 <div class="wrapper container mb-5">
     <div class="main">
         <main class="content">
-            <h1 class="h3 mb-3">Attendace Form</h1>
+            <h1 class="h3 mb-5">
+                Attendace Form
+                <button class='btn btn-primary float-right' *ngIf="this.tk.role_name == 'Captain'" (click)='openModal()'>Add User</button>
+            </h1>
             <div class="row">
                 <div class="col-md-5 card p-0">
                     <div class="card-body h-100 p-0">
                         <h5 class='mb-3 p-4 font-weight-bold card-header'>Add Attendance</h5>
                         <div class='row px-4'>
-                            <div class='col-md-12'>
-                                <div class='form-group'>
-                                    <label for='attend_sns_name'>SNS Name</label>
-                                    <select class='form-control' id='attend_sns_name' [(ngModel)]='attendancedetails.srs_id' disabled>
-                                        <option value=''>Select the Name</option>
-                                        <option [value]='list.srs_id' *ngFor="let list of srslist">{{list.srs_name}}</option>
-                                    </select>
+                            <form  role="form" #f="ngForm" (ngSubmit)="f.form.valid">
+                                <div class='col-md-12'>
+                                    <div class='form-group'>
+                                        <label for='attend_sns_name'>SNS Name<span style="color: red;">*</span></label>
+                                        <select class='form-control' id='attend_sns_name' [(ngModel)]='attendancedetails.srs_id' name="srs_id" #srs_id= 'ngModel' 
+                                        [ngClass]="{'invalid-data': srs_id.invalid && f.submitted, 'valid-data': srs_id.valid && f.submitted}"  required disabled>
+                                            <option value=''>Select the Name</option>
+                                            <option [value]='list.srs_id' *ngFor="let list of srslist">{{list.srs_name}}</option>
+                                        </select>
+                                        <div class="error_msg" *ngIf="f.submitted && srs_id.invalid">
+                                            <div *ngIf="srs_id.errors.required">
+                                                <small class="error_text" >SNS Name is required</small> 
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class='col-md-12'>
-                                <div class='form-group'>
-                                    <label for='meeting_date'>Meeting Date</label>
-                                    <input type='date' class='form-control' placeholder='Select Meeting Date' id='meeting_date' [(ngModel)]='attendancedetails.meeting_date' >
+                                <div class='col-md-12'>
+                                    <div class='form-group'>
+                                        <label for='total_members'>Topic Name</label>
+                                        <input type='text' class='form-control' placeholder='Name of the Topic' id='topic_name' name='topic_name' [(ngModel)]='attendancedetails.topic_name' />
+                                    </div>
                                 </div>
-                            </div>
-                            <div class='col-md-12'>
-                                <div class='form-group'>
-                                    <label for='people_attended'>No. of people Attended</label>
-                                    <input type='text' class='form-control' placeholder='No. of People Attended' id='people_attended' [(ngModel)]='attendancedetails.attendees' readonly>
+                                <div class='col-md-12'>
+                                    <div class='form-group'>
+                                        <label for='total_members'>Speaker Name</label>
+                                        <input type='text' class='form-control' placeholder='Name of the Speaker' id='speaker_name' name='speaker_name' [(ngModel)]='attendancedetails.speaker_name' />
+                                    </div>
                                 </div>
-                            </div>
-                            <div class='col-md-12'>
-                                <div class='form-group'>
-                                    <label for='new_people_attended'>No. of new people Attended</label>
-                                    <input type='text' class='form-control' placeholder='No. of New People Attended' id='new_people_attended' [(ngModel)]='attendancedetails.new_attendees'>
+                                <div class='col-md-12'>
+                                    <div class='form-group'>
+                                        <label for='meeting_date'>Meeting Date<span style="color: red;">*</span></label>
+                                        <input type='date' class='form-control' placeholder='Select Meeting Date' id='meeting_date' [(ngModel)]='attendancedetails.meeting_date' name="meeting_date" #meeting_date= 'ngModel' 
+                                        [ngClass]="{'invalid-data': meeting_date.invalid && f.submitted, 'valid-data': meeting_date.valid && f.submitted}" required >
+                                        <div class="error_msg" *ngIf="f.submitted && meeting_date.invalid">
+                                            <div *ngIf="meeting_date.errors.required">
+                                                <small class="error_text" >Meeting Date is required</small> 
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class='col-md-12 mt-3'>
-                                <div class='form-group'>
-                                    <label for='add_attendance'> &nbsp; </label>
-                                    <button class='btn-primary btn' id='add_attendance' (click)='addAttendance()'>Add the details </button>
+                                <div class='col-md-12'>
+                                    <div class='form-group'>
+                                        <label for='total_members'>Total Members</label>
+                                        <input type='text' class='form-control' placeholder='No. of People Attended' id='total_members' name='total_members' [(ngModel)]='attendancedetails.total_members' readonly>
+                                    </div>
                                 </div>
-                            </div>
+                                <div class='col-md-12 p-0'>
+                                    <div class='form-group col-md-6'>
+                                        <label for='presentees'>Presentees</label>
+                                        <input type='text' class='form-control' placeholder='No. of Presentees' id='presentees' name='presentees' [(ngModel)]='attendancedetails.presentees' readonly>
+                                    </div>
+                                    <div class='form-group col-md-6'>
+                                        <label for='absentees'>Absentees</label>
+                                        <input type='text' class='form-control' placeholder='No. of Absentees' id='absentees' name='absentees' [(ngModel)]='attendancedetails.absentees' readonly>
+                                    </div>
+                                </div>
+                                <div class='col-md-12'>
+                                    <div class='form-group'>
+                                        <label for='new_people_attended'>No. of new Attendes</label>
+                                        <input type='text' class='form-control' placeholder='No. of New People Attended' name='new_attendees' id='new_people_attended' [(ngModel)]='attendancedetails.new_attendees'>
+                                    </div>
+                                </div>
+                                <div class='col-md-12 mt-3'>
+                                    <div class='form-group'>
+                                        <label for='add_attendance'> &nbsp; </label>
+                                        <button class='btn-primary btn' id='add_attendance' (click)='addAttendance($event)'>Add the details </button>
+                                    </div>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -65,5 +106,53 @@
                 </div>
             </div>
         </main>
+    </div>
+</div>
+
+<div id="userModal" class="modal" role="dialog" [ngStyle]="{'display':userModaldisplay}">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                <h5 class='mb-3 card-header'>
+                    <span>Add User</span>
+                    <span class='close modal-close' (click)='closeModal()' data-dismiss="modal">&times;</span>
+                </h5>
+                <div class='row px-4'>
+                    <div class='col-md-6'>
+                        <div class='form-group'>
+                            <label for='mentee_first_name'>First Name</label>
+                            <input type='text' placeholder='First Name' class='form-control' id='mentee_first_name' [(ngModel)]='user.mentee_first_name' />
+                        </div>
+                    </div>
+                    <div class='col-md-6'>
+                        <div class='form-group'>
+                            <label for='mentee_last_name'>Last Name</label>                      
+                            <input type='text' placeholder='Last Name' class='form-control' id='mentee_last_name' [(ngModel)]='user.mentee_last_name' />
+                        </div>
+                    </div>
+                    <div class='col-md-6'>
+                        <div class='form-group'>
+                            <label for='mentee_email_id'>Email ID</label>
+                            <input type='text' placeholder='Email ID' class='form-control' id='mentee_email_id' [(ngModel)]='user.mentee_email_id' />
+                            
+                        </div>
+                    </div>
+                    <div class='col-md-6'>
+                        <div class='form-group'>
+                            <label for='mentor_email_id'>Mentor Email Id</label> 
+                            <select class='form-control' id='mentor_email_id' (change)='mentorEmailDropdown($event)' [(ngModel)]='user.parent_id' >
+                                <option value=''>Select Mentor</option>
+                                <option value='{{list.user_id}}' *ngFor="let list of mentor">{{list.user_email_id}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class='col-md-6'>
+                        <div class='form-group'>               
+                            <button id='submit_btn' class='btn btn-primary' (click)='addUser($event)'>Submit</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div> 
     </div>
 </div>

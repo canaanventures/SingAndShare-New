@@ -1,5 +1,6 @@
 <div class="backdrop" [ngStyle]="{'display':display}"></div>
 <div class="backdrop" [ngStyle]="{'display':typedisplay}"></div>
+<div class="backdrop" [ngStyle]="{'display':gallerydisplay}"></div>
 
 <div class="wrapper container">
     <div class="main">
@@ -12,45 +13,81 @@
                 </h1>
                 <div class="row">
                     <div class="col-md-12 col-xl-12">
-                        <div class="card">
+                        <div class="card" style='padding:15px;'>
+                            <ul class="nav nav-tabs">
+                                <li id='upcoming_events_tab' class="event-tab active"><a data-toggle="tab" (click)='eventsTab("upcoming_events")'>Upcoming / Ongoing Events</a></li>
+                                <li id='past_events_tab' class='event-tab'><a data-toggle="tab" (click)='eventsTab("past_events")'>Past Events</a></li>
+                            </ul>
                             <div class="card-body h-100">
-                                <table class='table-bordered table'>
-                                    <thead>
-                                        <tr>
-                                            <th></th>
-                                            <th>Event Name</th>
-                                            <th>Event Start Date</th>
-                                            <th>Event End Date</th>
-                                            <th>Event Type</th>
-                                            <!-- <th>Event Status</th> -->
-                                            <th>Status</th>
-                                            <th>Action</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr *ngFor='let evntlist of eventlist.data'>
-                                            <td class='table-thumbnail-img'>
-                                                <img src={{imgurl}}{{evntlist.poster_url}} class='w-100' />
-                                            </td>
-                                            <td>{{evntlist.event_name}}</td>
-                                            <td>{{evntlist.event_start_date  | date:'dd/MM/yyyy'}}</td>
-                                            <td>{{evntlist.event_end_date  | date:'dd/MM/yyyy'}}</td>
-                                            <td>{{evntlist.EventType}}</td>
-                                            <!-- <td>{{evntlist.event_status}}</td> -->
-                                            <td><span [ngClass] = "evntlist.status == 'Enable' ? 'label label-success' : 'label label-danger'"> {{evntlist.status}} </span></td>
-                                            <td>
-                                                <div class='action-img-div'>
-                                                    <img src='assets/img/edit.png' class='action-img' (click)='editEvent(evntlist.event_id);' />
-                                                </div>
-                                                <div class='action-img-div'>
-                                                    <div class="form-check form-switch">
-                                                        <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" [attr.checked]="evntlist.status == 'Enable' ? true : null" (change)='changeStatus($event,evntlist.event_id)' />
-                                                    </div>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+                                <div class="tab-content">
+                                    <div id='upcoming_events' class="tab-pane fade in active">
+                                        <h3 class='mt-3'>Upcoming Events</h3>
+                                        <table class='table-bordered table'>
+                                            <thead>
+                                                <tr>
+                                                    <th>Event Name</th>
+                                                    <th>Event Start Date</th>
+                                                    <th>Event End Date</th>
+                                                    <th>Event Type</th>
+                                                    <th>Status</th>
+                                                    <th>Action</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr *ngFor='let evntlist of eventlist.data'>
+                                                    <td>{{evntlist.event_name}}</td>
+                                                    <td>{{evntlist.event_start_date  | date:'dd/MM/yyyy'}}</td>
+                                                    <td>{{evntlist.event_end_date  | date:'dd/MM/yyyy'}}</td>
+                                                    <td>{{evntlist.EventType}}</td>
+                                                    <!-- <td>{{evntlist.event_status}}</td> -->
+                                                    <td><span [ngClass] = "evntlist.status == 'Enable' ? 'label label-success' : 'label label-danger'"> {{evntlist.status}} </span></td>
+                                                    <td>
+                                                        <div class='action-img-div'>
+                                                            <img src='assets/img/edit.png' class='action-img' (click)='editEvent(evntlist.event_id);' />
+                                                        </div>
+                                                        <div class='action-img-div'>
+                                                            <div class="form-check form-switch">
+                                                                <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" [attr.checked]="evntlist.status == 'Enable' ? true : null" (change)='changeStatus($event,evntlist.event_id)' />
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div id='past_events' class="tab-pane fade">
+                                        <h3 class='mt-3'>Past Events</h3>
+                                        <table class='table-bordered table'>
+                                            <thead>
+                                                <tr>
+                                                    <th>Event Name</th>
+                                                    <th>Event Start Date</th>
+                                                    <th>Event End Date</th>
+                                                    <th>Event Type</th>
+                                                    <th>Status</th>
+                                                    <th>Action</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr *ngFor='let evntlist of pasteventlist'>
+                                                    <td>{{evntlist.event_name}}</td>
+                                                    <td>{{evntlist.event_start_date  | date:'dd/MM/yyyy'}}</td>
+                                                    <td>{{evntlist.event_end_date  | date:'dd/MM/yyyy'}}</td>
+                                                    <td>{{evntlist.EventType}}</td>
+                                                    <td><span [ngClass] = "evntlist.status == 'Enable' ? 'label label-success' : 'label label-danger'"> {{evntlist.status}} </span></td>
+                                                    <td [ngClass] = "evntlist.status == 'Enable' ? 'icon-success' : 'icon-danger'">
+                                                        <div class='action-img-div'>
+                                                            <img src='assets/img/gallery.png' class='action-img' (click)='openGallery(evntlist.event_id);' />
+                                                        </div>
+                                                        <div class='action-img-div'>
+                                                            <img src='assets/img/delete.png' class='action-img' (click)='deleteGallery(evntlist.event_id);' />
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>                               
                             </div>
                         </div>
                     </div>
@@ -70,50 +107,87 @@
                     <span class='close modal-close' (click)='closeModal()' data-dismiss="modal">&times;</span>
                 </h5>
                 <div class='px-4'>
-                    <form id="upload_form" class='row' enctype="multipart/form-data">
+                    <form id="upload_form" class='row' enctype="multipart/form-data" role="form" #f="ngForm" (ngSubmit)="f.form.valid">
                         <div class='col-md-6'>
                             <div class='form-group'>
-                                <label for='event_image'>Upload Event Image</label>
-                                <input type='file' id='event_image' class='form-control' />
+                                <label for='event_image'>Upload Event Image<span style="color: red;">*</span></label>
+                                <input type='file' id='event_image' class='form-control' name='event_image' (change)='selectImage($event);' [(ngModel)]='addevent.imgurl' #imgurl= 'ngModel' [ngClass]="{'invalid-data': imgurl.invalid && f.submitted, 'valid-data': imgurl.valid && f.submitted}" required />
+                                <div class="error_msg" *ngIf="f.submitted && imgurl.invalid">
+                                    <div *ngIf="imgurl.errors.required">
+                                        <small class="error_text" >Event Image is required</small> 
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div class='col-md-6'>
                             <div class='form-group'>
-                                <label for='event_name'>Event Name</label>
-                                <input type='text' placeholder='Event Name' name='event_name' class='form-control' id='event_name' [(ngModel)]='addevent.event_name' />
+                                <label for='event_name'>Event Name<span style="color: red;">*</span></label>
+                                <input type='text' placeholder='Event Name' name='event_name' class='form-control' id='event_name' [(ngModel)]='addevent.event_name' #event_name= 'ngModel' [ngClass]="{'invalid-data': event_name.invalid && f.submitted, 'valid-data': event_name.valid && f.submitted}" required />
+                                <div class="error_msg" *ngIf="f.submitted && event_name.invalid">
+                                    <div *ngIf="event_name.errors.required">
+                                        <small class="error_text" >Event Name is required</small> 
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div class='col-md-6'>
                             <div class='form-group'>
-                                <label for='event_start_date'>Event Start Date</label>                      
-                                <input type='datetime-local' name='event_start_date' placeholder='Event Start Date' class='form-control' id='event_start_date' [(ngModel)]="addevent.event_start_date" min='{{startDate}}' (change)='startDteChange()' />
+                                <label for='event_start_date'>Event Start Date<span style="color: red;">*</span></label>                      
+                                <input type='datetime-local' name='event_start_date' placeholder='Event Start Date' class='form-control' id='event_start_date' [(ngModel)]="addevent.event_start_date" min='{{startDate}}' (change)='startDteChange()' #event_start_date= 'ngModel' 
+                                [ngClass]="{'invalid-data': event_start_date.invalid && f.submitted, 'valid-data': event_start_date.valid && f.submitted}" required />
+                                <div class="error_msg" *ngIf="f.submitted && event_start_date.invalid">
+                                    <div *ngIf="event_start_date.errors.required">
+                                        <small class="error_text" >Event Start Date is required</small> 
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div class='col-md-6'>
                             <div class='form-group'>
-                                <label for='event_end_date'>Event End Date</label> 
-                                <input type='datetime-local' name='event_end_date' placeholder='Event End Date' class='form-control' min='{{endDate}}' id='event_end_date' [(ngModel)]='addevent.event_end_date' />
+                                <label for='event_end_date'>Event End Date<span style="color: red;">*</span></label> 
+                                <input type='datetime-local' name='event_end_date' placeholder='Event End Date' class='form-control' min='{{endDate}}' id='event_end_date' [(ngModel)]='addevent.event_end_date' #event_end_date= 'ngModel' 
+                                [ngClass]="{'invalid-data': event_end_date.invalid && f.submitted, 'valid-data': event_end_date.valid && f.submitted}" required />
+                                <div class="error_msg" *ngIf="f.submitted && event_end_date.invalid">
+                                    <div *ngIf="event_end_date.errors.required">
+                                        <small class="error_text" >Event End Date is required</small> 
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div class='col-md-6'>
                             <div class='form-group'>
-                                <label for='cost_per_person'>Cost Per Head</label> 
-                                <input type='text' placeholder='Cost Per head' name='cost_per_person' class='form-control' id='cost_per_person' [(ngModel)]='addevent.cost_per_person' />
+                                <label for='cost_per_person'>Cost Per Head<span style="color: red;">*</span></label> 
+                                <input type='text' placeholder='Cost Per head' name='cost_per_person' class='form-control' id='cost_per_person' [(ngModel)]='addevent.cost_per_person' #cost_per_person= 'ngModel' [ngClass]="{'invalid-data': cost_per_person.invalid && f.submitted, 'valid-data': cost_per_person.valid && f.submitted}" required />
+                                <div class="error_msg" *ngIf="f.submitted && cost_per_person.invalid">
+                                    <div *ngIf="cost_per_person.errors.required">
+                                        <small class="error_text" >Cost Per Head is required</small> 
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div class='col-md-6'>
                             <div class='form-group'>
-                                <label for='select_event_type'>Event Type</label>
-                                <select id='select_event_type' class='form-control' name='event_type' [(ngModel)]='addevent.event_type_id'>
+                                <label for='select_event_type'>Event Type<span style="color: red;">*</span></label>
+                                <select id='select_event_type' class='form-control' name='event_type' [(ngModel)]='addevent.event_type_id' #event_type_id= 'ngModel' [ngClass]="{'invalid-data': event_type_id.invalid && f.submitted, 'valid-data': event_type_id.valid && f.submitted}" required>
                                     <option value=''>Select Event Type</option>
                                     <option value='{{type.EventTypeID}}' *ngFor='let type of eventtypelist'>{{type.EventType}}</option>
                                 </select>
+                                <div class="error_msg" *ngIf="f.submitted && event_type_id.invalid">
+                                    <div *ngIf="event_type_id.errors.required">
+                                        <small class="error_text" >Event Type is required</small> 
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div class='col-md-12'>
                             <div class='form-group'>
-                                <label for='select_venue'>Venue Name</label>
-                                <textarea id='select_venue' name='event_venue' class='w-100 form-control' placeholder='Enter your Venue Details' rows='3' [(ngModel)]='addevent.venue_name'></textarea>
+                                <label for='select_venue'>Venue Name<span style="color: red;">*</span></label>
+                                <textarea id='select_venue' name='event_venue' class='w-100 form-control' placeholder='Enter your Venue Details' rows='3' [(ngModel)]='addevent.venue_name' #venue_name= 'ngModel' [ngClass]="{'invalid-data': venue_name.invalid && f.submitted, 'valid-data': venue_name.valid && f.submitted}" required></textarea>
+                                <div class="error_msg" *ngIf="f.submitted && venue_name.invalid">
+                                    <div *ngIf="venue_name.errors.required">
+                                        <small class="error_text" >Venue Name is required</small> 
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <!-- <div class='col-md-6'>
@@ -126,8 +200,13 @@
                         </div> -->  
                         <div class='col-md-12'>
                             <div class='form-group'>
-                                <label for='event_description'>Event Description</label>
-                                <textarea placeholder='Event Description' class='w-100 form-control' id='event_description' name='event_desc' rows='4' [(ngModel)]='addevent.description'></textarea>
+                                <label for='event_description'>Event Description<span style="color: red;">*</span></label>
+                                <textarea placeholder='Event Description' class='w-100 form-control' id='event_description' name='event_desc' rows='4' [(ngModel)]='addevent.description' #description= 'ngModel' [ngClass]="{'invalid-data': description.invalid && f.submitted, 'valid-data': description.valid && f.submitted}" required></textarea>
+                                <div class="error_msg" *ngIf="f.submitted && description.invalid">
+                                    <div *ngIf="description.errors.required">
+                                        <small class="error_text" >Event Description is required</small> 
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div class='col-md-6'>
@@ -150,19 +229,72 @@
             <div class="modal-body">
                 <h5 class='mb-3 card-header'> Add Event Type <span class='close modal-close' (click)='closeModal()' data-dismiss="modal">&times;</span> </h5>
                 <div class='px-4'>
-                    <div class='col-md-12'>
-                        <div class='form-group'>
-                            <label for='event_type_name_add'>Event Type Name</label>
-                            <input type='text' id='event_type_name_add' class='form-control' placeholder='Add Event Type Name' [(ngModel)]='eventtype.event_type' />
+                    <form  role="form" #g="ngForm" (ngSubmit)="g.form.valid">
+                        <div class='col-md-12'>
+                            <div class='form-group'>
+                                <label for='event_type_name_add'>Event Type Name<span style="color: red;">*</span></label>
+                                <input type='text' id='event_type_name_add' class='form-control' placeholder='Add Event Type Name' [(ngModel)]='eventtype.event_type' name="event_type" #event_type='ngModel' [ngClass]="{'invalid-data': event_type.invalid && g.submitted, 'valid-data': event_type.valid && g.submitted}" required />
+                                <div class="error_msg" *ngIf="g.submitted && event_type.invalid">
+                                    <div *ngIf="event_type.errors.required">
+                                        <small  class="error_text"> Event Type Name is required</small>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                    <div class='col-md-6'>
-                        <div class='form-group'>
-                            <label for='submit_btn_add'> &nbsp; </label>                        
-                            <button id='submit_btn_add' class='btn btn-primary bg-orange' (click)='addEventType($event)'>Submit</button>
+                        <div class='col-md-6'>
+                            <div class='form-group'>
+                                <label for='submit_btn_add'> &nbsp; </label>                        
+                                <button id='submit_btn_add' class='btn btn-primary bg-orange' (click)='addEventType($event)'>Submit</button>
+                            </div>
                         </div>
-                    </div>
+                    </form>
                 </div>
+            </div>
+        </div> 
+    </div>
+</div>
+
+<div id="galleryModal" class="modal" role="dialog" [ngStyle]="{'display':gallerydisplay}">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-body">
+                <form id='blog_form' name='addBlogForm'>
+                    <h5 class='mb-3 card-header'> Add Event Gallery Image <span class='close modal-close' (click)='closegalModal()' data-dismiss="modal">&times;</span> </h5>
+                    <div class='px-4'>
+                        <form  role="form" #h="ngForm" (ngSubmit)="h.form.valid">
+                            <div class='col-md-12'>
+                                <div class='form-group'>
+                                    <label for='event_main_img'>Main Event Image<span style="color: red;">*</span></label>
+                                    <input type='file' id='event_main_img' name='event_main_img' class='form-control' [(ngModel)]='eventtype.event_type' (change)='selectMainImage($event)' [ngClass]="{'invalid-data': event_type.invalid && h.submitted, 'valid-data': event_type.valid && h.submitted}" #event_type='ngModel'  required />
+                                    <div class="error_msg" *ngIf="event_type.invalid && h.submitted">
+                                        <div *ngIf="event_type.errors.required">
+                                            <small class="error_text" >Main Event Image is required</small> 
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id='dummymainelem'></div>
+                            <div class='col-md-12' id='preview_main_img'> </div>
+                            <div class='col-md-12 mt-3'>
+                                <div class='form-group'>
+                                    <label for='event_gallery_img'>Event Gallery Image<span style="color: red;">*</span></label>
+                                    <input type='file' multiple id='event_gallery_img' class='form-control' (change)='handleFileSelect($event)' name='multiple_images' ngModel #multiple_images='ngModel' [ngClass]="{'invalid-data': multiple_images.invalid && h.submitted, 'valid-data': multiple_images.valid && h.submitted}" required />
+                                    <div class="error_msg" *ngIf="multiple_images.invalid && h.submitted">
+                                        <small class="error_text" >Event Gallery Image is required</small> 
+                                    </div>
+                                </div>
+                            </div>
+                            <div id='dummyelem'></div>
+                            <div class='col-md-12 row' id='preview_gallery_img'> </div>
+                            <div class='col-md-12 mt-3'>
+                                <div class='form-group'>
+                                    <label for='gallery_btn'> &nbsp; </label>
+                                    <button class='btn btn-primary' id='gallery_btn' (click)='addGallery($event);'>Add Images</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </form>               
             </div>
         </div> 
     </div>

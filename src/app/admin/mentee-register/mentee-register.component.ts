@@ -11,10 +11,11 @@ import * as CryptoJS from 'crypto-js';
 export class MenteeRegisterComponent implements OnInit {
   public decryptedInfo : any;
 
-  @Input() userdetails = {user_first_name:'',user_last_name:'',user_email_id:'',user_password:'',user_contact_number:'',role_id:'',mentor_email_id:'',status:''};
+  @Input() userdetails = {parent_id:'',user_first_name:'',user_last_name:'',user_email_id:'',user_password:'',user_contact_number:'',role_id:'',mentor_email_id:'',status:'',srs_id:''};
   constructor(public restApi: ApiService, public router: Router, public activatedroute:ActivatedRoute) { }
 
   ngOnInit(): void {
+    document.getElementsByTagName('header')[0].style.display = 'none';
     let param = this.activatedroute.snapshot.params;
 
     var deData= CryptoJS.AES.decrypt(decodeURIComponent(param.encodedurl), 'secret key 123'); 
@@ -26,13 +27,16 @@ export class MenteeRegisterComponent implements OnInit {
     (<HTMLInputElement>document.getElementById('mentor_email_id')).value = this.decryptedInfo.mentor_email_id;
   }
 
-  register(){
+  register(event:any){
+    event.preventDefault();
     this.userdetails.user_first_name = (<HTMLInputElement>document.getElementById('mentee_reg_first_name')).value;
     this.userdetails.user_last_name = (<HTMLInputElement>document.getElementById('mentee_reg_last_name')).value;
     this.userdetails.user_email_id = (<HTMLInputElement>document.getElementById('mentee_reg_email_id')).value;
     this.userdetails.user_password = (<HTMLInputElement>document.getElementById('mentee_reg_your_password')).value;
     this.userdetails.user_contact_number = (<HTMLInputElement>document.getElementById('mentee_reg_contact_number')).value;
     this.userdetails.role_id = this.decryptedInfo.role_id;
+    this.userdetails.srs_id = this.decryptedInfo.srs_id;
+    this.userdetails.parent_id = this.decryptedInfo.parent_id;
     this.userdetails.mentor_email_id = (<HTMLInputElement>document.getElementById('mentor_email_id')).value;
     this.userdetails.status = "Enable";
 
@@ -40,6 +44,7 @@ export class MenteeRegisterComponent implements OnInit {
       .subscribe((data:{}) => {
         //this.router.navigate(['register/' + this.encryptInfo]);
         alert('You have been registered successfully.');
+        location.href='/home';
       });
   }
 }

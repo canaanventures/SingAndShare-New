@@ -11,7 +11,7 @@ import jwt_decode from "jwt-decode";
 })
 export class AddblogComponent implements OnInit {
   tk:any = {};
-  htmlContent = '';
+  htmlContent:any = String;
   bloglist:any = []; blogCatlist:any = [];
   public displayBlog='none';categorydisplay='none';
   edit_id = '';
@@ -19,11 +19,11 @@ export class AddblogComponent implements OnInit {
   public form : any;
   public formelem : any;
   resp :any; images; access; encryptInfo; 
-  edit = false; commentdisplay = 'none';
-  commentlist:any = [];
+  edit = false; commentdisplay = 'none'; viewBlogModal = 'none';
+  commentlist:any = []; imageToShow: any; viewblog:any=[];
 
   @Input() blog = {title:'',category:'',description:'',created_by_user_id:'',imgurl:'',approval_status:''};
-  @Input() editblog = {title:'',category:'',description:'',modified_by_user_id:'',blog_id:'',approval_status:''};
+  @Input() editblog = {imgurl:'',title:'',category:'',description:'',modified_by_user_id:'',blog_id:'',approval_status:''};
   @Input() disableblog = {modified_by_user_id:'',blog_id:'',status:''};
   @Input() addcat = {category_name:'',created_by:''}
   @Input() updatecomm = {approval_status:'',approved_by:'',comment_id:''}
@@ -37,7 +37,6 @@ export class AddblogComponent implements OnInit {
       var deData= CryptoJS.AES.decrypt(decodeURIComponent(this.encryptInfo), 'secret key 123'); 
       this.access = JSON.parse(deData.toString(CryptoJS.enc.Utf8));
     }
-
     this.fetchBlog();
     this.getBlogCat();
   }
@@ -83,8 +82,8 @@ export class AddblogComponent implements OnInit {
     sanitize: false,
     toolbarPosition: 'top',
     toolbarHiddenButtons: [
-      ['bold', 'italic'],
-      ['fontSize']
+      ['undo','redo','bold', 'italic'],
+      ['fontSize','customClasses','insertVideo']
     ]
   };
 
@@ -97,46 +96,38 @@ export class AddblogComponent implements OnInit {
 
   addBlog(event){
     event.preventDefault();
-    /* this.blog.title = (<HTMLInputElement>document.getElementById('title')).value;
-    this.blog.category = (<HTMLInputElement>document.getElementById('category')).value;
-    this.blog.description = this.htmlContent.replace("'", "");
-    this.tk = jwt_decode(sessionStorage.getItem('user_token'));
-    this.blog.created_by_user_id = this.tk.user_id;
-    this.restApi.postMethod('addBlog',this.blog).subscribe((data:{}) => {     
-      alert('Blog Added Successfully.'); 
-      this.closeBlogModal();
-      this.fetchBlog();
-    }) */
-    //debugger;
-    const formData = new FormData();
-    formData.append('image', this.images);
-    formData.append('title', (<HTMLInputElement>document.getElementById('title')).value);
-    formData.append('category', (<HTMLInputElement>document.getElementById('category')).value);
-    //this.form = (<HTMLInputElement>document.getElementById('blog-image'));
-    //this.formelem = (<HTMLInputElement>document.getElementById('blog_form'));
-    //var formData = new FormData(<HTMLFormElement>document.getElementById("blog_form"));
-    //formData.append('image', this.formelem[1]);
-    //debugger;
-    this.restApi.postImgMethod('addBlogImg',formData).subscribe((data) => {     
-      this.blog.title = (<HTMLInputElement>document.getElementById('title')).value;
-      this.blog.category = (<HTMLInputElement>document.getElementById('category')).value;
-      if(document.getElementById('approval_status')){
-        this.blog.approval_status = (<HTMLInputElement>document.getElementById('approval_status')).value;
-      }else{
-        this.blog.approval_status = "N";
-      }
-      
-      this.blog.description = this.htmlContent.replace("'", "");
-      this.blog.created_by_user_id = this.tk.user_id;
-
-      this.resp = data;
-      this.blog.imgurl = this.resp.filepath; 
-
-      this.restApi.postMethod('addBlog',this.blog).subscribe((data:any) => {
-        //this.resp = data;
-        this.fetchBlog();
-        alert(this.resp.message);
+    if(this.images != ''){
+      const formData = new FormData();
+      formData.append('image', this.images);
+      let title = (<HTMLInputElement>document.getElementById('title')).value.split(' ').join("-");
+      let cat = (<HTMLInputElement>document.getElementById('category')).value;
+      this.restApi.postImgMethod('addBlogImg/'+title+'/'+cat,formData).subscribe((data) => { 
+        this.resp = data;
+        this.blog.imgurl = this.resp.filepath;
+        this.addBlogData();
       })
+    }else{
+      this.blog.imgurl = '';
+      this.addBlogData();
+    }
+  }
+
+  addBlogData(){
+    this.blog.title = (<HTMLInputElement>document.getElementById('title')).value;
+    this.blog.category = (<HTMLInputElement>document.getElementById('category')).value;
+    if(document.getElementById('approval_status')){
+      this.blog.approval_status = (<HTMLInputElement>document.getElementById('approval_status')).value;
+    }else{
+      this.blog.approval_status = "N";
+    }     
+    this.blog.description = this.htmlContent.replace(/"/gi, "");
+    this.blog.description = this.htmlContent.replace(/'/gi, "");
+    this.blog.created_by_user_id = this.tk.user_id;
+    this.restApi.postMethod('addBlog',this.blog).subscribe((data:any) => {
+      this.fetchBlog();
+      this.images = '';
+      this.displayBlog='none';
+      alert(data.message);
     })
   }
   
@@ -148,6 +139,20 @@ export class AddblogComponent implements OnInit {
       this.fetchBlog();
       alert("The blog has been disabled successfully");
     })
+  }
+
+  viewModal(id){
+    this.viewBlogModal = 'block';
+    this.restApi.getMethod('getBlogs/single/'+id).subscribe((resp:any) => {
+      this.viewblog = resp.data[0];
+      this.restApi.getImgMethod('getBlogImg/'+id).subscribe((resp:any) => {
+        (resp.status == 201) ? this.imageToShow = '' : this.createImageFromBlob(resp);
+      });
+    });
+  }
+
+  closeViewModal(){
+    this.viewBlogModal = 'none';
   }
 
   openBlogModal(){
@@ -182,28 +187,60 @@ export class AddblogComponent implements OnInit {
     this.blogtype = 'update';
     this.edit = true;
     this.edit_id = id;
-    this.restApi.getMethod('getBlogs/single/'+id)
-      .subscribe((resp:any) => {
-        this.displayBlog='block';
-        (<HTMLInputElement>document.getElementById('title')).value = resp.data[0].title;
-        (<HTMLInputElement>document.getElementById('category')).value = resp.data[0].category;
-        (<HTMLInputElement>document.getElementById('approval_status')).value = resp.data[0].approval_status;
-        this.htmlContent = resp.data[0].description;
-        //this.closeBlogModal();
+    this.restApi.getMethod('getBlogs/single/'+id).subscribe((resp:any) => {
+      (<HTMLInputElement>document.getElementById('title')).value = resp.data[0].title;
+      (<HTMLInputElement>document.getElementById('category')).value = resp.data[0].category;
+      (<HTMLInputElement>document.getElementById('approval_status')).value = resp.data[0].approval_status;
+      this.htmlContent = resp.data[0].description;
+      this.restApi.getImgMethod('getBlogImg/'+id).subscribe((resp:any) => {
+        if(resp.status == 201){
+          this.imageToShow = '';
+        }else{
+          this.createImageFromBlob(resp);
+          this.displayBlog='block';
+          document.getElementsByTagName('body')[0].classList.add('edit-modal-open');
+        }
       });
+    });
   }
 
-  updateBlog(){
+  updateBlog(event:any){
+    event.preventDefault();
+    if(this.images != ''){
+      const formData = new FormData();
+      formData.append('image', this.images);
+      let title = (<HTMLInputElement>document.getElementById('title')).value.split(' ').join("-");
+      let cat = (<HTMLInputElement>document.getElementById('category')).value;
+      this.restApi.postImgMethod('addBlogImg/'+title+'/'+cat,formData).subscribe((resp:any) => {
+        this.addEditedData(resp);
+      })
+    }else{
+      this.addEditedData('');
+    }
+  }
+
+  addEditedData(resp){
     this.editblog.title = (<HTMLInputElement>document.getElementById('title')).value;
     this.editblog.category = (<HTMLInputElement>document.getElementById('category')).value;
-    this.editblog.approval_status = (<HTMLInputElement>document.getElementById('approval_status')).value;
+    if(document.getElementById('approval_status')){
+      this.editblog.approval_status = (<HTMLInputElement>document.getElementById('approval_status')).value;
+    }else{
+      this.editblog.approval_status = "N";
+    }
+    if(resp == ''){
+      this.editblog.imgurl = resp; 
+    }else{
+      this.editblog.imgurl = resp.filepath; 
+    }    
     this.editblog.description = this.htmlContent.replace("'", "");
     this.editblog.modified_by_user_id = this.tk.user_id;
     this.editblog.blog_id = this.edit_id;
     this.restApi.postMethod('updateBlog',this.editblog).subscribe((data:any) => {     
-      alert('Blog Updated Successfully.');
+      alert(data.message);
       this.closeBlogModal();
       this.fetchBlog();
+      document.getElementsByTagName('body')[0].classList.remove('edit-modal-open');
+      this.images = '';
     })
   }
 
@@ -219,7 +256,8 @@ export class AddblogComponent implements OnInit {
       });
   }
 
-  addBlogCat(){   
+  addBlogCat(event){
+    event.preventDefault(); 
     this.addcat.created_by = this.tk.user_id;
     this.restApi.postMethod('addBlogCategory',this.addcat).subscribe((resp:any) => {
       this.getBlogCat();
@@ -245,5 +283,16 @@ export class AddblogComponent implements OnInit {
     this.restApi.postMethod('commentStatusChange',this.updatecomm).subscribe((resp:any) => {
       this.commentModal(id,'update');
     })
+  }
+
+  createImageFromBlob(image: Blob) {
+    let reader = new FileReader();
+    reader.addEventListener("load", () => {
+       this.imageToShow = reader.result;
+    }, false);
+ 
+    if (image) {
+       reader.readAsDataURL(image);
+    }
   }
 }

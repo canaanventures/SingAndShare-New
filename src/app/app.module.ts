@@ -13,6 +13,9 @@ import dayGridPlugin from '@fullcalendar/daygrid'; // a plugin
 import { AngularEditorModule } from '@kolkov/angular-editor';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { GoogleChartsModule } from 'angular-google-charts';
+import { ShareButtonsModule } from 'ngx-sharebuttons/buttons';
+import { ShareIconsModule } from 'ngx-sharebuttons/icons';
+import {NgxPaginationModule} from 'ngx-pagination';
 //import { NgxSpinnerModule } from "ngx-spinner";
 
 import { AppRoutingModule } from './app-routing.module';
@@ -23,7 +26,7 @@ import { HomeComponent } from './user/home/home.component';
 import { EventComponent } from './user/event/event.component';
 import { ContactComponent } from './user/contact/contact.component';
 
-//import { SwiperModule } from 'swiper/angular';
+import { SwiperModule } from 'swiper/angular';
 import { EventRegisterComponent } from './user/event-register/event-register.component';
 import { BelieveComponent } from './user/believe/believe.component';
 import { MissionComponent } from './user/mission/mission.component';
@@ -39,7 +42,23 @@ import { SingleblogComponent } from './user/singleblog/singleblog.component';
 import { VisitorsComponent } from './user/visitors/visitors.component';
 import { AddblogComponent } from './admin/addblog/addblog.component';
 import { SrsComponent } from './admin/srs/srs.component';
-import { ReportComponent } from './admin/report/report.component';
+import { TrainingCategoryComponent } from './training/training-category/training-category.component';
+import { TrainingCourseComponent } from './training/training-course/training-course.component';
+import { TrainingDasboardComponent } from './training/training-dasboard/training-dasboard.component';
+import { TrainingClassComponent } from './training/training-class/training-class.component';
+import { TrainingLessonComponent } from './training/training-lesson/training-lesson.component';
+import { PcsComponent } from './admin/pcs/pcs.component';
+import { GalleryComponent } from './user/gallery/gallery.component';
+import { SinglegalleryComponent } from './user/singlegallery/singlegallery.component';
+import { MentorComponent } from './reports/mentor/mentor.component';
+import { MenteeComponent } from './reports/mentee/mentee.component';
+import { AttendancereportComponent } from './reports/attendancereport/attendancereport.component';
+import { PcsreportComponent } from './reports/pcsreport/pcsreport.component';
+import { NewMembersComponent } from './reports/new-members/new-members.component';
+import { MeetingcountComponent } from './reports/meetingcount/meetingcount.component';
+import { NewMentorsComponent } from './reports/new-mentors/new-mentors.component';
+import { LmsreportComponent } from './reports/lmsreport/lmsreport.component';
+import { ForgotpasswordComponent } from './user/forgotpassword/forgotpassword.component';
 
 FullCalendarModule.registerPlugins([ // register FullCalendar plugins
   dayGridPlugin,
@@ -69,7 +88,23 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     VisitorsComponent,
     AddblogComponent,
     SrsComponent,
-    ReportComponent
+    TrainingCategoryComponent,
+    TrainingCourseComponent,
+    TrainingDasboardComponent,
+    TrainingClassComponent,
+    TrainingLessonComponent,
+    PcsComponent,
+    GalleryComponent,
+    SinglegalleryComponent,
+    MentorComponent,
+    MenteeComponent,
+    AttendancereportComponent,
+    PcsreportComponent,
+    NewMembersComponent,
+    MeetingcountComponent,
+    NewMentorsComponent,
+    LmsreportComponent,
+    ForgotpasswordComponent
   ],
   imports: [
     BrowserModule,
@@ -82,12 +117,17 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     //NgxSpinnerModule,
     RouterModule,
     ToastrModule.forRoot(),
-    //SwiperModule,
+    SwiperModule,
     FullCalendarModule,
     //NgxEditorModule
     AngularEditorModule,
     DragDropModule,
     GoogleChartsModule,
+    ShareButtonsModule.withConfig({
+      debug: true
+    }),
+    ShareIconsModule,
+    NgxPaginationModule
     //NgxSpinnerModule
   ],
   providers: [

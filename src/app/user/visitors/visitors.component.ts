@@ -10,21 +10,22 @@ import { url } from 'src/app/shared/app.constant';
 export class VisitorsComponent implements OnInit {
   @Input() visitorsdetails = {visitor_name:'', visitor_email_id:'', visitor_subject:'', visitor_contact_number:'',message:''}
 
+  submitted :boolean = false;
+
   constructor(public restApi: ApiService) { }
 
   ngOnInit(): void {
   }
 
-  visitorDetails(event) {
-    event.preventDefault();
-    this.visitorsdetails.visitor_name = (<HTMLInputElement>document.getElementById('visitor_name')).value;
-    this.visitorsdetails.visitor_email_id = (<HTMLInputElement>document.getElementById('visitor_email_id')).value;
-    this.visitorsdetails.visitor_subject = (<HTMLInputElement>document.getElementById('visitor_subject')).value;
-    this.visitorsdetails.visitor_contact_number = (<HTMLInputElement>document.getElementById('visitor_contact_number')).value;
-    this.visitorsdetails.message = (<HTMLInputElement>document.getElementById('message')).value;
+  onFormSubmit() {
+    console.log("Full Address");  
+  }
 
-    this.restApi.postMethod('visitors',this.visitorsdetails).subscribe((data:{}) => {     
-      alert('Your Message has been sent successfully.')   
+  visitorDetails(event) {
+  	this.submitted = true;
+    event.preventDefault();
+    this.restApi.postMethod('visitors',this.visitorsdetails).subscribe((resp:any) => {     
+      alert(resp.message);   
     })
   }
 }

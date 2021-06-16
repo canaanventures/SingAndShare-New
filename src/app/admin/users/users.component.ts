@@ -16,9 +16,9 @@ export class UsersComponent implements OnInit {
   public encryptInfo : any;
   public userrole:any;
   display='none';
-  userlist :any = [];
-  tk:any = {};
-  status; edit; srs_name; srslist:any = [];
+  userlist :any = []; 
+  tk:any = {}; totalRecords:Number = 1; p: Number = 1; pageIndexes:any =[];
+  status; edit; srs_name = ''; role_nme; srslist:any = []; paginatecnt:Number;
 
   @Input() userdetails = {url:'',email:''}
   @Input() disableuser = {modified_by_user_id:'',userid:'',status:''}
@@ -31,70 +31,110 @@ export class UsersComponent implements OnInit {
   ngOnInit(): void {
     this.fetchSRSlist();
     this.fetchRole();
+    this.tk = jwt_decode(sessionStorage.getItem('user_token'));
+    this.role_nme = this.tk.role_name;
   }
 
   changeStatus(event,id){
     (event.target.checked) ? this.status = "Enable" : this.status = "Disable";
-    this.tk = jwt_decode(sessionStorage.getItem('user_token'));
     this.disableuser.modified_by_user_id = this.tk.user_id;
     this.disableuser.userid = id;
     this.disableuser.status = this.status;
 
     this.restApi.postMethod('changeUserStatus',this.disableuser).subscribe((data:any) => {
-      this.fetchUser();
+      this.fetchUser(this.paginatecnt);
       alert("The status of the user has been changed successfully");
     })
   }
 
-  addUser(){
+  addUser(event:any){
+    event.preventDefault();
     var obj = {
       "first_name":(<HTMLInputElement>document.getElementById('mentee_first_name')).value,
       "last_name":(<HTMLInputElement>document.getElementById('mentee_last_name')).value,
       "email_id":(<HTMLInputElement>document.getElementById('mentee_email_id')).value,
       "mentor_email_id": this.tk.email,
-      "role_id":(<HTMLInputElement>document.getElementById('mentee_user_type')).value
+      "srs_id": this.tk.srs_id,
+      "role_id": (<HTMLInputElement>document.getElementById('mentee_user_type')).value,
+      "parent_id":this.tk.user_id
+    }
+
+    if(this.role_nme == 'Admin'){
+      obj.srs_id = this.srs_name;
+    }else{
+      obj.srs_id = this.tk.srs_id;
     }
     
     this.encryptInfo = encodeURIComponent(CryptoJS.AES.encrypt(JSON.stringify(obj), 'secret key 123').toString());
 
     this.userdetails.url = this.encryptInfo;
     this.userdetails.email = (<HTMLInputElement>document.getElementById('mentee_email_id')).value;
-
-    this.restApi.postMethod('sendUserLink',this.userdetails)
-      .subscribe((data:{}) => {
-        //this.router.navigate(['register/' + this.encryptInfo]);
-        alert('Mail has been sent to the Mentee');
-      });
+    this.restApi.postMethod('sendUserLink',this.userdetails).subscribe((data:any) => {
+      //this.router.navigate(['register/' + this.encryptInfo]);
+      this.display = 'none';
+      alert('Mail has been sent to the Mentee');
+    });
   }
 
   fetchRole() {
-    this.restApi.getMethod('getRole')
-      .subscribe((resp) => {
-        this.userrole = resp;//resp.data;
-        this.fetchUser();
-      });
+    this.restApi.getMethod('getRole').subscribe((resp:any) => {
+      this.userrole = resp.data;//resp.data;
+      this.fetchUser('load');
+    });
   }
 
   fetchSRSlist() {
-    this.restApi.getMethod('getBranches/all')
+    this.restApi.getMethod('getBranches/adduser')
       .subscribe((resp:any) => {
         this.srslist = resp.data;
       });
   }
 
-  fetchUser() {
-    this.restApi.getMethod('getUsers/all')
-      .subscribe((resp) => {
-        this.userlist = resp;//resp.data;
-        this.tk = jwt_decode(sessionStorage.getItem('user_token'));
-        console.log(this.tk.email);
-      });
+  nextClick(){
+    let num = Number(this.paginatecnt);
+    if(num < this.pageIndexes.length){
+      this.fetchUser(num+1);
+    }
+  }
+
+  previousClick(){
+    let num = Number(this.paginatecnt);
+    if(num > 1){
+      this.fetchUser(num-1);
+    }
+  }
+
+  fetchUser(event) {
+    let cnt;
+    if(event == 'load'){cnt = 1;}else{cnt=event}
+    this.restApi.getMethod('getPaginatedUsers/'+cnt).subscribe((resp:any) => {
+      this.userlist = resp.data.data;
+      this.tk = jwt_decode(sessionStorage.getItem('user_token'));
+      if(event == 'load'){
+        let total = resp.data.total[0].total, num = total/10, arr = [];
+        for(var i=0;i<num;i++){
+          arr.push(i+1);
+        }
+        this.pageIndexes = arr; this.paginatecnt = 1;
+      }else{
+        this.paginatecnt = event;
+      }
+      setTimeout(function(){
+        let elem = document.getElementsByClassName('page-link');
+        for(var i=0;i<elem.length;i++){
+          elem[i].classList.remove('active-pagination');
+        }
+        document.getElementById('pagination_'+cnt).classList.add('active-pagination');
+      },10)
+    });
   }
 
   openModal(){
     this.edit = false;
     this.display='block';
     document.getElementsByTagName('body')[0].classList.add('modal-open');
+    (<HTMLInputElement>document.getElementById('mentee_user_type')).value = '10';
+    (<HTMLInputElement>document.getElementById('mentee_user_type')).setAttribute("disabled", 'disabled');
   }
 
   closeModal() {
@@ -111,14 +151,18 @@ export class UsersComponent implements OnInit {
         (<HTMLInputElement>document.getElementById('mentee_email_id')).value = resp.data[0].user_email_id;
         (<HTMLInputElement>document.getElementById('mentee_user_type')).value = resp.data[0].role_id;
         (<HTMLInputElement>document.getElementById('mentor_email_id')).value = resp.data[0].mentor_email_id;
-        (resp.data[0].srs_id) ? this.srs_name = resp.data[0].srs_id : this.srs_name = '';
+        if(this.role_nme == 'Admin'){
+          (resp.data[0].srs_id) ? this.srs_name = resp.data[0].srs_id : this.srs_name = '';
+          (<HTMLInputElement>document.getElementById('mentee_user_type')).removeAttribute("disabled");
+        }
         (<HTMLInputElement>document.getElementById('hidden_id')).value = id;
         this.display='block';
         document.getElementsByTagName('body')[0].classList.add('modal-open');
       });
   }
 
-  updateUser(){
+  updateUser(event){
+    event.preventDefault();
     this.updateuser.first_name = (<HTMLInputElement>document.getElementById('mentee_first_name')).value;
     this.updateuser.last_name = (<HTMLInputElement>document.getElementById('mentee_last_name')).value;
     this.updateuser.email_id = (<HTMLInputElement>document.getElementById('mentee_email_id')).value;
@@ -126,12 +170,17 @@ export class UsersComponent implements OnInit {
     this.updateuser.mentor_email_id = (<HTMLInputElement>document.getElementById('mentor_email_id')).value;
     this.updateuser.user_id = (<HTMLInputElement>document.getElementById('hidden_id')).value;
     this.updateuser.modified_by = this.tk.user_id;
-    this.updateuser.srs_id = this.srs_name;
+    
+    if(this.role_nme == 'Admin'){
+      this.updateuser.srs_id = this.srs_name;;
+    }else{
+      this.updateuser.srs_id = this.tk.role_id;
+    }
 
     this.restApi.postMethod('updateUser',this.updateuser)
       .subscribe((data:{}) => {
         this.closeModal();
-        this.fetchUser();
+        this.fetchUser(this.paginatecnt);
         alert('User updated Successfully');
       });
   }

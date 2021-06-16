@@ -1,6 +1,6 @@
 <div class="backdrop" [ngStyle]="{'display':displayLogin}"></div>
 
-<header id="header" class="fixed-top d-flex align-items-center">
+<header id="header" class="fixed-top align-items-center">
     <div class="container d-flex align-items-center">
 
         <div id="logo">
@@ -8,46 +8,72 @@
         </div>
 
         <nav id="navbar" class="navbar">
-            <ul>
-                <li *ngIf="loggeduser == false"><a class="nav-link scrollto active" href="#hero">Home</a></li>
-                <li class="nav-link scrollto dropdown" *ngIf="loggeduser == false"><a href="#about"><span>About</span> <i class="bi bi-chevron-down"></i></a>
+            <ul [class.active]="classtoggle">
+                <li *ngIf="loggeduser == false"><a class="nav-link scrollto" href="/home">Home</a></li>
+                <li class="nav-link scrollto dropdown" *ngIf="loggeduser == false"><a style='color:#fff;'><span>About</span> <i class="bi bi-chevron-down"></i></a>
                     <ul>
                         <li><a href="/mission">Mission and Vision</a></li>
                         <li><a href="/believe">What we Believe</a></li>
                     </ul>
                 </li>
-                <li class="dropdown" *ngIf="loggeduser == false"><a href="#"><span>I'm New</span> <i class="bi bi-chevron-down"></i></a>
+                <li class="dropdown" *ngIf="loggeduser == false"><a style='color:#fff;'><span>I'm New</span> <i class="bi bi-chevron-down"></i></a>
                     <ul>
                         <li><a href="/firststep">First Step</a></li>
                     </ul>
                 </li>
-                <li class="dropdown" *ngIf="loggeduser == false"><a href="#"><span>Resources</span> <i class="bi bi-chevron-down"></i></a>
+                <li class="dropdown" *ngIf="loggeduser == false"><a style='color:#fff;'><span>Resources</span> <i class="bi bi-chevron-down"></i></a>
                     <ul>
-                        <li class="nav-link scrollto dropdown"><a href="#gallery">Gallery</a></li>
+                        <li class="nav-link scrollto dropdown"><a href="/gallery">Gallery</a></li>
                         <li class="nav-link scrollto dropdown"><a href="/blog-all">Blog</a></li>
                     </ul>
                 </li>
                 <li *ngIf="loggeduser == false"><a class="nav-link scrollto" href="#contact">Contact</a></li>
                 <li *ngIf="loggeduser == false"><a class="nav-link" (click)='openLoginModal()'>Login</a></li>
                 
+                <li *ngIf="loggeduser"><a class="nav-link" href='/pcs'>PCS</a></li>
                 <li *ngIf="loggeduser && access.sns_access == 1"><a class="nav-link" href='/sns'>SNS</a></li>
                 <li *ngIf="loggeduser && access.user_access == 1"><a class="nav-link" href='/user'>User</a></li>
                 <li *ngIf="loggeduser && access.event_access == 1"><a class="nav-link" href='/events'>Event</a></li>
                 <li *ngIf="loggeduser && access.attendance_access == 1"><a class="nav-link" href='/attendance'>Attendance</a></li>
                 <li *ngIf="loggeduser"><a class="nav-link" href='/calendar'>Calendar</a></li>
                 <li *ngIf="loggeduser && access.blog_access == 1"><a class="nav-link" href='/addblog'>Blog</a></li>
-                <li *ngIf="loggeduser"><a class="nav-link" href='/report'>Report</a></li>
-                <li *ngIf="loggeduser"><a class="nav-link" href='/profile'>Training</a></li>
-                <li *ngIf="loggeduser">
-                    <span (click)='toggleHeaderMenu()' style='cursor:pointer;'> <img src='../../../assets/img/user-icon.png' /> </span>
-                    <ul id='user-action' *ngIf="classApplied == true">
-                        <li><a href='/profile'>My Profile</a></li>
-                        <hr />
-                        <li><a href='#' (click)='logOut()'>Logout</a></li>
+                <li class="dropdown" *ngIf="loggeduser && role_name == 'Admin'"><a style='color:#fff;'><span>Reports</span> <i class="bi bi-chevron-down"></i></a>
+                    <ul>
+                        <li class="nav-link"><a href="/report/attendance">Attendance</a></li>
+                        <li class="nav-link"><a href="/report/fellowship">Fellowship</a></li>
+                        <li class="nav-link"><a href="/report/mentor">Mentors-List</a></li>
+                        <li class="nav-link"><a href="/report/new-mentors">New Mentors-List</a></li>
+                        <li class="nav-link"><a href="/report/mentee">Mentee-List</a></li>
+                        <li class="nav-link"><a href="/report/new-mentees">New Mentee-List</a></li>
+                        <li class="nav-link"><a href="/report/pcs">PCS</a></li>
+                        <li class="nav-link"><a href="/report/lms">LMS</a></li>
+                    </ul>
+                </li>
+                
+                <!-- <li *ngIf="loggeduser"><a class="nav-link" href='/profile'>Training</a></li> -->
+
+                <li class="dropdown" *ngIf="loggeduser"><a style='color:#fff;'><span>Training</span> <i class="bi bi-chevron-down"></i></a>
+                    <ul>
+                        <li class="nav-link"><a href="/training/dasboard">Dashboard</a></li>
+                        <li class="nav-link" *ngIf="role_name == 'Admin'"><a href="/training/category">Catgeory</a></li>
+                        <li class="nav-link" *ngIf="role_name == 'Admin'"><a href="/training/course">Course</a></li>
+                        <li class="nav-link" *ngIf="role_name == 'Admin'"><a href="/training/lesson">Lesson</a></li>
+                        <li class="nav-link" *ngIf="role_name != 'Mentee'"><a href="/training/class">Class</a></li>
                     </ul>
                 </li>
             </ul>
-            <i class="bi bi-list mobile-nav-toggle"></i>
+            <span *ngIf="loggeduser" id='header-user-icon'>
+                <span (click)='toggleHeaderMenu()' id='name_initials' class="tooltip" style='cursor:pointer;'> 
+                    {{f_nme}}{{l_nme}}
+                    <span class="tooltiptext">{{this.tk.first_name}} {{this.tk.last_name}}</span>
+                </span>
+                <ul id='user-action' *ngIf="classApplied == true">
+                    <li><a href='/profile'>My Profile</a></li>
+                    <hr />
+                    <li><a href='#' (click)='logOut()'>Logout</a></li>
+                </ul>
+            </span>
+            <i class="bi bi-list mobile-nav-toggle" (click)="navToggleClass()"></i>
         </nav><!-- .navbar -->
     </div>
 </header><!-- End Header -->
@@ -57,18 +83,64 @@
         <div class="modal-content">
             <div class="modal-body clearfix">
                 <span class='close modal-close' (click)='closeLoginModal()' data-dismiss="modal">&times;</span>
-                <div class='form-group col-md-12'>
-                    <label for='email_id'>Email ID</label>
-                    <input type='text' class='form-control' id='email_id' placeholder='Enter your Email ID' />
-                </div>
-                <div class='form-group col-md-12'>
-                    <label for='your_password'>Password</label>
-                    <input type='password' class='form-control' id='your_password' placeholder='Enter your Password' />
-                </div>
-                <div class='form-group col-md-6'>
-                    <label for='user_login'> &nbsp; </label>
-                    <button class='btn btn-primary' id='user_login' (click)='userLogin()' style='background-color: #630460;border-color: #630460;cursor:pointer;'>Login</button>
-                </div>
+                <div *ngIf="loginshow ;then loginform else fpwdform"></div>
+               
+                <ng-template id="login_form" #loginform>
+                    <div class="modal-title text-center">
+                        <img src="../../../assets/img/logo.png" alt="">
+                        <h3><b>Welcome to Members Login</b></h3>
+                    </div>
+                    <div class='form-group col-md-12'>
+                        <label for='email_id'>Email ID<span style="color: red;">*</span></label>
+                        <input type='text' class='form-control' id='email_id' name="email" placeholder='Enter your Email ID' [(ngModel)]="userdetails.email" #email='ngModel' required/>
+                        <div class="error_msg"
+                        *ngIf="email.touched && email.invalid">
+                        <div *ngIf="email.errors.required">
+                            <small class="error_text"> Email Id is required</small>
+                        </div>
+                    </div>
+                    </div>
+                    <div class='form-group col-md-12'>
+                        <label for='your_password'>Password<span style="color: red;">*</span></label>
+                        <input type='password' class='form-control' id='your_password' name="pass_word" placeholder='Enter your Password' [(ngModel)]="userdetails.pass_word" #pass_word='ngModel' required />
+                        <div class="error_msg"
+                        *ngIf="pass_word.touched && pass_word.invalid">
+                        <div *ngIf="pass_word.errors.required">
+                            <small class="error_text"> Password is required</small>
+                        </div>
+                    </div>
+                    </div>
+                    <div class='form-group col-md-12'>
+                        <label for='user_login'> &nbsp; </label>
+                        <button class='btn btn-primary' style="width: 70%; margin: auto; display: block;" id='user_login' (click)='userLogin()' >Login</button>
+                    </div>
+                    <div class="fpwd text-center">
+                        <a (click)=fpwd() style='cursor:pointer;'>Forgot password?</a>
+                    </div>
+                </ng-template>
+                
+                <ng-template id="fpwd_form" #fpwdform>
+                    <div class="modal-title text-center">
+                        <img src="../../../assets/img/logo.png" alt="">
+                        <h3><b>Forgot Password?</b></h3>
+                        <small>you can reset your password here</small>
+                    </div>
+                    <div class='form-group col-md-12'>
+                        <label for='forgot_email_id'>Email ID<span style="color: red;">*</span></label>
+                        <input type='text' class='form-control' id='forgot_email_id' name="emailid" placeholder='Enter your Email ID' [(ngModel)]="forgotpassword.email_id" #emailid='ngModel' required/>
+                        <div class="error_msg"
+                        *ngIf="emailid.touched && emailid.invalid">
+                        <div *ngIf="emailid.errors.required">
+                            <small class="error_text"> Email Id is required</small>
+                        </div>
+                    </div>
+                    </div>
+                    
+                    <div class='form-group col-md-12'>
+                        <label for='forgot_password'> &nbsp; </label>
+                        <button class='btn btn-primary' style="width: 70%; margin: auto; display: block;" id='forgot_password' (click)='forgotPassword()'>Send My Password</button>
+                    </div>
+                </ng-template>              
             </div>
         </div>
     </div>

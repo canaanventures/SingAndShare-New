@@ -1,0 +1,63 @@
+<div class='container-fluid report-container'>
+    <div class="card-body h-100">
+        <div class='row'>
+            <div class='col-md-12 p-0 mt-3'>
+                <h4 id='report_chart_msg' class='col-md-3'> Fellowship Report </h4>
+                <div class='form-group col-md-2'>
+                    <label for='from_date'>From Date</label>
+                    <input type='month' id='from_date' class='form-control' [(ngModel)]='filter.from_date' placeholder='From Date' (change)='fromDateChange();' />
+                </div>
+                <div class='form-group col-md-2'>
+                    <label for='to_date'>To Date</label>
+                    <input type='month' id='to_date' class='form-control' [(ngModel)]='filter.to_date' placeholder='To Date' />
+                </div>
+                <div class='form-group col-md-2'>
+                    <label for='test' class='w-100'> &nbsp; </label>
+                    <button class='btn btn-primary' id='btn_datefilter' (click)='filterDate();'>Filter</button>
+                    <button class='btn bg-orange' id='btn_resetfilter' (click)='reset();'>Reset</button>
+                </div> 
+                <div class='form-group col-md-2'>
+                    <label for='download_excel' class='w-100'> &nbsp; </label>
+                    <span id='download_excel' class='float-right' (click)="exportData()"><i class="fa fa-file-excel-o" aria-hidden="true"></i></span>
+                </div>                   
+            </div>
+        </div>
+        <div class='row' *ngIf='originalfilter.length == 0'>
+            <div class='col-md-12 p-0'>
+                <h4 class='chart_msg'>No Data to be displayed</h4>
+            </div>
+        </div>
+        <div class='row' *ngIf='originalfilter.length > 0'>
+            <table class='table-bordered table' id="sns-excel-table">
+                <thead>
+                    <tr>
+                        <th>SNS Name</th> 
+                        <th>Meeting Month</th>  
+                        <th>Count</th>                       
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr> 
+                        <td>
+                            <input type='text' class='form-control filter-fld' id='srs_name' [(ngModel)]='filter.srs_name' (keyup)="filterList($event,'srs_name')" placeholder='SNS Name' />
+                        </td>
+                        <td> </td>
+                        <td> </td>
+                    </tr>
+
+                    <tr *ngIf='snslist.length == 0 && originalfilter.length > 0'>
+                        <td colspan='3'>
+                            <h3 class='chart_msg'>No Match Found</h3>
+                        </td>
+                    </tr>
+
+                    <tr *ngFor="let list of snslist"> 
+                        <td>{{ list.srs_name }}</td>
+                        <td>{{ list.month }}</td>
+                        <td>{{ list.count }}</td>
+                    </tr> 
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

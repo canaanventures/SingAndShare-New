@@ -1,43 +1,42 @@
 <div class="backdrop" [ngStyle]="{'display':display}"></div>
+<div class="backdrop" [ngStyle]="{'display':eventmodaldisplay}"></div>
 
 <section id='home-slider'>
     <div class="product-screens">
-        <video autoplay="" muted="" playsinline="" loop="" id="home_banner" oncanplay="this.play()" onloadedmetadata="this.muted = true" style="height:100%; object-fit: cover;width:100%;">
+        <video autoplay="" muted="" playsinline="" loop="" id="home_banner" oncanplay="this.play()" onloadedmetadata="this.muted = true">
             <source src="../../../assets/img/home_banner.mp4" type="video/mp4">
-        </video>   
-        <!-- <swiper effect="coverflow" [config]="config">          
-            <ng-template swiperSlide *ngFor="let slide of imgArr">
-                <div data-toggle='modal' data-target='#event_register_modal' class='swiper-img-div' (click)='openModal(slide.id)'>
-                    <img [src]='slide.url' class='w-100 h-100' />
-                    <div class='home-bg-green'></div>
-                </div>
-            </ng-template> -->
-            <!-- <div class='home-bg-green'></div> -->
-            <!-- <ng-template swiperSlide>
-                <div class='swiper-img-div'>
-                    <img src='assets/img/img-1.jpg' class='w-100 h-100' />
-                </div>
-            </ng-template>
-            <ng-template swiperSlide>
-                <div class='swiper-img-div'>
-                    <img src='assets/img/home-img-2.jpg' class='w-100 h-100' />
-                </div>
-            </ng-template>
-            <ng-template swiperSlide>
-                <div class='swiper-img-div'>
-                    <img src='assets/img/home-img-3.jpg' class='w-100 h-100' />
-                </div>
-            </ng-template>
-            <ng-template swiperSlide>
-                <div class='swiper-img-div'>
-                    <img src='assets/img/home-img-4.jpg' class='w-100 h-100' />
-                </div>
-            </ng-template>
-        </swiper> -->
+        </video>
     </div>
 </section>
 
 <main id="main">
+    <section id="gallery">
+        <div class="container-fluid" data-aos="fade-up">
+            <div class="section-header">
+                <h3 class="section-title">Upcoming Events</h3>
+                <span class="section-divider"></span>
+                <p class="section-description">Click on the below images to register yourself for the event and join us at the events</p>
+            </div>
+  
+            <div class="row no-gutters"> 
+                <div class="col-lg-4 col-md-6" *ngFor='let list of eventlist'>
+                    <div class="gallery-item" style='cursor:pointer;' (click)='openEventRegister(list.event_id);'>
+                        <a data-gall="portfolioGallery" class="gallery-lightbox">
+                            <img [src]='list.image_url' class='w-100 h-100' alt="">
+                        </a>
+                    </div>
+                </div>
+                <!-- <div class="col-lg-4 col-md-6">
+                    <div class="gallery-item">
+                        <a href='/gallery' class="gallery-lightbox more-gallery-lightbox">
+                            To View More event images, <br/> <span class='light-box-view'>click here</span> <br/> <img src='assets/img/arrow.png' class='w-auto' />
+                        </a>
+                    </div>
+                </div> -->
+            </div>
+        </div>
+    </section>
+
     <section id="about" class="section-bg">
         <div class="container-fluid" data-aos="fade-up">
             <div class="section-header">
@@ -82,16 +81,17 @@
                     <div class="single-blog mt-30 wow fadeInUpBig" data-wow-duration="1s" data-wow-delay="0.4s">
                         <div class='blog-redirect'>
                             <div class="blog-image">
-                                <img src="assets/img/news-1.jpg" alt="news" class='w-100 h-100'>
+                                <img src="../../../assets/img/no-img-found-medium.png" *ngIf='!imageToShow' alt="news" class='w-100 h-100'>
+                                <img [src]="imageToShow" *ngIf='imageToShow' alt="news" class='w-100 h-100'>
                             </div>
-                            <div class="blog-content">
-                                <p class='blog-cat'>{{bloglist[0].category_name}}</p>
-                                <h4 class="blog-title">{{bloglist[0].title}}</h4>
+                            <div class="blog-content" *ngIf='bloglist'>
+                                <p class='blog-cat'>{{bloglist.category_name}}</p>
+                                <h4 class="blog-title">{{bloglist.title}}</h4>
                                 <div class="blog-author d-flex align-items-center">                                  
                                     <div class="author-content media-body">
-                                        <p>{{bloglist[0].description}}</p>
+                                        <p [innerHTML]='bloglist.description'> </p>
                                         <div class='read_more'>
-                                            <a href='/singleblog/{{bloglist[0].blog_id}}'>
+                                            <a href='/singleblog/{{bloglist.blog_id}}'>
                                                 Read More <img src='../../../assets/img/right-arrow.png' />
                                             </a>
                                         </div>
@@ -110,86 +110,41 @@
           <div class="section-header">
             <h3 class="section-title">Gallery</h3>
             <span class="section-divider"></span>
-            <p class="section-description">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque</p>
+            <p class="section-description">The photos of all our past events</p>
           </div>
   
           <div class="row no-gutters"> 
-            <div class="col-lg-4 col-md-6">
+            <div class="col-lg-4 col-md-6" *ngFor='let list of galleryitems'>
               <div class="gallery-item">
-                <a href="assets/img/gallery/gallery-1.jpg" data-gall="portfolioGallery" class="gallery-lightbox">
-                  <img src="assets/img/gallery/gallery-1.jpg" alt="">
+                <a data-gall="portfolioGallery" href='/gallery/{{list.event_id}}' class="gallery-lightbox">
+                  <img [src]='list.image_url' alt="">
                 </a>
               </div>
-            </div>  
+            </div>
             <div class="col-lg-4 col-md-6">
-              <div class="gallery-item">
-                <a href="assets/img/gallery/gallery-2.jpg" data-gall="portfolioGallery" class="gallery-lightbox">
-                  <img src="assets/img/gallery/gallery-2.jpg" alt="">
-                </a>
+                <div class="gallery-item">
+                  <a href='/gallery' class="gallery-lightbox more-gallery-lightbox">
+                    To View More event images, <br/> <span class='light-box-view'>click here</span> <br/> <img src='assets/img/arrow.png' class='w-auto' />
+                  </a>
+                </div>
               </div>
-            </div>  
-            <div class="col-lg-4 col-md-6">
-              <div class="gallery-item">
-                <a href="assets/img/gallery/gallery-3.jpg" data-gall="portfolioGallery" class="gallery-lightbox">
-                  <img src="assets/img/gallery/gallery-3.jpg" alt="">
-                </a>
-              </div>
-            </div> 
-            <div class="col-lg-4 col-md-6">
-              <div class="gallery-item">
-                <a href="assets/img/gallery/gallery-4.jpg" data-gall="portfolioGallery" class="gallery-lightbox">
-                  <img src="assets/img/gallery/gallery-4.jpg" alt="">
-                </a>
-              </div>
-            </div> 
-            <div class="col-lg-4 col-md-6">
-              <div class="gallery-item">
-                <a href="assets/img/gallery/gallery-5.jpg" data-gall="portfolioGallery" class="gallery-lightbox">
-                  <img src="assets/img/gallery/gallery-5.jpg" alt="">
-                </a>
-              </div>
-            </div> 
-            <div class="col-lg-4 col-md-6">
-              <div class="gallery-item">
-                <a href="assets/img/gallery/gallery-6.jpg" data-gall="portfolioGallery" class="gallery-lightbox">
-                  <img src="assets/img/gallery/gallery-6.jpg" alt="">
-                </a>
-              </div>
-            </div> 
           </div>  
         </div>
     </section>
 
     <section id="contact" class='p-0'>
-        <div class="container-fluid p-0" data-aos="fade-up">
+        <div class="container-fluid p-0" data-aos="fade-up">            
             <div class="row">
-                <div class='col-md-7'>
-                    <div class='section-header'>
-                        <h3 class="section-title text-center">Contact Us</h3>
+                <div class='col-md-1'> &nbsp; </div>
+                <div class='col-md-5 contact-form'>
+                    <div class='section-header clearfix'>
+                        <h3 class="section-title text-right">Contact Us</h3>
                         <span class="section-divider"></span>
-                        <p class="section-description">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque</p>
                     </div>
-                    <div class="col-lg-7 col-md-7 contact-form">
-                        <app-visitors></app-visitors>
-                    </div>
-                    <div class="col-lg-5 col-md-5 contact-address">
-                        <div class="info">
-                            <div>
-                                <i class="bi bi-geo-alt"></i>
-                                <p>AIG Bangalore Finance Centre<br>Adarsh Palm Retreat, Bellandur, Bengaluru, Karnataka 560103</p>
-                            </div>      
-                            <div>
-                                <i class="bi bi-envelope"></i>
-                                <p>info@example.com</p>
-                            </div>      
-                            <div>
-                                <i class="bi bi-phone"></i>
-                                <p>+91 80672 79400</p>
-                            </div>       
-                        </div>
-                    </div> 
-                </div>               
-                <div class="col-lg-5 col-md-4 contact-img">
+                    <app-visitors></app-visitors>
+                </div>
+                <div class='col-md-1'> &nbsp; </div>             
+                <div class="col-md-5 contact-img">
                     <img src='../../../assets/img/contact.jpg' class='w-100 h-100' />
                 </div>
             </div> 
@@ -197,11 +152,11 @@
     </section><!-- End Contact Section -->
 </main>
 
-<div class="modal" id="event_register_modal" [ngStyle]="{'display':display}">
+<div class="modal" id="event_register_modal" [ngStyle]="{'display':eventmodaldisplay}">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-body clearfix">
-                <span class='close modal-close' (click)='closeModal()' data-dismiss="modal">&times;</span>
+                <span class='close modal-close' (click)='closeEventRegister()'>&times;</span>
                 <app-event-register> </app-event-register>
             </div>
         </div>

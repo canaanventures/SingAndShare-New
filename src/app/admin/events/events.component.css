@@ -5,3 +5,8 @@
 .modal .card-header{padding: 15px;font-weight:500;font-size:18px;}
 .modal-close{top:13px;font-size:25px;}
 .form-switch .form-check-input:focus{outline: 0; box-shadow: none;}
+.event-tab{cursor:pointer;}
+#preview_gallery_img .preview-img-div{width:150px;height:150px;}
+#galleryModal{overflow-y:auto;}
+#preview_gallery_img{padding-right:0;}
+.icon-danger .action-img-div img{opacity:0.5;pointer-events: none;}

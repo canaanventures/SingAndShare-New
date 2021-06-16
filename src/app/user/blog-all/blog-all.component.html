@@ -14,12 +14,15 @@
         <!-- Blog Post -->
         <div class="col-lg-6" *ngFor = 'let list of bloglist'>
           <div class="blog_post">
-            <div class="blog_image" style="background-image:url(../../../assets/img/blog-all.jpg)"></div>
+            <!-- <div class="blog_image" [style.backgroundImage]="'url('+ list.image_url +')'"></div> -->
+            <div class="blog_image">
+              <img id='blog_img{{list.blog_id}}' [src]='list.image_url' class='w-100 h-100' />
+            </div> <!-- style="background-image:url('../../../assets/img/blog-all.jpg')" -->
             <div class="blog_title_container">
               <div class="blog_post_category"><a>{{list.category_name}}</a></div>
               <div class="blog_post_title"><a style='text-transform:uppercase;'>{{list.title}}</a></div>
               <div class="blog_post_text">
-                <p>{{list.description}}</p>
+                <p [innerHTML]='list.description'> </p>
               </div>
               <div class="read_more"><a href="/singleblog/{{list.blog_id}}">Read More <img src="../../../assets/img/right-arrow.png" alt=""></a></div>
             </div>

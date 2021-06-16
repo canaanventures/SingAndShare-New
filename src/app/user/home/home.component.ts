@@ -1,15 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ApiService } from 'src/app/shared/app.service';
-import { url } from 'src/app/shared/app.constant';
-import { Location } from '@angular/common';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-//import SwiperCore, { EffectFade, Autoplay, Swiper } from 'swiper/core';
-import { SwiperOptions } from 'swiper';
-
-//Swiper.use([Autoplay]);
-//SwiperCore.use([EffectFade]);
 
 @Component({
   selector: 'app-home',
@@ -21,17 +12,9 @@ export class HomeComponent implements OnInit {
   public eventslide: any;
   public imgArr: any = [];
   public imgurl : any;
-  public display='none';
-  bloglist:any = [];
-
-  /*config: SwiperOptions = {
-    allowTouchMove: true,
-    autoplay: {
-      delay: 5000,
-      disableOnInteraction: true
-    },
-    loop: true
-  };*/
+  public display='none'; eventmodaldisplay = 'none';
+  bloglist:any = []; galleryitems:any=[]; eventlist:any=[];
+  imageToShow: any;
   
   @Input() verifyuser = {user_email_id:''};
   
@@ -41,6 +24,7 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
     this.fetchEvents();
     this.fetchBlog();
+    this.fetchGallery();
     /* window.addEventListener('scroll', function() {
       if(window.pageYOffset >= 100){
         document.getElementById('header').classList.remove('header-transparent');
@@ -51,18 +35,9 @@ export class HomeComponent implements OnInit {
   }
 
   fetchEvents() {
-    this.restApi.getMethod('getEvents/home')
-      .subscribe((resp) => {
-        this.eventslide = resp;
-        this.imgurl = url.imgurl;
-        this.eventslide.data.forEach(e => {
-          this.imgArr.push({
-            id: e.event_id,
-            url : this.imgurl + e.poster_url
-          });
-        })
-        console.log(this.imgArr);
-      });
+    this.restApi.getMethod('getMultiEventImg').subscribe((resp:any) => {
+      this.eventlist = resp.data;
+    });
   }
 
   openModal(id){
@@ -76,15 +51,49 @@ export class HomeComponent implements OnInit {
     (<HTMLInputElement>document.getElementById('verify_email_btn')).style.display = 'block';
   }
 
+  openEventRegister(id){
+    this.eventmodaldisplay = 'block';
+    document.getElementsByTagName('body')[0].classList.add('modal-open');
+    document.getElementsByTagName('html')[0].classList.add('modal-open');
+    (<HTMLInputElement>document.getElementById('event_hidden_id')).value = id
+  }
+
+  closeEventRegister(){
+    this.eventmodaldisplay = 'none';
+    document.getElementsByTagName('body')[0].classList.remove('modal-open');
+    document.getElementsByTagName('html')[0].classList.remove('modal-open');
+  }
+
   closeModal() {
     this.display='none';
     document.getElementsByTagName('body')[0].classList.remove('modal-open');
   }
 
   fetchBlog(){
-    this.restApi.getMethod('getBlogs/multiple/3')
-      .subscribe((resp:any) => {
-        this.bloglist = resp.data;
-      });
+    this.restApi.getMethod('getBlogs/multiple/3').subscribe((resp:any) => {
+      if(resp.data.length > 0){
+        this.bloglist = resp.data[0];
+        this.restApi.getImgMethod('getBlogImg/'+this.bloglist.blog_id).subscribe((resp:any) => {
+          this.createImageFromBlob(resp);
+        });
+      }   
+    });
+  }
+
+  fetchGallery(){
+    this.restApi.getMethod('getGalleryImg/home').subscribe((resp:any) => {
+      this.galleryitems = resp.data;
+    });
+  }
+
+  createImageFromBlob(image: Blob) {
+    let reader = new FileReader();
+    reader.addEventListener("load", () => {
+       this.imageToShow = reader.result;
+    }, false);
+ 
+    if (image) {
+       reader.readAsDataURL(image);
+    }
   }
 }

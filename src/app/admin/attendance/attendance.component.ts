@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ApiService } from 'src/app/shared/app.service';
 import { Location } from '@angular/common';
+import * as CryptoJS from 'crypto-js';
 import jwt_decode from "jwt-decode";
 import { DndDropEvent } from 'ngx-drag-drop';
 import {CdkDragDrop, moveItemInArray, transferArrayItem} from '@angular/cdk/drag-drop';
@@ -14,13 +15,15 @@ import { newArray } from '@angular/compiler/src/util';
   styleUrls: ['./attendance.component.css']
 })
 export class AttendanceComponent implements OnInit {
-  tk:any = {};
+  tk:any = {}; encryptInfo : any;
   userlist:any = [];
-  members:any = [];
-  attendees:any; total:any;srslist;
+  members:any = []; mentor:any=[];
+  attendees:any; total:any;srslist; userModaldisplay='none';
 
-  @Input() attendancedetails = {srs_id:'',meeting_date:'',attendees:'',new_attendees:'',created_by:''}
+  @Input() attendancedetails = {topic_name:'',speaker_name:'',srs_id:'',meeting_date:'',attendees:'',new_attendees:0,created_by:'',total_members:0,presentees:0,absentees:0}
   @Input() attendeesdtls = {vals:[],row:''}
+  @Input() user = {mentee_first_name:'', mentee_last_name:'', mentee_email_id:'', mentor_email:'', srs_id:'', parent_id:''}
+  @Input() userdetails = {url:'',email:''}
   
   constructor(public restApi: ApiService, public router: Router) { }
 
@@ -28,6 +31,7 @@ export class AttendanceComponent implements OnInit {
     this.tk = jwt_decode(sessionStorage.getItem('user_token'));
     this.fetchSRSlist();
     this.fetchUser();
+    this.getMentorEmail();
   }
 
   fetchSRSlist() {
@@ -38,10 +42,11 @@ export class AttendanceComponent implements OnInit {
       });
   }
 
-  addAttendance() {   
+  addAttendance(event:any) {
+    event.preventDefault();
     this.attendancedetails.created_by = this.tk.user_id;
     this.restApi.postMethod('addAttendance',this.attendancedetails).subscribe((resp:any) => {
-      let arr = this.done;     
+      let arr = [...this.done,...this.todo];
       let a=[], b=[];
       for(var i=0;i<arr.length;i++){
         let newArray = [];
@@ -51,8 +56,6 @@ export class AttendanceComponent implements OnInit {
         newArray.push(resp.rowid);
         b.push(newArray);
       }
-      console.log(this.attendeesdtls.vals);
-
       this.attendeesdtls.vals = b;
       this.restApi.postMethod('addAttendees',this.attendeesdtls).subscribe((resp:any) => {
         alert(resp.message);
@@ -72,11 +75,12 @@ export class AttendanceComponent implements OnInit {
     } else {
       transferArrayItem(event.previousContainer.data, event.container.data, event.previousIndex, event.currentIndex);
     }
-    //if(type == 'attendees'){
+    this.todo = this.todo.map(v => ({...v, attendance_status: "A"}))
     this.total = this.todo.length;
+    this.done = this.done.map(v => ({...v, attendance_status: "P"}))
     this.attendees = this.done.length;
-    this.attendancedetails.attendees = String(this.done.length);
-    //}
+    this.attendancedetails.presentees = this.done.length;
+    this.attendancedetails.absentees = this.todo.length;
   }
 
   fetchUser() {
@@ -84,6 +88,52 @@ export class AttendanceComponent implements OnInit {
       this.todo = resp.data;
       this.total = resp.data.length;
       this.attendees = 0;
+      this.attendancedetails.total_members = resp.data.length;
+      this.attendancedetails.presentees = this.done.length;
+      this.attendancedetails.absentees = this.todo.length;
+    });
+  }
+
+  openModal(){
+    this.userModaldisplay='block';
+    document.getElementsByTagName('body')[0].classList.add('modal-open');
+    document.getElementsByTagName('html')[0].classList.add('modal-open');
+  }
+
+  closeModal() {
+    this.userModaldisplay='none';
+    document.getElementsByTagName('body')[0].classList.remove('modal-open');
+    document.getElementsByTagName('html')[0].classList.remove('modal-open');
+  }
+
+  mentorEmailDropdown(event){
+    this.user.mentor_email = event.target.options[event.target.options.selectedIndex].text;
+  }
+
+  getMentorEmail(){
+    this.restApi.getMethod('getMentors/'+this.tk.srs_id).subscribe((resp:any) => {
+      this.mentor = resp.data;
+    });
+  }
+
+  addUser(event:any){
+    event.preventDefault();
+    var obj = {
+      "first_name": this.user.mentee_first_name,
+      "last_name": this.user.mentee_last_name,
+      "email_id": this.user.mentee_email_id,
+      "mentor_email_id":  this.user.mentor_email,
+      "srs_id":  this.tk.srs_id,
+      "role_id": 10,
+      "parent_id": this.user.parent_id
+    }
+    this.encryptInfo = encodeURIComponent(CryptoJS.AES.encrypt(JSON.stringify(obj), 'secret key 123').toString());
+    this.userdetails.url = this.encryptInfo;
+    this.userdetails.email = this.user.mentee_email_id;
+
+    this.restApi.postMethod('sendUserLink',this.userdetails).subscribe((data:any) => {
+      this.userModaldisplay = 'none';
+      alert('Mail has been sent to the Mentee');
     });
   }
 }

@@ -1,23 +1,25 @@
 <div class="wrapper container">
     <div class="main">
         <main class="content">
-            <div class="container-fluid p-0">
+            <div class="container-fluid p-0 mb-4">
                 <h1 class="h3 mb-3">Profile</h1>
                 <div class="row">
                     <div class="col-md-4 col-xl-3">
                         <div class="card mb-3">                           
                             <div class="card-body text-center pt-3">
                                 <div class='user-img-div'>
-                                    <img src="assets/img/avatar-4.jpg" alt="Christina Mason" class="img-fluid rounded-circle mb-2" width="128" height="128" />
+                                    <img [src]='imageToShow' *ngIf='imageToShow' alt="Profile Image" class="img-fluid rounded-circle mb-2" width="128" height="128" />
+                                    <img src='../../../assets/img/avatar2.png' *ngIf='!imageToShow' alt="Profile Image" class="img-fluid rounded-circle mb-2" width="128" height="128" />
+                                    <input type="file" name='blog_image' class="form-control custom-file-input" id="blog-image" (change)='selectImage($event)' style='display:none;' />
                                     <div class='user-img-action-div' id='edit-icon'>
-                                        <img src='assets/img/edit.png' class='user-img-action' />
+                                        <img src='assets/img/edit.png' class='user-img-action' (click)='triggerClick()' />
                                     </div>
-                                    <div class='user-img-action-div' id='delete-icon'>
+                                    <!-- <div class='user-img-action-div' id='delete-icon'>
                                         <img src='assets/img/delete.png' class='user-img-action' />
-                                    </div>
+                                    </div> -->
                                 </div>
-                                <h4 class="card-title mb-1 mt-0">Christina Mason</h4>
-                                <div class="text-muted mb-2">Lead Developer</div>
+                                <h4 class="card-title mb-1 mt-0">{{userprofile.user_first_name}} {{userprofile.user_last_name}}</h4>
+                                <div class="text-muted mb-2">{{userprofile.role_name}}</div>
                             </div>                         
                         </div>
                     </div>
@@ -26,94 +28,134 @@
                             <div class="card-body h-100">
                                 <h5 class='mb-3 card-header p-4'>Profile Details</h5>
                                 <div class='row px-4'>
-                                    <div class='col-md-6'>
-                                        <div class='form-group'>
-                                            <label for='profile_first_name'>First name</label>
-                                            <input type='text' class='form-control' placeholder='First Name' id='profile_first_name' [value]='userprofile.data[0].user_first_name' />
+                                    <form  role="form" #f="ngForm" (ngSubmit)="f.form.valid">
+                                        <div class='col-md-6'>
+                                            <div class='form-group'>
+                                                <label for='user_first_name'>First name<span style="color: red;">*</span></label>
+                                                <input type='text' class='form-control' placeholder='First Name' name='user_first_name' id='user_first_name' [(ngModel)]="userprofile.user_first_name" #user_first_name='ngModel' [ngClass]="{'invalid-data': user_first_name.invalid && f.submitted, 'valid-data': user_first_name.valid && f.submitted}" required />
+                                                <div class="error_msg" *ngIf="f.submitted && user_first_name.invalid">
+                                                    <div *ngIf="user_first_name.errors.required">
+                                                        <small class="error_text"> First Name is required</small>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class='col-md-6'>
-                                        <div class='form-group'>
-                                            <label for='profile_last_name'>Last name</label>
-                                            <input type='text' class='form-control' placeholder='Last Name' id='profile_last_name' [value]='userprofile.data[0].user_last_name' />
+                                        <div class='col-md-6'>
+                                            <div class='form-group'>
+                                                <label for='user_last_name'>Last name<span style="color: red;">*</span></label>
+                                                <input type='text' class='form-control' placeholder='Last Name' id='user_last_name' name="user_last_name" [(ngModel)]="userprofile.user_last_name" #user_last_name='ngModel' [ngClass]="{'invalid-data': user_last_name.invalid && f.submitted, 'valid-data': user_last_name.valid && f.submitted}" required/>
+                                                <div class="error_msg" *ngIf="f.submitted && user_last_name.invalid">
+                                                    <div *ngIf="user_last_name.errors.required">
+                                                        <small class="error_text"> Last Name is required</small>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class='col-md-6'>
-                                        <div class='form-group'>
-                                            <label for='profile_email_id'>Email ID</label>
-                                            <input type='text' class='form-control' placeholder='Email ID' id='profile_email_id' [value]='userprofile.data[0].user_email_id' readonly />
+                                        <div class='col-md-6'>
+                                            <div class='form-group'>
+                                                <label for='user_email_id'>Email ID</label>
+                                                <input type='text' name="user_email_id" class='form-control' placeholder='Email ID' id='user_email_id' [(ngModel)]='userprofile.user_email_id' readonly />
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class='col-md-6'>
-                                        <div class='form-group'>
-                                            <label for='profile_contact_number'>Contact Number</label>
-                                            <input type='text' class='form-control' placeholder='Contact Number' id='profile_contact_number' [value]='userprofile.data[0].user_contact_number' />
+                                        <div class='col-md-6'>
+                                            <div class='form-group'>
+                                                <label for='user_contact_number'>Contact Number<span style="color: red;">*</span></label>
+                                                <input type='text' class='form-control' placeholder='Contact Number' name='user_contact_number' id='user_contact_number' [(ngModel)]="userprofile.user_contact_number" #user_contact_number='ngModel' [ngClass]="{'invalid-data': user_contact_number.invalid && f.submitted, 'valid-data': user_contact_number.valid && f.submitted}"required />
+                                                <div class="error_msg" *ngIf="f.submitted && user_contact_number.invalid">
+                                                    <div *ngIf="user_contact_number.errors.required">
+                                                        <small class="error_text"> Contact Number is required</small>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class='col-md-12'>
-                                        <div class='form-group'>
-                                            <label for='profile_address'>Address</label>
-                                            <textarea type='text' class='form-control' id='profile_address' placeholder='Address' rows='3' [value]='userprofile.data[0].user_address'></textarea>
+                                        <div class='col-md-12'>
+                                            <div class='form-group'>
+                                                <label for='user_address'>Address<span style="color: red;">*</span></label>
+                                                <textarea type='text' class='form-control'  name="user_address" id='user_address' placeholder='Address' rows='3' [(ngModel)]="userprofile.user_address" #user_address='ngModel' [ngClass]="{'invalid-data': user_address.invalid && f.submitted, 'valid-data': user_address.valid && f.submitted}"required></textarea>
+                                                <div class="error_msg" *ngIf="f.submitted && user_address.invalid">
+                                                    <div *ngIf="user_address.errors.required">
+                                                        <small class="error_text"> Address is required</small>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class='col-md-6'>
-                                        <div class='form-group'>
-                                            <label for='profile_pincode'>Pincode</label>
-                                            <input type='text' class='form-control' placeholder='Pincode' id='profile_pincode' [value]='userprofile.data[0].user_pincode' />
+                                        <div class='col-md-6'>
+                                            <div class='form-group'>
+                                                <label for='user_pincode'>Pincode<span style="color: red;">*</span></label>
+                                                <input type='text' class='form-control' placeholder='Pincode' id='user_pincode' name="user_pincode" [(ngModel)]="userprofile.user_pincode" #user_pincode='ngModel' [ngClass]="{'invalid-data': user_pincode.invalid && f.submitted, 'valid-data': user_pincode.valid && f.submitted}" required />
+                                                <div class="error_msg" *ngIf="f.submitted && user_pincode.invalid">
+                                                    <div *ngIf="user_pincode.errors.required">
+                                                        <small class="error_text"> Pincode is required</small>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class='col-md-6'>
-                                        <div class='form-group'>
-                                            <label for='profile_city'>City</label>
-                                            <input type='text' class='form-control' placeholder='City' id='profile_city' [value]='userprofile.data[0].user_city' />
+                                        <div class='col-md-6'>
+                                            <div class='form-group'>
+                                                <label for='user_city'>City<span style="color: red;">*</span></label>
+                                                <input type='text' class='form-control' placeholder='City' id='user_city' name="user_city" [(ngModel)]="userprofile.user_city" #user_city='ngModel' [ngClass]="{'invalid-data': user_city.invalid && f.submitted, 'valid-data': user_city.valid && f.submitted}" required />
+                                                <div class="error_msg" *ngIf="f.submitted && user_city.invalid">
+                                                    <div *ngIf="user_city.errors.required">
+                                                        <small class="error_text"> City is required</small>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class='col-md-6'>
-                                        <div class='form-group'>
-                                            <label for='profile_state'>State</label>
-                                            <input type='text' class='form-control' placeholder='State' id='profile_state' [value]='userprofile.data[0].user_state' />
+                                        <div class='col-md-6'>
+                                            <div class='form-group'>
+                                                <label for='user_state'>State<span style="color: red;">*</span></label>
+                                                <input type='text' class='form-control' placeholder='State' id='user_state' name="user_state" [(ngModel)]="userprofile.user_state" #user_state='ngModel' [ngClass]="{'invalid-data': user_state.invalid && f.submitted, 'valid-data': user_state.valid && f.submitted}" required />
+                                                <div class="error_msg" *ngIf="f.submitted && user_state.invalid">
+                                                    <div *ngIf="user_state.errors.required">
+                                                        <small class="error_text"> State is required</small>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class='col-md-6'>
-                                        <div class='form-group'>
-                                            <label for='profile_role'>Your Role</label>
-                                            <input type='text' class='form-control' placeholder='Your Role' id='profile_role' [value]='userprofile.data[0].role_name' readonly />
+                                        <div class='col-md-6'>
+                                            <div class='form-group'>
+                                                <label for='role_name'>Your Role</label>
+                                                <input type='text' class='form-control' placeholder='Your Role' id='role_name' name="role_name" [(ngModel)]='userprofile.role_name' readonly />
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class='col-md-12 mt-3'>
-                                        <div class='form-group clearfix'>
-                                            <button id='update_profile' class="btn btn-primary btn-block float-right" (click)='updateProfile();' style='width:max-content;'>Update Your Profile</button>
+                                        <div class='col-md-12 mt-3'>
+                                            <div class='form-group clearfix'>
+                                                <button id='update_profile' class="btn btn-primary btn-block float-right" (click)='updateProfile($event);' style='width:max-content;'>Update Your Profile</button>
+                                            </div>
                                         </div>
-                                    </div>
+                                    </form>
                                 </div>
 
                                 <hr class='mb-0' />
                                 <h5 class='mb-3 card-header p-4'>Change Password</h5>
                                 <div class='row px-4'>
-                                    <div class='col-md-6'>
-                                        <div class='form-group'>
-                                            <label for='profile_current_password'>Current Password</label>
-                                            <input type='text' class='form-control' placeholder='Enter your current Password' id='profile_current_password' />
+                                    <form  role="form" #g="ngForm" (ngSubmit)="g.form.valid">
+                                        <div class='col-md-6'>
+                                            <div class='form-group'>
+                                                <label for='profile_new_password'>New Password<span style="color: red;">*</span></label>
+                                                <input type='text' class='form-control' placeholder='Enter your new Password' id='profile_new_password' [(ngModel)]='reset.password' name="profile_new_password" ngModel #profile_new_password='ngModel' [ngClass]="{'invalid-data': profile_new_password.invalid && g.submitted, 'valid-data': profile_new_password.valid && g.submitted}" required />
+                                                <div class="error_msg"
+                                                *ngIf="profile_new_password.invalid && g.submitted">
+                                                    <small class="error_text"> Current Password is required</small>
+                                                </div>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class='col-md-6'>
-                                        <div class='form-group'>
-                                            <label for='profile_new_password'>New Password</label>
-                                            <input type='text' class='form-control' placeholder='Enter your new Password' id='profile_new_password' />
+                                        <div class='col-md-6'>
+                                            <div class='form-group'>
+                                                <label for='profile_confirm_password'>Confirm New Password<span style="color: red;">*</span></label>
+                                                <input type='text' class='form-control' placeholder='Confirm your new Password' id='profile_confirm_password' [(ngModel)]='reset.confirmpassword' name="profile_confirm_password" ngModel #profile_confirm_password='ngModel' [ngClass]="{'invalid-data': profile_confirm_password.invalid && g.submitted, 'valid-data': profile_confirm_password.valid && g.submitted}" required/>
+                                                <div class="error_msg"
+                                                *ngIf="profile_confirm_password.invalid && g.submitted">
+                                                    <small class="error_text"> Current Password is required</small>
+                                                </div>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class='col-md-6'>
-                                        <div class='form-group'>
-                                            <label for='profile_confirm_password'>Confirm New Password</label>
-                                            <input type='text' class='form-control' placeholder='Confirm your new Password' id='profile_confirm_password' />
+                                        <div class='col-md-6'>
+                                            <div class='form-group'>
+                                                <button id='reset_password' class="btn btn-primary btn-block" style='width:max-content;' (click)='resetPassword($event)'>Reset Password</button>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class='col-md-6'>
-                                        <div class='form-group'>
-                                            <label for='reset_password'> &nbsp; </label>
-                                            <a href="#" id='reset_password' class="btn btn-primary btn-block" style='width:max-content;'>Reset Password</a>
-                                        </div>
-                                    </div>
+                                    </form>
                                 </div>
                             </div>
                         </div>

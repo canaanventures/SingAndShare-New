@@ -1,0 +1,86 @@
+<div class='container-fluid report-container'>
+    <div class="card-body h-100">
+        <div class='row'>
+            <div class='col-md-12 p-0 mt-3'>
+                <h4 id='report_chart_msg' class='col-md-2'> LMS Class </h4>
+                <div class='form-group col-md-2'>
+                    <label for='from_date'>From Date</label>
+                    <input type='datetime-local' id='from_date' class='form-control' [(ngModel)]='filter.from_date' placeholder='From Date' (change)='fromDateChange();' />
+                </div>
+                <div class='form-group col-md-2'>
+                    <label for='to_date'>To Date</label>
+                    <input type='datetime-local' id='to_date' class='form-control' [(ngModel)]='filter.to_date' placeholder='To Date' />
+                </div>
+                <div class='form-group col-md-2'>
+                    <label for='status'>Class Status</label>
+                    <select class='form-control' id='status' [(ngModel)]='filter.class_status'>
+                        <option value=''>Select Class Status</option>
+                        <option value='complete'>Completed</option>
+                        <option value='progress'>In Progress</option>
+                    </select>
+                </div>
+                <div class='form-group col-md-2'>
+                    <label for='test' class='w-100'> &nbsp; </label>
+                    <button class='btn btn-primary' id='btn_datefilter' (click)='filterDate();'>Filter</button>
+                    <button class='btn bg-orange' id='btn_resetfilter' (click)='reset();'>Reset</button>
+                </div>  
+                <div class='form-group col-md-2'>
+                    <label for='download_excel' class='w-100'> &nbsp; </label>
+                    <span id='download_excel' class='float-right' (click)="exportData()"><i class="fa fa-file-excel-o" aria-hidden="true"></i></span>
+                </div>                   
+            </div>
+        </div>
+        <div class='row' *ngIf='originalfilter.length == 0'>
+            <div class='col-md-12 p-0'>
+                <h3 class='chart_msg'>No Data to be displayed</h3>
+            </div>
+        </div>
+        <div class='row' *ngIf='originalfilter.length > 0'>
+            <table class='table-bordered table' id="mentee-excel-table">
+                <thead>
+                    <tr>
+                        <th>Course Name</th>
+                        <th>Class Name</th> 
+                        <th>Category Name</th>  
+                        <th>Instructor Name</th> 
+                        <th>Start Date</th>
+                        <th>End Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <input type='text' class='form-control filter-fld' id='course_name' [(ngModel)]='filter.course_name' (keyup)="filterList($event,'course_name')" placeholder='Course Name' />
+                        </td>
+                        <td>
+                            <input type='text' class='form-control filter-fld' id='class_name' [(ngModel)]='filter.class_name' (keyup)="filterList($event,'class_name')" placeholder='Class Name' />
+                        </td>
+                        <td>
+                            <input type='text' id='category_name' class='form-control filter-fld' [(ngModel)]='filter.category_name' (keyup)="filterList($event,'category_name')" placeholder='Category Name' />
+                        </td>
+                        <td>
+                            <input type='text' id='instructor_name' class='form-control filter-fld' [(ngModel)]='filter.instructor_name' placeholder='Instructor Name' (keyup)="filterList($event,'instructor_name')" />
+                        </td>
+                        <td> </td>
+                        <td> </td>
+                    </tr>
+
+                    <tr *ngIf='lmsclass.length == 0 && originalfilter.length > 0'>
+                        <td colspan='6'>
+                            <h3 class='chart_msg'>No Matches Found</h3>
+                        </td>
+                    </tr>
+
+                    <tr *ngFor="let list of lmsclass"> 
+                        <td>{{ list.course_name }}</td>
+                        <td>{{ list.class_name }}</td>
+                        <td>{{ list.category_name }}</td>
+                        <td>{{ list.instructor_name }}</td>
+                        <td>{{ list.start_date | date:'dd-MM-yyyy hh:mm' }}</td>
+                        <td>{{ list.end_date | date:'dd-MM-yyyy hh:mm' }}</td>
+                    </tr> 
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

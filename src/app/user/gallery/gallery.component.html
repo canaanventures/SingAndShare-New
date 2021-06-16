@@ -1,0 +1,29 @@
+<div class="super_container">
+    <div class="blog">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <div class="welcome_title">Gallery</div>
+                </div>
+            </div>
+        
+            <div class="row blog_row">
+                <div class="col-lg-6" *ngFor = 'let list of gallerylist'>
+                    <div class="blog_post">
+                        <div class="blog_image">
+                            <img [src]='list.image_url' class='w-100 h-100' />
+                            <div class="blog_title_container">
+                                <div class="blog_post_category"><a style='text-transform:uppercase;'>Event was on {{list.event_start_date | date:'dd/MM/yyyy'}}</a></div>
+                                <div class="blog_post_title"><a>{{list.event_name}}</a></div>
+                                <div class="blog_post_text">
+                                    <p [innerHTML]='list.description'> </p>
+                                </div>
+                                <div class="read_more"><a href="/gallery/{{list.event_id}}">Read More <img src="../../../assets/img/right-arrow.png" alt=""></a></div>
+                            </div>
+                        </div>
+                    </div> 
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

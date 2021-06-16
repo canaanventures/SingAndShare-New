@@ -1,11 +1,9 @@
 <div class="super_container">
     <div class="blog_top_image">
         <div class="blog_top">
-            <div class="blog_background parallax-window" data-parallax="scroll" style="background-image:url(../../../assets/img/blog-all.jpg);background-repeat: no-repeat;
-            background-position: center;background-size: cover;" data-speed="0.8"></div>
+            <div class="blog_background parallax-window" data-parallax="scroll" [style.backgroundImage]="'url('+ imageToShow +')'" data-speed="0.8"></div>
         </div>
     </div>
-
     <div class="blog_container">
         <div class="container">
             <div class="row blog_content_row">
@@ -14,9 +12,17 @@
                         <div class="blog_post_title_container">
                             <div class="blog_category"><a href="#">{{blog.category_name}}</a></div>
                             <div class="blog_title">{{blog.title}}</div>
+                            <share-buttons 
+                                [include]="['facebook','linkedin','messenger','whatsapp','email']"
+                                [url]= fburl
+                                [image] = imageToShow 
+                                [title] = blog.title 
+                                [autoSetMeta]="false"
+                            ></share-buttons>
+                            <!-- [theme]="'material-dark'" --> <!-- [show]="9" [size]="1" -->
                         </div>
                         <div class="blog_text">
-                            <p>{{blog.description}}</p>
+                            <p [innerHTML]='blog.description'></p>
                         </div>
                         <div class="blog_post_footer d-flex flex-lg-row flex-column align-items-lg-center align-items-start justify-content-start">
                             <div class="blog_post_author d-flex flex-row align-items-center justify-content-start">

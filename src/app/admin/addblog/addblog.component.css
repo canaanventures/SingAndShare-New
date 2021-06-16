@@ -18,3 +18,6 @@
 .fa-thumbs-o-up{margin-right:15px;color:#1edaa9;}
 .fa-thumbs-o-down{color:#de5d47;}
 #commentApprovalModal #comment_date{margin-right:10px;}
+.angular-editor-toolbar{font-size:14px!important;padding:.2rem;}
+.angular-editor-toolbar button{margin:10px!important;padding:5px;border-radius:5px;}
+#addPostModal .modal-lg{max-width: 90%;width: 90%;}

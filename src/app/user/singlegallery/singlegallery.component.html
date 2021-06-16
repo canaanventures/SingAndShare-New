@@ -1,0 +1,35 @@
+<style>
+    .blog_top{margin-top:75px;}
+</style>
+
+<div class="super_container">
+    <div class="blog_top_image">
+        <div class="blog_top">
+            <swiper effect="coverflow" [config]="config">          
+                <ng-template swiperSlide *ngFor="let slide of gallery">
+                    <div class='swiper-img-div'>
+                        <img [src]='slide.image_url' class='w-100 h-100' />
+                        <div class='home-bg-green'></div>
+                    </div>
+                </ng-template>
+            </swiper>
+        </div>
+    </div>
+    <div class="blog_container">
+        <div class="container">
+            <div class="row blog_content_row">
+                <div class="col">
+                    <div class="blog_content">
+                        <div class="blog_post_title_container">
+                            <div class="blog_title"><a href="#">{{gallery[0].event_name}}</a></div>
+                            <div class="blog_category">Event was held on {{gallery[0].event_start_date | date:'dd MMMM, yyyy'}}</div>
+                        </div>
+                        <div class="blog_text">
+                            <p [innerHTML]='gallery[0].description'></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -61,27 +61,36 @@
                     <span class='close modal-close' (click)='closeModal()' data-dismiss="modal">&times;</span>
                 </h5>
                 <div class='row px-4'>
-                    <div class='col-md-12'>
-                        <div class='form-group'>
-                            <label for='srs_name'>SNS Name</label>
-                            <input type='text' placeholder='Name' class='form-control' id='srs_name' [(ngModel)]='srs.srs_name' />
+                    <form  role="form" #f="ngForm" (ngSubmit)="f.form.valid">
+                        <div class='col-md-12'>
+                            <div class='form-group'>
+                                <label for='srs_name'>SNS Name</label>
+                                <input type='text' placeholder='Name' class='form-control' id='srs_name' [(ngModel)]='srs.srs_name' name="srs_name"
+                                #srs_name= 'ngModel' [ngClass]="{'invalid-data': srs_name.invalid && f.submitted, 'valid-data': srs_name.valid && f.submitted}"  required />
+                                <div class="error_msg"
+                                *ngIf="f.submitted && srs_name.invalid">
+                                    <div *ngIf="srs_name.errors.required">
+                                        <small class="error_text" >SNS Name is required </small>                                        
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                    <div class='col-md-12'>
-                        <div class='form-group'>
-                            <label for='mentee_email_id'>Captain name</label> 
-                            <select id='captain_name' class='form-control' [(ngModel)]="srs.user_id">
-                                <option value=''>Select the Captain Name</option>
-                                <option value='{{list.user_id}}' *ngFor='let list of caplist'>{{list.user_first_name}} {{list.user_last_name}}</option>
-                            </select>
+                        <div class='col-md-12'>
+                            <div class='form-group'>
+                                <label for='mentee_email_id'>Captain name</label> 
+                                <select id='captain_name' class='form-control' name="user_id" [(ngModel)]="srs.user_id"  #user_id='ngModel'>
+                                    <option value=''>Select the Captain Name</option>
+                                    <option value='{{list.user_id}}' *ngFor='let list of caplist'>{{list.user_first_name}} {{list.user_last_name}}</option>
+                                </select>
+                            </div>
                         </div>
-                    </div>
-                    <div class='col-md-6'>
-                        <div class='form-group'>            
-                            <button id='submit_btn' *ngIf='!edit' class='btn btn-primary' (click)='addBranch()'>Submit</button>
-                            <button id='update_btn' *ngIf='edit' class='btn btn-primary' (click)='updateBranch()'>Update</button>
+                        <div class='col-md-6'>
+                            <div class='form-group'>            
+                                <button id='submit_btn' *ngIf='!edit' class='btn btn-primary' (click)='addBranch($event)'>Submit</button>
+                                <button id='update_btn' *ngIf='edit' class='btn btn-primary' (click)='updateBranch($event)'>Update</button>
+                            </div>
                         </div>
-                    </div>
+                    </form>
                 </div>
             </div>
         </div> 

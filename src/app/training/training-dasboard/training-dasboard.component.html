@@ -1,0 +1,73 @@
+<img src='../../../assets/img/mentees-banner.jpg' class='mt-5 w-100 h-100' *ngIf="displayTable" />
+<div class="wrapper container mb-5">
+    <div class="main">
+        <main class="content">
+            <div class="row">
+                <div class="col-md-12 p-0" *ngIf="displayTable">
+                    <div *ngIf='courselist.length > 0'>
+                        <h3 class='mb-3 p-4 font-weight-bold'>Upcoming Course</h3>                   
+                        <div class='col-md-4' *ngFor='let list of courselist'>
+                            <div class='course-card clearfix'>
+                                <div class='course-img' style="background-image:url('../../../assets/img/no-img-found-small.png');float:left;"> </div>
+                                <div class='course-dtls' style='float:left;'>
+                                    <h6 class='course-name'>{{list.course_name}}</h6>
+                                    <p>{{list.course_description}}</p>
+                                    <div class='course-action'>
+                                        <label class='label label-primary' (click)='openCourseDtls(list.course_id)'>
+                                            <i class="fa fa-eye" aria-hidden="true"></i>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>  
+                    </div>                                       
+                </div>
+                <div class="col-md-12 p-0" *ngIf="displayTable" style='margin-top:30px;'>
+                    <div *ngIf='ongoinglist.length > 0'>
+                        <h3 class='mb-3 p-4 font-weight-bold'>Ongoing Course</h3>                   
+                        <div class='col-md-4' *ngFor='let list of ongoinglist'>
+                            <div class='course-card clearfix'>
+                                <div class='course-img' style="background-image:url('../../../assets/img/no-img-found-small.png');float:left;"> </div>
+                                <div class='course-dtls' style='float:left;'>
+                                    <h6 class='course-name'>{{list.course_name}}</h6>
+                                    <p>{{list.course_description}}</p>
+                                    <div class='course-action'>
+                                        <label class='label label-primary' (click)='openCourseDtls(list.course_id)'>
+                                            <i class="fa fa-eye" aria-hidden="true"></i>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12 p-0" *ngIf="displayMenteeModal" style='margin-top:100px;'>
+                    <div class='btn-div clearfix'>
+                        <button class='btn btn-primary float-right' (click)='closeMenteeDiv()'>Back to the List</button>
+                    </div>
+                    <p style='margin-top:25px;'>{{details[0].course_description}}</p>
+                    <div class='class-container' *ngFor='let dtls of details'>
+                        <h5 class='class-nme-div' (click)='toggleClass(dtls.class_id)'> 
+                            <span>{{dtls.class_name}}</span>
+                            <label class='label label-default mr-10' [ngClass]="dtls.document_url ? 'active' : 'inactive'" (click)='downloadPDF(dtls.class_id,dtls.document_url)'>
+                                <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
+                            </label>
+                            <label class='label label-success' [ngClass]="dtls.connection_link ? 'active' : 'inactive'" (click)='openLink(dtls.connection_link)' >
+                                <i class="fa fa-link" aria-hidden="true"></i>
+                            </label>
+                        </h5>
+                        <div class='class-div-hide' id='row_{{dtls.class_id}}'>
+                            <p class='class-desc'>{{dtls.description}}</p>
+                            <!-- <h3>Lessons</h3> -->
+                            <div class='lesson-dtls' *ngFor='let lessondtls of lesson'>
+                                <h6>{{lessondtls.lesson_name}}</h6>
+                                <p>{{lessondtls.lesson_description}}</p>
+                            </div>
+                        </div>
+                    </div>  
+                </div>
+            </div>
+        </main>
+    </div>
+</div>
+

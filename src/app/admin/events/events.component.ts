@@ -16,11 +16,11 @@ export class EventsComponent implements OnInit {
   public resp:any;
   public eventtypelist :any = [];
   public eventstatus :any = [];
-  display='none'; typedisplay='none';
-  public eventlist:any = [];
+  display='none'; typedisplay='none'; gallerydisplay='none';
+  public eventlist:any = []; public pasteventlist:any = [];
   public imgurl = url.imgurl;
   edit = false; startDate; endDate;
-  tk:any = {};
+  tk:any = {}; storedFiles:any = []; images:any=[]; galleryid; mainimages; eventimages;
 
   @Input() registeruser = {contact_sal:'',contact_first_name:'', contact_last_name:'', contact_email_id:'', contact_number:'',contact_state:'',contact_city:'',contact_address:'',contact_referrer:'',event_id:''};
   @Input() eventtype = {event_type:'',created_by_user_id:''}
@@ -33,17 +33,54 @@ export class EventsComponent implements OnInit {
     this.getEventType();
     this.getEventStatus();
     this.getEvents();
+    this.getPastEvents();
+  }
+
+  eventsTab(id){
+    var el = Array.from(document.getElementsByClassName('tab-pane') as HTMLCollectionOf<HTMLElement>);
+    var tab_el = Array.from(document.getElementsByClassName('event-tab') as HTMLCollectionOf<HTMLElement>);
+    for(var i=0;i<el.length;i++){
+      el[i].style.display = 'none';
+      el[i].classList.remove('active');
+      el[i].classList.remove('in');
+    }
+    for(var i=0;i<tab_el.length;i++){
+      tab_el[i].classList.remove('active');
+    }
+    document.getElementById(id).style.display = 'block';
+    document.getElementById(id).classList.add('active');
+    document.getElementById(id).classList.add('in');
+    document.getElementById(id+'_tab').classList.add('active');
   }
 
   addEvent(event:any){
-    event.preventDefault();    
+    event.preventDefault();
     this.edit = false;
+    event.preventDefault();
+    if(this.eventimages != ''){
+      const formData = new FormData();
+      formData.append('image', this.eventimages);
+      let nme = this.addevent.event_name.split(' ').join('_');
+      let dte = (<HTMLInputElement>document.getElementById('event_start_date')).value;
+      dte = dte.replace(/-/g, '_').replace(/:/g, '_');
+      this.restApi.postImgMethod('addEventImg/'+dte+'/'+nme,formData).subscribe((data:any) => {
+        this.addevent.imgurl = data.filepath;
+        this.addEventData();
+      })
+    }else{
+      this.addevent.imgurl = '';
+      this.addEventData();
+    }
+  }
+
+  addEventData(){
     this.addevent.created_by_user_id = this.tk.user_id;
     this.restApi.postMethod('addEvent',this.addevent).subscribe((resp:any) => {
       this.resp = resp.data;
       this.getEvents();
       this.closeModal();
-      alert(this.resp.message);
+      alert(resp.message);
+      this.eventimages = '';
     })
   }
 
@@ -68,19 +105,35 @@ export class EventsComponent implements OnInit {
   }
 
   updateEvent(event:any){
-    event.preventDefault();    
-    this.addevent.modified_user_id = this.tk.user_id;
-    this.addevent.event_start_date = this.changeDateFormat((<HTMLInputElement>document.getElementById('event_start_date')).value);
-    this.addevent.event_end_date = this.changeDateFormat((<HTMLInputElement>document.getElementById('event_end_date')).value);
-
-    this.restApi.postMethod('editEvent',this.addevent).subscribe((resp:any) => {
-      this.resp = resp.data;
-      this.getEvents();
-      this.closeModal();
-      alert(this.resp.message);
-    })
+    event.preventDefault();
+    if(this.eventimages != ''){
+      const formData = new FormData();
+      formData.append('image', this.eventimages);
+      let nme = this.addevent.event_name.split(' ').join('_');
+      let dte = (<HTMLInputElement>document.getElementById('event_start_date')).value;
+      dte = dte.replace(/-/g, '_').replace(/:/g, '_');
+      this.restApi.postImgMethod('addEventImg/'+dte+'/'+nme,formData).subscribe((data:any) => {
+        this.addevent.imgurl = data.filepath;
+        this.updateEventData();
+      })
+    }else{
+      this.addevent.imgurl = '';
+      this.updateEventData();
+    }
   }
   
+  updateEventData(){
+    this.addevent.modified_user_id = this.tk.user_id;
+    this.addevent.event_start_date = this.changeDateFormat((<HTMLInputElement>document.getElementById('event_start_date')).value);
+    this.addevent.event_end_date = this.changeDateFormat((<HTMLInputElement>document.getElementById('event_end_date')).value);   
+    this.restApi.postMethod('editEvent',this.addevent).subscribe((resp:any) => {
+      this.getEvents();
+      this.closeModal();
+      alert(resp.message);
+      this.addevent.imgurl = '';
+    })
+  }
+
   editEvent(id:any){
     this.edit = true;
     this.addevent.event_id = id;
@@ -125,10 +178,15 @@ export class EventsComponent implements OnInit {
   }
 
   getEvents() {
-    this.restApi.getMethod('getEvents/all')
-      .subscribe((resp) => {
-        this.eventlist = resp;
-      })
+    this.restApi.getMethod('getEvents/all').subscribe((resp) => {
+      this.eventlist = resp;
+    })
+  }
+
+  getPastEvents() {
+    this.restApi.getMethod('pastEvents').subscribe((resp:any) => {
+      this.pasteventlist = resp.data;
+    })
   }
 
   getEventStatus() {
@@ -168,6 +226,98 @@ export class EventsComponent implements OnInit {
       this.getEventType();
       this.closeModal();
       alert(resp.data[0].message);
+    })
+  }
+
+  openGallery(id){
+    this.gallerydisplay = 'block';
+    this.galleryid = id;
+  }
+
+  handleFileSelect(e){
+    if(e.target.files.length > 0){
+      var files = e.target.files, filesArr = Array.prototype.slice.call(files), html;
+      for (var i = 0; i < e.target.files.length; i++) { 
+        this.images.push(e.target.files[i]);
+      }
+      filesArr.forEach(function(f) {
+        var reader = new FileReader();
+        var node = document.getElementById('preview_gallery_img');
+        reader.onload = function(e) {
+          html = "<div class='preview-img-div' style='width:150px;height:150px;margin:10px 0;position:relative;'><img src=\"" + e.target.result + "\" data-file='" + f.name + "' class='selFile w-100 h-100' title='Click to remove'> </div>"; 
+          var txt3 = document.getElementById("dummyelem");
+          txt3.innerHTML = html;
+          node.appendChild(txt3.firstChild);
+        }
+        reader.readAsDataURL(f);
+      });
+    }
+  }
+  // <i class='fa fa-times cancel-img' aria-hidden='true' (click)='removeFile($event)' style='position: absolute;top:-5px;right:5px;'></i>
+
+  removeFile(e) {
+    debugger;
+    //var file = $(this).data("file");
+    for (var i = 0; i < this.storedFiles.length; i++) {
+      if (this.storedFiles[i].name) { // === file
+        this.storedFiles.splice(i, 1);
+        break;
+      }
+    }
+    debugger;
+    //$(this).parent().remove();
+  }
+
+  closegalModal(){
+    this.gallerydisplay = 'none';
+  }
+
+  selectMainImage(e){
+    if(e.target.files.length > 0){
+      var files = e.target.files;
+      var filesArr = Array.prototype.slice.call(files);
+      var html;
+      this.mainimages = e.target.files[0];
+      filesArr.forEach(function(f) {
+        var reader = new FileReader();
+        var node = document.getElementById('preview_main_img');
+        reader.onload = function(e) {
+          html = "<div class='preview-main-img-div' style='width:150px;height:150px;position:relative;'><img src=\"" + e.target.result + "\" data-file='" + f.name + "' class='selFile w-100 h-100' title='Click to remove'> </div>"; 
+          var txt3 = document.getElementById("dummymainelem");
+          txt3.innerHTML = html;
+          node.appendChild(txt3.firstChild);
+        }
+        reader.readAsDataURL(f);
+      });
+    }
+  }
+
+  selectImage(event){
+    if(event.target.files.length > 0){
+      const file = event.target.files[0];
+      this.eventimages = file;
+    }
+  }
+
+  addGallery(event:any){
+    event.preventDefault();
+    const formData = new FormData();
+    for (var i = 0; i < this.images.length; i++) { 
+      formData.append("image", this.images[i]);
+    }
+    this.restApi.postImgMethod('addGalleryImg/'+this.galleryid,formData).subscribe((resp:any) => {
+      const formData = new FormData();
+      formData.append("image", this.mainimages);
+      this.restApi.postImgMethod('addGalleryMainImg/'+this.galleryid,formData).subscribe((resp:any) => {
+        this.closegalModal();
+        alert(resp.message);
+      });
+    })
+  }
+
+  deleteGallery(id){
+    this.restApi.getMethod('deleteGalleryImg/'+id).subscribe((resp:any) => {
+      alert(resp.message);
     })
   }
 }
