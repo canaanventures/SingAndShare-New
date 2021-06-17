@@ -20,11 +20,12 @@ header{padding-top: 10px;}
 @media (max-width: 767px){
     #header #logo img {max-height: 75px;}
     #navbar{position:relative;}
-    #navbar ul{position: absolute;right: 0;top: 100%;background-color: #fff;width: 200px;}
+    #navbar ul{position: absolute;right: 0;top: 100%;background: linear-gradient( 45deg,#1de099,#1dc8cd);width: 200px;}
     #navbar ul li a{color:#616161;font-weight:500;font-size:13px;}
     .navbar > ul > li{padding:15px;}
     #header-user-icon{margin-right: 20px;}
 }
 
-.modal-title{font-family: "Sofia", cursive;}
+.modal-title{font-family: CMGSans-MediumItalic !important;}
 .modal-title img {display: block;margin: auto;}
+.welcome b, .fpwd b{font-family: CMGSans-MediumItalic !important;}

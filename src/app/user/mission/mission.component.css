@@ -1,8 +1,16 @@
 main img{width:100%;}
-main .col-md-6,main .col-lg-6{padding:15px;}
-#team {padding: 20px 0;overflow: hidden;}
+main .col-md-6,main .col-lg-6{padding:1px;}
+#team {padding: 0px 0;overflow: hidden;}
 main{margin-bottom:20px;}
 #purpose .about-img {padding:0;}
 #purpose, #features{padding:0;}
 #features .content{padding:0}
 #features h2{margin-top:20px;}
+
+.purpose, .whoweare, .whatwedo {font-family: "CMGSans-Bold"; color: black !important; font-style: normal !important;}
+
+.whoweare{ margin-top: 20px;}
+
+.col-lg-6 .whoweare img{height: 73vh !important;}
+
+ .purpose a{color: black} 

@@ -15,7 +15,7 @@ export class PcsComponent implements OnInit {
   tk:any = {}; checklist:any = []; viewdata:any; displayform ='block'; displayDtls = 'none'; edit=false;
   public option_str:any;
 
-  totalRecords:Number = 1; page: Number = 1;
+  totalRecords:Number = 1; p: Number = 1; pageIndexes:any =[]; paginatecnt:Number;
 
   @Input() pcs = {pcs_id:'',name_of_user:'',relation_with_user:'',city:'',state:'',current_status:'',user_id:'',status:'',pcs_description:''}
 
@@ -23,8 +23,8 @@ export class PcsComponent implements OnInit {
 
   ngOnInit(): void {
     this.tk = jwt_decode(sessionStorage.getItem('user_token'));
-    this.getPCS('all','load');
-    //this.changePagination(1);
+    //this.getPCS('all','load');
+    this.changePagination('load');
   }
 
   addPCS(f:NgForm){
@@ -33,10 +33,17 @@ export class PcsComponent implements OnInit {
     this.pcs.user_id = this.tk.user_id;
     this.pcs.status = 'Y';
     this.restApi.postMethod('addPCS',this.pcs).subscribe((resp:any) => {
+<<<<<<< HEAD
       this.getPCS('all','add');
       //f.resetForm();
      this.resetForm();
      alert(JSON.stringify(resp.message));
+=======
+      //this.getPCS('all','add');
+      this.changePagination(this.paginatecnt);
+      this.resetForm();
+      alert(resp.message);
+>>>>>>> 9524e35278c47ef79c81f3815ab6a06ad05b3359
     })
   }
 
@@ -65,7 +72,8 @@ export class PcsComponent implements OnInit {
     (event.target.checked) ? this.pcs.status = "Y" : this.pcs.status = "N";
     this.pcs.pcs_id = id;
     this.restApi.postMethod('changeStatusOfPCS',this.pcs).subscribe((resp:any) => {
-      this.getPCS('all','status');
+      //this.getPCS('all','status');
+      this.changePagination(this.paginatecnt);
       alert(resp.message);
     })
   }
@@ -79,8 +87,13 @@ export class PcsComponent implements OnInit {
     event.preventDefault();
     this.pcs.pcs_id = this.pcs.pcs_id;
     this.restApi.postMethod('upDatePCS',this.pcs).subscribe((resp:any) => {
+<<<<<<< HEAD
       this.getPCS('all','update');
       //f.resetForm()
+=======
+      //this.getPCS('all','update');
+      this.changePagination(this.paginatecnt);
+>>>>>>> 9524e35278c47ef79c81f3815ab6a06ad05b3359
       this.resetForm();
       this.edit = false;
      alert(resp.message);
@@ -109,10 +122,42 @@ export class PcsComponent implements OnInit {
     }
   }
 
-  changePagination(cnt){
+  changePagination(event){
+    let cnt;
+    if(event == 'load'){cnt = 1;}else{cnt=event}
     this.restApi.getMethod('getPaginatedPCS/'+this.tk.user_id+'/'+cnt).subscribe((resp:any) => {
-      this.checklist = resp.data;
-      this.print_state();
-    })
+      this.checklist = resp.data.data;
+      if(event == 'load'){
+        this.print_state();
+        let total = resp.data.total[0].total, num = total/10, arr = [];
+        for(var i=0;i<num;i++){
+          arr.push(i+1);
+        }
+        this.pageIndexes = arr; this.paginatecnt = 1;
+      }else{
+        this.paginatecnt = event;
+      }
+      setTimeout(function(){
+        let elem = document.getElementsByClassName('page-link');
+        for(var i=0;i<elem.length;i++){
+          elem[i].classList.remove('active-pagination');
+        }
+        document.getElementById('pagination_'+cnt).classList.add('active-pagination');
+      },10)
+    });
+  }
+
+  nextClick(){
+    let num = Number(this.paginatecnt);
+    if(num < this.pageIndexes.length){
+      this.changePagination(num+1);
+    }
+  }
+
+  previousClick(){
+    let num = Number(this.paginatecnt);
+    if(num > 1){
+      this.changePagination(num-1);
+    }
   }
 }

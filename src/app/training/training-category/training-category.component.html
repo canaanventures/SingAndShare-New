@@ -72,7 +72,7 @@
                                             <h4 style='text-align: center;margin-top: 15px;color: #630460;'>No Data to be displayed</h4>
                                         </td>
                                     </tr>
-                                    <tr *ngFor='let list of catlist'>                                               
+                                    <tr *ngFor='let list of catlist | paginate: {itemsPerPage:10, currentPage: p}'>                                               
                                         <td>{{list.category_name}}</td>
                                         <td>
                                             <span [ngClass] = "list.category_status == 'Y' ? 'label label-success' : 'label label-danger'">
@@ -93,6 +93,13 @@
                                     </tr>
                                 </tbody>
                             </table>
+                            <ul class="pagination float-right">
+                                <li class="page-item"><a (click)="previousClick()" class="page-link">Previous</a></li>
+                                <li *ngFor='let index of pageIndexes' class="page-item">
+                                    <a (click)="changePagination(index)" id='pagination_{{index}}' class="page-link"> {{index}} </a>
+                                </li>
+                                <li class="page-item"><a (click)="nextClick()" class="page-link">Next</a></li>
+                            </ul>
                         </div>
                     </div>
                 </div>

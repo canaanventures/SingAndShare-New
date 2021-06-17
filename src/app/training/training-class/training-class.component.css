@@ -39,3 +39,8 @@ tr.table-hidden-row td .user-class-list{padding:10px;font-size:15px;background-c
 .card-child p:first-child{color: #630460;font-weight: 600;}
 .all-switch .form-check-input{margin-top:0;cursor:pointer;}
 .all-status,.all-switch{float:left;display:block;width:max-content;margin-top: 1px;margin-right: 10px;}
+
+.page-all-link{cursor:pointer;color:#777!important;font-weight:600;font-size:12px;border:1px solid #e0e0e0;}
+.page-all-link:hover{color:#777!important;font-weight:600;border:1px solid #e0e0e0;}
+.active-all-pagination{background:#630460!important;color:#fff!important;border:1px solid #630460!important;}
+.active-all-pagination:hover{color:#fff;font-weight:600;border: 1px solid #630460;}

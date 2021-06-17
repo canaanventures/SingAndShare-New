@@ -88,7 +88,7 @@
                                             <h4 style='text-align: center;margin-top: 15px;color: #630460;'>No Data to be displayed</h4>
                                         </td>
                                     </tr>
-                                    <tr *ngFor='let list of courselist'>                                               
+                                    <tr *ngFor='let list of courselist | paginate: {itemsPerPage:10, currentPage: p}'>                                               
                                         <td>{{list.category_name}}</td>
                                         <td>{{list.course_name}}</td>
                                         <td>
@@ -99,17 +99,24 @@
                                         </td>
                                         <td>
                                             <div class='action-img-div'>
-                                                <img src='assets/img/edit.png' class='action-img' (click)='editCourse(list.row_id);' />
+                                                <img src='assets/img/edit.png' class='action-img' (click)='editCourse(list.course_id);' />
                                             </div>
                                             <div class='action-img-div switch'>
                                                 <div class="form-check form-switch">
-                                                    <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" [attr.checked]="list.course_status == 'Y' ? true : null" (change)='changeStatus($event,list.row_id)' />
+                                                    <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" [attr.checked]="list.course_status == 'Y' ? true : null" (change)='changeStatus($event,list.course_id)' />
                                                 </div>
                                             </div>
                                         </td>
                                     </tr>
                                 </tbody>
                             </table>
+                            <ul class="pagination float-right">
+                                <li class="page-item"><a (click)="previousClick()" class="page-link">Previous</a></li>
+                                <li *ngFor='let index of pageIndexes' class="page-item">
+                                    <a (click)="changePagination(index)" id='pagination_{{index}}' class="page-link"> {{index}} </a>
+                                </li>
+                                <li class="page-item"><a (click)="nextClick()" class="page-link">Next</a></li>
+                            </ul>
                         </div>
                     </div>
                 </div>

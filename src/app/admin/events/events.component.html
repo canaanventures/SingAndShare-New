@@ -154,7 +154,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class='col-md-6'>
+                        <div class='col-md-4'>
                             <div class='form-group'>
                                 <label for='cost_per_person'>Cost Per Head<span style="color: red;">*</span></label> 
                                 <input type='text' placeholder='Cost Per head' name='cost_per_person' class='form-control' id='cost_per_person' [(ngModel)]='addevent.cost_per_person' #cost_per_person= 'ngModel' [ngClass]="{'invalid-data': cost_per_person.invalid && f.submitted, 'valid-data': cost_per_person.valid && f.submitted}" required />
@@ -165,7 +165,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class='col-md-6'>
+                        <div class='col-md-4'>
                             <div class='form-group'>
                                 <label for='select_event_type'>Event Type<span style="color: red;">*</span></label>
                                 <select id='select_event_type' class='form-control' name='event_type' [(ngModel)]='addevent.event_type_id' #event_type_id= 'ngModel' [ngClass]="{'invalid-data': event_type_id.invalid && f.submitted, 'valid-data': event_type_id.valid && f.submitted}" required>
@@ -177,6 +177,12 @@
                                         <small class="error_text" >Event Type is required</small> 
                                     </div>
                                 </div>
+                            </div>
+                        </div>
+                        <div class='col-md-4'>
+                            <div class='form-group'>
+                                <label for='connection_link'>Connection Link</label>
+                                <input type='text' placeholder='Enter the connection Link' name='connection_link' class='form-control' id='connection_link' [(ngModel)]='addevent.connection_link' />
                             </div>
                         </div>
                         <div class='col-md-12'>

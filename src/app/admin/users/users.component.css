@@ -30,7 +30,3 @@
 .my-pagination /deep/ .ngx-pagination .current {background:#630460!important;border-radius:3px; color:#fff;padding: 4px 11px;}
 .my-pagination /deep/ .ngx-pagination .pagination-previous a::before, .my-pagination /deep/ .ngx-pagination .pagination-previous::before{display:none;}
 .my-pagination /deep/ .ngx-pagination .pagination-next a::after, .my-pagination /deep/ .ngx-pagination .pagination-next::after{display:none;}
-.page-link{cursor:pointer;color:#777;font-weight:600;font-size:12px;border:1px solid #e0e0e0;}
-.page-link:hover{color:#777;font-weight:600;border:1px solid #e0e0e0;}
-.active-pagination{background:#630460!important;color:#fff;border:1px solid #630460;}
-.active-pagination:hover{color:#fff;font-weight:600;border: 1px solid #630460;}

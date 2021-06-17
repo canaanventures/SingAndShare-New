@@ -30,16 +30,22 @@
                             <p>{{event.event_end_date}}</p>
                         </div>
                     </div>
-                    <div class='col-md-6' *ngIf='event.EventType'>
+                    <div class='col-md-4' *ngIf='event.EventType'>
                         <div class='form-group'>
                             <label for='mentor_email_id'>Event Type</label> 
                             <p>{{event.EventType}}</p>
                         </div>
                     </div>
-                    <div class='col-md-6' *ngIf='event.cost_per_person'>
+                    <div class='col-md-4' *ngIf='event.cost_per_person'>
                         <div class='form-group'>
                             <label for='mentor_email_id'>Cost per person</label> 
                             <p>{{event.cost_per_person}}</p>
+                        </div>
+                    </div>
+                    <div class='col-md-4' *ngIf='event.connection_link'>
+                        <div class='form-group'>
+                            <label for='connection_link'>Connection Link</label>
+                            <p>{{event.connection_link}}</p>
                         </div>
                     </div>
                     <div class='col-md-12'>
@@ -105,7 +111,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class='col-md-12'>
+                        <div class='col-md-8'>
                             <div class='form-group'>
                                 <label for='select_venue'>Venue Name<span style="color: red;">*</span></label>
                                 <textarea id='select_venue' name='event_venue' class='w-100 form-control' placeholder='Enter your Venue Details' rows='3' [(ngModel)]='event.venue_name' #venue_name= 'ngModel' [ngClass]="{'invalid-data': venue_name.invalid && f.submitted, 'valid-data': venue_name.valid && f.submitted}"  required></textarea>
@@ -114,6 +120,12 @@
                                         <small class="error_text" >Venue Name is required</small> 
                                     </div>
                                 </div>
+                            </div>
+                        </div>
+                        <div class='col-md-4'>
+                            <div class='form-group'>
+                                <label for='connection_link'>Connection Link</label>
+                                <input type='text' placeholder='Enter the connection Link' name='connection_link' class='form-control' id='connection_link' [(ngModel)]='event.connection_link' />
                             </div>
                         </div>
                         <div class='col-md-12'>

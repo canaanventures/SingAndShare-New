@@ -29,7 +29,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr *ngFor="let blog of bloglist.data">
+                                        <tr *ngFor="let blog of bloglist | paginate: {itemsPerPage:10, currentPage: p}">
                                             <!-- <td class='table-thumbnail-img'>
                                                 <img src={{imgurl}}{{blog.poster_url}} class='w-100' />
                                             </td> -->
@@ -60,6 +60,13 @@
                                         </tr>
                                     </tbody>
                                 </table>
+                                <ul class="pagination float-right">
+                                    <li class="page-item"><a (click)="previousClick()" class="page-link">Previous</a></li>
+                                    <li *ngFor='let index of pageIndexes' class="page-item">
+                                        <a (click)="changePagination(index)" id='pagination_{{index}}' class="page-link"> {{index}} </a>
+                                    </li>
+                                    <li class="page-item"><a (click)="nextClick()" class="page-link">Next</a></li>
+                                </ul>
                             </div>
                         </div>
                     </div>

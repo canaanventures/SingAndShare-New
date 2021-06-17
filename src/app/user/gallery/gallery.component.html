@@ -6,24 +6,58 @@
                     <div class="welcome_title">Gallery</div>
                 </div>
             </div>
-        
+
             <div class="row blog_row">
-                <div class="col-lg-6" *ngFor = 'let list of gallerylist'>
+                <div class="col-lg-6" *ngFor='let list of gallerylist'>
                     <div class="blog_post">
                         <div class="blog_image">
                             <img [src]='list.image_url' class='w-100 h-100' />
                             <div class="blog_title_container">
-                                <div class="blog_post_category"><a style='text-transform:uppercase;'>Event was on {{list.event_start_date | date:'dd/MM/yyyy'}}</a></div>
+                                <div class="blog_post_category"><a style='text-transform:uppercase;'>Event was on
+                                        {{list.event_start_date | date:'dd/MM/yyyy'}}</a></div>
                                 <div class="blog_post_title"><a>{{list.event_name}}</a></div>
                                 <div class="blog_post_text">
                                     <p [innerHTML]='list.description'> </p>
                                 </div>
-                                <div class="read_more"><a href="/gallery/{{list.event_id}}">Read More <img src="../../../assets/img/right-arrow.png" alt=""></a></div>
+                                <div class="read_more"><a href="/gallery/{{list.event_id}}">Read More <img
+                                            src="../../../assets/img/right-arrow.png" alt=""></a></div>
                             </div>
                         </div>
-                    </div> 
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+<!-- start of gallery -->
+<!-- <div class="container text-center"> -->
+<!-- <h3  class="text-center">DUMMY GALLERY</h3>
+    <owl-carousel-o [options]="customOptions">
+      <ng-template carouselSlide><img src="../../../assets/img/gallery/gallery-1.jpg"></ng-template>  
+      <ng-template carouselSlide><img src="../../../assets/img/gallery/gallery-2.jpg"></ng-template>  
+      <ng-template carouselSlide><img src="../../../assets/img/gallery/gallery-3.jpg"></ng-template> 
+      <ng-template carouselSlide><img src="../../../assets/img/gallery/gallery-4.jpg"></ng-template>  
+      <ng-template carouselSlide><img src="../../../assets/img/gallery/gallery-5.jpg"></ng-template>  
+      <ng-template carouselSlide><img src="../../../assets/img/gallery/gallery-6.jpg"></ng-template>  
+    </owl-carousel-o> -->
+<!-- </div> -->
+
+<!-- end of gallery -->
+
+<!-- 
+    <swiper [effect]="'coverflow'" [grabCursor]="true" [centeredSlides]="true" [slidesPerView]="'auto'"
+        [coverflowEffect]="{
+  rotate: 100,
+  stretch: 0,
+  depth: 100,
+  modifier: 1,
+  slideShadows: true
+}" [pagination]="true" class="mySwiper">
+        <ng-template swiperSlide><img src="../../../assets/img/gallery/gallery-1.jpg"></ng-template>
+        <ng-template swiperSlide><img src="../../../assets/img/gallery/gallery-1.jpg"></ng-template>
+        <ng-template swiperSlide><img src="../../../assets/img/gallery/gallery-1.jpg"></ng-template>
+       
+    </swiper> -->
+
+
