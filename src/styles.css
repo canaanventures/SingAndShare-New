@@ -8,6 +8,19 @@
 /*--------------------------------------------------------------
 # General
 --------------------------------------------------------------*/
+
+@font-face {
+  font-family: "CMGSans-MediumItalic";
+  src: local("CMGSans-MediumItalic"), url(./assets/fonts/CMGSans/ExtendedSetStyles/CMGSans-MediumItalic.ttf) format("truetype");
+}
+
+
+@font-face {
+  font-family: "CMGSans-Bold";
+  src: local("CMGSans-Bold"), url(./assets/fonts/CMGSans/StarterSetStyles/CMGSans-Bold.ttf) format("truetype");
+}
+
+
 body {
   background: #fff;
   color: #666666;
@@ -33,21 +46,26 @@ p {
 }
 
 h1, h4, h5, h6 {
-  font-family: "Montserrat", sans-serif;
+  /* font-family: "Montserrat", sans-serif; */
+  font-family: "CMGSans-Bold";
   font-weight: 400;
   margin: 0 0 20px 0;
   padding: 0;
 }
 
+.section-title{font-family:"CMGSans-Bold";}
+
 h3 {
-  font-family: "Sofia", cursive;
+  /* font-family: "Sofia", cursive; */
+  font-family: "CMGSans-Bold";
   font-weight: 400;
   margin: 0 0 20px 0;
   padding: 0;
 }
 
 h2 {
-font-family: "Arizonia", cursive;
+/* font-family: "Arizonia", cursive; */
+font-family: "CMGSans-Bold";
 font-weight: 400;
 margin: 0 0 20px 0;
 padding: 0;
@@ -116,6 +134,7 @@ padding: 0;
   padding: 0;
   margin: 0;
   display: inline-block;
+  /* font-family: "CMGSans-Bold"; */
   font-family: "Montserrat", sans-serif;
   font-weight: 300;
   letter-spacing: 3px;
@@ -166,6 +185,7 @@ padding: 0;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  /* font-family: "CMGSans-Bold"; */
   font-family: "Montserrat", sans-serif;
   color: rgba(255, 255, 255, 0.8);
   font-size: 15px;
@@ -442,7 +462,8 @@ padding: 0;
 }
 
 #hero .btn-get-started {
-  font-family: "Montserrat", sans-serif;
+  font-family: "CMGSans-Bold";
+  /* font-family: "Montserrat", sans-serif; */
   font-weight: 400;
   font-size: 16px;
   letter-spacing: 1px;
@@ -1772,6 +1793,12 @@ label{font-weight:500!important;}
 .form-check-input:checked{background-color: #1ddba5;border-color: #1dc9ca;}
 .edit-modal-open .modal{overflow-y:auto;}
 .form-control.ng-invalid.ng-touched {border:1px solid red;}
+.fc-daygrid-body{
+  background-color: #825555;
+}
+.invalid-data {
+  border: 1px solid red;
+}
 .error_text{color:red}
 select {
   background-image:
