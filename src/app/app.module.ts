@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-// import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ApiService } from './shared/app.service';
 import { RouterModule,Router, NavigationEnd } from '@angular/router';
@@ -16,6 +16,7 @@ import { GoogleChartsModule } from 'angular-google-charts';
 import { ShareButtonsModule } from 'ngx-sharebuttons/buttons';
 import { ShareIconsModule } from 'ngx-sharebuttons/icons';
 import {NgxPaginationModule} from 'ngx-pagination';
+import { CarouselModule } from 'ngx-owl-carousel-o';
 //import { NgxSpinnerModule } from "ngx-spinner";
 
 import { AppRoutingModule } from './app-routing.module';
@@ -109,7 +110,7 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
   imports: [
     BrowserModule,
     AppRoutingModule,
-    //BrowserAnimationsModule,
+    BrowserAnimationsModule,
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
@@ -127,7 +128,8 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
       debug: true
     }),
     ShareIconsModule,
-    NgxPaginationModule
+    NgxPaginationModule,
+    CarouselModule
     //NgxSpinnerModule
   ],
   providers: [

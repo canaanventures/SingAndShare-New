@@ -62,6 +62,9 @@
 .light-box-view{text-transform:uppercase;color: #630460;font-weight: 600;}
 .backdrop{height:500vh;}
 
+.title a{color:black;}
+.title a:hover{color:#1dc8cd;}
+
 @media (max-width:1000px){
     #home_banner{object-fit: fill!important;height:auto;}
     #home-slider,.product-screens{height:auto;}
