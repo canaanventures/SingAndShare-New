@@ -142,7 +142,7 @@
                 </h5>
                 <input type='hidden' id='hidden_id' />
                 <div class='row px-4'>
-                    <form  role="form" #f="ngForm" (ngSubmit)="f.form.valid">
+                    <form  role="form" #f="ngForm" (ngSubmit)="f.form.valid && addUser(f); updateUser(f)"> 
                         <div class='col-md-6'>
                             <div class='form-group'>
                                 <label for='mentee_first_name'>First Name<span style="color: red;">*</span></label>
@@ -205,8 +205,8 @@
                         <div class='col-md-6'>
                             <div class='form-group'>   
                                 <label for='submit_btn' class='w-100'> &nbsp; </label>                
-                                <button id='submit_btn' *ngIf='!edit' class='btn btn-primary' (click)='addUser($event)'>Submit</button>
-                                <button id='update_btn' *ngIf='edit' class='btn btn-primary' (click)='updateUser($event)'>Update</button>
+                                <button id='submit_btn' *ngIf='!edit' class='btn btn-primary' >Submit</button>
+                                <button id='update_btn' *ngIf='edit' class='btn btn-primary' >Update</button>
                             </div>
                         </div>
                     </form>

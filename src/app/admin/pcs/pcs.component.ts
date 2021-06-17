@@ -4,6 +4,7 @@ import jwt_decode from "jwt-decode";
 import { identifierModuleUrl } from '@angular/compiler';
 import { fakeAsync } from '@angular/core/testing';
 import { state } from 'src/app/shared/app.state';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-pcs',
@@ -26,14 +27,16 @@ export class PcsComponent implements OnInit {
     //this.changePagination(1);
   }
 
-  addPCS(event:any){
+  addPCS(f:NgForm){
+    alert ('hi i am test from add pcs')
     event.preventDefault();
     this.pcs.user_id = this.tk.user_id;
     this.pcs.status = 'Y';
     this.restApi.postMethod('addPCS',this.pcs).subscribe((resp:any) => {
       this.getPCS('all','add');
-      this.resetForm();
-      alert(resp.message);
+      //f.resetForm();
+     this.resetForm();
+     alert(JSON.stringify(resp.message));
     })
   }
 
@@ -71,14 +74,16 @@ export class PcsComponent implements OnInit {
     this.pcs = {pcs_id:'',name_of_user:'',relation_with_user:'',city:'',state:'',current_status:'',user_id:'',status:'',pcs_description:''}
   }
 
-  upDatePCS(event:any){
+  upDatePCS(f:NgForm){
+    alert ('hi i am test from update pcs')
     event.preventDefault();
     this.pcs.pcs_id = this.pcs.pcs_id;
     this.restApi.postMethod('upDatePCS',this.pcs).subscribe((resp:any) => {
       this.getPCS('all','update');
+      //f.resetForm()
       this.resetForm();
       this.edit = false;
-      alert(resp.message);
+     alert(resp.message);
     })
   }
 

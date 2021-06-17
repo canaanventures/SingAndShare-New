@@ -6,6 +6,7 @@ import { CalendarOptions } from '@fullcalendar/angular'; // useful for typecheck
 import { formatDate } from '@angular/common';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import * as CryptoJS from 'crypto-js';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-fellowship',
@@ -120,7 +121,7 @@ export class FellowshipComponent implements OnInit {
     })
   }
 
-  addEvent(event:any){
+  addEvent(f:NgForm){
     event.preventDefault();
     this.event.created_by_user_id = this.tk.user_id;
     this.restApi.postMethod('addCalendar',this.event).subscribe((resp:any) => {
