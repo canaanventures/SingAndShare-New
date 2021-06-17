@@ -96,7 +96,7 @@ export class AddblogComponent implements OnInit {
     }
   }
 
-  addBlog(f:NgForm){
+  addBlog(event){
     event.preventDefault();
     if(this.images != ''){
       const formData = new FormData();
@@ -199,7 +199,7 @@ export class AddblogComponent implements OnInit {
     });
   }
 
-  updateBlog(event:any){
+  updateBlog(event){
     event.preventDefault();
     if(this.images != ''){
       const formData = new FormData();

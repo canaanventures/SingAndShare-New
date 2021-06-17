@@ -107,7 +107,7 @@
                     <span class='close modal-close' (click)='closeModal()' data-dismiss="modal">&times;</span>
                 </h5>
                 <div class='px-4'>
-                    <form id="upload_form" class='row' enctype="multipart/form-data" role="form" #f="ngForm" (ngSubmit)="f.form.valid && addEvent(f); updateEvent(f)">
+                    <form id="upload_form" class='row' enctype="multipart/form-data" role="form" #f="ngForm" (ngSubmit)="f.form.valid"> <!--  && addEvent(f); updateEvent(f) -->
                         <div class='col-md-6'>
                             <div class='form-group'>
                                 <label for='event_image'>Upload Event Image<span style="color: red;">*</span></label>
@@ -218,8 +218,8 @@
                         <div class='col-md-6'>
                             <div class='form-group'>
                                 <label for='submit_btn'> &nbsp; </label>                        
-                                <button id='submit_btn' *ngIf='!edit' class='btn btn-primary' >Submit</button>
-                                <button id='update_btn' *ngIf='edit' class='btn btn-primary' >Update</button>
+                                <button id='submit_btn' *ngIf='!edit' class='btn btn-primary' (click)='addEvent($event);'>Submit</button>
+                                <button id='update_btn' *ngIf='edit' class='btn btn-primary' (click)='updateEvent($event);'>Update</button>
                             </div>
                         </div>
                     </form>
@@ -235,7 +235,7 @@
             <div class="modal-body">
                 <h5 class='mb-3 card-header'> Add Event Type <span class='close modal-close' (click)='closeModal()' data-dismiss="modal">&times;</span> </h5>
                 <div class='px-4'>
-                    <form  role="form" #g="ngForm" (ngSubmit)="g.form.valid && addEventType(g) ">
+                    <form  role="form" #g="ngForm" (ngSubmit)="g.form.valid">
                         <div class='col-md-12'>
                             <div class='form-group'>
                                 <label for='event_type_name_add'>Event Type Name<span style="color: red;">*</span></label>
@@ -250,7 +250,7 @@
                         <div class='col-md-6'>
                             <div class='form-group'>
                                 <label for='submit_btn_add'> &nbsp; </label>                        
-                                <button id='submit_btn_add' class='btn btn-primary bg-orange'>Submit</button>
+                                <button id='submit_btn_add' class='btn btn-primary bg-orange' (click)='addEventType($event);'>Submit</button>
                             </div>
                         </div>
                     </form>
@@ -267,7 +267,7 @@
                 <form id='blog_form' name='addBlogForm'>
                     <h5 class='mb-3 card-header'> Add Event Gallery Image <span class='close modal-close' (click)='closegalModal()' data-dismiss="modal">&times;</span> </h5>
                     <div class='px-4'>
-                        <form  role="form" #h="ngForm" (ngSubmit)="h.form.valid && addGallery(h)">
+                        <form  role="form" #h="ngForm" (ngSubmit)="h.form.valid">
                             <div class='col-md-12'>
                                 <div class='form-group'>
                                     <label for='event_main_img'>Main Event Image<span style="color: red;">*</span></label>

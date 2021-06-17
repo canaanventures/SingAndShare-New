@@ -54,7 +54,7 @@ export class EventsComponent implements OnInit {
     document.getElementById(id+'_tab').classList.add('active');
   }
 
-  addEvent(f:NgForm){
+  addEvent(event){
     event.preventDefault();
     this.edit = false;
     event.preventDefault();
@@ -105,7 +105,7 @@ export class EventsComponent implements OnInit {
     return create_dte.getFullYear()+'-'+month+'-'+dte+'T'+hrs+':'+mins;
   }
 
-  updateEvent(f:NgForm){
+  updateEvent(event){
     event.preventDefault();
     if(this.eventimages != ''){
       const formData = new FormData();
