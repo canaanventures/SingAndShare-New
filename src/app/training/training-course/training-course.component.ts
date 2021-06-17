@@ -12,6 +12,8 @@ export class TrainingCourseComponent implements OnInit {
   imageToShow:any;images='';catlist:any=[];courselist:any=[];
   tk:any = {}; edit = false;
 
+  totalRecords:Number = 1; p: Number = 1; pageIndexes:any =[]; paginatecnt:Number;
+
   @Input() course = {category_id:'', course_name:'', course_description:'', row_id:'',course_image_url:'', created_by:'', course_status:'', modified_by:''}
 
   constructor(public restApi: ApiService) { }
@@ -19,7 +21,8 @@ export class TrainingCourseComponent implements OnInit {
   ngOnInit(): void {
     this.tk = jwt_decode(sessionStorage.getItem('user_token'));
     this.fetchCategory();
-    this.fetchCourse();
+    //this.fetchCourse();
+    this.changePagination('load');
   }
 
   fetchCategory(){
@@ -54,7 +57,8 @@ export class TrainingCourseComponent implements OnInit {
 
   addCourseData() {
     this.restApi.postMethod('addLMSCourse',this.course).subscribe((resp:any) => {
-      this.fetchCourse();
+      //this.fetchCourse();
+      this.changePagination(this.paginatecnt);
       this.images = '';
       alert(resp.message);
       //this.resetForm();
@@ -64,6 +68,7 @@ export class TrainingCourseComponent implements OnInit {
   }
 
   editCourse(id){
+    debugger;
     this.edit = true;
     this.course.row_id = id;
     this.restApi.getMethod('getLMSCourse/'+id).subscribe((resp:any) => {
@@ -97,7 +102,8 @@ export class TrainingCourseComponent implements OnInit {
     this.course.modified_by = this.tk.user_id;
     this.restApi.postMethod('updateLMSCourse',this.course).subscribe((data:any) => {     
       alert('Category Updated Successfully.');
-      this.fetchCourse();
+      //this.fetchCourse();
+      this.changePagination(this.paginatecnt);
       //this.resetForm();
       let element: HTMLElement = document.getElementById('cancel_category') as HTMLElement;
       element.click();
@@ -109,7 +115,8 @@ export class TrainingCourseComponent implements OnInit {
     this.course.row_id = id;
     (event.target.checked) ? this.course.course_status = "Y" : this.course.course_status = "N";
     this.restApi.postMethod('changeLMSCourseStatus',this.course).subscribe((data:any) => {
-      this.fetchCourse();
+      //this.fetchCourse();
+      this.changePagination(this.paginatecnt);
       alert("The status has been changed successfully");
     })
   }
@@ -153,5 +160,43 @@ export class TrainingCourseComponent implements OnInit {
     this.course = {category_id:'', course_name:'',course_description:'',row_id:'',course_image_url:'',created_by:'',course_status:'',modified_by:''};
     this.imageToShow = '';
     (<HTMLInputElement>document.getElementById('blog-image')).value = '';
+  }
+
+  changePagination(event){
+    let cnt;
+    if(event == 'load'){cnt = 1;}else{cnt=event}
+    this.restApi.getMethod('getPaginatedCourse/'+cnt).subscribe((resp:any) => {
+      this.courselist = resp.data.data;
+      if(event == 'load'){
+        let total = resp.data.total[0].total, num = total/10, arr = [];
+        for(var i=0;i<num;i++){
+          arr.push(i+1);
+        }
+        this.pageIndexes = arr; this.paginatecnt = 1;
+      }else{
+        this.paginatecnt = event;
+      }
+      setTimeout(function(){
+        let elem = document.getElementsByClassName('page-link');
+        for(var i=0;i<elem.length;i++){
+          elem[i].classList.remove('active-pagination');
+        }
+        document.getElementById('pagination_'+cnt).classList.add('active-pagination');
+      },10)
+    });
+  }
+
+  nextClick(){
+    let num = Number(this.paginatecnt);
+    if(num < this.pageIndexes.length){
+      this.changePagination(num+1);
+    }
+  }
+
+  previousClick(){
+    let num = Number(this.paginatecnt);
+    if(num > 1){
+      this.changePagination(num-1);
+    }
   }
 }

@@ -18,6 +18,9 @@ export class TrainingClassComponent implements OnInit {
   todo:any = [];done:any = []; generate = true;
   totalClass:any = []; role_name;
 
+  totalRecords:Number = 1; p: Number = 1; pageIndexes:any =[]; paginatecnt:Number;
+  totalAllRecords:Number = 1; pageAllIndexes:any =[]; paginateallcnt:Number;
+
   @Input() class = {cat_id:'',class_type:'',class_name:'',start_date:'',end_date:'',connection_link:'',created_by:'',description:'',modified_by:'',course_id:'',instructor_id:'',row_id:'',class_status:''}
   @Input() menteedtls = {vals:[],class_id:''}
   @Input() updatelessonstatus = {class_id:'',lesson_id:'',instructor_id:'',lesson_status:''};
@@ -28,7 +31,7 @@ export class TrainingClassComponent implements OnInit {
   ngOnInit(): void {
     this.tk = jwt_decode(sessionStorage.getItem('user_token'));
     this.role_name = this.tk.role_name;
-    this.fetchClass();
+    this.changePagination('load');
     this.fetchCategory();
     this.fetchMentees();
   }
@@ -117,8 +120,6 @@ export class TrainingClassComponent implements OnInit {
           }
           this.done = arrtwo;
         }
-        //document.getElementById('addClassModal');
-        
         setTimeout(function(){
           (<HTMLInputElement>document.getElementById('user_cnt')).innerHTML = String(document.querySelectorAll('.fromunit').length);
           (<HTMLInputElement>document.getElementById('present_cnt')).innerHTML = String(document.querySelectorAll('.tounit').length);
@@ -148,12 +149,6 @@ export class TrainingClassComponent implements OnInit {
     });
   }
 
-  fetchClass(){
-    this.restApi.getMethod('getLMSClassList/'+this.tk.user_id).subscribe((resp:any) => {
-      this.classlist = resp.data;
-    });
-  }
-
   openClassModal(){
     this.displayClassModal='block';
     this.edit = false;
@@ -165,23 +160,17 @@ export class TrainingClassComponent implements OnInit {
     this.displayClassModal='none';
     this.edit = true;
     document.getElementsByTagName('body')[0].classList.remove('modal-open');
-    //this.resetForm();
     let element: HTMLElement = document.getElementById('cancel_category') as HTMLElement;
     element.click();
   }
-
-  /* resetForm(){
-    this.class = {cat_id:'',class_type:'',class_name:'',start_date:'',end_date:'',connection_link:'',created_by:'',description:'',modified_by:'',course_id:'',instructor_id:'',row_id:'',class_status:''};
-  } */
 
   addClass(event){
     event.preventDefault();
     this.class.created_by = this.tk.user_id;
     this.class.instructor_id = this.tk.user_id;   
     this.restApi.postMethod('addLMSClass',this.class).subscribe((resp:any) => {
-      this.fetchClass();
+      this.changePagination(this.paginatecnt);
       alert(resp.message);
-      //this.resetForm();
       this.generate = true;
       let element: HTMLElement = document.getElementById('cancel_category') as HTMLElement;
       element.click();
@@ -230,8 +219,7 @@ export class TrainingClassComponent implements OnInit {
     this.class.end_date = this.changeDateFormat(this.class.end_date);
     this.restApi.postMethod('updateLMSClass',this.class).subscribe((data:any) => {     
       alert('Class Updated Successfully.');
-      this.fetchClass();
-      //this.resetForm();
+      this.changePagination(this.paginatecnt);
       this.displayClassModal = 'none';
       let element: HTMLElement = document.getElementById('cancel_category') as HTMLElement;
       element.click();
@@ -244,9 +232,9 @@ export class TrainingClassComponent implements OnInit {
     (event.target.checked) ? this.class.class_status = "Y" : this.class.class_status = "N";
     this.restApi.postMethod('changeLMSClassStatus',this.class).subscribe((data:any) => {
       if(type == 'all'){
-        this.showAllClasses();  
+        this.changeAllPagination(this.paginateallcnt);  
       }else{
-        this.fetchClass();
+        this.changePagination(this.paginatecnt);
       }     
       alert("The status has been changed successfully");
     })
@@ -258,12 +246,6 @@ export class TrainingClassComponent implements OnInit {
     } else {
       transferArrayItem(event.previousContainer.data, event.container.data, event.previousIndex, event.currentIndex);
     }
-    //if(type == 'attendees'){
-    //this.total = this.todo.length;
-    //this.attendees = this.done.length;
-    //this.attendancedetails.attendees = String(this.done.length);
-    //}
-
     setTimeout(function(){
       (<HTMLInputElement>document.getElementById('user_cnt')).innerHTML = String(document.querySelectorAll('.fromunit').length);
       (<HTMLInputElement>document.getElementById('present_cnt')).innerHTML = String(document.querySelectorAll('.tounit').length);
@@ -361,6 +343,85 @@ export class TrainingClassComponent implements OnInit {
 
   resetForm(f:NgForm){
     f.resetForm( {cat_id:'',class_type:'',class_name:'',start_date:'',end_date:'',connection_link:'',created_by:'',description:'',modified_by:'',course_id:'',instructor_id:'',row_id:'',class_status:''})
-    // this.class = {cat_id:'',class_type:'',class_name:'',start_date:'',end_date:'',connection_link:'',created_by:'',description:'',modified_by:'',course_id:'',instructor_id:'',row_id:'',class_status:''};
+  }
+
+  changePagination(event){
+    let cnt;
+    if(event == 'load'){cnt = 1;}else{cnt=event}
+    this.restApi.getMethod('getPaginatedClass/'+this.tk.user_id+'/'+cnt).subscribe((resp:any) => {
+      this.classlist = resp.data.data;
+      if(event == 'load'){
+        let total = resp.data.total[0].total, num = total/10, arr = [];
+        for(var i=0;i<num;i++){
+          arr.push(i+1);
+        }
+        this.pageIndexes = arr; this.paginatecnt = 1;
+      }else{
+        this.paginatecnt = event;
+      }
+      setTimeout(function(){
+        let elem = document.getElementsByClassName('page-link');
+        for(var i=0;i<elem.length;i++){
+          elem[i].classList.remove('active-pagination');
+        }
+        document.getElementById('pagination_'+cnt).classList.add('active-pagination');
+      },10)
+    });
+  }
+
+  nextClick(){
+    let num = Number(this.paginatecnt);
+    if(num < this.pageIndexes.length){
+      this.changePagination(num+1);
+    }
+  }
+
+  previousClick(){
+    let num = Number(this.paginatecnt);
+    if(num > 1){
+      this.changePagination(num-1);
+    }
+  }
+
+  changeAllPagination(event){
+    let cnt;
+    if(event == 'load'){cnt = 1;}else{cnt=event}
+    this.restApi.getMethod('getPaginatedAllClass/'+cnt).subscribe((resp:any) => {
+      this.totalClass = resp.data.data;
+      if(event == 'load'){
+        this.mainTable = 'none';
+        this.displayTable = 'none';
+        this.displayClassListModal = 'block';
+
+        let total = resp.data.total[0].total, num = total/10, arr = [];
+        for(var i=0;i<num;i++){
+          arr.push(i+1);
+        }
+        this.pageAllIndexes = arr; this.paginateallcnt = 1;
+      }else{
+        this.paginateallcnt = event;
+      }
+      setTimeout(function(){
+        let elem = document.getElementsByClassName('page-all-link');
+        for(var i=0;i<elem.length;i++){
+          elem[i].classList.remove('active-all-pagination');
+        }
+        document.getElementById('pagination_all_'+cnt).classList.add('active-all-pagination');
+      },10)
+    });
+  }
+
+  nextAllClick(){
+    let num = Number(this.paginateallcnt);
+    if(num < this.pageIndexes.length){
+      this.changeAllPagination(num+1);
+    }
+  }
+
+  previousAllClick(){
+    let num = Number(this.paginateallcnt);
+    if(num > 1){
+      this.changeAllPagination(num-1);
+    }
   }
 }

@@ -21,6 +21,7 @@ export class AddblogComponent implements OnInit {
   resp :any; images; access; encryptInfo; 
   edit = false; commentdisplay = 'none'; viewBlogModal = 'none';
   commentlist:any = []; imageToShow: any; viewblog:any=[];
+  totalRecords:Number = 1; p: Number = 1; pageIndexes:any =[]; paginatecnt:Number;
 
   @Input() blog = {title:'',category:'',description:'',created_by_user_id:'',imgurl:'',approval_status:''};
   @Input() editblog = {imgurl:'',title:'',category:'',description:'',modified_by_user_id:'',blog_id:'',approval_status:''};
@@ -37,7 +38,7 @@ export class AddblogComponent implements OnInit {
       var deData= CryptoJS.AES.decrypt(decodeURIComponent(this.encryptInfo), 'secret key 123'); 
       this.access = JSON.parse(deData.toString(CryptoJS.enc.Utf8));
     }
-    this.fetchBlog();
+    this.changePagination('load');
     this.getBlogCat();
   }
   
@@ -124,7 +125,7 @@ export class AddblogComponent implements OnInit {
     this.blog.description = this.htmlContent.replace(/'/gi, "");
     this.blog.created_by_user_id = this.tk.user_id;
     this.restApi.postMethod('addBlog',this.blog).subscribe((data:any) => {
-      this.fetchBlog();
+      this.changePagination(this.paginatecnt);
       this.images = '';
       this.displayBlog='none';
       alert(data.message);
@@ -136,7 +137,7 @@ export class AddblogComponent implements OnInit {
     this.disableblog.blog_id = id;
     (event.target.checked) ? this.disableblog.status = "Enable" : this.disableblog.status = "Disable";
     this.restApi.postMethod('disableBlog',this.disableblog).subscribe((data:any) => {
-      this.fetchBlog();
+      this.changePagination(this.paginatecnt);
       alert("The blog has been disabled successfully");
     })
   }
@@ -174,13 +175,6 @@ export class AddblogComponent implements OnInit {
   closeCommentModal(){
     this.commentdisplay='none';
     document.getElementsByTagName('body')[0].classList.remove('modal-open');
-  }
-
-  fetchBlog(){
-    this.restApi.getMethod('getBlogs/multiple/all')
-      .subscribe((resp) => {
-        this.bloglist = resp;
-      });
   }
 
   editBlog(id){
@@ -238,7 +232,7 @@ export class AddblogComponent implements OnInit {
     this.restApi.postMethod('updateBlog',this.editblog).subscribe((data:any) => {     
       alert(data.message);
       this.closeBlogModal();
-      this.fetchBlog();
+      this.changePagination(this.paginatecnt);
       document.getElementsByTagName('body')[0].classList.remove('edit-modal-open');
       this.images = '';
     })
@@ -293,6 +287,44 @@ export class AddblogComponent implements OnInit {
  
     if (image) {
        reader.readAsDataURL(image);
+    }
+  }
+
+  changePagination(event){
+    let cnt;
+    if(event == 'load'){cnt = 1;}else{cnt=event}
+    this.restApi.getMethod('getPaginatedBlogs/'+cnt).subscribe((resp:any) => {
+      this.bloglist = resp.data.data;
+      if(event == 'load'){
+        let total = resp.data.total[0].total, num = total/10, arr = [];
+        for(var i=0;i<num;i++){
+          arr.push(i+1);
+        }
+        this.pageIndexes = arr; this.paginatecnt = 1;
+      }else{
+        this.paginatecnt = event;
+      }
+      setTimeout(function(){
+        let elem = document.getElementsByClassName('page-link');
+        for(var i=0;i<elem.length;i++){
+          elem[i].classList.remove('active-pagination');
+        }
+        document.getElementById('pagination_'+cnt).classList.add('active-pagination');
+      },10)
+    });
+  }
+
+  nextClick(){
+    let num = Number(this.paginatecnt);
+    if(num < this.pageIndexes.length){
+      this.changePagination(num+1);
+    }
+  }
+
+  previousClick(){
+    let num = Number(this.paginatecnt);
+    if(num > 1){
+      this.changePagination(num-1);
     }
   }
 }

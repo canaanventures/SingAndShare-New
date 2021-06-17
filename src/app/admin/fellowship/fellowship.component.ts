@@ -21,7 +21,7 @@ export class FellowshipComponent implements OnInit {
   startDate; endDate; access; encryptInfo;
   typeisevent = true;
 
-  @Input() event = {event_id:'',event_name:'',event_start_date:'', event_end_date:'', cost_per_person:'', venue_name:'',description:'',event_type_id:'',created_by_user_id:'',modified_user_id:'',imgurl:'',status:'',EventType:''};
+  @Input() event = {connection_link:'',event_id:'',event_name:'',event_start_date:'', event_end_date:'', cost_per_person:'', venue_name:'',description:'',event_type_id:'',created_by_user_id:'',modified_user_id:'',imgurl:'',status:'',EventType:''};
 
   constructor(public restApi: ApiService,private http: HttpClient) { }
 

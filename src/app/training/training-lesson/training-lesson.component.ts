@@ -13,6 +13,8 @@ export class TrainingLessonComponent implements OnInit {
   imageToShow:any; images:any=[]; catlist:any=[]; courselist:any=[]; lessonlist:any=[];
   tk:any={}; edit=false; docurl:any=[]; files:any; cnt = 0;
 
+  totalRecords:Number = 1; p: Number = 1; pageIndexes:any =[]; paginatecnt:Number;
+
   @Input() lesson = {docdata:[], course_id:'', category_id:'', lesson_name:'', lesson_description:'', row_id:'',lesson_image_url:'', created_by:'', lesson_status:'', modified_by:''}
   @Input() lessondocs = {vals:[],row:''}
 
@@ -22,7 +24,8 @@ export class TrainingLessonComponent implements OnInit {
     this.tk = jwt_decode(sessionStorage.getItem('user_token'));
     this.fetchCategory();
     //this.fetchCourse();
-    this.fetchLesson();
+    //this.fetchLesson();
+    this.changePagination('load');
   }
 
   fetchCategory(){
@@ -41,9 +44,6 @@ export class TrainingLessonComponent implements OnInit {
     this.lessonlist = [];
     this.restApi.getMethod('getLMSLesson/all').subscribe((resp:any) => {
       this.lessonlist = resp.data;
-      if(this.edit){
-
-      }
     });
   }
   
@@ -67,7 +67,8 @@ export class TrainingLessonComponent implements OnInit {
         formData.append("image", this.images[i]);
       }
       this.restApi.postImgMethod('addLessonDoc/'+resp.data,formData).subscribe((resp:any) => {
-        this.fetchLesson();
+        //this.fetchLesson();
+        this.changePagination(this.paginatecnt);
         alert(resp.message);
         //this.resetForm();
         let element: HTMLElement = document.getElementById('cancel_category') as HTMLElement;
@@ -99,14 +100,16 @@ export class TrainingLessonComponent implements OnInit {
           formData.append("image", this.images[i]);
         }
         this.restApi.postImgMethod('addLessonDoc/'+resp.data,formData).subscribe((data:any) => {
-          this.fetchLesson();
+          //this.fetchLesson();
+          this.changePagination(this.paginatecnt);
           alert(data.message);
           //this.resetForm();
           let element: HTMLElement = document.getElementById('cancel_category') as HTMLElement;
           element.click();
         })
       }else{
-        this.fetchLesson();
+        //this.fetchLesson();
+        this.changePagination(this.paginatecnt);
         alert(resp.message);
         let element: HTMLElement = document.getElementById('cancel_category') as HTMLElement;
         element.click();
@@ -121,7 +124,8 @@ export class TrainingLessonComponent implements OnInit {
     this.lesson.row_id = id;
     (event.target.checked) ? this.lesson.lesson_status = "Y" : this.lesson.lesson_status = "N";
     this.restApi.postMethod('changeLMSLessonStatus',this.lesson).subscribe((data:any) => {
-      this.fetchLesson();
+      //this.fetchLesson();
+      this.changePagination(this.paginatecnt);
       alert("The status has been changed successfully");
     })
   }
@@ -163,5 +167,43 @@ export class TrainingLessonComponent implements OnInit {
     this.images = []; this.docurl =[];
     (<HTMLInputElement>document.getElementById('meeting_link')).value='';
     (<HTMLInputElement>document.getElementById('doc-upload')).value='';
+  }
+
+  changePagination(event){
+    let cnt;
+    if(event == 'load'){cnt = 1;}else{cnt=event}
+    this.restApi.getMethod('getPaginatedLesson/'+cnt).subscribe((resp:any) => {
+      this.lessonlist = resp.data.data;
+      if(event == 'load'){
+        let total = resp.data.total[0].total, num = total/10, arr = [];
+        for(var i=0;i<num;i++){
+          arr.push(i+1);
+        }
+        this.pageIndexes = arr; this.paginatecnt = 1;
+      }else{
+        this.paginatecnt = event;
+      }
+      setTimeout(function(){
+        let elem = document.getElementsByClassName('page-link');
+        for(var i=0;i<elem.length;i++){
+          elem[i].classList.remove('active-pagination');
+        }
+        document.getElementById('pagination_'+cnt).classList.add('active-pagination');
+      },10)
+    });
+  }
+
+  nextClick(){
+    let num = Number(this.paginatecnt);
+    if(num < this.pageIndexes.length){
+      this.changePagination(num+1);
+    }
+  }
+
+  previousClick(){
+    let num = Number(this.paginatecnt);
+    if(num > 1){
+      this.changePagination(num-1);
+    }
   }
 }

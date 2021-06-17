@@ -6,7 +6,7 @@
             <h1 class="h3 mb-3">
                 Class Details 
                 <button class='btn btn-primary float-right' (click)='openClassModal()' [ngStyle]="{'display':displayTable}">Add Class</button>
-                <button class='btn btn-primary float-right' id='showall' (click)='showAllClasses()' [ngStyle]="{'display':displayTable}" *ngIf="role_name == 'Admin'">Show All Classes</button>
+                <button class='btn btn-primary float-right' id='showall' (click)='changeAllPagination("load")' [ngStyle]="{'display':displayTable}" *ngIf="role_name == 'Admin'">Show All Classes</button>
                 <button class='btn btn-primary float-right' (click)='closeClassListDiv()' [ngStyle]="{'display':displayClassListModal}">Back to the List</button>
                 <button class='btn btn-primary float-right' (click)='closeMenteeDiv()' [ngStyle]="{'display':displayMenteeModal}">Back to the List</button>
                 <button class='btn btn-primary float-right' (click)='addMentees()' [ngStyle]="{'display':displayMenteeModal}" style='margin-right:15px;'>Add Mentees</button>
@@ -26,7 +26,7 @@
                                         <th>Action</th>
                                     </tr>
                                 </thead>
-                                <tbody *ngFor='let list of classlist'>
+                                <tbody *ngFor='let list of classlist | paginate: {itemsPerPage:10, currentPage: p}'>
                                     <tr *ngIf='classlist.length == 0'>
                                         <td class='table-thumbnail-img' colspan='7'>
                                             <h4 style='text-align: center;margin-top: 15px;color: #630460;'>No Data to be displayed</h4>
@@ -99,7 +99,13 @@
                                     </tr>
                                 </tbody>
                             </table>
-
+                            <ul class="pagination float-right">
+                                <li class="page-item"><a (click)="previousClick()" class="page-link">Previous</a></li>
+                                <li *ngFor='let index of pageIndexes' class="page-item">
+                                    <a (click)="changePagination(index)" id='pagination_{{index}}' class="page-link"> {{index}} </a>
+                                </li>
+                                <li class="page-item"><a (click)="nextClick()" class="page-link">Next</a></li>
+                            </ul>
                             <div class="row" [ngStyle]="{'display':displayMenteeModal}">
                                 <div class="col-md-6">
                                     <div class="drag-container">
@@ -124,7 +130,7 @@
                             </div>
                         </div>
                         <div class="row" [ngStyle]="{'display':displayClassListModal}">
-                            <div class='col-md-3 card-parent' *ngFor='let list of totalClass'>
+                            <div class='col-md-3 card-parent' *ngFor='let list of totalClass | paginate: {itemsPerPage:10, currentPage: p}'>
                                 <div class='class-card'>
                                     <p class='class-card-name'>{{list.class_name}}</p>
                                     <div class='card-child'>
@@ -144,6 +150,15 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class='col-md-12 w-100 clearfix'>
+                                <ul class="pagination float-right">
+                                    <li class="page-item"><a (click)="previousAllClick()" class="page-all-link">Previous</a></li>
+                                    <li *ngFor='let index of pageAllIndexes' class="page-item">
+                                        <a (click)="changeAllPagination(index)" id='pagination_all_{{index}}' class="page-all-link"> {{index}} </a>
+                                    </li>
+                                    <li class="page-item"><a (click)="nextAllClick()" class="page-link">Next</a></li>
+                                </ul>
+                            </div>                               
                         </div>
                     </div>
                 </div>

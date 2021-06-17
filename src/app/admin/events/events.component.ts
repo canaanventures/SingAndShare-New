@@ -24,7 +24,7 @@ export class EventsComponent implements OnInit {
 
   @Input() registeruser = {contact_sal:'',contact_first_name:'', contact_last_name:'', contact_email_id:'', contact_number:'',contact_state:'',contact_city:'',contact_address:'',contact_referrer:'',event_id:''};
   @Input() eventtype = {event_type:'',created_by_user_id:''}
-  @Input() addevent = {event_id:'',event_name:'',event_start_date:'', event_end_date:'', cost_per_person:'', venue_name:'',description:'',event_type_id:'',created_by_user_id:'',modified_user_id:'',imgurl:'',status:''}; // ,event_status_id:''
+  @Input() addevent = {event_id:'',event_name:'',event_start_date:'', event_end_date:'', cost_per_person:'', venue_name:'',description:'',event_type_id:'',created_by_user_id:'',modified_user_id:'',imgurl:'',status:'',connection_link:''}; // ,event_status_id:''
 
   constructor(public restApi: ApiService) { }
 

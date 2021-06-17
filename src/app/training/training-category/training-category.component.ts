@@ -12,19 +12,15 @@ export class TrainingCategoryComponent implements OnInit {
   imageToShow:any;images='';catlist:any=[];
   tk:any = {}; edit = false;
 
+  totalRecords:Number = 1; p: Number = 1; pageIndexes:any =[]; paginatecnt:Number;
+
   @Input() category = {category_name:'',category_description:'',row_id:'',category_image_url:'',created_by:'',category_status:'',modified_by:''}
 
   constructor(public restApi: ApiService) { }
 
   ngOnInit(): void {
     this.tk = jwt_decode(sessionStorage.getItem('user_token'));
-    this.fetchCategory();
-  }
-
-  fetchCategory(){
-    this.restApi.getMethod('getLMSCategory/all').subscribe((resp:any) => {
-      this.catlist = resp.data;
-    });
+    this.changePagination('load');
   }
 
   addCategory(event:any){
@@ -47,7 +43,7 @@ export class TrainingCategoryComponent implements OnInit {
 
   addCategoryData(){
     this.restApi.postMethod('addLMSCategory',this.category).subscribe((resp:any) => {
-      this.fetchCategory();
+      this.changePagination(this.paginatecnt);
       this.images = '';
       alert(resp.message);
       //this.resetForm();
@@ -90,8 +86,7 @@ export class TrainingCategoryComponent implements OnInit {
     this.category.modified_by = this.tk.user_id;
     this.restApi.postMethod('updateLMSCategory',this.category).subscribe((data:any) => {     
       alert('Category Updated Successfully.');
-      this.fetchCategory();
-      //this.resetForm();
+      this.changePagination(this.paginatecnt);
       let element: HTMLElement = document.getElementById('cancel_category') as HTMLElement;
       element.click();
     })
@@ -102,7 +97,7 @@ export class TrainingCategoryComponent implements OnInit {
     this.category.row_id = id;
     (event.target.checked) ? this.category.category_status = "Y" : this.category.category_status = "N";
     this.restApi.postMethod('changeLMSCatStatus',this.category).subscribe((data:any) => {
-      this.fetchCategory();
+      this.changePagination(this.paginatecnt);
       alert("The status has been changed successfully");
     })
   }
@@ -147,5 +142,43 @@ export class TrainingCategoryComponent implements OnInit {
     this.category = {category_name:'',category_description:'',row_id:'',category_image_url:'',created_by:'',category_status:'',modified_by:''};
     this.imageToShow = '';
     (<HTMLInputElement>document.getElementById('blog-image')).value = '';
+  }
+
+  changePagination(event){
+    let cnt;
+    if(event == 'load'){cnt = 1;}else{cnt=event}
+    this.restApi.getMethod('getPaginatedCategory/'+cnt).subscribe((resp:any) => {
+      this.catlist = resp.data.data;
+      if(event == 'load'){
+        let total = resp.data.total[0].total, num = total/10, arr = [];
+        for(var i=0;i<num;i++){
+          arr.push(i+1);
+        }
+        this.pageIndexes = arr; this.paginatecnt = 1;
+      }else{
+        this.paginatecnt = event;
+      }
+      setTimeout(function(){
+        let elem = document.getElementsByClassName('page-link');
+        for(var i=0;i<elem.length;i++){
+          elem[i].classList.remove('active-pagination');
+        }
+        document.getElementById('pagination_'+cnt).classList.add('active-pagination');
+      },10)
+    });
+  }
+
+  nextClick(){
+    let num = Number(this.paginatecnt);
+    if(num < this.pageIndexes.length){
+      this.changePagination(num+1);
+    }
+  }
+
+  previousClick(){
+    let num = Number(this.paginatecnt);
+    if(num > 1){
+      this.changePagination(num-1);
+    }
   }
 }
