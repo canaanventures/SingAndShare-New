@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
 import { ApiService } from 'src/app/shared/app.service';
 import { Location } from '@angular/common';
 import * as CryptoJS from 'crypto-js';
@@ -42,7 +42,7 @@ export class AttendanceComponent implements OnInit {
       });
   }
 
-  addAttendance(event:any) {
+  addAttendance(f:NgForm) {
     event.preventDefault();
     this.attendancedetails.created_by = this.tk.user_id;
     this.restApi.postMethod('addAttendance',this.attendancedetails).subscribe((resp:any) => {

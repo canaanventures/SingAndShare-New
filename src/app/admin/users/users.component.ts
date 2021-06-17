@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
 import { ApiService } from 'src/app/shared/app.service';
 import { Location } from '@angular/common';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
@@ -47,7 +47,7 @@ export class UsersComponent implements OnInit {
     })
   }
 
-  addUser(event:any){
+  addUser(f:NgForm){
     event.preventDefault();
     var obj = {
       "first_name":(<HTMLInputElement>document.getElementById('mentee_first_name')).value,
@@ -170,7 +170,7 @@ export class UsersComponent implements OnInit {
       });
   }
 
-  updateUser(event){
+  updateUser(f:NgForm){
     event.preventDefault();
     this.updateuser.first_name = (<HTMLInputElement>document.getElementById('mentee_first_name')).value;
     this.updateuser.last_name = (<HTMLInputElement>document.getElementById('mentee_last_name')).value;

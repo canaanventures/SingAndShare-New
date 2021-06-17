@@ -1682,20 +1682,21 @@ section {
 # Footer
 --------------------------------------------------------------*/
 #footer {
-  background: #fff;
+  /* background: #fff; */
+  background: linear-gradient(45deg, #1de099, #1dc8cd);
   box-shadow: 0px 0px 12px 0px rgba(0, 0, 0, 0.1);
   padding:10px 0 5px;
-  color: #333;
+  color: #fff;
   font-size: 14px;
 }
 .footer-bottom{position:fixed;bottom:0;width:100%;}
 #footer .credits {
   font-size: 13px;
-  color: #888;
+  color: #fff;
 }
 
 #footer .footer-links a {
-  color: #666;
+  color: #fff;
   padding-left: 15px;
 }
 

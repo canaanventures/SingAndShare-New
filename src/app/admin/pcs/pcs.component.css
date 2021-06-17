@@ -21,3 +21,4 @@
 .my-pagination /deep/ .ngx-pagination .current {background:#630460!important;border-radius:3px; color:#fff;padding: 4px 11px;}
 .my-pagination /deep/ .ngx-pagination .pagination-previous a::before, .my-pagination /deep/ .ngx-pagination .pagination-previous::before{display:none;}
 .my-pagination /deep/ .ngx-pagination .pagination-next a::after, .my-pagination /deep/ .ngx-pagination .pagination-next::after{display:none;}
+

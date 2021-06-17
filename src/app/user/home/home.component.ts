@@ -2,6 +2,11 @@ import { Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ApiService } from 'src/app/shared/app.service';
 import { OwlOptions } from 'ngx-owl-carousel-o';
+import { SwiperComponent } from "swiper/angular";
+
+// import Swiper core and required modules
+import SwiperCore, { EffectCoverflow, Pagination } from "swiper/core";
+SwiperCore.use([EffectCoverflow, Pagination]);
 
 @Component({
   selector: 'app-home',
@@ -80,6 +85,31 @@ export class HomeComponent implements OnInit {
       },
       940: {
         items: 3
+      }
+    },
+    nav: true
+  }
+  customOptionsblog: OwlOptions = {
+    loop: true,
+    mouseDrag: true,
+    touchDrag: true,
+    pullDrag: true,
+    dots: false,
+    autoplay:true,
+    navSpeed: 100,
+    navText: ['', ''],
+    responsive: {
+      0: {
+        items: 1
+      },
+      400: {
+        items: 1
+      },
+      740: {
+        items: 1
+      },
+      940: {
+        items: 2
       }
     },
     nav: true

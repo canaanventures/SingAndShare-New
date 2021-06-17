@@ -4,6 +4,7 @@ import { url } from 'src/app/shared/app.constant';
 import { Location } from '@angular/common';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import jwt_decode from "jwt-decode";
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-events',
@@ -53,7 +54,7 @@ export class EventsComponent implements OnInit {
     document.getElementById(id+'_tab').classList.add('active');
   }
 
-  addEvent(event:any){
+  addEvent(f:NgForm){
     event.preventDefault();
     this.edit = false;
     event.preventDefault();
@@ -104,7 +105,7 @@ export class EventsComponent implements OnInit {
     return create_dte.getFullYear()+'-'+month+'-'+dte+'T'+hrs+':'+mins;
   }
 
-  updateEvent(event:any){
+  updateEvent(f:NgForm){
     event.preventDefault();
     if(this.eventimages != ''){
       const formData = new FormData();
@@ -219,7 +220,7 @@ export class EventsComponent implements OnInit {
     document.getElementsByTagName('body')[0].classList.add('modal-open');
   }
 
-  addEventType(event:any){
+  addEventType(g:NgForm){
     event.preventDefault();    
     this.eventtype.created_by_user_id = this.tk.user_id;
     this.restApi.postMethod('addEventType',this.eventtype).subscribe((resp:any) => {
@@ -299,7 +300,7 @@ export class EventsComponent implements OnInit {
     }
   }
 
-  addGallery(event:any){
+  addGallery(h:NgForm){
     event.preventDefault();
     const formData = new FormData();
     for (var i = 0; i < this.images.length; i++) { 

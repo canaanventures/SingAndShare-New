@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
 import { ApiService } from 'src/app/shared/app.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import * as CryptoJS from 'crypto-js';
@@ -40,7 +40,7 @@ export class SrsComponent implements OnInit {
       });
   }
 
-  addBranch(event:any) {
+  addBranch(f:NgForm) {
     event.preventDefault();
     this.edit = false;
     this.srs.created_by = this.tk.user_id;
@@ -63,7 +63,7 @@ export class SrsComponent implements OnInit {
       });    
   }
 
-  updateBranch(event:any) {
+  updateBranch(f:NgForm) {
     event.preventDefault();
     this.edit = true;
     this.srs.modified_by = this.tk.user_id;   

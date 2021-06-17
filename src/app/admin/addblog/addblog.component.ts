@@ -3,6 +3,7 @@ import { AngularEditorConfig } from '@kolkov/angular-editor';
 import { ApiService } from 'src/app/shared/app.service';
 import * as CryptoJS from 'crypto-js';
 import jwt_decode from "jwt-decode";
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-addblog',
@@ -95,7 +96,7 @@ export class AddblogComponent implements OnInit {
     }
   }
 
-  addBlog(event){
+  addBlog(f:NgForm){
     event.preventDefault();
     if(this.images != ''){
       const formData = new FormData();

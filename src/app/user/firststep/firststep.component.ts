@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import SwiperCore, { EffectFade, Swiper } from 'swiper/core';
 
 SwiperCore.use([EffectFade]);
@@ -13,6 +14,11 @@ export class FirststepComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  onSubmit(f:NgForm){
+    console.log(f.value)
+
   }
   
 }
