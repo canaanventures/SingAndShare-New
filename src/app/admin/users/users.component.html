@@ -21,7 +21,7 @@
                                             <th>Mentor</th>
                                             <th>SNS Name</th>
                                             <th>Status</th>
-                                            <th>Action</th>
+                                            <th *ngIf='tk.role_name == "Admin"'>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody *ngFor="let user of userlist | paginate: {itemsPerPage:10, currentPage: p}">
@@ -34,7 +34,7 @@
                                             <td *ngIf='user.srs_name'>{{user.srs_name}}</td>
                                             <td *ngIf='!user.srs_name'>-</td>
                                             <td><span [ngClass] = "user.status == 'Enable' ? 'label label-success' : 'label label-danger'"> {{user.status}} </span></td>
-                                            <td>
+                                            <td *ngIf='tk.role_name == "Admin"'>
                                                 <div class='action-img-div'>
                                                     <img src='assets/img/edit.png' class='action-img' (click)='editUser(user.user_id);' />
                                                 </div>                                              

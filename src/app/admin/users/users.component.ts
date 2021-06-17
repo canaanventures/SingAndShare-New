@@ -107,7 +107,16 @@ export class UsersComponent implements OnInit {
   fetchUser(event) {
     let cnt;
     if(event == 'load'){cnt = 1;}else{cnt=event}
-    this.restApi.getMethod('getPaginatedUsers/'+cnt).subscribe((resp:any) => {
+    let apiurl;
+    if(this.tk.role_name == 'Captain'){
+      apiurl = "getPaginatedSpecificUsers/C/"+this.tk.srs_id+"/"+cnt;
+    }else if(this.tk.role_name == 'Mentor'){
+      apiurl = "getPaginatedSpecificUsers/M/"+this.tk.user_id+"/"+cnt;
+    }else{
+      apiurl = "getPaginatedUsers/"+cnt;
+    }
+   
+    this.restApi.getMethod(apiurl).subscribe((resp:any) => {
       this.userlist = resp.data.data;
       this.tk = jwt_decode(sessionStorage.getItem('user_token'));
       if(event == 'load'){
@@ -177,12 +186,11 @@ export class UsersComponent implements OnInit {
       this.updateuser.srs_id = this.tk.role_id;
     }
 
-    this.restApi.postMethod('updateUser',this.updateuser)
-      .subscribe((data:{}) => {
-        this.closeModal();
-        this.fetchUser(this.paginatecnt);
-        alert('User updated Successfully');
-      });
+    this.restApi.postMethod('updateUser',this.updateuser).subscribe((data:{}) => {
+      this.closeModal();
+      this.fetchUser(this.paginatecnt);
+      alert('User updated Successfully');
+    });
   }
 
   toggleAccess(id:any){

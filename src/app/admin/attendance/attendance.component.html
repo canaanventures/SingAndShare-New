@@ -90,7 +90,7 @@
                             <div class="drag-container">
                                 <div class="section-heading">Members <span id='user_cnt'>{{total}}</span></div>
                                 <div cdkDropList #pendingList="cdkDropList" [cdkDropListData]="todo" [cdkDropListConnectedTo]="[doneList]" class="item-list" (cdkDropListDropped)="drop($event,'user')">
-                                    <div class="item-box" *ngFor="let item of todo" cdkDrag>{{item.user_first_name}} {{item.user_last_name}}</div>
+                                    <div class="item-box" *ngFor="let item of todo" title="{{item.user_email_id}}" cdkDrag>{{item.user_first_name}} {{item.user_last_name}}</div>
                                 </div>
                             </div>
                         </div>
@@ -98,7 +98,7 @@
                             <div class="drag-container">
                                 <div class="section-heading">Presentees <span id='present_cnt'>{{attendees}}</span></div>
                                 <div cdkDropList #doneList="cdkDropList" [cdkDropListData]="done" [cdkDropListConnectedTo]="[pendingList]" class="item-list" (cdkDropListDropped)="drop($event,'attendees')">
-                                    <div class="item-box" *ngFor="let item of done" cdkDrag>{{item.user_first_name}} {{item.user_last_name}}</div>
+                                    <div class="item-box" *ngFor="let item of done" title="{{item.user_email_id}}" cdkDrag>{{item.user_first_name}} {{item.user_last_name}}</div>
                                 </div>
                             </div>
                         </div>
@@ -142,6 +142,7 @@
                             <label for='mentor_email_id'>Mentor Email Id</label> 
                             <select class='form-control' id='mentor_email_id' (change)='mentorEmailDropdown($event)' [(ngModel)]='user.parent_id' >
                                 <option value=''>Select Mentor</option>
+                                <option value='75'>dummy@admin.com</option>
                                 <option value='{{list.user_id}}' *ngFor="let list of mentor">{{list.user_email_id}}</option>
                             </select>
                         </div>

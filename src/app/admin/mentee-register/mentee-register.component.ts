@@ -21,30 +21,22 @@ export class MenteeRegisterComponent implements OnInit {
     var deData= CryptoJS.AES.decrypt(decodeURIComponent(param.encodedurl), 'secret key 123'); 
     this.decryptedInfo = JSON.parse(deData.toString(CryptoJS.enc.Utf8));
 
-    (<HTMLInputElement>document.getElementById('mentee_reg_first_name')).value = this.decryptedInfo.first_name;
-    (<HTMLInputElement>document.getElementById('mentee_reg_last_name')).value = this.decryptedInfo.last_name;
-    (<HTMLInputElement>document.getElementById('mentee_reg_email_id')).value = this.decryptedInfo.email_id;
-    (<HTMLInputElement>document.getElementById('mentor_email_id')).value = this.decryptedInfo.mentor_email_id;
+    this.userdetails.user_first_name = this.decryptedInfo.first_name;
+    this.userdetails.user_last_name = this.decryptedInfo.last_name;
+    this.userdetails.user_email_id = this.decryptedInfo.email_id;
+    this.userdetails.mentor_email_id = this.decryptedInfo.mentor_email_id;
   }
 
   register(event:any){
     event.preventDefault();
-    this.userdetails.user_first_name = (<HTMLInputElement>document.getElementById('mentee_reg_first_name')).value;
-    this.userdetails.user_last_name = (<HTMLInputElement>document.getElementById('mentee_reg_last_name')).value;
-    this.userdetails.user_email_id = (<HTMLInputElement>document.getElementById('mentee_reg_email_id')).value;
-    this.userdetails.user_password = (<HTMLInputElement>document.getElementById('mentee_reg_your_password')).value;
-    this.userdetails.user_contact_number = (<HTMLInputElement>document.getElementById('mentee_reg_contact_number')).value;
     this.userdetails.role_id = this.decryptedInfo.role_id;
     this.userdetails.srs_id = this.decryptedInfo.srs_id;
     this.userdetails.parent_id = this.decryptedInfo.parent_id;
-    this.userdetails.mentor_email_id = (<HTMLInputElement>document.getElementById('mentor_email_id')).value;
     this.userdetails.status = "Enable";
 
-    this.restApi.postMethod('register',this.userdetails)
-      .subscribe((data:{}) => {
-        //this.router.navigate(['register/' + this.encryptInfo]);
-        alert('You have been registered successfully.');
-        location.href='/home';
-      });
+    this.restApi.postMethod('register',this.userdetails).subscribe((data:{}) => {
+      alert('You have been registered successfully.');
+      location.href='/home';
+    });
   }
 }
