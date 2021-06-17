@@ -8,21 +8,82 @@
                 </ol>
             </div>
         </div>
-    </section>    
+    </section>
     <section class="inner-page">
-        <div class="container">
+        <div class="container-fluid">
             <main id="main">
                 <section id="firststep" class="section-bg">
                     <div class="container-fluid" data-aos="fade-up">
-                        <img src='assets/img/we-are-new.jpg' />
-                        <div class="section-header">
-                            <h3 class="section-title mt-5">Content</h3>
+                        <!-- <img src='assets/img/we-are-new.jpg' /> -->
+                        <!-- <div class="section-header">
+                            <h3 class="section-title mt-5">Content one</h3>
                             <span class="section-divider"></span>
                             <p class="section-description mb-5"> Description </p>
-                        </div>
+                        </div> -->
                     </div>
                 </section>
-                <section id="features">
+                <section class="demo" style="  background-color:darkslateblue; height: 80vh;">
+                    <div class="container  h-100 d-flex justify-content-center align-items-center">
+                        <div class="card">
+                            <div class="card-heading text-center">
+                                <h3> What we do</h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="section-header">
+                                            <h3 class="section-title mt-5">Content</h3>
+                                            <span class="section-divider"></span>
+                                            <p class="section-description mb-5">Regular gathering of believers,
+                                                worshipping God and deeper Bible studies are key highlights of Sing and
+                                                Share. We focus on deliberately building relationships, sharing the good
+                                                news, teaching the word of God, mentoring and coaching young people,
+                                                building leaders and transforming communities.</p>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <img src='assets/img/img-2.jpg' />
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+
+                </section>
+                <section class="demo" style="  background-color:darkslateblue; height: 80vh;">
+                    <div class="container  h-100 d-flex justify-content-center align-items-center">
+
+                        <div class="card">
+                            <div class="card-heading text-center">
+                                <h3> What we do</h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <img src='assets/img/img-3.jpg' />
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="section-header">
+                                            <h3 class="section-title mt-5">Content</h3>
+                                            <span class="section-divider"></span>
+                                            <p class="section-description mb-5">Regular gathering of believers,
+                                                worshipping God and deeper Bible studies are key highlights of Sing and
+                                                Share. We focus on deliberately building relationships, sharing the good
+                                                news, teaching the word of God, mentoring and coaching young people,
+                                                building leaders and transforming communities.</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                </section>
+                <!-- <section id="features">
+                    
                     <div class="container" data-aos="fade-up">        
                         <div class="row">     
                             <div class="col-lg-6">
@@ -37,8 +98,8 @@
                             </div>
                         </div>
                     </div>
-                </section>
-                <section id="team" class="section-bg">
+                </section> -->
+                <!-- <section id="team" class="section-bg">
                     <div class="container" data-aos="fade-up">
                         <div class="row">     
                             <div class="col-lg-6">
@@ -46,54 +107,99 @@
                             </div>
                             <div class="col-lg-6">
                                 <div class="section-header">
-                                    <h3 class="section-title mt-5">Content</h3>
+                                    <h3 class="section-title mt-5">Content three</h3>
                                     <span class="section-divider"></span>
                                     <p class="section-description mb-5">Details.</p>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </section>
-                <section id="contact">
-                    <div class="container" data-aos="fade-up">     
-                        <div class="row">                       
-                            <div class="col-lg-5 col-md-8">
-                                <div class="form">
-                                    <form action="forms/contact.php" method="post" role="form" class="php-email-form">
-                                        <div class="row">
-                                            <div class="form-group col-lg-6">
-                                                <input type="text" name="name" class="form-control" id="name" placeholder="Your Name" data-rule="minlen:4" data-msg="Please enter at least 4 chars">
+                </section> -->
+                <section  style="  background-color:darkslateblue; height: 80vh;">
+                    <div class="container  h-100 d-flex justify-content-center align-items-cente">
+
+                        <div class="card">
+                            <div class="card-heading text-center">
+                                <h3> Contact Us</h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+
+                                    <div class="form">
+                                        <form role="form" #f="ngForm" (ngSubmit)="f.form.valid && onSubmit(f)">
+                                            <!-- <form action="forms/contact.php" method="post" role="form" class="php-email-form"> -->
+                                            <div class="row">
+                                                <div class="form-group col-lg-6">
+                                                    <input type="text" name="name" class="form-control" id="name"
+                                                        placeholder="Your Name" data-rule="minlen:4"
+                                                        data-msg="Please enter at least 4 chars" ngModel #name="ngModel"
+                                                        [ngClass]="{'invalid-data': name.invalid && f.submitted, 'valid-data': name.valid && f.submitted}"
+                                                        required />
+                                                    <div class="error_msg" *ngIf="name.invalid && f.submitted">
+                                                        <small class="error_text">Name is required</small>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group col-lg-6 mt-3 mt-lg-0">
+                                                    <input type="email" class="form-control" name="email" id="email"
+                                                        placeholder="Your Email" data-rule="email"
+                                                        data-msg="Please enter a valid email" ngModel #email="ngModel"
+                                                        [ngClass]="{'invalid-data': email.invalid && f.submitted, 'valid-data': email.valid && f.submitted}"
+                                                        required>
+                                                    <div class="error_msg" *ngIf="email.invalid && f.submitted">
+                                                        <small class="error_text">Email is required</small>
+                                                    </div>
+                                                </div>
                                             </div>
-                                            <div class="form-group col-lg-6 mt-3 mt-lg-0">
-                                                <input type="email" class="form-control" name="email" id="email" placeholder="Your Email" data-rule="email" data-msg="Please enter a valid email">
+                                            <div class="row">
+                                                <div class="form-group col-lg-6">
+                                                    <select class="form-control" name="subject" ngModel
+                                                        #subject="ngModel"
+                                                        [ngClass]="{'invalid-data': subject.invalid && f.submitted, 'valid-data': subject.valid && f.submitted}"
+                                                        required>
+                                                        <option value="">--I want to--</option>
+                                                        <option>attend fellowship/events</option>
+                                                        <option>join a Bible study group</option>
+                                                        <option>Know more</option>
+                                                        <option>Share prayer point</option>
+                                                        <option>Share praise point</option>
+                                                    </select>
+                                                    <div class="error_msg" *ngIf="subject.invalid && f.submitted">
+                                                        <small class="error_text">Subject is required</small>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group col-lg-6 mt-3 mt-lg-0">
+                                                    <input type="text" name="contact" class="form-control" id="name"
+                                                        placeholder="Your Phone" data-rule="minlen:10"
+                                                        data-msg="Phone number must have 10 chars" ngModel
+                                                        #contact="ngModel"
+                                                        [ngClass]="{'invalid-data': contact.invalid && f.submitted, 'valid-data': contact.valid && f.submitted}"
+                                                        required />
+                                                    <div class="error_msg" *ngIf="contact.invalid && f.submitted">
+                                                        <small class="error_text">Contact Number is required</small>
+                                                    </div>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="form-group col-lg-6">
-                                                <select class="form-control" required>
-                                                    <option value="">--I want to--</option>
-                                                    <option>attend fellowship/events</option>
-                                                    <option>join a Bible study group</option>
-                                                    <option>Know more</option>
-                                                    <option>Share prayer point</option>
-                                                    <option>Share praise point</option>
-                                                </select>
+                                            <div class="form-group mt-3">
+                                                <textarea class="form-control" name="message" rows="5"
+                                                    placeholder="Message" ngModel #message="ngModel"
+                                                    [ngClass]="{'invalid-data': message.invalid && f.submitted, 'valid-data': message.valid && f.submitted}"
+                                                    required></textarea>
+                                                <div class="error_msg" *ngIf="message.invalid && f.submitted">
+                                                    <small class="error_text">Message is required</small>
+                                                </div>
                                             </div>
-                                            <div class="form-group col-lg-6 mt-3 mt-lg-0">
-                                                <input type="text" name="name" class="form-control" id="name" placeholder="Your Phone" data-rule="minlen:10" data-msg="Phone number must have 10 chars">
+                                            <div class="text-center">
+                                                <button type="submit" class='btn btn-primary' title="Send Message">Send
+                                                    Message</button>
                                             </div>
-                                        </div>
-                                        <div class="form-group mt-3">
-                                            <textarea class="form-control" name="message" rows="5" placeholder="Message" required></textarea>
-                                        </div>
-                                        <div class="text-center">
-                                            <button type="submit" title="Send Message">Send Message</button>
-                                        </div>
-                                    </form>
+                                        </form>
+                                    </div>
                                 </div>
+
                             </div>
                         </div>
                     </div>
+
                 </section>
             </main>
         </div>
