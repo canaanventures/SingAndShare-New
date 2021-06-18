@@ -5,11 +5,30 @@
 .container-fluid{padding:0;}
 #team,#team .col-lg-6{padding:0;}
 
-/* .demo{
+.firststep{
     background-image: url(/assets/img/we-are-new.jpg);
      height: 80vh;width: 100%; 
     background-size: cover; background-position: center; background-repeat: no-repeat;
-} */
+   
+}
+
+.overlay{
+    position: absolute;
+    top:0;
+    width: 100%;
+    height: 100%;
+    /* background: #353535;
+    opacity: 0.8; */
+}
+.btn-lg a{
+    opacity: 1;
+    color: white;
+
+}
+
+.fcontact{
+    height: 87% !important;
+}
 
 
 .card{
