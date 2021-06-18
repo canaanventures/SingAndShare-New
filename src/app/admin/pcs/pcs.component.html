@@ -7,8 +7,12 @@
                     <div class="card-body h-100 p-0">
                         <h5 class='mb-3 p-4 font-weight-bold card-header'>Add The Request</h5>
                         <div class='row px-4'>
+
                              <form id="pcs_form" class='row'   role="form" enctype="multipart/form-data" #f="ngForm" (ngSubmit)="f.form.valid && submitPCS(f)">
                                 <!-- addPCS(f); upDatePCS(f) -->
+
+                            <!-- <form id="pcs_form" class='row' role="form" enctype="multipart/form-data" #f="ngForm" (ngSubmit)="f.form.valid"> && addPCS(f); upDatePCS(f) -->
+
                                 <div class='col-md-12'>
                                     <div class='form-group'>
                                         <label for='name'>Name <span style="color: red;">*</span></label>
@@ -76,14 +80,13 @@
                                 </div>
                                 <div class='col-md-12'>
                                     <div class='form-group'>
+
                                         <label for='description'>Message </label>
+
+                                        <label for='description'>Message</label>
+
                                         <textarea class='form-control' rows='4' placeholder='A short Description about the member and reason for adding' id='description' [(ngModel)]='pcs.pcs_description' name="pcs_description"
                                         ></textarea>
-                                        <!-- <div class="error_msg" *ngIf="f.submitted && pcs_description.invalid">
-                                            <div *ngIf="pcs_description.errors.required">
-                                                <small  class="error_text"> Message is required</small> 
-                                            </div>
-                                        </div> -->
                                     </div>
                                 </div>
                                 <div class='col-md-12 mt-3'>
@@ -97,8 +100,8 @@
                                 <!-- <div class='col-md-12 mt-3'>
                                     <div class='form-group'>   
                                         <label for='submit_btn' class='w-100'> &nbsp; </label>                
-                                        <button id='submit_btn' *ngIf='!edit' class='btn btn-primary' >Submit</button>
-                                        <button id='update_btn' *ngIf='edit' class='btn btn-primary' >Update</button>
+                                        <button id='submit_btn' *ngIf='!edit' class='btn btn-primary'  (click)='addPCS($event);'>Submit</button>
+                                        <button id='update_btn' *ngIf='edit' class='btn btn-primary' (click)='upDatePCS($event);'>Update</button>
                                     </div>
                                 </div> -->
                             </form> 

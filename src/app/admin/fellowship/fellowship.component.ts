@@ -121,7 +121,7 @@ export class FellowshipComponent implements OnInit {
     })
   }
 
-  addEvent(f:NgForm){
+  addEvent(event){
     event.preventDefault();
     this.event.created_by_user_id = this.tk.user_id;
     this.restApi.postMethod('addCalendar',this.event).subscribe((resp:any) => {

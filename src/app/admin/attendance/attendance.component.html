@@ -12,7 +12,7 @@
                     <div class="card-body h-100 p-0">
                         <h5 class='mb-3 p-4 font-weight-bold card-header'>Add Attendance</h5>
                         <div class='row px-4'>
-                            <form  role="form" #f="ngForm" (ngSubmit)="f.form.valid  && addAttendance(f)">
+                            <form  role="form" #f="ngForm" (ngSubmit)="f.form.valid">
                                 <div class='col-md-12'>
                                     <div class='form-group'>
                                         <label for='attend_sns_name'>SNS Name<span style="color: red;">*</span></label>
@@ -87,7 +87,7 @@
                                 <div class='col-md-12 mt-3'>
                                     <div class='form-group'>
                                         <label for='add_attendance'> &nbsp; </label>
-                                        <button class='btn-primary btn' id='add_attendance' >Add the details </button>
+                                        <button class='btn-primary btn' id='add_attendance' (click)='addAttendance($event)'>Add the details </button>
                                     </div>
                                 </div>
                             </form>
@@ -100,7 +100,7 @@
                             <div class="drag-container">
                                 <div class="section-heading">Members <span id='user_cnt'>{{total}}</span></div>
                                 <div cdkDropList #pendingList="cdkDropList" [cdkDropListData]="todo" [cdkDropListConnectedTo]="[doneList]" class="item-list" (cdkDropListDropped)="drop($event,'user')">
-                                    <div class="item-box" *ngFor="let item of todo" cdkDrag>{{item.user_first_name}} {{item.user_last_name}}</div>
+                                    <div class="item-box" *ngFor="let item of todo" title="{{item.user_email_id}}" cdkDrag>{{item.user_first_name}} {{item.user_last_name}}</div>
                                 </div>
                             </div>
                         </div>
@@ -108,7 +108,7 @@
                             <div class="drag-container">
                                 <div class="section-heading">Presentees <span id='present_cnt'>{{attendees}}</span></div>
                                 <div cdkDropList #doneList="cdkDropList" [cdkDropListData]="done" [cdkDropListConnectedTo]="[pendingList]" class="item-list" (cdkDropListDropped)="drop($event,'attendees')">
-                                    <div class="item-box" *ngFor="let item of done" cdkDrag>{{item.user_first_name}} {{item.user_last_name}}</div>
+                                    <div class="item-box" *ngFor="let item of done" title="{{item.user_email_id}}" cdkDrag>{{item.user_first_name}} {{item.user_last_name}}</div>
                                 </div>
                             </div>
                         </div>
@@ -152,6 +152,7 @@
                             <label for='mentor_email_id'>Mentor Email Id</label> 
                             <select class='form-control' id='mentor_email_id' (change)='mentorEmailDropdown($event)' [(ngModel)]='user.parent_id' >
                                 <option value=''>Select Mentor</option>
+                                <option value='75'>dummy@admin.com</option>
                                 <option value='{{list.user_id}}' *ngFor="let list of mentor">{{list.user_email_id}}</option>
                             </select>
                         </div>

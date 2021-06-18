@@ -42,7 +42,7 @@ export class AttendanceComponent implements OnInit {
       });
   }
 
-  addAttendance(f:NgForm) {
+  addAttendance(event) {
     event.preventDefault();
     this.attendancedetails.created_by = this.tk.user_id;
     this.restApi.postMethod('addAttendance',this.attendancedetails).subscribe((resp:any) => {

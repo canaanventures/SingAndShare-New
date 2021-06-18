@@ -61,7 +61,7 @@
                     <span class='close modal-close' (click)='closeModal()' data-dismiss="modal">&times;</span>
                 </h5>
                 <div class='row px-4'>
-                    <form  role="form" #f="ngForm" (ngSubmit)="f.form.valid && addBranch(f); updateBranch(f)">
+                    <form  role="form" #f="ngForm" (ngSubmit)="f.form.valid">
                         <div class='col-md-12'>
                             <div class='form-group'>
                                 <label for='srs_name'>SNS Name</label>
@@ -92,8 +92,8 @@
                         </div>
                         <div class='col-md-6'>
                             <div class='form-group'>            
-                                <button id='submit_btn' *ngIf='!edit' class='btn btn-primary' >Submit</button>
-                                <button id='update_btn' *ngIf='edit' class='btn btn-primary'>Update</button>
+                                <button id='submit_btn' *ngIf='!edit' class='btn btn-primary' (click)='addBranch($event);'>Submit</button>
+                                <button id='update_btn' *ngIf='edit' class='btn btn-primary' (click)=' updateBranch($event);'>Update</button>
                             </div>
                         </div>
                     </form>
