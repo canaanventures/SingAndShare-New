@@ -540,6 +540,7 @@ section {
 /* Sections Header
 --------------------------------*/
 .section-header .section-title {
+  margin-top: 20px;
   font-size: 32px;
   color: #111;
   text-align: center;

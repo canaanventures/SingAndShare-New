@@ -41,9 +41,9 @@ export class HomeComponent implements OnInit {
   }
   customOptions: OwlOptions = {
     loop: true,
-    mouseDrag: true,
-    touchDrag: true,
-    pullDrag: true,
+    // mouseDrag: true,
+    // touchDrag: true,
+    // pullDrag: true,
     dots: false,
     autoplay:true,
     navSpeed: 100,
@@ -112,7 +112,7 @@ export class HomeComponent implements OnInit {
         items: 2
       }
     },
-    nav: true
+    nav: false
   }
 
   fetchEvents() {
