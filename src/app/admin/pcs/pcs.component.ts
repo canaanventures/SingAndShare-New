@@ -27,23 +27,29 @@ export class PcsComponent implements OnInit {
     this.changePagination('load');
   }
 
+  submitPCS(f){
+    if(this.edit==false)
+    this.addPCS(f);
+    else
+    this.upDatePCS(f);
+  }
+
   addPCS(f:NgForm){
-    alert ('hi i am test from add pcs')
+   // alert ('hi i am test from add pcs')
     event.preventDefault();
     this.pcs.user_id = this.tk.user_id;
     this.pcs.status = 'Y';
     this.restApi.postMethod('addPCS',this.pcs).subscribe((resp:any) => {
-<<<<<<< HEAD
       this.getPCS('all','add');
-      //f.resetForm();
-     this.resetForm();
+    // this.resetForm();
      alert(JSON.stringify(resp.message));
-=======
+
       //this.getPCS('all','add');
       this.changePagination(this.paginatecnt);
-      this.resetForm();
+      f.resetForm();
+     // this.resetForm();
       alert(resp.message);
->>>>>>> 9524e35278c47ef79c81f3815ab6a06ad05b3359
+
     })
   }
 
@@ -83,18 +89,17 @@ export class PcsComponent implements OnInit {
   }
 
   upDatePCS(f:NgForm){
-    alert ('hi i am test from update pcs')
+ //   alert ('hi i am test from update pcs')
     event.preventDefault();
     this.pcs.pcs_id = this.pcs.pcs_id;
     this.restApi.postMethod('upDatePCS',this.pcs).subscribe((resp:any) => {
-<<<<<<< HEAD
+
       this.getPCS('all','update');
-      //f.resetForm()
-=======
+      
       //this.getPCS('all','update');
       this.changePagination(this.paginatecnt);
->>>>>>> 9524e35278c47ef79c81f3815ab6a06ad05b3359
-      this.resetForm();
+      f.resetForm()
+    //  this.resetForm();
       this.edit = false;
      alert(resp.message);
     })

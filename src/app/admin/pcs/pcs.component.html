@@ -7,7 +7,8 @@
                     <div class="card-body h-100 p-0">
                         <h5 class='mb-3 p-4 font-weight-bold card-header'>Add The Request</h5>
                         <div class='row px-4'>
-                             <form id="pcs_form" class='row'   role="form" enctype="multipart/form-data" #f="ngForm" (ngSubmit)="f.form.valid && addPCS(f); upDatePCS(f)">
+                             <form id="pcs_form" class='row'   role="form" enctype="multipart/form-data" #f="ngForm" (ngSubmit)="f.form.valid && submitPCS(f)">
+                                <!-- addPCS(f); upDatePCS(f) -->
                                 <div class='col-md-12'>
                                     <div class='form-group'>
                                         <label for='name'>Name <span style="color: red;">*</span></label>
@@ -21,7 +22,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <!-- <div class='col-md-12'>
+                                <div class='col-md-12'>
                                     <div class='form-group'>
                                         <label for='relation'>Relationship With You <span style="color: red;">*</span></label>
                                         <input type='text' class='form-control' placeholder="How's the person related to you ?" id='relation'[(ngModel)]='pcs.relation_with_user' name="relation_with_user" #relation_with_user='ngModel' [ngClass]="{'invalid-data': relation_with_user.invalid && f.submitted, 'valid-data': relation_with_user.valid && f.submitted}" required>
@@ -31,8 +32,8 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div> -->
-                                <!-- <div class='col-md-12'>
+                                </div>
+                                <div class='col-md-12'>
                                     <div class='form-group'>
                                         <label for='contact_state'>State <span style="color: red;">*</span></label>
                                         <select class='form-control'  id="contact_state" [(ngModel)]='pcs.state' (change)="print_city($event);" name="state"
@@ -43,8 +44,8 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div> -->
-                                <!-- <div class='col-md-12'>
+                                </div>
+                                <div class='col-md-12'>
                                     <div class='form-group'>
                                         <label for='contact_city'>City <span style="color: red;">*</span></label>
                                         <select class='form-control'  id="contact_city" [(ngModel)]='pcs.city' name="city" #city='ngModel' [ngClass]="{'invalid-data': city.invalid && f.submitted, 'valid-data': city.valid && f.submitted}" required> </select>
@@ -54,8 +55,8 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div> -->
-                                <!-- <div class='col-md-12'>
+                                </div>
+                                <div class='col-md-12'>
                                     <div class='form-group'>
                                         <label for='action_status'>Action Status <span style="color: red;">*</span></label>
                                         <select class='form-control' id='action_status' [(ngModel)]='pcs.current_status' name="current_status"
@@ -72,10 +73,10 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div> -->
+                                </div>
                                 <div class='col-md-12'>
                                     <div class='form-group'>
-                                        <label for='description'>Message <span style="color: red;">*</span></label>
+                                        <label for='description'>Message </label>
                                         <textarea class='form-control' rows='4' placeholder='A short Description about the member and reason for adding' id='description' [(ngModel)]='pcs.pcs_description' name="pcs_description"
                                         ></textarea>
                                         <!-- <div class="error_msg" *ngIf="f.submitted && pcs_description.invalid">
@@ -85,20 +86,21 @@
                                         </div> -->
                                     </div>
                                 </div>
-                                <!-- <div class='col-md-12 mt-3'>
+                                <div class='col-md-12 mt-3'>
                                     <div class='form-group'>
                                         <label for='add_attendance'> &nbsp; </label>
-                                        <button class='btn-primary btn' id='add_attendance'  *ngIf='!edit'>Add to your List </button>
-                                        <button class='btn-primary btn' id='update_attendance'  *ngIf='edit'>Update your List </button>
+                                        <button id='submit_btn' class='btn btn-primary' >Submit</button>
+                                        <!-- <button class='btn-primary btn' id='add_attendance'  *ngIf='!edit'>Add to your List </button> -->
+                                        <!-- <button class='btn-primary btn' id='update_attendance'  *ngIf='edit'>Update your List </button> -->
                                     </div>
-                                </div> -->
-                                <div class='col-md-12 mt-3'>
+                                </div>
+                                <!-- <div class='col-md-12 mt-3'>
                                     <div class='form-group'>   
                                         <label for='submit_btn' class='w-100'> &nbsp; </label>                
                                         <button id='submit_btn' *ngIf='!edit' class='btn btn-primary' >Submit</button>
                                         <button id='update_btn' *ngIf='edit' class='btn btn-primary' >Update</button>
                                     </div>
-                                </div>
+                                </div> -->
                             </form> 
                        
                         </div>
