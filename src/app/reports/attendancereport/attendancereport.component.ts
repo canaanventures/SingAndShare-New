@@ -149,7 +149,7 @@ export class AttendancereportComponent implements OnInit {
 
   filterList(event,type){
     var result;
-    if((event.keyCode == 8 || event.keyCode == 46) || (type == 'attendance_status')){
+    if((event.keyCode == 8 || event.keyCode == 46) || (type == 'attendance_status') || (type == 'srs_id')){
       var el = Array.from(document.getElementsByClassName('filter-fld') as HTMLCollectionOf<HTMLElement>);
       let cnt = 0;
       for(var j=0; j<el.length ; j++){  
@@ -164,7 +164,7 @@ export class AttendancereportComponent implements OnInit {
       }      
     }else{
       result = this.tofilter.filter(function(item){
-        if(String(item[type].toLowerCase()).indexOf(String(event.target.value).toLowerCase()) > -1){
+        if(String(item[type]).toLowerCase().indexOf(String(event.target.value).toLowerCase()) > -1){
           return item;
         }
       })
@@ -193,14 +193,16 @@ export class AttendancereportComponent implements OnInit {
 
   exportData() {
     var table = document.getElementById("pcs-excel-table") as HTMLTableElement;
-    var rows =[]; var column1, column2, column3, column4, column5;
+    var rows =[]; var column1, column2, column3, column4, column5, column6, column7;
     for(var i=0,row; row = table.rows[i];i++){
       column1 = row.cells[0].innerText;
       column2 = row.cells[1].innerText;
       column3 = row.cells[2].innerText;
       column4 = row.cells[3].innerText;
       column5 = row.cells[4].innerText;
-      rows.push([column1,column2,column3,column4,column5]);
+      column6 = row.cells[5].innerText;
+      column7 = row.cells[6].innerText;
+      rows.push([column1,column2,column3,column4,column5,column6,column7]);
     }
     var csvContent = "data:text/csv;charset=utf-8,";
     rows.forEach(function(rowArray){

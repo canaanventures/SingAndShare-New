@@ -31,6 +31,7 @@ import { NewMembersComponent } from './reports/new-members/new-members.component
 import { MeetingcountComponent } from './reports/meetingcount/meetingcount.component';
 import { NewMentorsComponent } from './reports/new-mentors/new-mentors.component';
 import { LmsreportComponent } from './reports/lmsreport/lmsreport.component';
+import { TopicreportComponent } from './reports/topicreport/topicreport.component';
 
 const routes: Routes = [
   { path: "", redirectTo: "home", pathMatch: "full"  },
@@ -58,6 +59,7 @@ const routes: Routes = [
   { path: "gallery", component: GalleryComponent},
   { path: "gallery/:event_id", component: SinglegalleryComponent },
   { path: "report/attendance", component: AttendancereportComponent },
+  { path: "report/topic", component: TopicreportComponent },
   { path: "report/mentee", component: MenteeComponent },
   { path: "report/mentor", component: MentorComponent },
   { path: "report/pcs", component: PcsreportComponent },

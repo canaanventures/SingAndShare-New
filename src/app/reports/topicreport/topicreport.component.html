@@ -1,0 +1,78 @@
+<div class='container report-container'>
+    <h3 class='modal-title'>Fellowship Topic Report</h3>
+    <div class="card-body h-100 mt-3">
+        <div class='row'>
+            <div class='col-md-12 p-0 mt-3'>
+                <div class='form-group col-md-3'>
+                    <label for='from_date'>From Date</label>
+                    <input type='datetime-local' id='from_date' class='form-control' [(ngModel)]='filterdate.from_date' placeholder='From Date' (change)='fromDateChange();' />
+                </div>
+                <div class='form-group col-md-3'>
+                    <label for='to_date'>To Date</label>
+                    <input type='datetime-local' id='to_date' class='form-control' [(ngModel)]='filterdate.to_date' placeholder='To Date' />
+                </div>
+                <div class='form-group col-md-3'>
+                    <label for='test' class='w-100'> &nbsp; </label>
+                    <button class='btn btn-primary' id='btn_datefilter' (click)='filterDate();'>Filter</button>
+                    <button class='btn bg-orange' id='btn_resetfilter' (click)='reset();'>Reset</button>
+                </div>  
+                <div class='form-group col-md-3'>
+                    <label for='download_excel' class='w-100'> &nbsp; </label>
+                    <span id='download_excel' class='float-right' (click)="exportData()"><i class="fa fa-file-excel-o" aria-hidden="true"></i></span>
+                </div>                   
+            </div>
+        </div>
+        <div class='row' *ngIf='originalfilter.length == 0'>
+            <div class='col-md-12 p-0'>
+                <h3 class='chart_msg'>No Data to be displayed</h3>
+            </div>
+        </div>
+        <div class='row' *ngIf='originalfilter.length > 0'>
+            <table class='table-bordered table' id="pcs-excel-table">
+                <thead>
+                    <tr>
+                        <th>SNS Name</th>
+                        <th>Captain Name</th>                        
+                        <th>Topic Name</th>
+                        <th>Speaker Name</th>
+                        <th>Meeting Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr> 
+                        <td>
+                            <select id='srs_id' class='form-control filter-fld' [(ngModel)]='filter.srs_id' (change)="filterList($event,'srs_id')">
+                                <option value=''>Select the SNS Name</option>
+                                <option value='{{list.srs_id}}' *ngFor='let list of srslist'>{{list.srs_name}}</option>
+                            </select>
+                        </td>
+                        <td>
+                            <input type='text' class='form-control filter-fld' id='captain_name' [(ngModel)]='filter.captain_name' (keyup)="filterList($event,'captain_name')" placeholder="Captain's Name" />
+                        </td>
+                        <td>
+                            <input type='text' class='form-control filter-fld' id='topic_name' [(ngModel)]='filter.topic_name' (keyup)="filterList($event,'topic_name')" placeholder="Topic's Name" />
+                        </td>
+                        <td>
+                            <input type='text' class='form-control filter-fld' id='speaker_name' [(ngModel)]='filter.speaker_name' (keyup)="filterList($event,'speaker_name')" placeholder="Speaker's Name" />
+                        </td>
+                        <td> </td>
+                    </tr>
+
+                    <tr *ngIf='attendancelist.length == 0 && originalfilter.length > 0'>
+                        <td colspan='5'>
+                            <h3 class='chart_msg'>No Match Found</h3>
+                        </td>
+                    </tr>
+
+                    <tr *ngFor="let list of attendancelist">
+                        <td>{{ list.srs_name }}</td>
+                        <td>{{ list.captain_name }}</td>
+                        <td>{{ list.topic_name }}</td>
+                        <td>{{ list.speaker_name }}</td>
+                        <td>{{ list.meeting_date | date:'dd-MM-yyyy hh:mm' }}</td>
+                    </tr> 
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
