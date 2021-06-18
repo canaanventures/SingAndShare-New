@@ -62,6 +62,7 @@ import { NewMentorsComponent } from './reports/new-mentors/new-mentors.component
 import { LmsreportComponent } from './reports/lmsreport/lmsreport.component';
 import { ForgotpasswordComponent } from './user/forgotpassword/forgotpassword.component';
 import { TopicreportComponent } from './reports/topicreport/topicreport.component';
+import { EventreportComponent } from './reports/eventreport/eventreport.component';
 
 FullCalendarModule.registerPlugins([ // register FullCalendar plugins
   dayGridPlugin,
@@ -108,7 +109,8 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     NewMentorsComponent,
     LmsreportComponent,
     ForgotpasswordComponent,
-    TopicreportComponent
+    TopicreportComponent,
+    EventreportComponent
   ],
   imports: [
     BrowserModule,
