@@ -62,10 +62,7 @@
                         <th>Email ID</th>
                         <th>Contact Number</th>
                         <th>Mentor</th>
-                        <th>SNS</th>                           
-                        <th>Captain</th>
-                        <th>Topic</th>
-                        <th>Speaker</th>
+                        <th>SNS</th>
                         <th>Status</th>
                         <th>Count</th>
                     </tr>
@@ -89,16 +86,7 @@
                                 <option value=''>Select the SNS Name</option>
                                 <option value='{{list.srs_id}}' *ngFor='let list of srslist'>{{list.srs_name}}</option>
                             </select>
-                        </td>
-                        <td>
-                            <input type='text' class='form-control filter-fld' id='captain_name' [(ngModel)]='filter.captain_name' (keyup)="filterList($event,'captain_name')" placeholder="Captain's Name" />
-                        </td>
-                        <td>
-                            <input type='text' class='form-control filter-fld' id='topic_name' [(ngModel)]='filter.topic_name' (keyup)="filterList($event,'topic_name')" placeholder="Topic's Name" />
-                        </td>
-                        <td>
-                            <input type='text' class='form-control filter-fld' id='speaker_name' [(ngModel)]='filter.speaker_name' (keyup)="filterList($event,'speaker_name')" placeholder="Speaker's Name" />
-                        </td>
+                        </td>                       
                         <td>
                             <select id='attendance_status' class='form-control filter-fld' [(ngModel)]='filter.attendance_status' (change)="filterList($event,'attendance_status')">
                                 <option value=''>Attendance Status</option>
@@ -110,7 +98,7 @@
                     </tr>
 
                     <tr *ngIf='attendancelist.length == 0 && originalfilter.length > 0'>
-                        <td colspan='10'>
+                        <td colspan='7'>
                             <h3 class='chart_msg'>No Match Found</h3>
                         </td>
                     </tr>
@@ -120,10 +108,7 @@
                         <td>{{ list.user_email_id }}</td>
                         <td>{{ list.user_contact_number }}</td>
                         <td>{{ list.mentor_name }}</td>
-                        <td>{{ list.srs_name }}</td>                       
-                        <td>{{ list.captain_name }}</td>
-                        <td>{{ list.topic_name }}</td>
-                        <td>{{ list.speaker_name }}</td>
+                        <td>{{ list.srs_name }}</td>
                         <td>{{ list.attendance_status }}</td>
                         <td>{{ list.count }}</td>
                     </tr> 
