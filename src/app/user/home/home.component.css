@@ -76,6 +76,13 @@
     .blog-image{position:unset;margin-top:15px;}
     #contact .section-header .section-title{text-align:center;}
     #contact .section-header .section-divider{float: none;margin: 0 auto;margin-bottom: 30px;}
+
+}
+
+@media only screen and (max-width: 600px){
+    .home-abt-nn{
+        height: 120vh !important;
+    }
 }
 
 
@@ -109,4 +116,14 @@
     min-width: 0;
     word-wrap: break-word;
  
+}
+
+#home-abt-new{
+    background-image: url(/assets/img/home_abt_new.jpg);
+     height: 80vh;width: 100%; 
+    background-size: cover; background-position: center; background-repeat: no-repeat;
+}
+
+.home-abt-nn{
+    height: 140vh;
 }
