@@ -6,7 +6,7 @@
                 <div class="col-md-5 card p-0">
                     <div class="card-body h-100 p-0">
                         <h5 class='mb-3 p-4 font-weight-bold card-header'>Add Lesson</h5>
-                        <form  role="form" #f="ngForm" (ngSubmit)="f.form.valid">
+                        <form  role="form" #f="ngForm" (ngSubmit)="f.form.valid && submit(f)">
                             <div class='row px-4'>
                                 <div class='col-md-6'>
                                     <div class='form-group'>
@@ -96,8 +96,10 @@
                             <div class='row px-4'>
                                 <div class='col-md-12 mt-3'>
                                     <div class='form-group'>
-                                        <button class='btn-primary btn' id='add_course' *ngIf='!edit' (click)='addLesson($event)'>Add the Course </button>
-                                        <button class='btn-primary btn' id='edit_course' *ngIf='edit' (click)='updateLesson($event)'>Update the Course </button>
+                                        <button class='btn-primary btn' id='add_course' *ngIf='!edit' >Add the Course </button>
+                                        <!-- (click)='addLesson($event)' -->
+                                        <button class='btn-primary btn' id='edit_course' *ngIf='edit' >Update the Course </button>
+                                        <!-- (click)='updateLesson($event)' -->
                                         <span>&nbsp; &nbsp;&nbsp;&nbsp;</span>
                                         <span class='btn-primary btn bg-orange'  id='cancel_category' (click)="resetForm(f)" >Cancel </span>
                                     </div>

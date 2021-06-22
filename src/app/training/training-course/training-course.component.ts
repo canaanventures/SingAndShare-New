@@ -36,8 +36,16 @@ export class TrainingCourseComponent implements OnInit {
       this.courselist = resp.data;
     });
   }
+
+  submit(f){
+    if(this.edit==false)
+    this.addCourse(f);
+    else
+    this.updateCourse(f);
+
+  }
  
-  addCourse(event){
+  addCourse(f:NgForm){
     event.preventDefault();
     this.course.created_by = this.tk.user_id;
     if(this.images != ''){
@@ -79,7 +87,7 @@ export class TrainingCourseComponent implements OnInit {
     });
   }
 
-  updateCourse(event){
+  updateCourse(f:NgForm){
     event.preventDefault();
     if(this.images != ''){
       const formData = new FormData();

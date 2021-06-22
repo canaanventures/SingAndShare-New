@@ -23,7 +23,15 @@ export class TrainingCategoryComponent implements OnInit {
     this.changePagination('load');
   }
 
-  addCategory(event:any){
+  submit(f:NgForm){
+    if(this.edit==false)
+    this.addCategory(f);
+    else
+    this.updateCategory(f);
+
+  }
+
+  addCategory(f:NgForm){
     event.preventDefault();
     this.category.created_by = this.tk.user_id;
     if(this.images != ''){
@@ -63,7 +71,7 @@ export class TrainingCategoryComponent implements OnInit {
     });
   }
 
-  updateCategory(event:any){
+  updateCategory(f:NgForm){
     event.preventDefault();
     if(this.images != ''){
       const formData = new FormData();

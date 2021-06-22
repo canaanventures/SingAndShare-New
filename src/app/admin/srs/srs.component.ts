@@ -40,7 +40,15 @@ export class SrsComponent implements OnInit {
       });
   }
 
-  addBranch(event) {
+  submit(f){
+    if(this.edit==false)
+    this.addBranch(f);
+    else
+    this.updateBranch(f);
+  }
+
+
+  addBranch(f:NgForm) {
     event.preventDefault();
     this.edit = false;
     this.srs.created_by = this.tk.user_id;
@@ -63,7 +71,7 @@ export class SrsComponent implements OnInit {
       });    
   }
 
-  updateBranch(event) {
+  updateBranch(f:NgForm) {
     event.preventDefault();
     this.edit = true;
     this.srs.modified_by = this.tk.user_id;   

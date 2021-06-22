@@ -12,7 +12,7 @@
                     <div class="card-body h-100 p-0">
                         <h5 class='mb-3 p-4 font-weight-bold card-header'>Add Attendance</h5>
                         <div class='row px-4'>
-                            <form  role="form" #f="ngForm" (ngSubmit)="f.form.valid">
+                            <form  role="form" #f="ngForm" (ngSubmit)="f.form.valid && addAttendance(f) ">
                                 <div class='col-md-12'>
                                     <div class='form-group'>
                                         <label for='attend_sns_name'>SNS Name<span style="color: red;">*</span></label>
@@ -87,7 +87,8 @@
                                 <div class='col-md-12 mt-3'>
                                     <div class='form-group'>
                                         <label for='add_attendance'> &nbsp; </label>
-                                        <button class='btn-primary btn' id='add_attendance' (click)='addAttendance($event)'>Add the details </button>
+                                        <button class='btn-primary btn' id='add_attendance' >Add the details </button>
+                                        
                                     </div>
                                 </div>
                             </form>

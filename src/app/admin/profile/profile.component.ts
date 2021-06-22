@@ -1,7 +1,8 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, NgModule } from '@angular/core';
 import { ActivatedRoute, Router } from "@angular/router";
 import { ApiService } from 'src/app/shared/app.service';
 import jwt_decode from "jwt-decode";
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-profile',
@@ -45,7 +46,7 @@ export class ProfileComponent implements OnInit {
     document.getElementById('blog-image').click();
   }
 
-  updateProfile(event:any) {     
+  updateProfile(f:NgForm) {     
     event.preventDefault();
     if(this.images){
       const formData = new FormData();
@@ -90,7 +91,7 @@ export class ProfileComponent implements OnInit {
     }
   }
 
-  resetPassword(event:any){
+  resetPassword(g:NgForm){
     event.preventDefault();
     this.reset.email_id = this.tk.email;
     this.restApi.postMethod('resetPassword',this.reset).subscribe((resp:any) => {

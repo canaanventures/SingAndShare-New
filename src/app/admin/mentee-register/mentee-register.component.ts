@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute, Router } from "@angular/router";
 import { ApiService } from 'src/app/shared/app.service';
 import * as CryptoJS from 'crypto-js';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-mentee-register',
@@ -27,7 +28,7 @@ export class MenteeRegisterComponent implements OnInit {
     this.userdetails.mentor_email_id = this.decryptedInfo.mentor_email_id;
   }
 
-  register(event:any){
+  register(f:NgForm){
     event.preventDefault();
     this.userdetails.role_id = this.decryptedInfo.role_id;
     this.userdetails.srs_id = this.decryptedInfo.srs_id;

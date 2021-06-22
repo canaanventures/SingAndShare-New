@@ -20,11 +20,11 @@
                     </div>
                     <div class="container fcontact d-flex justify-content-center align-items-center">
                         <div class=" row text-center" style="color: rgb(0, 0, 0);">
-                                    <button class="btn btn-lg btn-primary"><a href="#firststepcontact"> Contact Us</a></button>
+                                    <button class="btn btn-lg btn-primary" (click)="scroll(target)"> Contact Us</button>
                         </div>
                     </div>
                 </section>
-                <section class="demo" style="  background-color:darkslateblue; height: 65vh;">
+                <section class="fstep">
                     <div class="container  h-100 d-flex justify-content-center align-items-center">
                         <div class="card">
                             <div class="card-heading text-center">
@@ -53,7 +53,7 @@
                     </div>
 
                 </section>
-                <section class="demo" style="  background-color:darkslateblue; height: 65vh;">
+                <section class="fstep" id="fstep2">
                     <div class="container  h-100 d-flex justify-content-center align-items-center">
 
                         <div class="card">
@@ -116,8 +116,8 @@
                         </div>
                     </div>
                 </section> -->
-                <section id="firststepcontact" style="  background-color:darkslateblue; height: 65vh;">
-                    <div class="container  h-100 d-flex justify-content-center align-items-cente">
+                <section id="firststepcontact" #target>
+                    <div class="container contact-form h-100 d-flex justify-content-center align-items-center">
 
                         <div class="card">
                             <div class="card-heading text-center">
@@ -125,7 +125,7 @@
                             </div>
                             <div class="card-body">
                                 <div class="row">
-
+                                        
                                     <div class="form">
                                         <form role="form" #f="ngForm" (ngSubmit)="f.form.valid && onSubmit(f)">
                                             <!-- <form action="forms/contact.php" method="post" role="form" class="php-email-form"> -->
@@ -206,3 +206,4 @@
         </div>
     </section>
 </main>
+

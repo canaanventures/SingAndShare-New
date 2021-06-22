@@ -96,7 +96,14 @@ export class AddblogComponent implements OnInit {
     }
   }
 
-  addBlog(event){
+  submit(f){
+    if(this.edit==false)
+    this.addBlog(f);
+    else
+    this.updateBlog(f);
+  }
+
+  addBlog(f:NgForm){
     event.preventDefault();
     if(this.images != ''){
       const formData = new FormData();
@@ -199,7 +206,7 @@ export class AddblogComponent implements OnInit {
     });
   }
 
-  updateBlog(event){
+  updateBlog(f:NgForm){
     event.preventDefault();
     if(this.images != ''){
       const formData = new FormData();
@@ -251,7 +258,7 @@ export class AddblogComponent implements OnInit {
       });
   }
 
-  addBlogCat(event){
+  addBlogCat(g:NgForm){
     event.preventDefault(); 
     this.addcat.created_by = this.tk.user_id;
     this.restApi.postMethod('addBlogCategory',this.addcat).subscribe((resp:any) => {

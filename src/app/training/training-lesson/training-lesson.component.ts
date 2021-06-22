@@ -56,7 +56,15 @@ export class TrainingLessonComponent implements OnInit {
     }
   }
 
-  addLesson(event){
+  submit(f){
+    if(this.edit==false)
+    this.addLesson(f);
+    else
+    this.updateLesson(f);
+
+  }
+
+  addLesson(f:NgForm){
     event.preventDefault();
     this.lesson.created_by = this.tk.user_id;
     let arr = this.docurl;
@@ -69,7 +77,7 @@ export class TrainingLessonComponent implements OnInit {
       this.restApi.postImgMethod('addLessonDoc/'+resp.data,formData).subscribe((resp:any) => {
         //this.fetchLesson();
         this.changePagination(this.paginatecnt);
-        alert(resp.message);
+        //alert(resp.message);
         //this.resetForm();
         let element: HTMLElement = document.getElementById('cancel_category') as HTMLElement;
         element.click();
@@ -88,7 +96,7 @@ export class TrainingLessonComponent implements OnInit {
     });
   }
 
-  updateLesson(event){
+  updateLesson(f:NgForm){
     event.preventDefault();
     this.lesson.modified_by = this.tk.user_id;
     let arr = this.docurl;

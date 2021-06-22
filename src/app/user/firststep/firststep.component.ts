@@ -20,5 +20,9 @@ export class FirststepComponent implements OnInit {
     console.log(f.value)
 
   }
+
+  scroll(el: HTMLElement) {
+    el.scrollIntoView();
+  }
   
 }

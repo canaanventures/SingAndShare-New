@@ -7,7 +7,7 @@
         </div>       
         <h5 class='mb-3 card-header'>Mentee Register</h5>
         <div class='row px-4'>
-            <form role="form" #f="ngForm" (ngSubmit)="f.form.valid">
+            <form role="form" #f="ngForm" (ngSubmit)="f.form.valid && register(f)">
                 <div class='col-md-6'>
                     <div class='form-group'>
                         <label for='mentee_reg_first_name'>First Name<span style="color: red;">*</span></label>
@@ -83,7 +83,8 @@
                 </div>
                 <div class='col-md-6'>
                     <div class='form-group'>                      
-                        <button id='submit_btn' class='btn btn-primary' (click)='register($event)'>Submit</button>
+                        <button id='submit_btn' class='btn btn-primary' >Submit</button>
+                        <!-- (click)='register($event)' -->
                     </div>
                 </div>
             </form>

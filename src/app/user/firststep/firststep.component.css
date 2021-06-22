@@ -45,3 +45,41 @@
     -moz-box-shadow: 0px 0px 5px 2px rgba(0,0,0,0.2);
     box-shadow: 0px 0px 5px 2px rgba(0,0,0,0.2);
 }
+
+.fstep{
+    height: 65vh;
+    background-color:darkslateblue;
+}
+
+
+
+
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {
+   #firststep{
+    height: 40vh !important;
+    margin-top: 100px;
+   }
+   .fstep{
+    height: 105vh;
+    background-color:darkslateblue;
+}
+  }
+
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+    .fstep{
+        height: 118vh;
+        background-color:darkslateblue;
+    }
+  }
+  
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (min-width: 1200px) {
+    .fstep{
+        height: 65vh;
+        background-color:darkslateblue;
+    }
+  }
+  

@@ -28,7 +28,7 @@
                             <div class="card-body h-100">
                                 <h5 class='mb-3 card-header p-4'>Profile Details</h5>
                                 <div class='row px-4'>
-                                    <form  role="form" #f="ngForm" (ngSubmit)="f.form.valid">
+                                    <form  role="form" #f="ngForm" (ngSubmit)="f.form.valid && updateProfile(f)">
                                         <div class='col-md-6'>
                                             <div class='form-group'>
                                                 <label for='user_first_name'>First name<span style="color: red;">*</span></label>
@@ -120,7 +120,8 @@
                                         </div>
                                         <div class='col-md-12 mt-3'>
                                             <div class='form-group clearfix'>
-                                                <button id='update_profile' class="btn btn-primary btn-block float-right" (click)='updateProfile($event);' style='width:max-content;'>Update Your Profile</button>
+                                                <button id='update_profile' class="btn btn-primary btn-block float-right"  style='width:max-content;'>Update Your Profile</button>
+                                                <!-- (click)='updateProfile($event);' -->
                                             </div>
                                         </div>
                                     </form>
@@ -129,7 +130,7 @@
                                 <hr class='mb-0' />
                                 <h5 class='mb-3 card-header p-4'>Change Password</h5>
                                 <div class='row px-4'>
-                                    <form  role="form" #g="ngForm" (ngSubmit)="g.form.valid">
+                                    <form  role="form" #g="ngForm" (ngSubmit)="g.form.valid && resetPassword(g)">
                                         <div class='col-md-6'>
                                             <div class='form-group'>
                                                 <label for='profile_new_password'>New Password<span style="color: red;">*</span></label>
@@ -152,7 +153,8 @@
                                         </div>
                                         <div class='col-md-6'>
                                             <div class='form-group'>
-                                                <button id='reset_password' class="btn btn-primary btn-block" style='width:max-content;' (click)='resetPassword($event)'>Reset Password</button>
+                                                <button id='reset_password' class="btn btn-primary btn-block" style='width:max-content;'>Reset Password</button>
+                                                <!--  (click)='resetPassword($event)' -->
                                             </div>
                                         </div>
                                     </form>
