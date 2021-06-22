@@ -160,5 +160,21 @@
     .about-text{
         padding-top:20px !important; font-size: 23px !important; height: 36vh;
     }
-  }
+}
+
+.owl-carousel .owl-stage{display: flex;flex-wrap: wrap;}
+.blog-image-item {
+    display: flex;
+    flex: 1 0 auto;
+    height: 450px;
+}
+.blog-image-box {
+    position: relative;
+    overflow: hidden;
+    padding:0 5px;
+    /* margin-bottom: 80px; *//*This is optional*/
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+}
 

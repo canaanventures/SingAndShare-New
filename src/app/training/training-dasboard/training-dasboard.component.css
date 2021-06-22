@@ -17,3 +17,5 @@ label.inactive{pointer-events: none;opacity: 0.2;}
 .lesson-dtls p{padding: 10px;}
 .mr-10 {margin-right: 10px;}
 .course-card{margin-bottom: 25px;}
+.label-success{padding: 3px 5px;}
+.menteestatus{text-align:center;color:crimson;}

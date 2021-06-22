@@ -75,13 +75,13 @@ export class HomeComponent implements OnInit {
     navText: ['', ''],
     responsive: {
       0: {
-        items: 1
-      },
-      400: {
         items: 2
       },
+      400: {
+        items: 1
+      },
       740: {
-        items: 3
+        items: 1
       },
       940: {
         items: 3
@@ -96,23 +96,27 @@ export class HomeComponent implements OnInit {
     pullDrag: true,
     dots: false,
     autoplay:true,
-    navSpeed: 100,
+    navSpeed: 500,
     navText: ['', ''],
+    merge: false,
+		mergeFit: true,
+		autoWidth: false,
+		startPosition: 0,
     responsive: {
       0: {
-        items: 1
+        items: 2
       },
       400: {
-        items: 1
+        items: 2
       },
       740: {
-        items: 1
+        items: 2
       },
       940: {
         items: 2
       }
     },
-    nav: false
+    nav: true
   }
 
   fetchEvents() {
@@ -151,13 +155,13 @@ export class HomeComponent implements OnInit {
   }
 
   fetchBlog(){
-    this.restApi.getMethod('getBlogs/multiple/3').subscribe((resp:any) => {
-      if(resp.data.length > 0){
-        this.bloglist = resp.data[0];
-        this.restApi.getImgMethod('getBlogImg/'+this.bloglist.blog_id).subscribe((resp:any) => {
+    this.restApi.getMethod('getMultiBlogImg').subscribe((resp:any) => {
+      //if(resp.data.length > 0){
+        this.bloglist = resp.data;
+        /* this.restApi.getImgMethod('getBlogImg/'+this.bloglist.blog_id).subscribe((resp:any) => {
           this.createImageFromBlob(resp);
-        });
-      }   
+        }); */
+      //}   
     });
   }
 

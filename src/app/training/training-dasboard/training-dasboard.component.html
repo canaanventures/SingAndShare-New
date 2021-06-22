@@ -55,13 +55,19 @@
                             <label class='label label-success' [ngClass]="dtls.connection_link ? 'active' : 'inactive'" (click)='openLink(dtls.connection_link)' >
                                 <i class="fa fa-link" aria-hidden="true"></i>
                             </label>
+                            <label class='label label-danger float-right' *ngIf="dtls.class_status == 'N'"> Disabled </label>
                         </h5>
                         <div class='class-div-hide' id='row_{{dtls.class_id}}'>
-                            <p class='class-desc'>{{dtls.description}}</p>
-                            <!-- <h3>Lessons</h3> -->
-                            <div class='lesson-dtls' *ngFor='let lessondtls of lesson'>
-                                <h6>{{lessondtls.lesson_name}}</h6>
-                                <p>{{lessondtls.lesson_description}}</p>
+                            <h3 class='mentee-status-msg' *ngIf='menteestatus=="N"'>You have been removed from this class</h3>
+                            <div class='lessons-details'>
+                                <p class='class-desc'>{{dtls.description}}</p>
+                                <div class='lesson-dtls' *ngFor='let lessondtls of lesson'>
+                                    <h6>
+                                        {{lessondtls.lesson_name}}
+                                        <label class='label float-right' style='display:none;' id='lesson_{{lessondtls.row_id}}_{{dtls.class_id}}'> Completed </label>
+                                    </h6>
+                                    <p>{{lessondtls.lesson_description}}</p>
+                                </div>
                             </div>
                         </div>
                     </div>  

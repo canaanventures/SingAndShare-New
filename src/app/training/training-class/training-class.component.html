@@ -221,7 +221,10 @@
                         
                         <div class='row' *ngIf='!generate'>
                             <div class="form-group col-md-4">
+
                                 <label for="class_end_date">Class End Date<span style="color: red;">*</span></label>
+                                <!-- <label for="class_end_date">Class End Date</label> -->
+
                                 <input type="datetime-local" class="form-control" id='class_end_date' [(ngModel)]='class.end_date' name='end_date' #end_date='ngModel' placeholder='Enter the class End Date' [ngClass]="{'invalid-data': end_date.invalid && f.submitted, 'valid-data': end_date.valid && f.submitted}" required />
                                 <div class="error_msg" *ngIf="f.submitted && end_date.invalid">
                                     <div *ngIf="end_date.errors.required">
@@ -252,6 +255,7 @@
                             </div>
                             <div class="form-group col-md-8">
                                 <label for="connection_link">Connection Link<span style="color: red;">*</span></label>
+                                <!-- <label for="connection_link">Connection Link</label> -->
                                 <input type="text" class="form-control" id='connection_link' [(ngModel)]='class.connection_link' name='connection_link' #connection_link='ngModel' [ngClass]="{'invalid-data': connection_link.invalid && f.submitted, 'valid-data': connection_link.valid && f.submitted}" placeholder='Enter the Connection link' required />
                                 <div class="error_msg" *ngIf="f.submitted && connection_link.invalid">
                                     <div *ngIf="connection_link.errors.required">

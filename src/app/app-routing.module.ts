@@ -33,6 +33,8 @@ import { NewMentorsComponent } from './reports/new-mentors/new-mentors.component
 import { LmsreportComponent } from './reports/lmsreport/lmsreport.component';
 import { TopicreportComponent } from './reports/topicreport/topicreport.component';
 import { EventreportComponent } from './reports/eventreport/eventreport.component';
+import { MentorNonActiveReportComponent } from './reports/mentor-non-active-report/mentor-non-active-report.component';
+import { MenteeNonActiveReportComponent } from './reports/mentee-non-active-report/mentee-non-active-report.component';
 
 const routes: Routes = [
   { path: "", redirectTo: "home", pathMatch: "full"  },
@@ -62,7 +64,9 @@ const routes: Routes = [
   { path: "report/attendance", component: AttendancereportComponent },
   { path: "report/topic", component: TopicreportComponent },
   { path: "report/mentee", component: MenteeComponent },
+  { path: "report/non-active-mentee", component: MenteeNonActiveReportComponent },
   { path: "report/mentor", component: MentorComponent },
+  { path: "report/non-active-mentor", component: MentorNonActiveReportComponent },
   { path: "report/pcs", component: PcsreportComponent },
   { path: "report/new-mentees", component: NewMembersComponent },
   { path: "report/fellowship", component: MeetingcountComponent },

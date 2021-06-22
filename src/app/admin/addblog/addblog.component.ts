@@ -192,7 +192,9 @@ export class AddblogComponent implements OnInit {
     this.restApi.getMethod('getBlogs/single/'+id).subscribe((resp:any) => {
       (<HTMLInputElement>document.getElementById('title')).value = resp.data[0].title;
       (<HTMLInputElement>document.getElementById('category')).value = resp.data[0].category;
-      (<HTMLInputElement>document.getElementById('approval_status')).value = resp.data[0].approval_status;
+      if(document.getElementById('approval_status')){
+        (<HTMLInputElement>document.getElementById('approval_status')).value = resp.data[0].approval_status;
+      }
       this.htmlContent = resp.data[0].description;
       this.restApi.getImgMethod('getBlogImg/'+id).subscribe((resp:any) => {
         if(resp.status == 201){
@@ -226,8 +228,6 @@ export class AddblogComponent implements OnInit {
     this.editblog.category = (<HTMLInputElement>document.getElementById('category')).value;
     if(document.getElementById('approval_status')){
       this.editblog.approval_status = (<HTMLInputElement>document.getElementById('approval_status')).value;
-    }else{
-      this.editblog.approval_status = "N";
     }
     if(resp == ''){
       this.editblog.imgurl = resp; 

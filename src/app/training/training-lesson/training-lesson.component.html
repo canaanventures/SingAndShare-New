@@ -100,6 +100,9 @@
                                         <!-- (click)='addLesson($event)' -->
                                         <button class='btn-primary btn' id='edit_course' *ngIf='edit' >Update the Course </button>
                                         <!-- (click)='updateLesson($event)' -->
+                                        <button class='btn-primary btn' id='add_course' *ngIf='!edit' (click)='addLesson($event)'>Add the Lesson </button>
+                                        <button class='btn-primary btn' id='edit_course' *ngIf='edit' (click)='updateLesson($event)'>Update the Lesson </button>
+
                                         <span>&nbsp; &nbsp;&nbsp;&nbsp;</span>
                                         <span class='btn-primary btn bg-orange'  id='cancel_category' (click)="resetForm(f)" >Cancel </span>
                                     </div>
