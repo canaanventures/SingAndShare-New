@@ -153,7 +153,8 @@ export class UsersComponent implements OnInit {
     (<HTMLInputElement>document.getElementById('mentee_user_type')).setAttribute("disabled", 'disabled');
   }
 
-  closeModal() {
+  closeModal(f:NgForm) {
+    f.resetForm()
     this.display='none';
     document.getElementsByTagName('body')[0].classList.remove('modal-open');
   }
@@ -194,7 +195,7 @@ export class UsersComponent implements OnInit {
     }
 
     this.restApi.postMethod('updateUser',this.updateuser).subscribe((data:{}) => {
-      this.closeModal();
+      this.closeModal(f);
       this.fetchUser(this.paginatecnt);
       alert('User updated Successfully');
     });

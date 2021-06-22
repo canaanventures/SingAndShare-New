@@ -156,7 +156,8 @@ export class TrainingClassComponent implements OnInit {
     document.getElementsByTagName('body')[0].classList.add('modal-open');
   }
 
-  closeClassModal(){
+  closeClassModal(f:NgForm){
+    f.resetForm()
     this.displayClassModal='none';
     this.edit = true;
     document.getElementsByTagName('body')[0].classList.remove('modal-open');

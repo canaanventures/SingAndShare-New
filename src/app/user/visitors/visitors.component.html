@@ -1,6 +1,6 @@
 <div class="form">
     <!-- action="forms/contact.php" method="post" role="form" class="php-email-form" -->
-    <form  role="form" #f="ngForm" (ngSubmit)="f.form.valid && visitorDetails($event)">
+    <form  role="form" #f="ngForm" (ngSubmit)="f.form.valid && visitorDetails(f)">
         <div class="row">
             <div class="form-group col-lg-6">
                 <input type="text" name="visitor_name" class="form-control" id="visitor_name" placeholder="Your Name" [(ngModel)]="visitorsdetails.visitor_name" #visitor_name="ngModel" [ngClass]="{'invalid-data': visitor_name.invalid && f.submitted, 'valid-data': visitor_name.valid && f.submitted}" required>
@@ -40,9 +40,12 @@
             </div>
             </div>
             <div class="form-group col-lg-6">
-                <input type="text" name="visitor_contact_number" class="form-control" id="visitor_contact_number" placeholder="Your Phone" data-rule="minlen:10" data-msg="Phone number must have 10 chars" [(ngModel)]="visitorsdetails.visitor_contact_number" [ngClass]="{'invalid-data': visitor_contact_number.invalid && f.submitted, 'valid-data': visitor_contact_number.valid && f.submitted}" #visitor_contact_number="ngModel" required />
+                <input type="text" name="visitor_contact_number" class="form-control" id="visitor_contact_number" placeholder="Your Phone" data-rule="minlen:10" data-msg="Phone number must have 10 chars" [(ngModel)]="visitorsdetails.visitor_contact_number" [ngClass]="{'invalid-data': visitor_contact_number.invalid && f.submitted, 'valid-data': visitor_contact_number.valid && f.submitted}" #visitor_contact_number="ngModel" pattern="^[0-9]*$" required />
                 <div class="error_msg"
                 *ngIf="visitor_contact_number.invalid && f.submitted">
+                <div *ngIf="visitor_contact_number.errors.pattern">
+                    <small class="error_text" >Only Numbers allowed</small> 
+                </div>
                 <div *ngIf="visitor_contact_number.errors.required">
                     <small class="error_text" >Phone Number is required</small> 
                 </div>

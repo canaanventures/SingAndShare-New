@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { ApiService } from 'src/app/shared/app.service';
 import * as CryptoJS from 'crypto-js';
 import jwt_decode from "jwt-decode";
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-header',
@@ -43,7 +44,8 @@ export class HeaderComponent implements OnInit {
     }
   }
 
-  userLogin(){
+  userLogin(f:NgForm){
+    f.resetForm()
     this.userdetails.email = (<HTMLInputElement>document.getElementById('email_id')).value;
     this.userdetails.pass_word = (<HTMLInputElement>document.getElementById('your_password')).value;
     
@@ -75,6 +77,7 @@ export class HeaderComponent implements OnInit {
   }
 
   closeLoginModal() {
+  //  f.resetForm()
     this.displayLogin='none';
     document.getElementsByTagName('body')[0].classList.remove('modal-open');
     document.getElementsByTagName('html')[0].classList.add('modal-open');
@@ -101,7 +104,8 @@ export class HeaderComponent implements OnInit {
     this.classtoggle = !this.classtoggle;
   }
 
-  forgotPassword(){
+  forgotPassword(g:NgForm){
+    g.resetForm()
     let obj = {"email_id": this.forgotpassword.email_id }
     this.encryptInfo = encodeURIComponent(CryptoJS.AES.encrypt(JSON.stringify(obj), 'secret key 123').toString());
     this.forgotpassword.url = this.encryptInfo;

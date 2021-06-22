@@ -121,11 +121,11 @@ export class FellowshipComponent implements OnInit {
     })
   }
 
-  addEvent(event){
-    event.preventDefault();
+  addEvent(f:NgForm){
+   // event.preventDefault();
     this.event.created_by_user_id = this.tk.user_id;
     this.restApi.postMethod('addCalendar',this.event).subscribe((resp:any) => {
-      this.closeModal();
+      this.closeModal(f);
       alert("Event Added Successfully");
       setTimeout(function(){
         location.reload();
@@ -133,7 +133,8 @@ export class FellowshipComponent implements OnInit {
     })
   }
 
-  closeModal() {
+  closeModal(f:NgForm) {
+    f.resetForm()
     this.viewdisplay='none';
     this.display='none';
     document.getElementsByTagName('body')[0].classList.remove('modal-open');

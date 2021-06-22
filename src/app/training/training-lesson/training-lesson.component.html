@@ -53,7 +53,7 @@
                                 </div>
                                 <div class='col-md-12'>
                                     <div class='form-group'>
-                                        <label for='description'>Description</label>
+                                        <label for='description'>Description<span style="color: red;">*</span></label>
                                         <textarea class='form-control' rows='5' id='description' placeholder="Lesson Description" [(ngModel)]='lesson.lesson_description' #lesson_description="ngModel" name="lesson_description" [ngClass]="{'invalid-data': lesson_description.invalid && f.submitted, 'valid-data': lesson_description.valid && f.submitted}" required></textarea>
                                         <div class="error_msg" *ngIf="f.submitted && lesson_description.invalid">
                                             <div *ngIf="lesson_description.errors.required">
@@ -96,13 +96,10 @@
                             <div class='row px-4'>
                                 <div class='col-md-12 mt-3'>
                                     <div class='form-group'>
-                                        <button class='btn-primary btn' id='add_course' *ngIf='!edit' >Add the Course </button>
+                                        <button class='btn-primary btn' id='add_course' *ngIf='!edit' >Add the Lesson </button>
                                         <!-- (click)='addLesson($event)' -->
-                                        <button class='btn-primary btn' id='edit_course' *ngIf='edit' >Update the Course </button>
+                                        <button class='btn-primary btn' id='edit_course' *ngIf='edit' >Update the Lesson </button>
                                         <!-- (click)='updateLesson($event)' -->
-                                        <button class='btn-primary btn' id='add_course' *ngIf='!edit' (click)='addLesson($event)'>Add the Lesson </button>
-                                        <button class='btn-primary btn' id='edit_course' *ngIf='edit' (click)='updateLesson($event)'>Update the Lesson </button>
-
                                         <span>&nbsp; &nbsp;&nbsp;&nbsp;</span>
                                         <span class='btn-primary btn bg-orange'  id='cancel_category' (click)="resetForm(f)" >Cancel </span>
                                     </div>

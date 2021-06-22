@@ -109,11 +109,12 @@
                         <img src="../../../assets/img/logo.png" alt="">
                         <h3 class="welcome"><b>Welcome to Members Login</b></h3>
                     </div>
+                    <form  name='addClassForm' role="form" #f="ngForm" (ngSubmit)="f.form.valid && userLogin(f)">
                     <div class='form-group col-md-12'>
                         <label for='email_id'>Email ID<span style="color: red;">*</span></label>
-                        <input type='text' class='form-control' id='email_id' name="email" placeholder='Enter your Email ID' [(ngModel)]="userdetails.email" #email='ngModel' required/>
+                        <input type='text' class='form-control' id='email_id' name="email" placeholder='Enter your Email ID' [(ngModel)]="userdetails.email" #email='ngModel' [ngClass]="{'invalid-data': email.invalid && f.submitted, 'valid-data': email.valid && f.submitted}"  required/>
                         <div class="error_msg"
-                        *ngIf="email.touched && email.invalid">
+                        *ngIf="f.submitted && email.invalid">
                         <div *ngIf="email.errors.required">
                             <small class="error_text"> Email Id is required</small>
                         </div>
@@ -121,9 +122,9 @@
                     </div>
                     <div class='form-group col-md-12'>
                         <label for='your_password'>Password<span style="color: red;">*</span></label>
-                        <input type='password' class='form-control' id='your_password' name="pass_word" placeholder='Enter your Password' [(ngModel)]="userdetails.pass_word" #pass_word='ngModel' required />
+                        <input type='password' class='form-control' id='your_password' name="pass_word" placeholder='Enter your Password' [(ngModel)]="userdetails.pass_word" #pass_word='ngModel'  [ngClass]="{'invalid-data': pass_word.invalid && f.submitted, 'valid-data': pass_word.valid && f.submitted}" required />
                         <div class="error_msg"
-                        *ngIf="pass_word.touched && pass_word.invalid">
+                        *ngIf="f.submitted && pass_word.invalid">
                         <div *ngIf="pass_word.errors.required">
                             <small class="error_text"> Password is required</small>
                         </div>
@@ -131,8 +132,10 @@
                     </div>
                     <div class='form-group col-md-12'>
                         <label for='user_login'> &nbsp; </label>
-                        <button class='btn btn-primary' style="width: 70%; margin: auto; display: block;" id='user_login' (click)='userLogin()' >Login</button>
+                        <button class='btn btn-primary' style="width: 70%; margin: auto; display: block;" id='user_login'  >Login</button>
+                        <!-- (click)='userLogin()' -->
                     </div>
+                    </form>
                     <div class="fpwd text-center">
                         <a (click)=fpwd() style='cursor:pointer;'>Forgot password?</a>
                     </div>
@@ -144,11 +147,12 @@
                         <h3 class="fpwd"><b>Forgot Password?</b></h3>
                         <small>you can reset your password here</small>
                     </div>
+                    <form  name='addClassForm' role="form" #g="ngForm" (ngSubmit)="g.form.valid && forgotPassword(g)">
                     <div class='form-group col-md-12'>
                         <label for='forgot_email_id'>Email ID<span style="color: red;">*</span></label>
-                        <input type='text' class='form-control' id='forgot_email_id' name="emailid" placeholder='Enter your Email ID' [(ngModel)]="forgotpassword.email_id" #emailid='ngModel' required/>
+                        <input type='text' class='form-control' id='forgot_email_id' name="emailid" placeholder='Enter your Email ID' [(ngModel)]="forgotpassword.email_id" #emailid='ngModel' [ngClass]="{'invalid-data': email_id.invalid && g.submitted, 'valid-data': email_id.valid && g.submitted}" required/>
                         <div class="error_msg"
-                        *ngIf="emailid.touched && emailid.invalid">
+                        *ngIf=" g.submitted && emailid.invalid">
                         <div *ngIf="emailid.errors.required">
                             <small class="error_text"> Email Id is required</small>
                         </div>
@@ -157,8 +161,10 @@
                     
                     <div class='form-group col-md-12'>
                         <label for='forgot_password'> &nbsp; </label>
-                        <button class='btn btn-primary' style="width: 70%; margin: auto; display: block;" id='forgot_password' (click)='forgotPassword()'>Send My Password</button>
+                        <button class='btn btn-primary' style="width: 70%; margin: auto; display: block;" id='forgot_password' >Send My Password</button>
+                        <!-- (click)='forgotPassword()' -->
                     </div>
+                </form>
                 </ng-template>              
             </div>
         </div>
