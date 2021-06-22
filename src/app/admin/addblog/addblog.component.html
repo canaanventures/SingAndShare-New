@@ -45,7 +45,7 @@
                                                 <div class='action-img-div'>
                                                     <img src='assets/img/edit.png' class='action-img' (click)=[editBlog(blog.blog_id)] />
                                                 </div>
-                                                <div class='action-img-div'>
+                                                <div class='action-img-div' *ngIf='access.blog_change_status_access == 1'>
                                                     <div class="form-check form-switch">
                                                         <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" [attr.checked]="blog.blog_status == 'Enable' ? true : null" (change)='[disableBlog($event,blog.blog_id)]' />
                                                     </div>

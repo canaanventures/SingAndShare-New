@@ -12,13 +12,7 @@
                                     <div class='form-group'>
                                         <img [src]='imageToShow' alt="Profile Image" class="img-fluid rounded-circle mb-2" *ngIf='imageToShow' />
                                         <img src='../../../assets/img/course.png' alt="Profile Image" class="img-fluid rounded-circle mb-2" *ngIf='!imageToShow' />
-                                        <input type="file" name='blog_image' class="form-control custom-file-input" id="blog-image" (change)='selectImage($event)' [(ngModel)]='course.course_image_url'
-                                        #course_image_url= 'ngModel' [ngClass]="{'invalid-data': course_image_url.invalid && f.submitted, 'valid-data': course_image_url.valid && f.submitted}" required />
-                                        <div class="error_msg" *ngIf="f.submitted && course_image_url.invalid">
-                                            <div *ngIf="course_image_url.errors.required">
-                                                <small class="error_text"> Course Image is required</small>
-                                            </div>
-                                        </div>
+                                        <input type="file" name='blog_image' class="form-control custom-file-input" id="blog-image" (change)='selectImage($event)' />
                                     </div>
                                 </div>
                                 <div class='col-md-12'>

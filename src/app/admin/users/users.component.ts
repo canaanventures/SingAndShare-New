@@ -23,7 +23,7 @@ export class UsersComponent implements OnInit {
   @Input() userdetails = {url:'',email:''}
   @Input() disableuser = {modified_by_user_id:'',userid:'',status:''}
   @Input() updateuser = {first_name:'',srs_id:null,last_name:'',email_id:'',role:'',mentor_email_id:'',user_id:'',modified_by:''}
-  @Input() access = {user_id:'',blog_approve_access:'',blog_change_status_access:'',blog_access:'',calendar_add_access:'',calendar_access:'',attendance_access:'',event_access:'',user_access:'',sns_access:''}
+  @Input() access = {user_id:'',blog_approve_access:false,blog_change_status_access:false,blog_access:false,calendar_add_access:false,calendar_access:false,attendance_access:false,event_access:false,user_access:false,sns_access:false,access_id:''}
   @Input() user = {user_id:''}
 
   constructor(public restApi: ApiService, public router: Router) { }
@@ -196,17 +196,29 @@ export class UsersComponent implements OnInit {
   toggleAccess(id:any){
     this.user.user_id = id;
     this.restApi.postMethod('getAccessList',this.user).subscribe((resp:any) => {
-      this.access = resp.data[0];
+      //this.access = resp.data[0];
       var classlen = document.getElementsByClassName('table-hidden-row');
       for(let i=0;i<classlen.length;i++){
         (document.getElementsByClassName("table-hidden-row")[i] as HTMLElement).style.display = 'none'
       }
       document.getElementById('row'+id).style.display = 'contents';
+      let res = resp.data[0];
+      for (var key in res) {
+        if(key == 'access_id'){
+          this.access.access_id = res[key];
+        }else{
+          if (res[key] == 1) {
+            this.access[key] = true;
+          }else{
+            this.access[key] = false;
+          }
+        }
+      }
     })   
   }
 
-  assignAccess(id){
-    var checkboxes = document.getElementsByClassName(' chk_'+id);
+  assignAccess(userid,id){
+    var checkboxes = document.getElementsByClassName(' chk_'+userid);
     for (var i=0; i<checkboxes.length; i++) {
       if ((checkboxes[i] as HTMLInputElement).checked) {
         this.access[checkboxes[i].getAttribute('id')] = 1;
@@ -214,6 +226,7 @@ export class UsersComponent implements OnInit {
         this.access[checkboxes[i].getAttribute('id')] = 0;
       }
     }
+    this.access.access_id = id;
     this.access.user_id = id;
     this.restApi.postMethod('updateAccess',this.access)
       .subscribe((resp:any) => {

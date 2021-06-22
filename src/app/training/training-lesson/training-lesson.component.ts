@@ -167,6 +167,7 @@ export class TrainingLessonComponent implements OnInit {
     this.images = []; this.docurl =[];
     (<HTMLInputElement>document.getElementById('meeting_link')).value='';
     (<HTMLInputElement>document.getElementById('doc-upload')).value='';
+    this.edit = false;
   }
 
   changePagination(event){

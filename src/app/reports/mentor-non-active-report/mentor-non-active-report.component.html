@@ -1,5 +1,5 @@
 <div class='container report-container'>
-    <h3 class='modal-title'>Events Report</h3>
+    <h3 class='modal-title'>Mentor Activity Report</h3>
     <div class="card-body h-100 mt-3">
         <div class='row'>
             <div class='col-md-12 p-0 mt-3'>
@@ -31,38 +31,56 @@
             <table class='table-bordered table' id="pcs-excel-table">
                 <thead>
                     <tr>
-                        <th>Event Name</th>
-                        <th>Venue</th>                        
-                        <th>Event Type</th>
-                        <th>Event Date</th>
+                        <th>Mentor Name</th>
+                        <th>SNS Name</th>                        
+                        <th>Current Status</th>
+                        <th>Status</th>
+                        <th>Created On</th>
+                        <th>Modified On</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr> 
                         <td>
-                            <input type='text' class='form-control filter-fld' id='event_name' [(ngModel)]='filter.event_name' (keyup)="filterList($event,'event_name')" placeholder="Event's Name" />
+                            <input type='text' class='form-control filter-fld' id='mentor_name' [(ngModel)]='filter.mentor_name' (keyup)="filterList($event,'mentor_name')" placeholder="Mentor's Name" />
                         </td>
                         <td>
-                            <input type='text' class='form-control filter-fld' id='venue_name' [(ngModel)]='filter.venue_name' (keyup)="filterList($event,'venue_name')" placeholder="Venue's Name" />
+                            <input type='text' class='form-control filter-fld' id='srs_name' [(ngModel)]='filter.srs_name' (keyup)="filterList($event,'srs_name')" placeholder="SNS Name" />
                         </td>
                         <td>
-                            <input type='text' class='form-control filter-fld' id='EventType' [(ngModel)]='filter.EventType' (keyup)="filterList($event,'EventType')" placeholder="Event Type" />
+                            <input type='text' class='form-control filter-fld' id='current_status' [(ngModel)]='filter.current_status' (keyup)="filterList($event,'current_status')" placeholder="Activity Type" />
                         </td>
+                        <td>
+                            <select id='status' class='form-control filter-fld' [(ngModel)]='filter.status' (change)="filterList($event,'status')">
+                                <option value=''>Select Status</option>
+                                <option value='Y'>
+                                    <span class='label label-success'>Enable</span>
+                                </option>
+                                <option value='N'>
+                                    <span class='label label-danger'>Disable</span>
+                                </option>
+                            </select>
+                        </td>
+                        <td> </td>
                         <td> </td>
                     </tr>
 
                     <tr *ngIf='attendancelist.length == 0 && originalfilter.length > 0'>
-                        <td colspan='4'>
+                        <td colspan='6'>
                             <h3 class='chart_msg'>No Match Found</h3>
                         </td>
                     </tr>
 
                     <tr *ngFor="let list of attendancelist">
-                        <td>{{ list.event_name }}</td>
-                        <td>{{ list.venue_name }}</td>
-                        <td>{{ list.EventType }}</td>
-                        <td>{{ list.event_start_date | date:'dd-MM-yyyy hh:mm' }}</td>
-                        <!-- <td>{{ list.event_end_date | date:'dd-MM-yyyy hh:mm' }}</td> -->
+                        <td>{{ list.mentor_name }}</td>
+                        <td>{{ list.srs_name }}</td>
+                        <td>{{ list.current_status }}</td>
+                        <td>
+                            <span class='label label-success' *ngIf='list.status == "Y"'>Enable</span>
+                            <span class='label label-danger' *ngIf='list.status == "N"'>Disable</span>
+                        </td>
+                        <td>{{ list.created_on | date:'dd-MM-yyyy hh:mm' }}</td>
+                        <td>{{ list.modified_date | date:'dd-MM-yyyy hh:mm' }}</td>
                     </tr> 
                 </tbody>
             </table>

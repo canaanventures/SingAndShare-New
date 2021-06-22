@@ -53,62 +53,62 @@
                                                 <div class='row px-3'>
                                                     <div class="star01 s3">
                                                         <div class="checkbox">
-                                                            <input type="checkbox" class="faChkStr chk_{{user.user_id}}" name="access_check" id="sns_access" [(ngModel)]="access.sns_access">
+                                                            <input type="checkbox" class="faChkStr chk_{{user.user_id}}" name="access_check" id="sns_access" [(ngModel)]="access.sns_access" [checked]="access.sns_access == '1'">
                                                             <label for="sns_access"> &nbsp; SNS</label>
                                                         </div>
                                                     </div>
                                                     <div class="star01 s3">
                                                         <div class="checkbox">
-                                                            <input type="checkbox" class="faChkStr chk_{{user.user_id}}" name="access_check" id="user_access" [(ngModel)]="access.user_access">
+                                                            <input type="checkbox" class="faChkStr chk_{{user.user_id}}" name="access_check" id="user_access" [(ngModel)]="access.user_access" [checked]="access.user_access == '1'">
                                                             <label for="user_access"> &nbsp; User</label>
                                                         </div>
                                                     </div>
                                                     <div class="star01 s3">
                                                         <div class="checkbox">
-                                                            <input type="checkbox" class="faChkStr chk_{{user.user_id}}" name="access_check" id="event_access" [(ngModel)]="access.event_access">
+                                                            <input type="checkbox" class="faChkStr chk_{{user.user_id}}" name="access_check" id="event_access" [(ngModel)]="access.event_access" [checked]="access.event_access == '1'">
                                                             <label for="event_access"> &nbsp; Event</label>
                                                         </div>
                                                     </div>
                                                     <div class="star01 s3">
                                                         <div class="checkbox">
-                                                            <input type="checkbox" class="faChkStr chk_{{user.user_id}}" name="access_check" id="attendance_access" [(ngModel)]="access.attendance_access">
+                                                            <input type="checkbox" class="faChkStr chk_{{user.user_id}}" name="access_check" id="attendance_access" [(ngModel)]="access.attendance_access" [checked]="access.attendance_access == '1'">
                                                             <label for="attendance_access"> &nbsp; Attendance</label>
                                                         </div>
                                                     </div>
                                                     <div class="star01 s3">
                                                         <div class="checkbox">
-                                                            <input type="checkbox" class="faChkStr chk_{{user.user_id}}" name="access_check" id="calendar_access" [(ngModel)]="access.calendar_access">
+                                                            <input type="checkbox" class="faChkStr chk_{{user.user_id}}" name="access_check" id="calendar_access" [(ngModel)]="access.calendar_access" [checked]="access.calendar_access == '1'">
                                                             <label for="calendar_access"> &nbsp; Calendar</label>
                                                         </div>
                                                     </div>
                                                     <div class="star01 s3">
                                                         <div class="checkbox">
-                                                            <input type="checkbox" class="faChkStr chk_{{user.user_id}}" name="access_check" id="calendar_add_access" [(ngModel)]="access.calendar_add_access">
+                                                            <input type="checkbox" class="faChkStr chk_{{user.user_id}}" name="access_check" id="calendar_add_access" [(ngModel)]="access.calendar_add_access" [checked]="access.calendar_add_access == '1'">
                                                             <label for="calendar_add_access"> &nbsp; Calendar Add</label>
                                                         </div>
                                                     </div>
                                                     <div class="star01 s3">
                                                         <div class="checkbox">
-                                                            <input type="checkbox" class="faChkStr chk_{{user.user_id}}" name="access_check" id="blog_access" [(ngModel)]="access.blog_access">
+                                                            <input type="checkbox" class="faChkStr chk_{{user.user_id}}" name="access_check" id="blog_access" [(ngModel)]="access.blog_access" [checked]="access.blog_access == '1'">
                                                             <label for="blog_access"> &nbsp; Blog</label>
                                                         </div>
                                                     </div>
                                                     <div class="star01 s3">
                                                         <div class="checkbox">
-                                                            <input type="checkbox" class="faChkStr chk_{{user.user_id}}" name="access_check" id="blog_status_access" [(ngModel)]="access.blog_change_status_access">
+                                                            <input type="checkbox" class="faChkStr chk_{{user.user_id}}" name="access_check" id="blog_status_access" [(ngModel)]="access.blog_change_status_access" [checked]="access.blog_change_status_access == '1'">
                                                             <label for="blog_status_access"> &nbsp; Blog Status</label>
                                                         </div>
                                                     </div>
                                                     <div class="star01 s3">
                                                         <div class="checkbox">
-                                                            <input type="checkbox" class="faChkStr chk_{{user.user_id}}" name="access_check" id="blog_approve_access" [(ngModel)]="access.blog_approve_access">
+                                                            <input type="checkbox" class="faChkStr chk_{{user.user_id}}" name="access_check" id="blog_approve_access" [(ngModel)]="access.blog_approve_access" [checked]="access.blog_approve_access == '1'">
                                                             <label for="blog_approve_access"> &nbsp; Blog Approve</label>
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div class='row'>
                                                     <div class='col-md-12'>
-                                                        <button id='assign_btn' class='btn btn-primary w-auto' (click)='assignAccess(user.user_id)'>Assign</button>
+                                                        <button id='assign_btn' class='btn btn-primary w-auto' (click)='assignAccess(user.user_id,access.access_id)'>Assign</button>
                                                     </div>
                                                 </div>
                                             </td>

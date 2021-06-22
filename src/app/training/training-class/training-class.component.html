@@ -99,7 +99,7 @@
                                     </tr>
                                 </tbody>
                             </table>
-                            <ul class="pagination float-right">
+                            <ul class="pagination float-right" [ngStyle]="{'display':displayTable}">
                                 <li class="page-item"><a (click)="previousClick()" class="page-link">Previous</a></li>
                                 <li *ngFor='let index of pageIndexes' class="page-item">
                                     <a (click)="changePagination(index)" id='pagination_{{index}}' class="page-link"> {{index}} </a>
@@ -222,10 +222,10 @@
                         <div class='row' *ngIf='!generate'>
                             <div class="form-group col-md-4">
                                 <label for="class_end_date">Class End Date</label>
-                                <input type="datetime-local" class="form-control" id='class_end_date' [(ngModel)]='class.end_date' name='end_date' #end_date='ngModel' placeholder='Enter the class End Date' [ngClass]="{'invalid-data': visitor_name.invalid && f.submitted, 'valid-data': visitor_name.valid && f.submitted}" required />
+                                <input type="datetime-local" class="form-control" id='class_end_date' [(ngModel)]='class.end_date' name='end_date' #end_date='ngModel' placeholder='Enter the class End Date' [ngClass]="{'invalid-data': end_date.invalid && f.submitted, 'valid-data': end_date.valid && f.submitted}" required />
                                 <div class="error_msg" *ngIf="f.submitted && end_date.invalid">
                                     <div *ngIf="end_date.errors.required">
-                                        <small class="error_text"> Class Start Date is required</small>
+                                        <small class="error_text"> Class End Date is required</small>
                                     </div>
                                 </div>
                             </div>
@@ -246,13 +246,13 @@
                                 </select>
                                 <div class="error_msg" *ngIf="f.submitted && class_type.invalid">
                                     <div *ngIf="class_type.errors.required">
-                                        <small class="error_text"> Class Start Date is required</small>
+                                        <small class="error_text"> Class Type is required</small>
                                     </div>
                                 </div>
                             </div>
                             <div class="form-group col-md-8">
-                                <label for="class_zoom_link">Connection Link</label>
-                                <input type="text" class="form-control" id='class_zoom_link' [(ngModel)]='class.connection_link' name='connection_link' #connection_link='ngModel' [ngClass]="{'invalid-data': description.invalid && f.submitted, 'valid-data': connection_link.valid && f.submitted}" placeholder='Enter the Zoom link' required />
+                                <label for="connection_link">Connection Link</label>
+                                <input type="text" class="form-control" id='connection_link' [(ngModel)]='class.connection_link' name='connection_link' #connection_link='ngModel' [ngClass]="{'invalid-data': connection_link.invalid && f.submitted, 'valid-data': connection_link.valid && f.submitted}" placeholder='Enter the Connection link' required />
                                 <div class="error_msg" *ngIf="f.submitted && connection_link.invalid">
                                     <div *ngIf="connection_link.errors.required">
                                         <small class="error_text"> Connection Link is required</small>

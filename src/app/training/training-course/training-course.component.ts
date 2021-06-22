@@ -68,7 +68,6 @@ export class TrainingCourseComponent implements OnInit {
   }
 
   editCourse(id){
-    debugger;
     this.edit = true;
     this.course.row_id = id;
     this.restApi.getMethod('getLMSCourse/'+id).subscribe((resp:any) => {
@@ -160,6 +159,7 @@ export class TrainingCourseComponent implements OnInit {
     this.course = {category_id:'', course_name:'',course_description:'',row_id:'',course_image_url:'',created_by:'',course_status:'',modified_by:''};
     this.imageToShow = '';
     (<HTMLInputElement>document.getElementById('blog-image')).value = '';
+    this.edit = false;
   }
 
   changePagination(event){

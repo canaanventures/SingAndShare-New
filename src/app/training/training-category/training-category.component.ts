@@ -142,6 +142,7 @@ export class TrainingCategoryComponent implements OnInit {
     this.category = {category_name:'',category_description:'',row_id:'',category_image_url:'',created_by:'',category_status:'',modified_by:''};
     this.imageToShow = '';
     (<HTMLInputElement>document.getElementById('blog-image')).value = '';
+    this.edit = false;
   }
 
   changePagination(event){

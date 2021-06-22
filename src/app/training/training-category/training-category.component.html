@@ -12,19 +12,13 @@
                                     <div class='form-group'>
                                         <img [src]='imageToShow' alt="Profile Image" class="img-fluid rounded-circle mb-2" *ngIf='imageToShow' />
                                         <img src='../../../assets/img/category.png' alt="Profile Image" class="img-fluid rounded-circle mb-2" *ngIf='!imageToShow' />
-                                        <input type="file" name='blog_image' class="form-control custom-file-input" id="blog-image" (change)='selectImage($event)' [(ngModel)]='category.category_image_url' name="category_image_url"
-                                        #category_image_url='ngModel' [ngClass]="{'invalid-data': category_image_url.invalid && f.submitted, 'valid-data': category_image_url.valid && f.submitted}" required />
-                                        <div class="error_msg" *ngIf="f.submitted && category_image_url.invalid">
-                                            <div *ngIf="category_image_url.errors.required">
-                                                <small class="error_text"> Category Image is required</small>
-                                            </div>
-                                        </div>
+                                        <input type="file" name='blog_image' class="form-control custom-file-input" id="blog-image" (change)='selectImage($event)' />
                                     </div>
                                 </div>
                                 <div class='col-md-12'>
                                     <div class='form-group'>
                                         <label for='category_name'>Category Name</label>
-                                        <input type='text' class='form-control' placeholder='Select Category Name' id='category_name' [(ngModel)]='category.category_name' #category_name='ngModel' [ngClass]="{'invalid-data': category_name.invalid && f.submitted, 'valid-data': category_name.valid && f.submitted}" required/>
+                                        <input type='text' class='form-control' placeholder='Select Category Name' name='category_name' id='category_name' [(ngModel)]='category.category_name' #category_name='ngModel' [ngClass]="{'invalid-data': category_name.invalid && f.submitted, 'valid-data': category_name.valid && f.submitted}" required/>
                                         <div class="error_msg" *ngIf="f.submitted && category_name.invalid">
                                             <div *ngIf="category_name.errors.required">
                                                 <small class="error_text"> Category Name is required</small>
@@ -34,8 +28,8 @@
                                 </div>
                                 <div class='col-md-12'>
                                     <div class='form-group'>
-                                        <label for='people_attended'>Description</label>
-                                        <textarea class='form-control' rows='5' placeholder="Category's Description" name='category_description' [(ngModel)]='category.category_description' #category_description="ngModel" [ngClass]="{'invalid-data': category_description.invalid && f.submitted, 'valid-data': category_description.valid && f.submitted}" required></textarea>
+                                        <label for='category_description'>Description</label>
+                                        <textarea class='form-control' id='category_description' rows='5' placeholder="Category's Description" name='category_description' [(ngModel)]='category.category_description' #category_description="ngModel" [ngClass]="{'invalid-data': category_description.invalid && f.submitted, 'valid-data': category_description.valid && f.submitted}" required></textarea>
                                         <div class="error_msg" *ngIf="f.submitted && category_description.invalid">
                                             <div *ngIf="category_description.errors.required">
                                                 <small class="error_text"> Category description is required</small>
