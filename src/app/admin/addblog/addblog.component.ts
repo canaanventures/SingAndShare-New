@@ -4,6 +4,7 @@ import { ApiService } from 'src/app/shared/app.service';
 import * as CryptoJS from 'crypto-js';
 import jwt_decode from "jwt-decode";
 import { NgForm } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-addblog',
@@ -30,7 +31,7 @@ export class AddblogComponent implements OnInit {
   @Input() addcat = {category_name:'',created_by:''}
   @Input() updatecomm = {approval_status:'',approved_by:'',comment_id:''}
 
-  constructor(public restApi: ApiService) { }
+  constructor(public restApi: ApiService, private router: Router) { }
 
   ngOnInit(): void {
     this.tk = jwt_decode(sessionStorage.getItem('user_token'));
@@ -114,6 +115,7 @@ export class AddblogComponent implements OnInit {
         this.resp = data;
         this.blog.imgurl = this.resp.filepath;
         this.addBlogData();
+        f.resetForm()
       })
     }else{
       this.blog.imgurl = '';
@@ -173,7 +175,8 @@ export class AddblogComponent implements OnInit {
     (<HTMLInputElement>document.getElementById('title')).value = '';
   }
 
-  closeBlogModal() {
+  closeBlogModal(f:NgForm) {
+    f.resetForm()
     this.displayBlog='none';
     this.categorydisplay='none';
     document.getElementsByTagName('body')[0].classList.remove('modal-open');
@@ -209,6 +212,7 @@ export class AddblogComponent implements OnInit {
   }
 
   updateBlog(f:NgForm){
+    this.router.navigate(['/addblog'])
     event.preventDefault();
     if(this.images != ''){
       const formData = new FormData();
@@ -217,6 +221,7 @@ export class AddblogComponent implements OnInit {
       let cat = (<HTMLInputElement>document.getElementById('category')).value;
       this.restApi.postImgMethod('addBlogImg/'+title+'/'+cat,formData).subscribe((resp:any) => {
         this.addEditedData(resp);
+        f.resetForm()
       })
     }else{
       this.addEditedData('');
@@ -239,7 +244,7 @@ export class AddblogComponent implements OnInit {
     this.editblog.blog_id = this.edit_id;
     this.restApi.postMethod('updateBlog',this.editblog).subscribe((data:any) => {     
       alert(data.message);
-      this.closeBlogModal();
+      //this.closeBlogModal(f);
       this.changePagination(this.paginatecnt);
       document.getElementsByTagName('body')[0].classList.remove('edit-modal-open');
       this.images = '';
@@ -263,7 +268,7 @@ export class AddblogComponent implements OnInit {
     this.addcat.created_by = this.tk.user_id;
     this.restApi.postMethod('addBlogCategory',this.addcat).subscribe((resp:any) => {
       this.getBlogCat();
-      this.closeBlogModal();
+      this.closeBlogModal(g);
       alert(resp.data[0].message);
     })
   }

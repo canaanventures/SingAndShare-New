@@ -11,7 +11,7 @@
         <div class="modal-content">
             <div class="modal-body">
                 <div class='row px-4'>
-                    <span class='close modal-close' (click)='closeModal()' data-dismiss="modal">&times;</span>
+                    <span class='close modal-close' (click)='closeModal(f)' data-dismiss="modal">&times;</span>
                     <div class='col-md-12 p-0' *ngIf='typeisevent'>
                         <img src='../../../assets/img/news-1.jpg' class='w-100' />
                     </div>
@@ -72,7 +72,7 @@
             <div class="modal-body">
                 <h5 class='mb-3 card-header'>
                     <span>Add Calendar</span>
-                    <span class='close modal-close' (click)='closeModal()' data-dismiss="modal">&times;</span>
+                    <span class='close modal-close' (click)='closeModal(f)' data-dismiss="modal">&times;</span>
                 </h5>
                 <div class='px-4'>
                     <form  role="form" #f="ngForm" (ngSubmit)="f.form.valid && addEvent(f)">

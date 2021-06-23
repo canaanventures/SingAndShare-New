@@ -49,12 +49,13 @@ export class SrsComponent implements OnInit {
 
 
   addBranch(f:NgForm) {
+    f.resetForm()
     event.preventDefault();
     this.edit = false;
     this.srs.created_by = this.tk.user_id;
     this.restApi.postMethod('addBranch',this.srs)
       .subscribe((resp:any) => {
-        this.closeModal();
+        this.closeModal(f);
         this.fetchSRSlist();
         alert('Branch Added Successfully');
       });
@@ -77,7 +78,7 @@ export class SrsComponent implements OnInit {
     this.srs.modified_by = this.tk.user_id;   
     this.restApi.postMethod('editBranch',this.srs)
       .subscribe((resp:any) => {
-        this.closeModal();
+        this.closeModal(f);
         this.fetchSRSlist();
         alert('Branch Updated Successfully');
       });
@@ -101,7 +102,8 @@ export class SrsComponent implements OnInit {
     document.getElementsByTagName('body')[0].classList.add('modal-open');
   }
 
-  closeModal() {
+  closeModal(f:NgForm) {
+    f.resetForm()
     this.display='none';
     document.getElementsByTagName('body')[0].classList.remove('modal-open');
   }

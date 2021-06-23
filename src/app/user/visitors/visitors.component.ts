@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ApiService } from 'src/app/shared/app.service';
 import { url } from 'src/app/shared/app.constant';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-visitors',
@@ -21,11 +22,12 @@ export class VisitorsComponent implements OnInit {
     console.log("Full Address");  
   }
 
-  visitorDetails(event) {
+  visitorDetails(f:NgForm) {
   	this.submitted = true;
     event.preventDefault();
     this.restApi.postMethod('visitors',this.visitorsdetails).subscribe((resp:any) => {     
       alert(resp.message);   
+      f.resetForm()
     })
   }
 }

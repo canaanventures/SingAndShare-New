@@ -42,7 +42,7 @@ export class PcsComponent implements OnInit {
     this.restApi.postMethod('addPCS',this.pcs).subscribe((resp:any) => {
       this.getPCS('all','add');
     // this.resetForm();
-     alert(JSON.stringify(resp.message));
+   //  alert(JSON.stringify(resp.message));
 
       //this.getPCS('all','add');
       this.changePagination(this.paginatecnt);

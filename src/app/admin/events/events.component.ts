@@ -86,7 +86,7 @@ export class EventsComponent implements OnInit {
     this.restApi.postMethod('addEvent',this.addevent).subscribe((resp:any) => {
       this.resp = resp.data;
       this.getEvents();
-      this.closeModal();
+     // this.closeModal()
       alert(resp.message);
       this.eventimages = '';
     })
@@ -136,7 +136,7 @@ export class EventsComponent implements OnInit {
     this.addevent.event_end_date = this.changeDateFormat((<HTMLInputElement>document.getElementById('event_end_date')).value);   
     this.restApi.postMethod('editEvent',this.addevent).subscribe((resp:any) => {
       this.getEvents();
-      this.closeModal();
+     // this.closeModal(f);
       alert(resp.message);
       this.addevent.imgurl = '';
     })
@@ -216,7 +216,8 @@ export class EventsComponent implements OnInit {
     this.endDate = this.addevent.event_start_date;
   }
 
-  closeModal() {
+  closeModal(f:NgForm) {
+    f.resetForm();
     this.display='none';
     this.typedisplay='none';
     document.getElementsByTagName('body')[0].classList.remove('modal-open');
@@ -228,11 +229,11 @@ export class EventsComponent implements OnInit {
   }
 
   addEventType(g:NgForm){
-    event.preventDefault();    
+  //  event.preventDefault();    
     this.eventtype.created_by_user_id = this.tk.user_id;
     this.restApi.postMethod('addEventType',this.eventtype).subscribe((resp:any) => {
       this.getEventType();
-      this.closeModal();
+      this.closeModal(g);
       alert(resp.data[0].message);
     })
   }

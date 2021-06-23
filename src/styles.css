@@ -1706,7 +1706,7 @@ section {
 }
 
 #footer .footer-links a:hover {
-  color: #1dc8cd;
+  color: #000;
 }
 
 .modal-close{position: absolute;top: 5px;font-size: 20px;right: 15px;z-index: 1051;cursor: pointer;}

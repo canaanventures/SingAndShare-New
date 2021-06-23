@@ -77,8 +77,8 @@ export class TrainingLessonComponent implements OnInit {
       this.restApi.postImgMethod('addLessonDoc/'+resp.data,formData).subscribe((resp:any) => {
         //this.fetchLesson();
         this.changePagination(this.paginatecnt);
-        //alert(resp.message);
-        //this.resetForm();
+        alert(resp.message);
+        f.resetForm()
         let element: HTMLElement = document.getElementById('cancel_category') as HTMLElement;
         element.click();
       })
@@ -111,7 +111,7 @@ export class TrainingLessonComponent implements OnInit {
           //this.fetchLesson();
           this.changePagination(this.paginatecnt);
           alert(data.message);
-          //this.resetForm();
+          f.resetForm();
           let element: HTMLElement = document.getElementById('cancel_category') as HTMLElement;
           element.click();
         })
@@ -121,7 +121,7 @@ export class TrainingLessonComponent implements OnInit {
         alert(resp.message);
         let element: HTMLElement = document.getElementById('cancel_category') as HTMLElement;
         element.click();
-        //this.resetForm();
+        f.resetForm();
       }
       this.edit = false;
     })

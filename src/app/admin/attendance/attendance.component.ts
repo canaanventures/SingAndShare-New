@@ -100,7 +100,8 @@ export class AttendanceComponent implements OnInit {
     document.getElementsByTagName('html')[0].classList.add('modal-open');
   }
 
-  closeModal() {
+  closeModal(g:NgForm) {
+    g.resetForm()
     this.userModaldisplay='none';
     document.getElementsByTagName('body')[0].classList.remove('modal-open');
     document.getElementsByTagName('html')[0].classList.remove('modal-open');
@@ -116,7 +117,7 @@ export class AttendanceComponent implements OnInit {
     });
   }
 
-  addUser(event:any){
+  addUser(g:NgForm){
     event.preventDefault();
     var obj = {
       "first_name": this.user.mentee_first_name,
