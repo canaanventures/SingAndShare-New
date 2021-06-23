@@ -105,7 +105,7 @@ export class AddblogComponent implements OnInit {
   }
 
   addBlog(f:NgForm){
-    event.preventDefault();
+   // event.preventDefault();
     if(this.images != ''){
       const formData = new FormData();
       formData.append('image', this.images);
@@ -213,7 +213,7 @@ export class AddblogComponent implements OnInit {
 
   updateBlog(f:NgForm){
     this.router.navigate(['/addblog'])
-    event.preventDefault();
+   event.preventDefault();
     if(this.images != ''){
       const formData = new FormData();
       formData.append('image', this.images);
@@ -264,7 +264,7 @@ export class AddblogComponent implements OnInit {
   }
 
   addBlogCat(g:NgForm){
-    event.preventDefault(); 
+    //event.preventDefault(); 
     this.addcat.created_by = this.tk.user_id;
     this.restApi.postMethod('addBlogCategory',this.addcat).subscribe((resp:any) => {
       this.getBlogCat();

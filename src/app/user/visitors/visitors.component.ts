@@ -24,7 +24,7 @@ export class VisitorsComponent implements OnInit {
 
   visitorDetails(f:NgForm) {
   	this.submitted = true;
-    event.preventDefault();
+   // event.preventDefault();
     this.restApi.postMethod('visitors',this.visitorsdetails).subscribe((resp:any) => {     
       alert(resp.message);   
       f.resetForm()

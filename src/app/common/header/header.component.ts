@@ -45,7 +45,7 @@ export class HeaderComponent implements OnInit {
   }
 
   userLogin(f:NgForm){
-    f.resetForm()
+  
     this.userdetails.email = (<HTMLInputElement>document.getElementById('email_id')).value;
     this.userdetails.pass_word = (<HTMLInputElement>document.getElementById('your_password')).value;
     
@@ -59,6 +59,7 @@ export class HeaderComponent implements OnInit {
           this.restApi.setUserToken(this.resp);
           this.closeLoginModal();
           this.getAccessList();
+          f.resetForm()
           //window.location.href = 'http://localhost:51082/profile';
           //window.location.href = '/events';
         }
@@ -77,7 +78,7 @@ export class HeaderComponent implements OnInit {
   }
 
   closeLoginModal() {
-  //  f.resetForm()
+   // window.location.reload();
     this.displayLogin='none';
     document.getElementsByTagName('body')[0].classList.remove('modal-open');
     document.getElementsByTagName('html')[0].classList.add('modal-open');

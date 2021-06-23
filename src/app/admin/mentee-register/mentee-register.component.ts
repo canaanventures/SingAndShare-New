@@ -29,7 +29,7 @@ export class MenteeRegisterComponent implements OnInit {
   }
 
   register(f:NgForm){
-    event.preventDefault();
+   // event.preventDefault();
     this.userdetails.role_id = this.decryptedInfo.role_id;
     this.userdetails.srs_id = this.decryptedInfo.srs_id;
     this.userdetails.parent_id = this.decryptedInfo.parent_id;

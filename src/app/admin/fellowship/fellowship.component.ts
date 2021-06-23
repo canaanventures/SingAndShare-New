@@ -170,4 +170,13 @@ export class FellowshipComponent implements OnInit {
     this.startDate = this.changeMinMax(dte);
     this.endDate = this.changeMinMax(dte);
   }
+  http_string:string
+  checkedhttp:boolean
+  includehttp(event:any){
+    this.http_string = event.target.value;
+    if(this.http_string.includes('http'))
+     this.checkedhttp = true
+      else 
+      this.checkedhttp = false
+  }
 }

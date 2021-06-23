@@ -17,6 +17,7 @@ import { ShareButtonsModule } from 'ngx-sharebuttons/buttons';
 import { ShareIconsModule } from 'ngx-sharebuttons/icons';
 import {NgxPaginationModule} from 'ngx-pagination';
 import { CarouselModule } from 'ngx-owl-carousel-o';
+import {ScrollingModule} from '@angular/cdk/scrolling'
 //import { SwiperModule } from "swiper/angular";
 //import { NgxSpinnerModule } from "ngx-spinner";
 
@@ -65,6 +66,7 @@ import { TopicreportComponent } from './reports/topicreport/topicreport.componen
 import { EventreportComponent } from './reports/eventreport/eventreport.component';
 import { MentorNonActiveReportComponent } from './reports/mentor-non-active-report/mentor-non-active-report.component';
 import { MenteeNonActiveReportComponent } from './reports/mentee-non-active-report/mentee-non-active-report.component';
+import { CustomValidatorDirective } from './shared/app.validator';
 
 FullCalendarModule.registerPlugins([ // register FullCalendar plugins
   dayGridPlugin,
@@ -114,7 +116,8 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     TopicreportComponent,
     EventreportComponent,
     MentorNonActiveReportComponent,
-    MenteeNonActiveReportComponent
+    MenteeNonActiveReportComponent,
+    CustomValidatorDirective
   ],
   imports: [
     BrowserModule,
@@ -139,7 +142,8 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     ShareIconsModule,
     NgxPaginationModule,
     CarouselModule,
-    SwiperModule
+    SwiperModule,
+    ScrollingModule
     //NgxSpinnerModule
   ],
   providers: [

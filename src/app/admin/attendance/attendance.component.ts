@@ -43,7 +43,7 @@ export class AttendanceComponent implements OnInit {
   }
 
   addAttendance(f:NgForm) {
-    event.preventDefault();
+   // event.preventDefault();
     this.attendancedetails.created_by = this.tk.user_id;
     this.restApi.postMethod('addAttendance',this.attendancedetails).subscribe((resp:any) => {
       let arr = [...this.done,...this.todo];
@@ -118,7 +118,7 @@ export class AttendanceComponent implements OnInit {
   }
 
   addUser(g:NgForm){
-    event.preventDefault();
+    //event.preventDefault();
     var obj = {
       "first_name": this.user.mentee_first_name,
       "last_name": this.user.mentee_last_name,

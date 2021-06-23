@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Router } from "@angular/router";
 import { ApiService } from 'src/app/shared/app.service';
 
@@ -39,12 +40,13 @@ export class SingleblogComponent implements OnInit {
     });
   }
 
-  postComment(){
+  postComment(f:NgForm){
     let param = this.activatedroute.snapshot.params;
     this.addcomm.blog_id = param.blog_id;
     this.restApi.postMethod('addComment',this.addcomm).subscribe((resp:any) => {
       alert("Your comment has been posted successfully.");
-      this.addcomm = {name:'', email_id:'', blog_comment:'', blog_id:''};
+      f.resetForm();
+     // this.addcomm = {name:'', email_id:'', blog_comment:'', blog_id:''};
     })
   }
 

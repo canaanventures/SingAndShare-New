@@ -6,18 +6,21 @@
                 <div class="col-md-5 card p-0">
                     <div class="card-body h-100 p-0">
                         <h5 class='mb-3 p-4 font-weight-bold card-header'>Add Lesson</h5>
-                        <form  role="form" #f="ngForm" (ngSubmit)="f.form.valid && submit(f)">
+                        <form role="form" #f="ngForm" (ngSubmit)="f.form.valid && submit(f)">
                             <div class='row px-4'>
                                 <div class='col-md-6'>
                                     <div class='form-group'>
-                                        <label for='category_name'>Category Name <span style="color: red;">*</span></label>
-                                        <select class='form-control' id='category_name' [(ngModel)]='lesson.category_id' (change)='fetchCourse()' #category_id="ngModel" name="category_id"
-                                        [ngClass]="{'invalid-data': category_id.invalid && f.submitted, 'valid-data': category_id.valid && f.submitted}" required >
+                                        <label for='category_name'>Category Name <span
+                                                style="color: red;">*</span></label>
+                                        <select class='form-control' id='category_name' [(ngModel)]='lesson.category_id'
+                                            (change)='fetchCourse()' #category_id="ngModel" name="category_id"
+                                            [ngClass]="{'invalid-data': category_id.invalid && f.submitted, 'valid-data': category_id.valid && f.submitted}"
+                                            required>
                                             <option value=''>Select Category Name</option>
-                                            <option value='{{list.row_id}}' *ngFor='let list of catlist'>{{list.category_name}}</option>
+                                            <option value='{{list.row_id}}' *ngFor='let list of catlist'>
+                                                {{list.category_name}}</option>
                                         </select>
-                                        <div class="error_msg"
-                                            *ngIf="f.submitted && category_id.invalid">
+                                        <div class="error_msg" *ngIf="f.submitted && category_id.invalid">
                                             <div *ngIf="category_id.errors.required">
                                                 <small class="error_text"> Category Name is required</small>
                                             </div>
@@ -27,9 +30,13 @@
                                 <div class='col-md-6'>
                                     <div class='form-group'>
                                         <label for='course_id'>Course Name<span style="color: red;">*</span></label>
-                                        <select class='form-control' id='course_id' [(ngModel)]='lesson.course_id'  #course_id="ngModel" name="course_id" [ngClass]="{'invalid-data': course_id.invalid && f.submitted, 'valid-data': course_id.valid && f.submitted}" required>
+                                        <select class='form-control' id='course_id' [(ngModel)]='lesson.course_id'
+                                            #course_id="ngModel" name="course_id"
+                                            [ngClass]="{'invalid-data': course_id.invalid && f.submitted, 'valid-data': course_id.valid && f.submitted}"
+                                            required>
                                             <option value=''>Select Course Name</option>
-                                            <option value='{{list.row_id}}' *ngFor='let list of courselist'>{{list.course_name}}</option>
+                                            <option value='{{list.row_id}}' *ngFor='let list of courselist'>
+                                                {{list.course_name}}</option>
                                         </select>
                                         <div class="error_msg" *ngIf="f.submitted && course_id.invalid">
                                             <div *ngIf="course_id.errors.required">
@@ -43,7 +50,11 @@
                                 <div class='col-md-12'>
                                     <div class='form-group'>
                                         <label for='lesson_name'>Lesson Name<span style="color: red;">*</span></label>
-                                        <input type='text' class='form-control' placeholder='Select Lesson Name' id='lesson_name' [(ngModel)]='lesson.lesson_name' #lesson_name="ngModel" name="lesson_name" [ngClass]="{'invalid-data': lesson_name.invalid && f.submitted, 'valid-data': lesson_name.valid && f.submitted}" required/>
+                                        <input type='text' class='form-control' placeholder='Select Lesson Name'
+                                            id='lesson_name' [(ngModel)]='lesson.lesson_name' #lesson_name="ngModel"
+                                            name="lesson_name"
+                                            [ngClass]="{'invalid-data': lesson_name.invalid && f.submitted, 'valid-data': lesson_name.valid && f.submitted}"
+                                            required />
                                         <div class="error_msg" *ngIf="f.submitted && lesson_name.invalid">
                                             <div *ngIf="lesson_name.errors.required">
                                                 <small class="error_text"> Lesson Name is required</small>
@@ -54,7 +65,11 @@
                                 <div class='col-md-12'>
                                     <div class='form-group'>
                                         <label for='description'>Description<span style="color: red;">*</span></label>
-                                        <textarea class='form-control' rows='5' id='description' placeholder="Lesson Description" [(ngModel)]='lesson.lesson_description' #lesson_description="ngModel" name="lesson_description" [ngClass]="{'invalid-data': lesson_description.invalid && f.submitted, 'valid-data': lesson_description.valid && f.submitted}" required></textarea>
+                                        <textarea class='form-control' rows='5' id='description'
+                                            placeholder="Lesson Description" [(ngModel)]='lesson.lesson_description'
+                                            #lesson_description="ngModel" name="lesson_description"
+                                            [ngClass]="{'invalid-data': lesson_description.invalid && f.submitted, 'valid-data': lesson_description.valid && f.submitted}"
+                                            required></textarea>
                                         <div class="error_msg" *ngIf="f.submitted && lesson_description.invalid">
                                             <div *ngIf="lesson_description.errors.required">
                                                 <small class="error_text"> Description is required</small>
@@ -63,30 +78,37 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class='px-4' id='docx-box'>                           
+                            <div class='px-4' id='docx-box'>
                                 <span class='add-fld' (click)='addFld()'>
                                     <i class="fa fa-plus" aria-hidden="true"></i>
-                                </span>                           
-                                <div class='row'>                               
+                                </span>
+                                <div class='row'>
                                     <div class='col-md-6'>
                                         <div class='form-group'>
                                             <label for='doc-upload'>Document</label>
-                                            <input type='file' class='form-control doc-upload' id='doc-upload' (change)='handleFileSelect($event)' name='multiple_images' />
+                                            <input type='file' class='form-control doc-upload' id='doc-upload'
+                                                (change)='handleFileSelect($event)' name='multiple_images' />
                                         </div>
                                     </div>
                                     <div class='col-md-6'>
                                         <div class='form-group'>
-                                            <label for='meeting-link'>Meeting Link</label>
-                                            <input type='text' id='meeting_link' class='form-control meeting-link' placeholder='Meeting Link' />
+                                            <label for='meeting_link'>Meeting Link</label>
+                                            <input type='text' id='meeting_link' class='form-control meeting_link'
+                                                name="meeting_link" ngModel #meeting_link='ngModel'
+                                                (change)="includehttp($event)" placeholder='Meeting Link' required />
+                                            <div *ngIf="checkedhttp == false">Meeting link must include http</div>
+                                          <!-- <div class="error_msg" *ngIf="meeting_link.errors && (meeting_link.dirty || meeting_link.touched || f.submitted)">
+                                            </div>  -->
                                         </div>
-                                    </div>                               
+                                    </div>
                                 </div>
                                 <div class='col-md-12 p-0' *ngIf='docurl.length > 0'>
                                     <div class='listed-div my-2'>
                                         <div class='row looped-item' *ngFor='let list of docurl'>
                                             <div class='col-md-6'> {{list.pdf_path}} </div>
                                             <div class='col-md-6'> {{list.meeting_url}} </div>
-                                            <span class='remove' *ngIf='edit' (click)='removeFld(list.row_id,list.lesson_id)'>
+                                            <span class='remove' *ngIf='edit'
+                                                (click)='removeFld(list.row_id,list.lesson_id)'>
                                                 <i class="fa fa-minus" aria-hidden="true"></i>
                                             </span>
                                         </div>
@@ -96,12 +118,15 @@
                             <div class='row px-4'>
                                 <div class='col-md-12 mt-3'>
                                     <div class='form-group'>
-                                        <button class='btn-primary btn' id='add_course' *ngIf='!edit' >Add the Lesson </button>
+                                        <button class='btn-primary btn' id='add_course' *ngIf='!edit'>Add the Lesson
+                                        </button>
                                         <!-- (click)='addLesson($event)' -->
-                                        <button class='btn-primary btn' id='edit_course' *ngIf='edit' >Update the Lesson </button>
+                                        <button class='btn-primary btn' id='edit_course' *ngIf='edit'>Update the Lesson
+                                        </button>
                                         <!-- (click)='updateLesson($event)' -->
                                         <span>&nbsp; &nbsp;&nbsp;&nbsp;</span>
-                                        <span class='btn-primary btn bg-orange'  id='cancel_category' (click)="resetForm(f)" >Cancel </span>
+                                        <span class='btn-primary btn bg-orange' id='cancel_category'
+                                            (click)="resetForm(f)">Cancel </span>
                                     </div>
                                 </div>
                             </div>
@@ -127,23 +152,28 @@
                                             <h4 style='text-align: center;margin-top: 15px;color: #630460;'>No Data to be displayed</h4>
                                         </td>
                                     </tr> -->
-                                    <tr *ngFor='let list of lessonlist | paginate: {itemsPerPage:10, currentPage: p}'>                                               
+                                    <tr *ngFor='let list of lessonlist | paginate: {itemsPerPage:10, currentPage: p}'>
                                         <td>{{list.category_name}}</td>
                                         <td>{{list.course_name}}</td>
                                         <td>{{list.lesson_name}}</td>
                                         <td>
-                                            <span [ngClass] = "list.lesson_status == 'Y' ? 'label label-success' : 'label label-danger'">
+                                            <span
+                                                [ngClass]="list.lesson_status == 'Y' ? 'label label-success' : 'label label-danger'">
                                                 <span *ngIf='list.lesson_status == "Y"'>Enable</span>
                                                 <span *ngIf='list.lesson_status == "N"'>Disable</span>
                                             </span>
                                         </td>
                                         <td>
                                             <div class='action-img-div'>
-                                                <img src='assets/img/edit.png' class='action-img' (click)='editLesson(list.lesson_id);' />
+                                                <img src='assets/img/edit.png' class='action-img'
+                                                    (click)='editLesson(list.lesson_id);' />
                                             </div>
                                             <div class='action-img-div switch'>
                                                 <div class="form-check form-switch">
-                                                    <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" [attr.checked]="list.lesson_status == 'Y' ? true : null" (change)='changeStatus($event,list.lesson_id)' />
+                                                    <input class="form-check-input" type="checkbox"
+                                                        id="flexSwitchCheckDefault"
+                                                        [attr.checked]="list.lesson_status == 'Y' ? true : null"
+                                                        (change)='changeStatus($event,list.lesson_id)' />
                                                 </div>
                                             </div>
                                         </td>
@@ -153,7 +183,8 @@
                             <ul class="pagination float-right">
                                 <li class="page-item"><a (click)="previousClick()" class="page-link">Previous</a></li>
                                 <li *ngFor='let index of pageIndexes' class="page-item">
-                                    <a (click)="changePagination(index)" id='pagination_{{index}}' class="page-link"> {{index}} </a>
+                                    <a (click)="changePagination(index)" id='pagination_{{index}}' class="page-link">
+                                        {{index}} </a>
                                 </li>
                                 <li class="page-item"><a (click)="nextClick()" class="page-link">Next</a></li>
                             </ul>
@@ -164,4 +195,3 @@
         </main>
     </div>
 </div>
-

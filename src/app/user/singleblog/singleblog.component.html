@@ -44,19 +44,41 @@
                     <div class="register_form_title mb-4">Post a Comment</div>
                     <div class="register_form_container">
                         <div class="row register_row">
+                            <form  role="form" #f="ngForm" (ngSubmit)="f.form.valid && postComment(f) ">
+                                <!-- <div class='col-md-6'> -->
                             <div class="col-lg-6 register_col">
-                                <input type="text" class="form-control" placeholder="Name"  [(ngModel)]='addcomm.name' />
+                                <input type="text" class="form-control" placeholder="Name" name="name"  [(ngModel)]='addcomm.name' #name="ngModel" [ngClass]="{'invalid-data': name.invalid && f.submitted, 'valid-data': name.valid && f.submitted}" required/>
+                                <div class="error_msg" *ngIf="name.errors && (name.dirty || name.touched || f.submitted)">
+                                    <!-- f.submitted && name.invalid -->
+                                    <div *ngIf="name.errors.required">
+                                        <small class="error_text" >Name is required</small> 
+                                    </div>
+                                </div>
                             </div>
                             <div class="col-lg-6 register_col">
-                                <input type="email" class="form-control" placeholder="Email" [(ngModel)]='addcomm.email_id' />
+                                <input type="email" class="form-control" id="email_id" placeholder="Email" name="email_id" [(ngModel)]='addcomm.email_id' #email_id="ngModel" [ngClass]="{'invalid-data': email_id.invalid && f.submitted, 'valid-data': email_id.valid && f.submitted}" required/>
+                                <div class="error_msg" *ngIf="email_id.errors && (email_id.dirty || email_id.touched || f.submitted)">
+                                    <!-- f.submitted && email_id.invalid -->
+                                    <div *ngIf="email_id.errors.required">
+                                        <small class="error_text" > Email Id is required</small> 
+                                    </div>
+                                </div>
                             </div>
                             <div class="col-lg-12">
-                                <textarea class="form-control form_text" placeholder="Comment" [(ngModel)]='addcomm.blog_comment'></textarea>
+                                <textarea class="form-control form_text" id="blog_comment" placeholder="Comment" name="blog_comment" [(ngModel)]='addcomm.blog_comment' #blog_comment="ngModel" [ngClass]="{'invalid-data': blog_comment.invalid && f.submitted, 'valid-data': blog_comment.valid && f.submitted}" required></textarea>
+                                <div class="error_msg" *ngIf="blog_comment.errors && (blog_comment.dirty || blog_comment.touched || f.submitted)">
+                                    <!-- f.submitted && blog_comment.invalid -->
+                                    <div *ngIf="blog_comment.errors.required">
+                                        <small class="error_text" >Comment is required</small> 
+                                    </div>
+                                </div>
                             </div>
                             <div class="col">
-                                <button class="form_button trans_200" (click)='postComment();'>post a comment</button>
+                                <button class="form_button trans_200" >post a comment</button>
+                                <!-- (click)='postComment();' -->
                             </div>
-                        </div>
+                        <!-- </div> -->
+                        </form>
                     </div>
                 </div>
             </div>

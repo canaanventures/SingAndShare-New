@@ -101,10 +101,11 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-body clearfix">
-                <span class='close modal-close' (click)='closeLoginModal()' data-dismiss="modal">&times;</span>
+              
                 <div *ngIf="loginshow ;then loginform else fpwdform"></div>
                
                 <ng-template id="login_form" #loginform>
+                    <span class='close modal-close' (click)='closeLoginModal(f)' data-dismiss="modal">&times;</span>
                     <div class="modal-title text-center">
                         <img src="../../../assets/img/logo.png" alt="">
                         <h3 class="welcome"><b>Welcome to Members Login</b></h3>
@@ -142,6 +143,7 @@
                 </ng-template>
                 
                 <ng-template id="fpwd_form" #fpwdform>
+                    <span class='close modal-close' (click)='closeLoginModal(f)' data-dismiss="modal">&times;</span>
                     <div class="modal-title text-center">
                         <img src="../../../assets/img/logo.png" alt="">
                         <h3 class="fpwd"><b>Forgot Password?</b></h3>

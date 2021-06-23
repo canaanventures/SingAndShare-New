@@ -47,7 +47,7 @@ export class ProfileComponent implements OnInit {
   }
 
   updateProfile(f:NgForm) {     
-    event.preventDefault();
+   // event.preventDefault();
     if(this.images){
       const formData = new FormData();
       formData.append('image', this.images);
@@ -92,7 +92,7 @@ export class ProfileComponent implements OnInit {
   }
 
   resetPassword(g:NgForm){
-    event.preventDefault();
+    //event.preventDefault();
     this.reset.email_id = this.tk.email;
     this.restApi.postMethod('resetPassword',this.reset).subscribe((resp:any) => {
       alert(resp.message);

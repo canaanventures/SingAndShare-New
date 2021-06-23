@@ -108,17 +108,25 @@
                         <div class="col-md-6">
                             <div class="drag-container">
                                 <div class="section-heading">Members <span id='user_cnt'>{{total}}</span></div>
-                                <div cdkDropList #pendingList="cdkDropList" [cdkDropListData]="todo" [cdkDropListConnectedTo]="[doneList]" class="item-list" (cdkDropListDropped)="drop($event,'user')">
+                                <cdk-virtual-scroll-viewport itemSize="50" class="example-viewport">
+                                    <div cdkDropList #pendingList="cdkDropList" [cdkDropListData]="todo" [cdkDropListConnectedTo]="[doneList]" class="item-list" (cdkDropListDropped)="drop($event,'user')">
+                                        <div class="item-box" *cdkVirtualFor="let item of todo" title="{{item.user_email_id}}" cdkDrag>{{item.user_first_name}} {{item.user_last_name}}</div>
+                                    </div>
+                                  </cdk-virtual-scroll-viewport>
+                                <!-- <div cdkDropList #pendingList="cdkDropList" [cdkDropListData]="todo" [cdkDropListConnectedTo]="[doneList]" class="item-list" (cdkDropListDropped)="drop($event,'user')">
                                     <div class="item-box" *ngFor="let item of todo" title="{{item.user_email_id}}" cdkDrag>{{item.user_first_name}} {{item.user_last_name}}</div>
-                                </div>
+                                </div> -->
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="drag-container">
                                 <div class="section-heading">Presentees <span id='present_cnt'>{{attendees}}</span></div>
-                                <div cdkDropList #doneList="cdkDropList" [cdkDropListData]="done" [cdkDropListConnectedTo]="[pendingList]" class="item-list" (cdkDropListDropped)="drop($event,'attendees')">
-                                    <div class="item-box" *ngFor="let item of done" title="{{item.user_email_id}}" cdkDrag>{{item.user_first_name}} {{item.user_last_name}}</div>
-                                </div>
+                                <cdk-virtual-scroll-viewport itemSize="50" class="example-viewport">
+                                    <div cdkDropList #doneList="cdkDropList" [cdkDropListData]="done" [cdkDropListConnectedTo]="[pendingList]" class="item-list" (cdkDropListDropped)="drop($event,'attendees')">
+                                        <div class="item-box" *cdkVirtualFor="let item of done" title="{{item.user_email_id}}" cdkDrag>{{item.user_first_name}} {{item.user_last_name}}</div>
+                                    </div>
+                                  </cdk-virtual-scroll-viewport>
+                              
                             </div>
                         </div>
                     </div>
