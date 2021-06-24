@@ -104,9 +104,10 @@
                 <h5 class='mb-3 card-header'>
                     <span *ngIf='!edit'>Add Events</span>
                     <span *ngIf='edit'>Edit Event</span>
-                    <span class='close modal-close' (click)='closeModal(f)' data-dismiss="modal">&times;</span>
+                   
                 </h5>
                 <div class='px-4'>
+                    <span class='close modal-close' (click)='closeModal(f)' data-dismiss="modal">&times;</span>
                     <form id="upload_form" class='row' enctype="multipart/form-data" role="form" #f="ngForm" (ngSubmit)="f.form.valid && submit(f)"> <!--  && addEvent(f); updateEvent(f) -->
                         <div class='col-md-6'>
                             <div class='form-group'>
@@ -181,9 +182,10 @@
                         </div>
                         <div class='col-md-4'>
                             <div class='form-group'>
-                                <label for='connection_link'>Connection Link</label>
+                                <label for='connection_link'>Connection Link<span style="color: red;">*</span></label>
                                 <input type='text' placeholder='Enter the connection Link' name='connection_link' class='form-control' id='connection_link' [(ngModel)]='addevent.connection_link'  #connection_link="ngModel" 
-                                [ngClass]="{'invalid-data': connection_link.invalid && f.submitted, 'valid-data': connection_link.valid && f.submitted}" required/>
+                                [ngClass]="{'invalid-data': connection_link.invalid && f.submitted, 'valid-data': connection_link.valid && f.submitted}" (change)="includehttp($event)" required/>
+                                <div *ngIf="checkedhttp == false">Meeting link must include http</div> 
                                 <div class="error_msg" *ngIf="f.submitted && connection_link.invalid">
                                     <div *ngIf="connection_link.errors.required">
                                         <small class="error_text" >Connection Link is required</small> 

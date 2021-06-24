@@ -3,6 +3,7 @@ import { ApiService } from 'src/app/shared/app.service';
 import jwt_decode from "jwt-decode";
 import { newArray } from '@angular/compiler/src/util';
 import { NgForm } from '@angular/forms';
+//import {CustomValidatorDirective} from '../../shared/app.validator'
 
 @Component({
   selector: 'app-training-lesson',
@@ -65,7 +66,7 @@ export class TrainingLessonComponent implements OnInit {
   }
 
   addLesson(f:NgForm){
-    event.preventDefault();
+   // event.preventDefault();
     this.lesson.created_by = this.tk.user_id;
     let arr = this.docurl;
     this.lesson.docdata = this.docurl;
@@ -97,7 +98,7 @@ export class TrainingLessonComponent implements OnInit {
   }
 
   updateLesson(f:NgForm){
-    event.preventDefault();
+  //  event.preventDefault();
     this.lesson.modified_by = this.tk.user_id;
     let arr = this.docurl;
     this.lesson.docdata = this.docurl;
@@ -214,5 +215,15 @@ export class TrainingLessonComponent implements OnInit {
     if(num > 1){
       this.changePagination(num-1);
     }
+  }
+
+  http_string:string
+  checkedhttp:boolean
+  includehttp(event:any){
+    this.http_string = event.target.value;
+    if(this.http_string.includes('http'))
+     this.checkedhttp = true
+      else 
+      this.checkedhttp = false
   }
 }

@@ -166,7 +166,7 @@ export class TrainingClassComponent implements OnInit {
   }
 
   addClass(event){
-    event.preventDefault();
+   // event.preventDefault();
     this.class.created_by = this.tk.user_id;
     this.class.instructor_id = this.tk.user_id;   
     this.restApi.postMethod('addLMSClass',this.class).subscribe((resp:any) => {
@@ -214,7 +214,7 @@ export class TrainingClassComponent implements OnInit {
   }
 
   updateClass(event){
-    event.preventDefault();
+   // event.preventDefault();
     this.class.modified_by = this.tk.user_id;
     this.class.start_date = this.changeDateFormat(this.class.start_date);
     this.class.end_date = this.changeDateFormat(this.class.end_date);

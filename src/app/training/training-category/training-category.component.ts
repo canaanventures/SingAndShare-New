@@ -32,7 +32,7 @@ export class TrainingCategoryComponent implements OnInit {
   }
 
   addCategory(f:NgForm){
-    event.preventDefault();
+   // event.preventDefault();
     this.category.created_by = this.tk.user_id;
     if(this.images != ''){
       const formData = new FormData();
@@ -72,7 +72,7 @@ export class TrainingCategoryComponent implements OnInit {
   }
 
   updateCategory(f:NgForm){
-    event.preventDefault();
+   // event.preventDefault();
     if(this.images != ''){
       const formData = new FormData();
       formData.append('image', this.images);

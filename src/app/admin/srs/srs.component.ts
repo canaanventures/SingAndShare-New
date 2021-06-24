@@ -50,7 +50,7 @@ export class SrsComponent implements OnInit {
 
   addBranch(f:NgForm) {
     f.resetForm()
-    event.preventDefault();
+   // event.preventDefault();
     this.edit = false;
     this.srs.created_by = this.tk.user_id;
     this.restApi.postMethod('addBranch',this.srs)
@@ -73,7 +73,7 @@ export class SrsComponent implements OnInit {
   }
 
   updateBranch(f:NgForm) {
-    event.preventDefault();
+   // event.preventDefault();
     this.edit = true;
     this.srs.modified_by = this.tk.user_id;   
     this.restApi.postMethod('editBranch',this.srs)

@@ -62,9 +62,9 @@ export class EventsComponent implements OnInit {
   }
 
   addEvent(f:NgForm){
-    event.preventDefault();
+   // event.preventDefault();
     this.edit = false;
-    event.preventDefault();
+   // event.preventDefault();
     if(this.eventimages != ''){
       const formData = new FormData();
       formData.append('image', this.eventimages);
@@ -73,20 +73,20 @@ export class EventsComponent implements OnInit {
       dte = dte.replace(/-/g, '_').replace(/:/g, '_');
       this.restApi.postImgMethod('addEventImg/'+dte+'/'+nme,formData).subscribe((data:any) => {
         this.addevent.imgurl = data.filepath;
-        this.addEventData();
+        this.addEventData(f);
       })
     }else{
       this.addevent.imgurl = '';
-      this.addEventData();
+      this.addEventData(f);
     }
   }
 
-  addEventData(){
+  addEventData(f:NgForm){
     this.addevent.created_by_user_id = this.tk.user_id;
     this.restApi.postMethod('addEvent',this.addevent).subscribe((resp:any) => {
       this.resp = resp.data;
       this.getEvents();
-     // this.closeModal()
+      this.closeModal(f)
       alert(resp.message);
       this.eventimages = '';
     })
@@ -113,7 +113,7 @@ export class EventsComponent implements OnInit {
   }
 
   updateEvent(f:NgForm){
-    event.preventDefault();
+  //  event.preventDefault();
     if(this.eventimages != ''){
       const formData = new FormData();
       formData.append('image', this.eventimages);
@@ -122,21 +122,21 @@ export class EventsComponent implements OnInit {
       dte = dte.replace(/-/g, '_').replace(/:/g, '_');
       this.restApi.postImgMethod('addEventImg/'+dte+'/'+nme,formData).subscribe((data:any) => {
         this.addevent.imgurl = data.filepath;
-        this.updateEventData();
+        this.updateEventData(f);
       })
     }else{
       this.addevent.imgurl = '';
-      this.updateEventData();
+      this.updateEventData(f);
     }
   }
   
-  updateEventData(){
+  updateEventData(f:NgForm){
     this.addevent.modified_user_id = this.tk.user_id;
     this.addevent.event_start_date = this.changeDateFormat((<HTMLInputElement>document.getElementById('event_start_date')).value);
     this.addevent.event_end_date = this.changeDateFormat((<HTMLInputElement>document.getElementById('event_end_date')).value);   
     this.restApi.postMethod('editEvent',this.addevent).subscribe((resp:any) => {
       this.getEvents();
-     // this.closeModal(f);
+     this.closeModal(f);
       alert(resp.message);
       this.addevent.imgurl = '';
     })
@@ -309,7 +309,7 @@ export class EventsComponent implements OnInit {
   }
 
   addGallery(h:NgForm){
-    event.preventDefault();
+    //event.preventDefault();
     const formData = new FormData();
     for (var i = 0; i < this.images.length; i++) { 
       formData.append("image", this.images[i]);
@@ -328,5 +328,15 @@ export class EventsComponent implements OnInit {
     this.restApi.getMethod('deleteGalleryImg/'+id).subscribe((resp:any) => {
       alert(resp.message);
     })
+  }
+
+  http_string:string
+  checkedhttp:boolean
+  includehttp(event:any){
+    this.http_string = event.target.value;
+    if(this.http_string.includes('http'))
+     this.checkedhttp = true
+      else 
+      this.checkedhttp = false
   }
 }

@@ -55,7 +55,7 @@ export class UsersComponent implements OnInit {
   }
 
   addUser(f:NgForm){
-    event.preventDefault();
+  //  event.preventDefault();
     var obj = {
       "first_name":(<HTMLInputElement>document.getElementById('mentee_first_name')).value,
       "last_name":(<HTMLInputElement>document.getElementById('mentee_last_name')).value,
@@ -179,7 +179,7 @@ export class UsersComponent implements OnInit {
   }
 
   updateUser(f:NgForm){
-    event.preventDefault();
+    //event.preventDefault();
     this.updateuser.first_name = (<HTMLInputElement>document.getElementById('mentee_first_name')).value;
     this.updateuser.last_name = (<HTMLInputElement>document.getElementById('mentee_last_name')).value;
     this.updateuser.email_id = (<HTMLInputElement>document.getElementById('mentee_email_id')).value;

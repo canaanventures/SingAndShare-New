@@ -35,18 +35,17 @@ export class PcsComponent implements OnInit {
   }
 
   addPCS(f:NgForm){
-   // alert ('hi i am test from add pcs')
-    event.preventDefault();
+   
+   // event.preventDefault();
     this.pcs.user_id = this.tk.user_id;
     this.pcs.status = 'Y';
     this.restApi.postMethod('addPCS',this.pcs).subscribe((resp:any) => {
       this.getPCS('all','add');
     // this.resetForm();
    //  alert(JSON.stringify(resp.message));
-
       //this.getPCS('all','add');
       this.changePagination(this.paginatecnt);
-      f.resetForm();
+       f.resetForm();
      // this.resetForm();
       alert(resp.message);
 
@@ -90,7 +89,7 @@ export class PcsComponent implements OnInit {
 
   upDatePCS(f:NgForm){
  //   alert ('hi i am test from update pcs')
-    event.preventDefault();
+  //  event.preventDefault();
     this.pcs.pcs_id = this.pcs.pcs_id;
     this.restApi.postMethod('upDatePCS',this.pcs).subscribe((resp:any) => {
 

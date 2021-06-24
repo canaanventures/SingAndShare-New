@@ -67,3 +67,10 @@
 .modal-body{padding:0;}
 .modal-body .card-header{padding:15px}
 .modal-close{margin-top: 8px;}
+
+.example-viewport {
+  height: 400px;
+  width: 285px;
+  /* border: 1px solid black; */
+}
+

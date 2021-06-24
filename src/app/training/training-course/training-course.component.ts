@@ -46,7 +46,7 @@ export class TrainingCourseComponent implements OnInit {
   }
  
   addCourse(f:NgForm){
-    event.preventDefault();
+    //event.preventDefault();
     this.course.created_by = this.tk.user_id;
     if(this.images != ''){
       const formData = new FormData();
@@ -87,7 +87,7 @@ export class TrainingCourseComponent implements OnInit {
   }
 
   updateCourse(f:NgForm){
-    event.preventDefault();
+   // event.preventDefault();
     if(this.images != ''){
       const formData = new FormData();
       formData.append('image', this.images);
