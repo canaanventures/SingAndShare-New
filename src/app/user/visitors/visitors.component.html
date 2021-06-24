@@ -13,11 +13,14 @@
             
             </div>
             <div class="form-group col-lg-6">
-                <input type="email" class="form-control" name="visitor_email_id" id="visitor_email_id"  placeholder="Your Email" data-rule="email" data-msg="Please enter a valid email" [(ngModel)]="visitorsdetails.visitor_email_id" #visitor_email_id="ngModel" [ngClass]="{'invalid-data':visitor_email_id.invalid && f.submitted, 'valid-data':visitor_email_id.valid && f.submitted}" required />
+                <input type="email" class="form-control" name="visitor_email_id" id="visitor_email_id"  placeholder="Your Email" data-rule="email" data-msg="Please enter a valid email" [(ngModel)]="visitorsdetails.visitor_email_id" #visitor_email_id="ngModel" [pattern]="emailPattern" [ngClass]="{'invalid-data':visitor_email_id.invalid && f.submitted, 'valid-data':visitor_email_id.valid && f.submitted}" required />
                 <div class="error_msg"
                 *ngIf="visitor_email_id.invalid && f.submitted">
                 <div *ngIf="visitor_email_id.errors.required">
                     <small class="error_text" >Email Id is required</small> 
+                </div>
+                <div *ngIf="email_id.errors.pattern">
+                    <small class="error_text" > Email Id is invalid</small> 
                 </div>
             </div>
             </div>

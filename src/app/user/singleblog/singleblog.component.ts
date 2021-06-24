@@ -13,6 +13,7 @@ export class SingleblogComponent implements OnInit {
   comment:any = [];
   param;
   imageToShow: any; fburl:any;
+  emailPattern = "^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$";  
 
   @Input() addcomm = {name:'', email_id:'', blog_comment:'', blog_id:''}
 

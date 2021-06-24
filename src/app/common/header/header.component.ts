@@ -18,6 +18,7 @@ export class HeaderComponent implements OnInit {
   classApplied = false;
   tk:any = {}; access; encryptInfo; role_name;
   classtoggle = false; f_nme; l_nme;
+  emailPattern = "^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$";  
 
   @Input() userdetails = {email:'',pass_word:''};
   @Input() user = {user_id:''};
@@ -78,10 +79,12 @@ export class HeaderComponent implements OnInit {
   }
 
   closeLoginModal() {
-   // window.location.reload();
     this.displayLogin='none';
     document.getElementsByTagName('body')[0].classList.remove('modal-open');
     document.getElementsByTagName('html')[0].classList.add('modal-open');
+    setTimeout(()=>{
+      location.reload();
+    },1000)
   }
   fpwd(){
     this.loginshow = false;

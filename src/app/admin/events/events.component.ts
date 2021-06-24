@@ -220,6 +220,7 @@ export class EventsComponent implements OnInit {
     f.resetForm();
     this.display='none';
     this.typedisplay='none';
+    this.checkedhttp = true
     document.getElementsByTagName('body')[0].classList.remove('modal-open');
   }
 
@@ -338,5 +339,6 @@ export class EventsComponent implements OnInit {
      this.checkedhttp = true
       else 
       this.checkedhttp = false
+     // f.resetForm();
   }
 }

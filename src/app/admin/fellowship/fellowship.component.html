@@ -126,6 +126,12 @@
                             <div class='form-group'>
                                 <label for='connection_link'>Connection Link</label>
                                 <input type='text' placeholder='Enter the connection Link' name='connection_link' class='form-control' id='connection_link' [(ngModel)]='event.connection_link' (change)="includehttp($event)" />
+                                <div style="color: red;" *ngIf="checkedhttp == false">Connection link must include http</div> 
+                                <!-- <div class="error_msg" *ngIf="f.submitted && connection_link.invalid">
+                                    <div *ngIf="connection_link.errors.required">
+                                        <small class="error_text" >Connection Link is required</small> 
+                                    </div>
+                                </div> -->
                             </div>
                         </div>
                         <div class='col-md-12'>

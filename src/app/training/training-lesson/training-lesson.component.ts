@@ -17,6 +17,7 @@ export class TrainingLessonComponent implements OnInit {
   totalRecords:Number = 1; p: Number = 1; pageIndexes:any =[]; paginatecnt:Number;
 
   @Input() lesson = {docdata:[], course_id:'', category_id:'', lesson_name:'', lesson_description:'', row_id:'',lesson_image_url:'', created_by:'', lesson_status:'', modified_by:''}
+  // ,lesson_document:'', meeting_link:''
   @Input() lessondocs = {vals:[],row:''}
 
   constructor(public restApi: ApiService) { }
@@ -155,6 +156,7 @@ export class TrainingLessonComponent implements OnInit {
       pdf_path: this.files[0].name,
       meeting_url: (<HTMLInputElement>document.getElementsByClassName('meeting-link')[0]).value
     })
+   
   }
 
   removeFld(row_id,lesson_id){

@@ -56,11 +56,15 @@
                                 </div>
                             </div>
                             <div class="col-lg-6 register_col">
-                                <input type="email" class="form-control" id="email_id" placeholder="Email" name="email_id" [(ngModel)]='addcomm.email_id' #email_id="ngModel" [ngClass]="{'invalid-data': email_id.invalid && f.submitted, 'valid-data': email_id.valid && f.submitted}" required/>
+                                <input type="email" class="form-control" id="email_id" placeholder="Email" name="email_id" [(ngModel)]='addcomm.email_id' #email_id="ngModel" [ngClass]="{'invalid-data': email_id.invalid && f.submitted, 'valid-data': email_id.valid && f.submitted}" [pattern]="emailPattern" required/>
+
                                 <div class="error_msg" *ngIf="email_id.errors && (email_id.dirty || email_id.touched || f.submitted)">
                                     <!-- f.submitted && email_id.invalid -->
                                     <div *ngIf="email_id.errors.required">
                                         <small class="error_text" > Email Id is required</small> 
+                                    </div>
+                                    <div *ngIf="email_id.errors.pattern">
+                                        <small class="error_text" > Email Id is invalid</small> 
                                     </div>
                                 </div>
                             </div>

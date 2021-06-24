@@ -111,13 +111,14 @@
                     <form id="upload_form" class='row' enctype="multipart/form-data" role="form" #f="ngForm" (ngSubmit)="f.form.valid && submit(f)"> <!--  && addEvent(f); updateEvent(f) -->
                         <div class='col-md-6'>
                             <div class='form-group'>
-                                <label for='event_image'>Upload Event Image<span style="color: red;">*</span></label>
-                                <input type='file' id='event_image' class='form-control' name='event_image' (change)='selectImage($event);' [(ngModel)]='addevent.imgurl' #imgurl= 'ngModel' [ngClass]="{'invalid-data': imgurl.invalid && f.submitted, 'valid-data': imgurl.valid && f.submitted}" required />
+                                <label for='event_image'>Upload Event Image</label>
+                                <input type='file' id='event_image' class='form-control' name='event_image' (change)='selectImage($event);' [(ngModel)]='addevent.imgurl' />
+                                <!-- #imgurl= 'ngModel'  [ngClass]="{'invalid-data': imgurl.invalid && f.submitted, 'valid-data': imgurl.valid && f.submitted}" required
                                 <div class="error_msg" *ngIf="f.submitted && imgurl.invalid">
                                     <div *ngIf="imgurl.errors.required">
                                         <small class="error_text" >Event Image is required</small> 
                                     </div>
-                                </div>
+                                </div> -->
                             </div>
                         </div>
                         <div class='col-md-6'>
@@ -182,15 +183,16 @@
                         </div>
                         <div class='col-md-4'>
                             <div class='form-group'>
-                                <label for='connection_link'>Connection Link<span style="color: red;">*</span></label>
-                                <input type='text' placeholder='Enter the connection Link' name='connection_link' class='form-control' id='connection_link' [(ngModel)]='addevent.connection_link'  #connection_link="ngModel" 
-                                [ngClass]="{'invalid-data': connection_link.invalid && f.submitted, 'valid-data': connection_link.valid && f.submitted}" (change)="includehttp($event)" required/>
-                                <div *ngIf="checkedhttp == false">Meeting link must include http</div> 
+                                <label for='connection_link'>Connection Link</label>
+                                <input type='text' placeholder='Enter the connection Link' name='connection_link' class='form-control' id='connection_link' [(ngModel)]='addevent.connection_link' (change)="includehttp($event)" />
+                                <div style="color: red;" *ngIf="checkedhttp == false">Meeting link must include http</div> 
+                                <!-- #connection_link="ngModel" 
+                                [ngClass]="{'invalid-data': connection_link.invalid && f.submitted, 'valid-data': connection_link.valid && f.submitted}" required
                                 <div class="error_msg" *ngIf="f.submitted && connection_link.invalid">
                                     <div *ngIf="connection_link.errors.required">
                                         <small class="error_text" >Connection Link is required</small> 
                                     </div>
-                                </div>
+                                </div> -->
                             </div>
                         </div>
                         <div class='col-md-12'>

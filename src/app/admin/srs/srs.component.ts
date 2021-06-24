@@ -49,13 +49,16 @@ export class SrsComponent implements OnInit {
 
 
   addBranch(f:NgForm) {
-    f.resetForm()
+   
    // event.preventDefault();
     this.edit = false;
     this.srs.created_by = this.tk.user_id;
+    console.log(f.value)
     this.restApi.postMethod('addBranch',this.srs)
       .subscribe((resp:any) => {
+       // console.log(resp)
         this.closeModal(f);
+        f.resetForm()
         this.fetchSRSlist();
         alert('Branch Added Successfully');
       });

@@ -79,7 +79,9 @@ export class UsersComponent implements OnInit {
     this.restApi.postMethod('sendUserLink',this.userdetails).subscribe((data:any) => {
       //this.router.navigate(['register/' + this.encryptInfo]);
       this.display = 'none';
+      console.log(f.value)
       alert('Mail has been sent to the Mentee');
+      this.closeModal(f);
     });
   }
 

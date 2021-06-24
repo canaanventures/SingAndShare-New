@@ -82,21 +82,24 @@
                                 <span class='add-fld' (click)='addFld()'>
                                     <i class="fa fa-plus" aria-hidden="true"></i>
                                 </span>
-                                <div class='row'>
+                                <div class='row' >
+                               
                                     <div class='col-md-6'>
                                         <div class='form-group'>
                                             <label for='doc-upload'>Document</label>
-                                            <input type='file' class='form-control doc-upload' id='doc-upload'
+                                            <input type='file' class='form-control doc-upload' id='doc-upload' 
                                                 (change)='handleFileSelect($event)' name='multiple_images' />
+                                              
                                         </div>
                                     </div>
                                     <div class='col-md-6'>
                                         <div class='form-group'>
                                             <label for='meeting_link'>Meeting Link</label>
                                             <input type='text' id='meeting_link' class='form-control meeting_link'
-                                                name="meeting_link" ngModel #meeting_link='ngModel'
-                                                (change)="includehttp($event)" placeholder='Meeting Link' required />
+                                                name="meeting_link" 
+                                                (change)="includehttp($event)" placeholder='Meeting Link' />
                                             <div *ngIf="checkedhttp == false">Meeting link must include http</div>
+                                            
                                           <!-- <div class="error_msg" *ngIf="meeting_link.errors && (meeting_link.dirty || meeting_link.touched || f.submitted)">
                                             </div>  -->
                                         </div>

@@ -36,6 +36,14 @@ export class TrainingClassComponent implements OnInit {
     this.fetchMentees();
   }
 
+  submit(f){
+    if(this.edit==false)
+    this.addClass(f);
+    else
+    this.updateClass(f);
+
+  }
+
   fetchCategory(){
     this.restApi.getMethod('getLMSCategory/Y').subscribe((resp:any) => {
       this.catlist = resp.data;
@@ -165,7 +173,7 @@ export class TrainingClassComponent implements OnInit {
     element.click();
   }
 
-  addClass(event){
+  addClass(f:NgForm){
    // event.preventDefault();
     this.class.created_by = this.tk.user_id;
     this.class.instructor_id = this.tk.user_id;   
@@ -175,6 +183,7 @@ export class TrainingClassComponent implements OnInit {
       this.generate = true;
       let element: HTMLElement = document.getElementById('cancel_category') as HTMLElement;
       element.click();
+      this.closeClassModal(f)
     })
   }
 
@@ -213,7 +222,7 @@ export class TrainingClassComponent implements OnInit {
     });
   }
 
-  updateClass(event){
+  updateClass(f:NgForm){
    // event.preventDefault();
     this.class.modified_by = this.tk.user_id;
     this.class.start_date = this.changeDateFormat(this.class.start_date);
@@ -317,7 +326,7 @@ export class TrainingClassComponent implements OnInit {
     this.code.course_name = txt.split(' ').join('_');
   }
   
-  generateCode(){
+  generateCode(f:NgForm){
     let codedte = new Date(this.class.start_date);
     let dte = String(codedte.getMonth()+1)+String(codedte.getFullYear());
     this.code.class_start_date_mon_yr = dte;
@@ -342,8 +351,9 @@ export class TrainingClassComponent implements OnInit {
     this.displayTable = 'inline-table';
   }
 
-  resetForm(f:NgForm){
-    f.resetForm( {cat_id:'',class_type:'',class_name:'',start_date:'',end_date:'',connection_link:'',created_by:'',description:'',modified_by:'',course_id:'',instructor_id:'',row_id:'',class_status:''})
+  resetForm(f:NgForm,g:NgForm){
+    f.resetForm( {cat_id:'',class_type:'',class_name:'',start_date:'',end_date:'',connection_link:'',created_by:'',description:'',modified_by:'',course_id:'',instructor_id:'',row_id:'',class_status:''});
+    g.resetForm( {cat_id:'',class_type:'',class_name:'',start_date:'',end_date:'',connection_link:'',created_by:'',description:'',modified_by:'',course_id:'',instructor_id:'',row_id:'',class_status:''})
   }
 
   changePagination(event){
@@ -424,5 +434,16 @@ export class TrainingClassComponent implements OnInit {
     if(num > 1){
       this.changeAllPagination(num-1);
     }
+  }
+
+  http_string:string
+  checkedhttp:boolean
+  includehttp(event:any){
+    this.http_string = event.target.value;
+    if(this.http_string.includes('http'))
+     this.checkedhttp = true
+      else 
+      this.checkedhttp = false
+     // f.resetForm();
   }
 }
