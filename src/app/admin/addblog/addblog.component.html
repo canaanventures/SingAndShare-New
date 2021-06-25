@@ -153,7 +153,7 @@
                             <label for='updateBlog' *ngIf='edit'></label>
                             <button class="btn btn-primary" type='submit' [ngStyle]="{'display': (blogtype=='add') ? 'block' : 'none'}" *ngIf='!edit'> Add Blog </button>
                             <!-- *ngIf='!edit' (click)='addBlog($event);' -->
-                            <button class="btn btn-primary" id='updateBlog'  [ngStyle]="{'display': (blogtype=='update') ? 'block' : 'none'}" *ngIf='edit' (click)='updateBlog($event)' > Update Blog </button>
+                            <button class="btn btn-primary" id='updateBlog'  [ngStyle]="{'display': (blogtype=='update') ? 'block' : 'none'}" *ngIf='edit' > Update Blog </button>
                             <!--(click)='updateBlog()  -->
                         </div>
                     </form>

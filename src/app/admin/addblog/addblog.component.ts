@@ -104,8 +104,7 @@ export class AddblogComponent implements OnInit {
     this.updateBlog(f);
   }
 
-  addBlog(f:NgForm){
-   //  
+  addBlog(f:NgForm){ 
     if(this.images != ''){
       const formData = new FormData();
       formData.append('image', this.images);
@@ -138,6 +137,7 @@ export class AddblogComponent implements OnInit {
       this.changePagination(this.paginatecnt);
       this.images = '';
       this.displayBlog='none';
+
       alert(data.message);
     })
   }
@@ -176,7 +176,7 @@ export class AddblogComponent implements OnInit {
   }
 
   closeBlogModal(f:NgForm) {
-    f.resetForm()
+   // f.resetForm;
     this.displayBlog='none';
     this.categorydisplay='none';
     document.getElementsByTagName('body')[0].classList.remove('modal-open');
@@ -212,7 +212,7 @@ export class AddblogComponent implements OnInit {
   }
 
   updateBlog(f:NgForm){
-    this.router.navigate(['/addblog'])
+  //  this.router.navigate(['/addblog'])
     
     if(this.images != ''){
       const formData = new FormData();
@@ -221,7 +221,9 @@ export class AddblogComponent implements OnInit {
       let cat = (<HTMLInputElement>document.getElementById('category')).value;
       this.restApi.postImgMethod('addBlogImg/'+title+'/'+cat,formData).subscribe((resp:any) => {
         this.addEditedData(resp);
+        this.closeBlogModal(f)
         f.resetForm()
+        console.log('i am update blog')
       })
     }else{
       this.addEditedData('');

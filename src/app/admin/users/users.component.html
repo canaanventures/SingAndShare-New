@@ -167,11 +167,16 @@
                         <div class='col-md-6'>
                             <div class='form-group'>
                                 <label for='mentee_email_id'>Email ID<span style="color: red;">*</span></label> 
-                                <input type='text' placeholder='Email ID' class='form-control' id='mentee_email_id' name="mentee_email_id" ngModel  #mentee_email_id="ngModel" [ngClass]="{'invalid-data': mentee_email_id.invalid && f.submitted, 'valid-data': mentee_email_id.valid && f.submitted}" required  />
+                                <input type='text' placeholder='Email ID' class='form-control' id='mentee_email_id' name="mentee_email_id" ngModel  #mentee_email_id="ngModel" [ngClass]="{'invalid-data': mentee_email_id.invalid && f.submitted, 'valid-data': mentee_email_id.valid && f.submitted}" [pattern]="emailPattern" required  />
                                 <div class="error_msg" *ngIf="mentee_email_id.invalid && f.submitted">
-                                    <small class="error_text"> Email Id is required</small>
+                                    <div *ngIf="mentee_email_id.errors.required">
+                                        <small class="error_text"> Email Id is required</small>
+                                    </div>
+                                <div *ngIf="mentee_email_id.errors.pattern">
+                                    <small class="error_text" > Email Id is invalid</small> 
                                 </div>
                             </div>
+                        </div>
                         </div>
                         <div class='col-md-6'>
                             <div class='form-group'>

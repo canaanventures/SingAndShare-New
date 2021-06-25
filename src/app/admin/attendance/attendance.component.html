@@ -82,7 +82,8 @@
                                     <div class='form-group'>
                                         <label for='new_people_attended'>No. of new Attendes</label>
                                         <input type='text' class='form-control' placeholder='No. of New People Attended' name='new_attendees' id='new_people_attended' [(ngModel)]='attendancedetails.new_attendees' #new_attendees="ngModel" [ngClass]="{'invalid-data': new_attendees.invalid && f.submitted, 'valid-data': new_attendees.valid && f.submitted}" pattern="^[0-9]*$"  required/>
-                                        <div class="error_msg" *ngIf="f.submitted && new_attendees.invalid">
+                                        <!-- <div class="error_msg" *ngIf="f.submitted && new_attendees.invalid"> -->
+                                            <div class="error_msg" *ngIf="new_attendees.errors && (new_attendees.dirty || new_attendees.touched || f.submitted)">
                                             <div *ngIf="new_attendees.errors.pattern">
                                                 <small class="error_text" >Only Numbers allowed</small> 
                                             </div>

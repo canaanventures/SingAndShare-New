@@ -58,7 +58,8 @@ export class AttendanceComponent implements OnInit {
       }
       this.attendeesdtls.vals = b;
       this.restApi.postMethod('addAttendees',this.attendeesdtls).subscribe((resp:any) => {
-        alert(resp.message);
+        alert('Attendance added successfully')
+        //alert(resp.message);
         setTimeout(function(){
           location.reload();
         },1000)

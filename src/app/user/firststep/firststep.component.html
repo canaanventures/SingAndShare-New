@@ -136,18 +136,27 @@
                                                         data-msg="Please enter at least 4 chars" ngModel #name="ngModel"
                                                         [ngClass]="{'invalid-data': name.invalid && f.submitted, 'valid-data': name.valid && f.submitted}"
                                                         required />
-                                                    <div class="error_msg" *ngIf="name.invalid && f.submitted">
-                                                        <small class="error_text">Name is required</small>
+                                                    <!-- <div class="error_msg" *ngIf="name.invalid && f.submitted"> -->
+                                                        <div class="error_msg" *ngIf="name.errors && (name.dirty || name.touched || f.submitted)">
+                                                            <div *ngIf="name.errors.required">
+                                                                <small class="error_text">Name is required</small>
+                                                            </div>
                                                     </div>
                                                 </div>
                                                 <div class="form-group col-lg-6 mt-3 mt-lg-0">
                                                     <input type="email" class="form-control" name="email" id="email"
-                                                        placeholder="Your Email" data-rule="email"
+                                                        placeholder="Your Email" [pattern]="emailPattern" data-rule="email"
                                                         data-msg="Please enter a valid email" ngModel #email="ngModel"
                                                         [ngClass]="{'invalid-data': email.invalid && f.submitted, 'valid-data': email.valid && f.submitted}"
                                                         required>
-                                                    <div class="error_msg" *ngIf="email.invalid && f.submitted">
-                                                        <small class="error_text">Email is required</small>
+                                                    <!-- <div class="error_msg" *ngIf="email.invalid && f.submitted"> -->
+                                                        <div class="error_msg" *ngIf="email.errors && (email.dirty || email.touched || f.submitted)">
+                                                        <div *ngIf="email.errors.required">
+                                                            <small class="error_text">Email is required</small>
+                                                        </div>
+                                                        <div *ngIf="email.errors.pattern">
+                                                            <small class="error_text" > Email Id is invalid</small> 
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -164,8 +173,11 @@
                                                         <option>Share prayer point</option>
                                                         <option>Share praise point</option>
                                                     </select>
-                                                    <div class="error_msg" *ngIf="subject.invalid && f.submitted">
-                                                        <small class="error_text">Subject is required</small>
+                                                    <div class="error_msg" *ngIf="subject.errors && (subject.dirty || subject.touched || f.submitted)">
+                                                        <div *ngIf="subject.errors.required">
+                                                            <small class="error_text">Subject is required</small>
+                                                        </div>
+                                                       
                                                     </div>
                                                 </div>
                                                 <div class="form-group col-lg-6 mt-3 mt-lg-0">
@@ -175,8 +187,11 @@
                                                         #contact="ngModel"
                                                         [ngClass]="{'invalid-data': contact.invalid && f.submitted, 'valid-data': contact.valid && f.submitted}"
                                                         required />
-                                                    <div class="error_msg" *ngIf="contact.invalid && f.submitted">
-                                                        <small class="error_text">Contact Number is required</small>
+                                                    <div class="error_msg" *ngIf="contact.errors && (contact.dirty || contact.touched || f.submitted)">
+                                                        <div *ngIf="contact.errors.required">
+                                                            <small class="error_text">Contact Number is required</small>
+                                                        </div>
+                                                      
                                                     </div>
                                                 </div>
                                             </div>
@@ -185,8 +200,11 @@
                                                     placeholder="Message" ngModel #message="ngModel"
                                                     [ngClass]="{'invalid-data': message.invalid && f.submitted, 'valid-data': message.valid && f.submitted}"
                                                     required></textarea>
-                                                <div class="error_msg" *ngIf="message.invalid && f.submitted">
-                                                    <small class="error_text">Message is required</small>
+                                                <div class="error_msg" *ngIf="message.errors && (message.dirty || message.touched || f.submitted)">
+                                                    <div *ngIf="message.errors.required">
+                                                        <small class="error_text">Message is required</small>
+                                                    </div>
+                                                   
                                                 </div>
                                             </div>
                                             <div class="text-center">

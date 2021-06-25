@@ -16,6 +16,7 @@ export class UsersComponent implements OnInit {
   public encryptInfo : any;
   public userrole:any;
   display='none';
+  emailPattern = "^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$";  
   userlist :any = []; 
   tk:any = {}; totalRecords:Number = 1; p: Number = 1; pageIndexes:any =[];
   status; edit; srs_name = ''; role_nme; srslist:any = []; paginatecnt:Number;
