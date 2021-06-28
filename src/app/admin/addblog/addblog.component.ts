@@ -98,6 +98,7 @@ export class AddblogComponent implements OnInit {
   }
 
   submit(f){
+    console.log(this.edit,this.edit == true)
     if(this.edit==false)
     this.addBlog(f);
     else
@@ -112,9 +113,10 @@ export class AddblogComponent implements OnInit {
       let cat = (<HTMLInputElement>document.getElementById('category')).value;
       this.restApi.postImgMethod('addBlogImg/'+title+'/'+cat,formData).subscribe((data) => { 
         this.resp = data;
+      
         this.blog.imgurl = this.resp.filepath;
         this.addBlogData();
-        f.resetForm()
+        this.closeBlogModal(f)
       })
     }else{
       this.blog.imgurl = '';
@@ -130,8 +132,8 @@ export class AddblogComponent implements OnInit {
     }else{
       this.blog.approval_status = "N";
     }     
-    this.blog.description = this.htmlContent.replace(/"/gi, "");
-    this.blog.description = this.htmlContent.replace(/'/gi, "");
+    this.blog.description = this.editblog.description.replace(/"/gi, "");
+    this.blog.description = this.editblog.description.replace(/'/gi, "");
     this.blog.created_by_user_id = this.tk.user_id;
     this.restApi.postMethod('addBlog',this.blog).subscribe((data:any) => {
       this.changePagination(this.paginatecnt);
@@ -171,12 +173,12 @@ export class AddblogComponent implements OnInit {
     this.edit = false;
     document.getElementsByTagName('body')[0].classList.add('modal-open');
     this.blogtype = 'add';
-    this.htmlContent = '';
+    this.blog.description = '';
     (<HTMLInputElement>document.getElementById('title')).value = '';
   }
 
   closeBlogModal(f:NgForm) {
-   // f.resetForm;
+    f.resetForm();
     this.displayBlog='none';
     this.categorydisplay='none';
     document.getElementsByTagName('body')[0].classList.remove('modal-open');
@@ -193,11 +195,16 @@ export class AddblogComponent implements OnInit {
     this.edit = true;
     this.edit_id = id;
     this.restApi.getMethod('getBlogs/single/'+id).subscribe((resp:any) => {
-      (<HTMLInputElement>document.getElementById('title')).value = resp.data[0].title;
-      (<HTMLInputElement>document.getElementById('category')).value = resp.data[0].category;
+      console.log(resp);
+      this.editblog.title  = resp.data[0].title;
+      this.editblog.category = resp.data[0].category;
+      // (<HTMLInputElement>document.getElementById('title')).value = resp.data[0].title;
+      // (<HTMLInputElement>document.getElementById('category')).value = resp.data[0].category;
       if(document.getElementById('approval_status')){
-        (<HTMLInputElement>document.getElementById('approval_status')).value = resp.data[0].approval_status;
-      }
+        // (<HTMLInputElement>document.getElementById('approval_status')).value = resp.data[0].approval_status;
+        this.editblog.approval_status =  resp.data[0].approval_status;
+      }  
+     // debugger;
       this.editblog.description = resp.data[0].description;
       this.restApi.getImgMethod('getBlogImg/'+id).subscribe((resp:any) => {
         if(resp.status == 201){
@@ -213,17 +220,15 @@ export class AddblogComponent implements OnInit {
 
   updateBlog(f:NgForm){
   //  this.router.navigate(['/addblog'])
-    
     if(this.images != ''){
       const formData = new FormData();
       formData.append('image', this.images);
       let title = (<HTMLInputElement>document.getElementById('title')).value.split(' ').join("-");
       let cat = (<HTMLInputElement>document.getElementById('category')).value;
       this.restApi.postImgMethod('addBlogImg/'+title+'/'+cat,formData).subscribe((resp:any) => {
+        console.log(resp)
         this.addEditedData(resp);
-        this.closeBlogModal(f)
-        f.resetForm()
-        console.log('i am update blog')
+       this.closeBlogModal(f)
       })
     }else{
       this.addEditedData('');
@@ -245,7 +250,7 @@ export class AddblogComponent implements OnInit {
     this.editblog.modified_by_user_id = this.tk.user_id;
     this.editblog.blog_id = this.edit_id;
     this.restApi.postMethod('updateBlog',this.editblog).subscribe((data:any) => {     
-      alert(data.message);
+    // alert('Blog updated successfully');
       //this.closeBlogModal(f);
       this.changePagination(this.paginatecnt);
       document.getElementsByTagName('body')[0].classList.remove('edit-modal-open');

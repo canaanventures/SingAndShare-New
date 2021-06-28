@@ -23,7 +23,7 @@ export class UsersComponent implements OnInit {
 
   @Input() userdetails = {url:'',email:''}
   @Input() disableuser = {modified_by_user_id:'',userid:'',status:''}
-  @Input() updateuser = {first_name:'',srs_id:null,last_name:'',email_id:'',role:'',mentor_email_id:'',user_id:'',modified_by:''}
+  @Input() updateuser = {user_first_name:'',srs_id:'',user_last_name:'',user_email_id:'',mentee_email_id:'',role:'',role_id:0,mentor_email_id:'',user_id:'',modified_by:''}
   @Input() access = {user_id:'',blog_approve_access:false,blog_change_status_access:false,blog_access:false,calendar_add_access:false,calendar_access:false,attendance_access:false,event_access:false,user_access:false,sns_access:false,access_id:''}
   @Input() user = {user_id:''}
 
@@ -48,11 +48,15 @@ export class UsersComponent implements OnInit {
     })
   }
 
-  submit(f){
-    if(this.edit==false)
-    this.addUser(f);
-    else
-    this.updateUser(f);
+  submit(f: NgForm){
+    if(this.edit==false){
+      this.addUser(f);
+      console.log('i am add submit')
+    }else{
+      this.updateUser(f);
+      console.log('i am update submit')
+    }
+  
   }
 
   addUser(f:NgForm){
@@ -68,7 +72,7 @@ export class UsersComponent implements OnInit {
     }
 
     if(this.role_nme == 'Admin'){
-      obj.srs_id = this.srs_name;
+      obj.srs_id = this.updateuser.srs_id;
     }else{
       obj.srs_id = this.tk.srs_id;
     }
@@ -80,7 +84,7 @@ export class UsersComponent implements OnInit {
     this.restApi.postMethod('sendUserLink',this.userdetails).subscribe((data:any) => {
       //this.router.navigate(['register/' + this.encryptInfo]);
       this.display = 'none';
-      console.log(f.value)
+     // console.log(f.value)
       alert('Mail has been sent to the Mentee');
       this.closeModal(f);
     });
@@ -163,44 +167,54 @@ export class UsersComponent implements OnInit {
   }
 
   editUser(id:any){
+    console.log("hello i am edit")
     this.edit = true;
     this.restApi.getMethod('getUsers/'+id)
       .subscribe((resp:any) => {
-        (<HTMLInputElement>document.getElementById('mentee_first_name')).value = resp.data[0].user_first_name;
-        (<HTMLInputElement>document.getElementById('mentee_last_name')).value = resp.data[0].user_last_name;
-        (<HTMLInputElement>document.getElementById('mentee_email_id')).value = resp.data[0].user_email_id;
-        (<HTMLInputElement>document.getElementById('mentee_user_type')).value = resp.data[0].role_id;
-        (<HTMLInputElement>document.getElementById('mentor_email_id')).value = resp.data[0].mentor_email_id;
+        // (<HTMLInputElement>document.getElementById('mentee_first_name')).value = resp.data[0].user_first_name;
+        // (<HTMLInputElement>document.getElementById('mentee_last_name')).value = resp.data[0].user_last_name;
+        // (<HTMLInputElement>document.getElementById('mentee_email_id')).value = resp.data[0].user_email_id;
+        // (<HTMLInputElement>document.getElementById('mentee_user_type')).value = resp.data[0].role_id;
+        // (<HTMLInputElement>document.getElementById('mentor_email_id')).value = resp.data[0].mentor_email_id;
+        this.updateuser = resp.data[0]
+      console.log(this.updateuser);
+       
         if(this.role_nme == 'Admin'){
-          (resp.data[0].srs_id) ? this.srs_name = resp.data[0].srs_id : this.srs_name = '';
+          (resp.data[0].srs_id) ? this.updateuser.srs_id = resp.data[0].srs_id : this.updateuser.srs_id = '';
           (<HTMLInputElement>document.getElementById('mentee_user_type')).removeAttribute("disabled");
         }
         (<HTMLInputElement>document.getElementById('hidden_id')).value = id;
         this.display='block';
         document.getElementsByTagName('body')[0].classList.add('modal-open');
+        this.updateuser = resp.data[0];
       });
   }
 
   updateUser(f:NgForm){
+    this.edit = true;
+    console.log('hello i am update')
     //event.preventDefault();
-    this.updateuser.first_name = (<HTMLInputElement>document.getElementById('mentee_first_name')).value;
-    this.updateuser.last_name = (<HTMLInputElement>document.getElementById('mentee_last_name')).value;
-    this.updateuser.email_id = (<HTMLInputElement>document.getElementById('mentee_email_id')).value;
+    this.updateuser.user_first_name = (<HTMLInputElement>document.getElementById('mentee_first_name')).value;
+    this.updateuser.user_last_name = (<HTMLInputElement>document.getElementById('mentee_last_name')).value;
+    this.updateuser.user_email_id = (<HTMLInputElement>document.getElementById('mentee_email_id')).value;
     this.updateuser.role = (<HTMLInputElement>document.getElementById('mentee_user_type')).value;
     this.updateuser.mentor_email_id = (<HTMLInputElement>document.getElementById('mentor_email_id')).value;
+    this.updateuser.srs_id = (<HTMLInputElement>document.getElementById('srs_id')).value;
     this.updateuser.user_id = (<HTMLInputElement>document.getElementById('hidden_id')).value;
+
     this.updateuser.modified_by = this.tk.user_id;
     
     if(this.role_nme == 'Admin'){
-      this.updateuser.srs_id = this.srs_name;;
+      this.updateuser.srs_id = this.updateuser.srs_id;
     }else{
       this.updateuser.srs_id = this.tk.role_id;
     }
+    console.log(this.updateuser)
 
     this.restApi.postMethod('updateUser',this.updateuser).subscribe((data:{}) => {
-      this.closeModal(f);
-      this.fetchUser(this.paginatecnt);
-      alert('User updated Successfully');
+    this.fetchUser(this.paginatecnt);
+     alert('User updated Successfully');
+     this.closeModal(f);
     });
   }
 
