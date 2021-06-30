@@ -62,18 +62,23 @@ export class EventsComponent implements OnInit {
   }
 
   addEvent(f:NgForm){
-   // event.preventDefault();
+    //debugger;
     this.edit = false;
    // event.preventDefault();
-    if(this.eventimages != ''){
+     if(this.eventimages !== ''){
       const formData = new FormData();
-      formData.append('image', this.eventimages);
+       formData.append('image', this.eventimages);
+      //formData.append('image', this.addevent.imgurl);
       let nme = this.addevent.event_name.split(' ').join('_');
       let dte = (<HTMLInputElement>document.getElementById('event_start_date')).value;
+     // console.log(dte)
       dte = dte.replace(/-/g, '_').replace(/:/g, '_');
       this.restApi.postImgMethod('addEventImg/'+dte+'/'+nme,formData).subscribe((data:any) => {
-        this.addevent.imgurl = data.filepath;
+       // console.log(data)
+       this.addevent.imgurl = data.filepath;
+       //  console.log(this.addevent.imgurl)
         this.addEventData(f);
+      //  console.log(f.value)
       })
     }else{
       this.addevent.imgurl = '';
@@ -93,7 +98,10 @@ export class EventsComponent implements OnInit {
   }
 
   changeDateFormat(newdte){
-    let create_dte = new Date(newdte);
+    //debugger;
+    let create_dte = new Date(newdte); //changing date 30th to 1st
+   // console.log('this is newdte'+newdte)
+   // console.log('this is create_dte'+create_dte)
     let month, dte, hrs, mins;
     (create_dte.getDate() < 10) ? dte = '0'+create_dte.getDate() : dte = create_dte.getDate();
     ((create_dte.getMonth()+1) < 10) ? month = '0'+(create_dte.getMonth()+1) : month = (create_dte.getMonth()+1);
@@ -113,32 +121,42 @@ export class EventsComponent implements OnInit {
   }
 
   updateEvent(f:NgForm){
-  //  event.preventDefault();
+    console.log('update')
+    // console.log(this.addevent.event_start_date)
+    // let val = this.changeDateFormat(this.addevent.event_start_date)
+    // console.log(val)
+  // event.preventDefault();
     if(this.eventimages != ''){
       const formData = new FormData();
       formData.append('image', this.eventimages);
-      let nme = this.addevent.event_name.split(' ').join('_');
+     let nme = this.addevent.event_name.split(' ').join('_');
       let dte = (<HTMLInputElement>document.getElementById('event_start_date')).value;
+     //let dte = this.addevent.event_start_date
       dte = dte.replace(/-/g, '_').replace(/:/g, '_');
       this.restApi.postImgMethod('addEventImg/'+dte+'/'+nme,formData).subscribe((data:any) => {
-        this.addevent.imgurl = data.filepath;
-        this.updateEventData(f);
+      
+      this.addevent.imgurl = data.filepath;  //error
+      this.updateEventData(f);
+      
+     // this.closeModal(f);
       })
     }else{
-      this.addevent.imgurl = '';
+     this.addevent.imgurl = '';
       this.updateEventData(f);
     }
   }
   
   updateEventData(f:NgForm){
+   console.log('??????????',(<HTMLInputElement>document.getElementById('event_start_date')).value)
     this.addevent.modified_user_id = this.tk.user_id;
     this.addevent.event_start_date = this.changeDateFormat((<HTMLInputElement>document.getElementById('event_start_date')).value);
+    console.log('##########',this.addevent.event_start_date)
     this.addevent.event_end_date = this.changeDateFormat((<HTMLInputElement>document.getElementById('event_end_date')).value);   
     this.restApi.postMethod('editEvent',this.addevent).subscribe((resp:any) => {
       this.getEvents();
-     this.closeModal(f);
       alert(resp.message);
       this.addevent.imgurl = '';
+      this.closeModal(f);
     })
   }
 
@@ -194,6 +212,7 @@ export class EventsComponent implements OnInit {
   getPastEvents() {
     this.restApi.getMethod('pastEvents').subscribe((resp:any) => {
       this.pasteventlist = resp.data;
+      console.log( this.pasteventlist)
     })
   }
 
@@ -217,7 +236,7 @@ export class EventsComponent implements OnInit {
   }
 
   closeModal(f:NgForm) {
-    f.resetForm();
+   f.resetForm();
     this.display='none';
     this.typedisplay='none';
     this.checkedhttp = true
@@ -301,11 +320,13 @@ export class EventsComponent implements OnInit {
       });
     }
   }
-
+ 
   selectImage(event){
+    //debugger;
     if(event.target.files.length > 0){
       const file = event.target.files[0];
-      this.eventimages = file;
+       this.eventimages = file;
+    
     }
   }
 

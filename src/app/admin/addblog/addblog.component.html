@@ -129,6 +129,11 @@
                         <div class="form-group col-md-12">
                             <label for="description">Blog<span style="color: red;">*</span></label>
                             <angular-editor id='description' name='blog_description' [config]="editorConfig" [(ngModel)]="editblog.description" #description="ngModel" [ngClass]="{'invalid-data': description.invalid && f.submitted, 'valid-data': description.valid && f.submitted}"  required  ></angular-editor>
+                            <!-- <quill-editor  [style]="{height:'200px'}"
+                            placeholder="Enter Text"
+                            [modules]="quillConfig"
+                            (onSelectionChanged)="onSelectionChanged($event)"
+                            (onContentChanged)="onContentChanged($event)"></quill-editor> -->
                             <div class="error_msg"
                             *ngIf="f.submitted && description.invalid">
                                 <div *ngIf="description.errors.required">

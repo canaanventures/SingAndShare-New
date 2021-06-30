@@ -21,6 +21,7 @@ export class FellowshipComponent implements OnInit {
   display = 'none';
   startDate; endDate; access; encryptInfo;
   typeisevent = true;
+  imageToShow;
 
   @Input() event = {connection_link:'',event_id:'',event_name:'',event_start_date:'', event_end_date:'', cost_per_person:'', venue_name:'',description:'',event_type_id:'',created_by_user_id:'',modified_user_id:'',imgurl:'',status:'',EventType:''};
 
@@ -53,9 +54,20 @@ export class FellowshipComponent implements OnInit {
     ((dte.getMonth()+1) < 10) ? mon = '0'+(dte.getMonth()+1) : mon = (dte.getMonth()+1);
     return dte.getFullYear() + '-' + mon + '-' + dtes +' '+dte.getHours()+':'+dte.getMinutes();
   }
+  createImageFromBlob(image: Blob) {
+    let reader = new FileReader();
+    reader.addEventListener("load", () => {
+       this.imageToShow = reader.result;
+    }, false);
+ 
+    if (image) {
+       reader.readAsDataURL(image);
+    }
+  }
 
   viewEvent(param){
     this.restApi.getMethod('getEvents/'+param.event.id).subscribe((resp:any) => {
+      console.log(resp)
       this.event = resp.data[0];
       this.event.event_start_date = this.formatDateTime(resp.data[0].event_start_date);
       this.event.event_end_date = this.formatDateTime(resp.data[0].event_end_date);
@@ -63,7 +75,12 @@ export class FellowshipComponent implements OnInit {
       document.getElementsByTagName('html')[0].classList.add('modal-open');
       this.viewdisplay = 'block';
       this.typeisevent = true;
+      this.restApi.getImgMethod('getBlogImg/'+param.event.id).subscribe((resp:any) => {
+        (resp.status == 201) ? this.imageToShow = '' : this.createImageFromBlob(resp);
+        console.log(resp)
+      });
     });
+
   }
 
   viewCalendar(param){
@@ -81,7 +98,6 @@ export class FellowshipComponent implements OnInit {
   getEvents(){
     this.restApi.getMethod('getEvents/all').subscribe((resp:any) => {
       let arr = resp.data;
-
       for(var i=0;i<arr.length;i++){
         if(arr[i].status == 'Enable'){
           let reqdte = this.formatDate(arr[i].event_start_date)

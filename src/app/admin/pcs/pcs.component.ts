@@ -6,13 +6,15 @@ import { fakeAsync } from '@angular/core/testing';
 import { state } from 'src/app/shared/app.state';
 import { NgForm } from '@angular/forms';
 
+
 @Component({
   selector: 'app-pcs',
   templateUrl: './pcs.component.html',
   styleUrls: ['./pcs.component.css']
 })
 export class PcsComponent implements OnInit {
-  tk:any = {}; checklist:any = []; viewdata:any; displayform ='block'; displayDtls = 'none'; edit=false;
+  tk:any = {};checklist:any = []; viewdata:any; displayform ='block'; displayDtls = 'none'; edit=false;
+  temp;
   public option_str:any;
 
   totalRecords:Number = 1; p: Number = 1; pageIndexes:any =[]; paginatecnt:Number;
@@ -27,6 +29,7 @@ export class PcsComponent implements OnInit {
     this.changePagination('load');
   }
 
+  
   submitPCS(f){
     if(this.edit==false)
     this.addPCS(f);
@@ -54,6 +57,8 @@ export class PcsComponent implements OnInit {
 
   getPCS(type,mode){
     this.restApi.getMethod('getPCS/'+this.tk.user_id+'/'+type).subscribe((resp:any) => {
+      //console.log(resp) // list of data
+      this.temp = resp
       if(type == 'all' && mode != 'view'){
         this.checklist = resp.data;
         this.print_state();
@@ -133,14 +138,16 @@ export class PcsComponent implements OnInit {
       this.checklist = resp.data.data;
       if(event == 'load'){
         this.print_state();
-        let total = resp.data.total[0].total, num = total/10, arr = [];
-        for(var i=0;i<num;i++){
-          arr.push(i+1);
-        }
-        this.pageIndexes = arr; this.paginatecnt = 1;
-      }else{
-        this.paginatecnt = event;
-      }
+       
+       }
+       let total = resp.data.total[0].total, num = total/10, arr = [];
+       for(var i=0;i<num;i++){
+         arr.push(i+1);
+       }
+       this.pageIndexes = arr; this.paginatecnt = 1;
+       //else{
+      //   this.paginatecnt = event;
+      // }
       setTimeout(function(){
         let elem = document.getElementsByClassName('page-link');
         for(var i=0;i<elem.length;i++){

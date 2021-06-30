@@ -9,6 +9,13 @@
 # General
 --------------------------------------------------------------*/
 
+@import '~quill/dist/quill.core.css';
+ @import '~quill/dist/quill.bubble.css';
+ @import '~quill/dist/quill.snow.css';
+
+ quill-editor .ql-container .ql-editor{height:200px}
+
+
 @font-face {
   font-family: "CMGSans-MediumItalic";
   src: local("CMGSans-MediumItalic"), url(./assets/fonts/CMGSans/ExtendedSetStyles/CMGSans-MediumItalic.ttf) format("truetype");

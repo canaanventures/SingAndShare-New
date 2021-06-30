@@ -18,6 +18,7 @@ import { ShareIconsModule } from 'ngx-sharebuttons/icons';
 import {NgxPaginationModule} from 'ngx-pagination';
 import { CarouselModule } from 'ngx-owl-carousel-o';
 import {ScrollingModule} from '@angular/cdk/scrolling'
+import { QuillModule } from 'ngx-quill'
 //import { SwiperModule } from "swiper/angular";
 //import { NgxSpinnerModule } from "ngx-spinner";
 
@@ -143,7 +144,8 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     NgxPaginationModule,
     CarouselModule,
     SwiperModule,
-    ScrollingModule
+    ScrollingModule,
+    QuillModule.forRoot()
     //NgxSpinnerModule
   ],
   providers: [

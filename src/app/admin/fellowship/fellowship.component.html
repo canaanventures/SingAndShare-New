@@ -13,7 +13,8 @@
                 <div class='row px-4'>
                     <span class='close modal-close' (click)='closeModal(f)' data-dismiss="modal">&times;</span>
                     <div class='col-md-12 p-0' *ngIf='typeisevent'>
-                        <img src='../../../assets/img/news-1.jpg' class='w-100' />
+                        <img [src]='imageToShow' class='w-100' *ngIf='imageToShow' />
+                        <!-- <img src='../../../assets/img/news-1.jpg' class='w-100' /> -->
                     </div>
                     <div class='col-md-12'>
                         <h3>{{event.event_name}}</h3>
