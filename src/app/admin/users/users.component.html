@@ -170,7 +170,7 @@
                         <div class='col-md-6'>
                             <div class='form-group'>
                                 <label for='mentee_email_id'>Email ID<span style="color: red;">*</span></label> 
-                                <input type='text' placeholder='Email ID' class='form-control' id='mentee_email_id' name="user_email_id" [(ngModel)]="updateuser.user_email_id"  #user_email_id="ngModel" [ngClass]="{'invalid-data': user_email_id.invalid && f.submitted, 'valid-data': user_email_id.valid && f.submitted}" [pattern]="emailPattern" required  />
+                                <input type='text' placeholder='Email ID' class='form-control' id='mentee_email_id' name="user_email_id" [(ngModel)]="updateuser.user_email_id"  #user_email_id="ngModel" [ngClass]="{'invalid-data': user_email_id.invalid && f.submitted, 'valid-data': user_email_id.valid && f.submitted}" [pattern]="emailPattern" required [attr.disabled]='edit ? "" : null' />
                                 <div class="error_msg" *ngIf="user_email_id.invalid && f.submitted">
                                     <div *ngIf="user_email_id.errors.required">
                                         <small class="error_text"> Email Id is required</small>
@@ -184,7 +184,7 @@
                         <div class='col-md-6'>
                             <div class='form-group'>
                                 <label for='mentee_user_type'>User Type<span style="color: red;">*</span></label> 
-                                <select class='form-control' id='mentee_user_type'>
+                                <select class='form-control' id='mentee_user_type' name='role_id' [(ngModel)]="updateuser.role_id">
                                     <option value='{{role.role_id}}' *ngFor="let role of userrole">{{role.role_name}}</option>
                                 </select>
                             </div>

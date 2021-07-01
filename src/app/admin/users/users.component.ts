@@ -23,7 +23,7 @@ export class UsersComponent implements OnInit {
 
   @Input() userdetails = {url:'',email:''}
   @Input() disableuser = {modified_by_user_id:'',userid:'',status:''}
-  @Input() updateuser = {user_first_name:'',srs_id:'',user_last_name:'',user_email_id:'',mentee_email_id:'',role:'',role_id:0,mentor_email_id:'',user_id:'',modified_by:''}
+  @Input() updateuser = {user_first_name:'',srs_id:'',user_last_name:'',user_email_id:'',mentee_email_id:'',role:'',role_id:'',mentor_email_id:'',user_id:'',modified_by:''}
   @Input() access = {user_id:'',blog_approve_access:false,blog_change_status_access:false,blog_access:false,calendar_add_access:false,calendar_access:false,attendance_access:false,event_access:false,user_access:false,sns_access:false,access_id:''}
   @Input() user = {user_id:''}
 
@@ -82,11 +82,11 @@ export class UsersComponent implements OnInit {
     this.userdetails.url = this.encryptInfo;
     this.userdetails.email = (<HTMLInputElement>document.getElementById('mentee_email_id')).value;
     this.restApi.postMethod('sendUserLink',this.userdetails).subscribe((data:any) => {
-      //this.router.navigate(['register/' + this.encryptInfo]);
-      this.display = 'none';
-     // console.log(f.value)
-      alert('Mail has been sent to the Mentee');
-      this.closeModal(f);
+      alert(data.message);
+      if(data.status == 200){
+        this.display = 'none';
+        this.closeModal(f);
+      }
     });
   }
 
@@ -156,7 +156,8 @@ export class UsersComponent implements OnInit {
     this.edit = false;
     this.display='block';
     document.getElementsByTagName('body')[0].classList.add('modal-open');
-    (<HTMLInputElement>document.getElementById('mentee_user_type')).value = '10';
+    //(<HTMLInputElement>document.getElementById('mentee_user_type')).value = '10';
+    this.updateuser.role_id = '10';
     (<HTMLInputElement>document.getElementById('mentee_user_type')).setAttribute("disabled", 'disabled');
   }
 
@@ -167,7 +168,6 @@ export class UsersComponent implements OnInit {
   }
 
   editUser(id:any){
-    console.log("hello i am edit")
     this.edit = true;
     this.restApi.getMethod('getUsers/'+id)
       .subscribe((resp:any) => {
@@ -177,8 +177,6 @@ export class UsersComponent implements OnInit {
         // (<HTMLInputElement>document.getElementById('mentee_user_type')).value = resp.data[0].role_id;
         // (<HTMLInputElement>document.getElementById('mentor_email_id')).value = resp.data[0].mentor_email_id;
         this.updateuser = resp.data[0]
-      console.log(this.updateuser);
-       
         if(this.role_nme == 'Admin'){
           (resp.data[0].srs_id) ? this.updateuser.srs_id = resp.data[0].srs_id : this.updateuser.srs_id = '';
           (<HTMLInputElement>document.getElementById('mentee_user_type')).removeAttribute("disabled");
@@ -207,7 +205,7 @@ export class UsersComponent implements OnInit {
     if(this.role_nme == 'Admin'){
       this.updateuser.srs_id = this.updateuser.srs_id;
     }else{
-      this.updateuser.srs_id = this.tk.role_id;
+      this.updateuser.srs_id = this.tk.srs_id;
     }
     console.log(this.updateuser)
 

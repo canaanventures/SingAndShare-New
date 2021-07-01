@@ -35,9 +35,11 @@ export class MenteeRegisterComponent implements OnInit {
     this.userdetails.parent_id = this.decryptedInfo.parent_id;
     this.userdetails.status = "Enable";
 
-    this.restApi.postMethod('register',this.userdetails).subscribe((data:{}) => {
-      alert('You have been registered successfully.');
-      location.href='/home';
+    this.restApi.postMethod('register',this.userdetails).subscribe((data:any) => {
+      alert(data.message);
+      if(data.status == 200){
+        location.href='/home';
+      }
     });
   }
 }

@@ -18,13 +18,19 @@
                 <span class="section-divider"></span>
                 <!-- <p class="section-description">Click on the below images to register yourself for the event and join us at the events</p> -->
             </div>
+            <!--<owl-carousel-o [options]="customOptionsevents">
+                <ng-template carouselSlide><img src="../../../assets/img/unsplash-1.jpg"></ng-template>
+                <ng-template carouselSlide><img src="../../../assets/img/unsplash-2.jpg"></ng-template>
+                <ng-template carouselSlide><img src="../../../assets/img/unsplash-3.jpg"></ng-template>
+                <ng-template carouselSlide><img src="../../../assets/img/unsplash-1.jpg"></ng-template>
+                <ng-template carouselSlide><img src="../../../assets/img/unsplash-2.jpg"></ng-template>
+                <ng-template carouselSlide><img src="../../../assets/img/unsplash-3.jpg"></ng-template>
+            </owl-carousel-o> -->
+
             <owl-carousel-o [options]="customOptionsevents">
-                <ng-template carouselSlide><img src="../../../assets/img/unsplash-1.jpg"></ng-template>
-                <ng-template carouselSlide><img src="../../../assets/img/unsplash-2.jpg"></ng-template>
-                <ng-template carouselSlide><img src="../../../assets/img/unsplash-3.jpg"></ng-template>
-                <ng-template carouselSlide><img src="../../../assets/img/unsplash-1.jpg"></ng-template>
-                <ng-template carouselSlide><img src="../../../assets/img/unsplash-2.jpg"></ng-template>
-                <ng-template carouselSlide><img src="../../../assets/img/unsplash-3.jpg"></ng-template>
+                <ng-template carouselSlide *ngFor='let list of eventlist'>
+                    <img [src]='list.image_url' height="300vh" (click)='openEventRegister(list.event_id);' style='cursor:pointer;' />
+                </ng-template>
             </owl-carousel-o>
 
             <div class="row no-gutters">
@@ -170,13 +176,13 @@
                     <owl-carousel-o [options]="customOptionsblog">
                         <ng-template class='blog-image-item' carouselSlide *ngFor='let list of bloglist'>
                             <div class='blog-image-box'>
-                                <img [src]="list.image_url" *ngIf='list.image_url' alt="news" style='height:100%' />
-                                <img src="../../../assets/img/no-img-found-medium.png" *ngIf='!list.image_url' class='h-100' alt="news" style='height:100%' />
+                                <img [src]="list.image_url" height="300vh" *ngIf='list.image_url' alt="news" style='cursor:pointer;' />
+                                <img src="../../../assets/img/no-img-found-medium.png" *ngIf='!list.image_url' alt="news" height="300vh" style='cursor:pointer;' />
                             </div>
                         </ng-template>
                         <ng-template class='blog-image-item' carouselSlide *ngIf='bloglist.length == 0'>
                             <div class='blog-image-box'>
-                                <img src="../../../assets/img/no-img-found-medium.png" alt="news" />
+                                <img src="../../../assets/img/no-img-found-medium.png" height="300vh" alt="news" />
                             </div>
                         </ng-template>
                     </owl-carousel-o>
@@ -205,7 +211,7 @@
       <ng-template carouselSlide><img src="../../../assets/img/gallery/gallery-6.jpg"></ng-template>  
     </owl-carousel-o>
        <h3 class="text-center">Gallery Demo 2</h3> -->
-            <swiper [effect]="'coverflow'" [grabCursor]="true" [centeredSlides]="true" [slidesPerView]="4"
+            <!-- <swiper [effect]="'coverflow'" [grabCursor]="true" [centeredSlides]="true" [slidesPerView]="4"
                 [autoplay]="true" [loop]="true"
                 [coverflowEffect]="{rotate: 50,stretch: 0,depth: 100,modifier: 1,slideShadows: true}"
                 [pagination]="true" class="mySwiper">
@@ -221,10 +227,16 @@
                 </ng-template>
                 <ng-template swiperSlide><img height="300vh" src="../../../assets/img/gallery/gallery-6.jpg">
                 </ng-template>
+            </swiper> -->
 
+            <swiper [effect]="'coverflow'" [grabCursor]="true" [centeredSlides]="true" [slidesPerView]="4" [autoplay]="true" [loop]="true" [coverflowEffect]="{rotate: 50,stretch: 0,depth: 100,modifier: 1,slideShadows: true}" [pagination]="true" class="mySwiper">
+                <ng-template swiperSlide *ngFor='let list of galleryitems'>
+                    <a href='/gallery/{{list.event_id}}' style='cursor:pointer;'>
+                        <img height="300vh" [src]='list.image_url' style='width:100%;' />
+                    </a>
+                </ng-template>
             </swiper>
-
-
+            
             <!-- end of gallery -->
 
             <!-- <div class="row no-gutters"> 
