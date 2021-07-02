@@ -1,6 +1,7 @@
 <input type='hidden' id='event_hidden_id' [(ngModel)]='registeruser.event_id' />
 
-<form  role="form" #f="ngForm" (ngSubmit)="f.form.valid && verifyEmail($event);userEventRegister($event)">
+<form  role="form" #f="ngForm" (ngSubmit)="f.form.valid">
+    <!-- &&  submit(f)   verifyEmail($event);userEventRegister($event) -->
     <div class='form-group hide-first col-md-2'>
         <label for='contact_sal'>Sal<span style="color: red;">*</span></label>
         <select class='form-control' id='contact_sal' name="contact_sal" [(ngModel)]='registeruser.contact_sal' #contact_sal='ngModel' [ngClass]="{'invalid-data': contact_sal.invalid && f.submitted, 'valid-data': contact_sal.valid && f.submitted}" required>
@@ -91,10 +92,12 @@
     </div>
     <div class='form-group hide-first col-md-6'>
         <label for='event_register'> &nbsp; </label>
-        <button class='btn btn-primary' id='event_register' (click)='userEventRegister($event)'>Event Register</button>
+        <button class='btn btn-primary' id='event_register'  (click)='userEventRegister(f)' >Event Register</button>
+        <!--  (click)='userEventRegister($event)' -->
     </div>
     <div class='form-group verify_email_div col-md-6'>
         <label for='verify_email_btn'> &nbsp; </label>
-        <button class='btn btn-primary' id='verify_email_btn' (click)='verifyEmail($event)'>Verify Email</button>
+        <button class='btn btn-primary' id='verify_email_btn'  (click)='verifyEmail(f)' >Verify Email</button>
+        <!-- (click)='verifyEmail($event)' -->
     </div>
 </form>

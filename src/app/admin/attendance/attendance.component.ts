@@ -134,8 +134,10 @@ export class AttendanceComponent implements OnInit {
     this.userdetails.email = this.user.mentee_email_id;
 
     this.restApi.postMethod('sendUserLink',this.userdetails).subscribe((data:any) => {
-      this.userModaldisplay = 'none';
-      alert('Mail has been sent to the Mentee');
+      alert(data.message);
+      if(data.status == 200){
+        this.userModaldisplay = 'none';
+      }
     });
   }
 }
