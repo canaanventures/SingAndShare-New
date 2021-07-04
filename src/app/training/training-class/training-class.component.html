@@ -1,4 +1,5 @@
 <div class="backdrop" [ngStyle]="{'display':displayClassModal}"></div>
+<div class="backdrop" [ngStyle]="{'display':displayClassLessonModal}"></div>
 
 <div class="wrapper container mb-5">
     <div class="main">
@@ -138,6 +139,10 @@
                                         <p>{{list.user_first_name}} {{list.user_last_name}}</p>
                                         <p>{{list.start_date | date:'dd/MM/yyyy'}} TO {{list.end_date | date:'dd/MM/yyyy'}}</p>
                                         <p class='clearfix'>
+                                            <span class='editLessonBox'>
+                                                <img src='assets/img/edit.png' class='action-img' (click)='editClassLessonBox(list.class_id);' />
+                                            </span>
+
                                             <span class='all-status' [ngClass] = "list.class_status == 'Y' ? 'label label-success' : 'label label-danger'">
                                                 <span *ngIf='list.class_status == "Y"'>Enable</span>
                                                 <span *ngIf='list.class_status == "N"'>Disable</span>
@@ -297,6 +302,31 @@
                         </div>
                     </form>
                 </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="showClassLessonModal" [ngStyle]="{'display':displayClassLessonModal}">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header bg-primary text-white">
+                <h5 class="modal-title">Update Lessons Activity</h5>
+                <button class="close" data-dismiss="modal"(click)='closeClassLessonModal();'> <span>&times;</span> </button>
+            </div>
+            <div class="modal-body">
+                <div class="card-body">
+                    <div class='row'>
+                        <div class='lesson-box'>
+                            <div class='col-md-4' *ngFor='let lesslist of class_lesson'>
+                                <div class='lesson-class-list clearfix' id='classlesson_{{lesslist.class_id}}_{{lesslist.row_id}}' (click)='updateClassLessonStatus(lesslist.row_id,lesslist.class_id);'>
+                                    <span>{{lesslist.lesson_name}}</span> 
+                                    <span><i class="fa fa-check" aria-hidden="true" ></i></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

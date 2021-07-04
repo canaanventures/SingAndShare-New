@@ -11,7 +11,7 @@ import { state } from 'src/app/shared/app.state';
 export class EventRegisterComponent implements OnInit {
   public resp: any;
   public option_str: any; eventmodaldisplay = 'none';
-  usernew: boolean;
+  emailPattern = "^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$";
 
   @Input() verifyuser = { email: '' };
   @Input() registeruser = { contact_sal: '', contact_first_name: '', contact_last_name: '', contact_email_id: '', contact_number: '', contact_state: '', contact_city: '', contact_address: '', contact_referrer: '', event_id: '' };
@@ -23,47 +23,39 @@ export class EventRegisterComponent implements OnInit {
     this.print_state();
   }
 
-  email_value;
   verifyEmail(f: NgForm) {
     this.registeruser.event_id = (<HTMLInputElement>document.getElementById('event_hidden_id')).value;
     this.verifyuser.email = (<HTMLInputElement>document.getElementById('contact_email_id')).value;
-    this.restApi.postMethod('checkUser', this.verifyuser).subscribe((data: {}) => {
-      f.resetForm()
-      this.resp = data;
-     // this.email_value=this.resp.email
-     
-     console.log(this.resp.email)
-     console.log(this.registeruser.contact_email_id)
-      if (this.resp.status == 201) {
+    this.restApi.postMethod('checkUser', this.verifyuser).subscribe((resp:any) => {
+      f.resetForm(f.value);
+      if (resp.status == 201) {
         (<HTMLInputElement>document.getElementById('verify_email_btn')).style.display = 'none';
         var el = document.getElementsByClassName('hide-first');
         for (var i = 0; i < el.length; i++) {
-          Array.from(document.getElementsByClassName('hide-first') as HTMLCollectionOf<HTMLElement>)[i].style.display = 'block';
-          (<HTMLInputElement>document.getElementById('contact_email_id')).setAttribute('disabled', 'disabled')
-         
+          Array.from(document.getElementsByClassName('hide-first') as HTMLCollectionOf<HTMLElement>)[i].style.display = 'block';      
         }
-        this.registeruser.contact_email_id = this.resp.email;
+        (<HTMLInputElement>document.getElementById('contact_email_id')).setAttribute('disabled', '');
       } else {
         this.insertInContactEvent(this.verifyuser.email);
-      }
-      
+      }      
     })
   }
 
   userEventRegister(f: NgForm) {
-    this.restApi.postMethod('registerUserForEvent', this.registeruser).subscribe((data: any) => {
-      this.insertInContactEvent(this.registeruser.contact_email_id);
-    })
+    if(f.submitted){
+      this.restApi.postMethod('registerUserForEvent', this.registeruser).subscribe((data: any) => {
+        this.insertInContactEvent(this.registeruser.contact_email_id);
+      })
+    }
   }
 
   insertInContactEvent(emailid) {
     this.restApi.getMethod('getContact/' + emailid).subscribe((resp: any) => {
-      console.log('insertInContactEvent(emailid) ',resp)
       this.contactevent.event_id = (<HTMLInputElement>document.getElementById('event_hidden_id')).value;
       this.contactevent.contact_id = resp.data[0].contact_id;
       this.contactevent.contact_email_id = emailid;
       this.restApi.postMethod('addToContactEvent', this.contactevent).subscribe((data: any) => {
-        alert('You have successfully registered yourself for the event.');
+        alert(data.message);
         document.getElementById('event_register_modal').style.display = 'none';
         var el = document.getElementsByClassName('backdrop');
         for (var i = 0; i < el.length; i++) {
@@ -98,6 +90,6 @@ export class EventRegisterComponent implements OnInit {
   }
 
   resetForm(){
-    this.registeruser = { contact_sal: '', contact_first_name: '', contact_last_name: '', contact_email_id: this.verifyuser.email, contact_number: '', contact_state: '', contact_city: '', contact_address: '', contact_referrer: '', event_id: '' };
+    this.registeruser = { contact_sal: '', contact_first_name: '', contact_last_name: '', contact_email_id:'', contact_number: '', contact_state: '', contact_city: '', contact_address: '', contact_referrer: '', event_id: '' };
   }
 }

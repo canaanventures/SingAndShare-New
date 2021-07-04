@@ -140,18 +140,33 @@ export class HomeComponent implements OnInit {
     this.eventmodaldisplay = 'block';
     document.getElementsByTagName('body')[0].classList.add('modal-open');
     document.getElementsByTagName('html')[0].classList.add('modal-open');
-    (<HTMLInputElement>document.getElementById('event_hidden_id')).value = id
+    document.getElementById('event_register_modal').style.display = 'block';
+    (<HTMLInputElement>document.getElementById('event_hidden_id')).value = id;
+    var el = document.getElementsByClassName('backdrop');
+    for (var i = 0; i < el.length; i++) {
+      Array.from(document.getElementsByClassName('backdrop') as HTMLCollectionOf<HTMLElement>)[i].style.display = 'block';
+    }
   }
 
   closeEventRegister(){
     this.eventmodaldisplay = 'none';
     document.getElementsByTagName('body')[0].classList.remove('modal-open');
     document.getElementsByTagName('html')[0].classList.remove('modal-open');
+    document.getElementById('event_register_modal').style.display = 'none';
+    var el = document.getElementsByClassName('backdrop');
+    for (var i = 0; i < el.length; i++) {
+      Array.from(document.getElementsByClassName('backdrop') as HTMLCollectionOf<HTMLElement>)[i].style.display = 'none';
+    }
   }
 
   closeModal() {
     this.display='none';
     document.getElementsByTagName('body')[0].classList.remove('modal-open');
+    document.getElementsByTagName('html')[0].classList.remove('modal-open');
+    var el = document.getElementsByClassName('backdrop');
+    for (var i = 0; i < el.length; i++) {
+      Array.from(document.getElementsByClassName('backdrop') as HTMLCollectionOf<HTMLElement>)[i].style.display = 'none';
+    }
   }
 
   fetchBlog(){

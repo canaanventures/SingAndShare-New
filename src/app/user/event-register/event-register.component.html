@@ -9,7 +9,7 @@
             <option value='Mr.'>Mr.</option>
             <option value='Mr.'>Mrs.</option>
         </select>
-        <div class="error_msg" *ngIf="f.submitted && contact_sal.invalid">
+        <div class="error_msg" *ngIf="contact_sal.errors && (contact_sal.dirty || contact_sal.touched || f.submitted)">
             <div *ngIf="contact_sal.errors.required">
                 <small class="error_text">Sal is required</small>
             </div>
@@ -18,7 +18,7 @@
     <div class='form-group hide-first col-md-5'>
         <label for='contact_first_name'>First Name<span style="color: red;">*</span></label>
         <input type='text' class='form-control' id='contact_first_name' name="contact_first_name" [(ngModel)]='registeruser.contact_first_name' placeholder='Enter your First Name' #contact_first_name='ngModel'  [ngClass]="{'invalid-data': contact_first_name.invalid && f.submitted, 'valid-data': contact_first_name.valid && f.submitted}" required />
-        <div class="error_msg" *ngIf="f.submitted && contact_first_name.invalid">
+        <div class="error_msg" *ngIf="contact_first_name.errors && (contact_first_name.dirty || contact_first_name.touched || f.submitted)">
             <div *ngIf="contact_first_name.errors.required">
                 <small class="error_text">First Name is required</small>
             </div>
@@ -28,7 +28,7 @@
         <label for='contact_last_name'>Last Name<span style="color: red;">*</span></label>
         <input type='text' class='form-control' id='contact_last_name' name="contact_last_name" [(ngModel)]='registeruser.contact_last_name' placeholder='Enter your Last Name'  #contact_last_name='ngModel' 
         [ngClass]="{'invalid-data': contact_last_name.invalid && f.submitted, 'valid-data': contact_last_name.valid && f.submitted}" required/>
-        <div class="error_msg" *ngIf="f.submitted && contact_last_name.invalid">
+        <div class="error_msg" *ngIf="contact_last_name.errors && (contact_last_name.dirty || contact_last_name.touched || f.submitted)">
             <div *ngIf="contact_last_name.errors.required">
                 <small class="error_text">Last Name is required</small>
             </div>
@@ -36,28 +36,34 @@
     </div>
     <div class='form-group col-md-6'>
         <label for='contact_email_id'>Email ID<span style="color: red;">*</span></label>
-        <input type='text' class='form-control' id='contact_email_id' name="contact_email_id" [(ngModel)]='registeruser.contact_email_id' placeholder='Enter your Email ID' #contact_email_id='ngModel' 
+        <input type='text' class='form-control' id='contact_email_id' name="contact_email_id" [(ngModel)]='registeruser.contact_email_id' [pattern]="emailPattern" placeholder='Enter your Email ID' #contact_email_id='ngModel' 
         [ngClass]="{'invalid-data': contact_email_id.invalid && f.submitted, 'valid-data': contact_email_id.valid && f.submitted}" required/>
-        <div class="error_msg" *ngIf="f.submitted && contact_email_id.invalid">
+        <div class="error_msg" *ngIf="contact_email_id.errors && (contact_email_id.dirty || contact_email_id.touched || f.submitted)">
             <div *ngIf="contact_email_id.errors.required">
                 <small class="error_text">Email Id is required</small>
+            </div>
+            <div *ngIf="contact_email_id.errors.pattern">
+                <small class="error_text" > Email Id is invalid</small> 
             </div>
         </div>
     </div>
     <div class='form-group hide-first col-md-6'>
         <label for='contact_number'>Contact Number<span style="color: red;">*</span></label>
-        <input type='text' class='form-control' id='contact_number' name="contact_number" [(ngModel)]='registeruser.contact_number' placeholder='Enter your Contact Number'  #contact_number='ngModel' 
+        <input type='text' class='form-control' id='contact_number' name="contact_number" [(ngModel)]='registeruser.contact_number' placeholder='Enter your Contact Number'  #contact_number='ngModel'  pattern="^[0-9]*$"
         [ngClass]="{'invalid-data': contact_number.invalid && f.submitted, 'valid-data': contact_number.valid && f.submitted}" required/>
-        <div class="error_msg" *ngIf="f.submitted && contact_number.invalid">
+        <div class="error_msg" *ngIf="contact_number.errors && (contact_number.dirty || contact_number.touched || f.submitted)">
             <div *ngIf="contact_number.errors.required">
                 <small class="error_text">Contact Number is required</small>
+            </div>
+            <div *ngIf="contact_number.errors.pattern">
+                <small class="error_text" >Only Numbers allowed</small> 
             </div>
         </div>
     </div>
     <div class='form-group hide-first col-md-6'>
         <label for='contact_state'>State<span style="color: red;">*</span></label>
         <select class='form-control' id='contact_state' name="contact_state" [(ngModel)]='registeruser.contact_state' (change)="print_city($event);"  #contact_state='ngModel' [ngClass]="{'invalid-data': contact_state.invalid && f.submitted, 'valid-data': contact_state.valid && f.submitted}"   required> </select>
-        <div class="error_msg" *ngIf="f.submitted && contact_state.invalid">
+        <div class="error_msg" *ngIf="contact_state.errors && (contact_state.dirty || contact_state.touched || f.submitted)">
             <div *ngIf="contact_state.errors.required">
                 <small class="error_text">State is required</small>
             </div>
@@ -66,7 +72,7 @@
     <div class='form-group hide-first col-md-6'>
         <label for='contact_city'>City<span style="color: red;">*</span></label>
         <select class='form-control'  id="contact_city" name="contact_city" [(ngModel)]='registeruser.contact_city'   #contact_city='ngModel' [ngClass]="{'invalid-data': contact_city.invalid && f.submitted, 'valid-data': contact_city.valid && f.submitted}"  required> </select>
-        <div class="error_msg" *ngIf="f.submitted && contact_city.invalid">
+        <div class="error_msg" *ngIf="contact_city.errors && (contact_city.dirty || contact_city.touched || f.submitted)">
             <div *ngIf="contact_city.errors.required">
                 <small class="error_text">City is required</small>
             </div>
@@ -75,7 +81,7 @@
     <div class='form-group hide-first col-md-12'>
         <label for='contact_referrer'>Referrer<span style="color: red;">*</span></label>
         <input type='text' class='form-control' id='contact_referrer' name="contact_referrer" [(ngModel)]='registeruser.contact_referrer' placeholder='Enter your Referrer Name'  #contact_referrer='ngModel' [ngClass]="{'invalid-data': contact_referrer.invalid && f.submitted, 'valid-data': contact_referrer.valid && f.submitted}"  required />
-        <div class="error_msg" *ngIf="f.submitted && contact_referrer.invalid">
+        <div class="error_msg" *ngIf="contact_referrer.errors && (contact_referrer.dirty || contact_referrer.touched || f.submitted)">
             <div *ngIf="contact_referrer.errors.required">
                 <small class="error_text">Referrer is required</small>
             </div>
@@ -84,7 +90,7 @@
     <div class='form-group hide-first col-md-12'>
         <label for='contact_address'>Address<span style="color: red;">*</span></label>
         <textarea class='form-control' id='contact_address' name="contact_address" [(ngModel)]='registeruser.contact_address' placeholder='Enter your Address' rows='5' #contact_address='ngModel' [ngClass]="{'invalid-data': contact_address.invalid && f.submitted, 'valid-data': contact_address.valid && f.submitted}"  required></textarea>
-        <div class="error_msg" *ngIf="f.submitted && contact_address.invalid">
+        <div class="error_msg" *ngIf="contact_address.errors && (contact_address.dirty || contact_address.touched || f.submitted)">
             <div *ngIf="contact_address.errors.required">
                 <small class="error_text">Address is required</small>
             </div>
@@ -92,13 +98,13 @@
     </div>
     <div class='form-group hide-first col-md-6'>
         <label for='event_register'> &nbsp; </label>
-        <button class='btn btn-primary'  id='event_register' (click)='userEventRegister(f)' >Event Register</button>
-          <!-- (click)='userEventRegister($event)'  -->
+        <button class='btn btn-primary'  id='event_register'  (click)='userEventRegister(f)'  >Event Register</button>
+          <!-- (click)='userEventRegister(f)'  -->
     </div>
     <div class='form-group verify_email_div col-md-6'>
         <label for='verify_email_btn'> &nbsp; </label>
-        <button class='btn btn-primary'  id='verify_email_btn' (click)='verifyEmail(f)' 
+        <button class='btn btn-primary'  id='verify_email_btn'   (click)='verifyEmail(f)' 
          >Verify Email</button>
-        <!-- (click)='verifyEmail($event)'  -->
+        <!-- (click)='verifyEmail(f)'  -->
     </div>
 </form> 

@@ -17,6 +17,7 @@ export class TrainingClassComponent implements OnInit {
   morerow:any=[0]; cnt=0; new; lesson:any=[];
   todo:any = [];done:any = []; generate = true;
   totalClass:any = []; role_name;
+  displayClassLessonModal = 'none'; class_lesson:any = [];
 
   totalRecords:Number = 1; p: Number = 1; pageIndexes:any =[]; paginatecnt:Number;
   totalAllRecords:Number = 1; pageAllIndexes:any =[]; paginateallcnt:Number;
@@ -445,5 +446,47 @@ export class TrainingClassComponent implements OnInit {
       else 
       this.checkedhttp = false
      // f.resetForm();
+  }
+
+  editClassLessonBox(id){
+    this.restApi.getMethod('getLMSClassLesson/'+id).subscribe((resp1:any) => {
+      this.displayClassLessonModal = 'block';
+      document.getElementsByTagName('body')[0].classList.add('modal-open');
+      document.getElementsByTagName('html')[0].classList.add('modal-open');
+      for(var i = 0;i<resp1.data.length;i++){
+        resp1.data[i].class_id = id;
+      }
+      this.class_lesson = resp1.data;
+      this.restApi.getMethod('getActiveLesson/'+id).subscribe((resp:any) => {
+        for(var i=0; i<resp.data.length;i++){
+          document.getElementById('classlesson_'+id+'_'+resp.data[i].lesson_id).classList.add('active');
+        }
+      });
+    })
+  }
+
+  updateClassLessonStatus(lesson_id,class_id){
+    this.updatelessonstatus.class_id = class_id; 
+    this.updatelessonstatus.lesson_id = lesson_id;
+    this.updatelessonstatus.instructor_id = this.tk.user_id;
+    if(document.getElementById('classlesson_'+class_id+'_'+lesson_id).classList.contains('active')){
+      this.updatelessonstatus.lesson_status = 'N';
+    }else{
+      this.updatelessonstatus.lesson_status = 'Y';
+    }
+    this.restApi.postMethod('updateLessonStatus',this.updatelessonstatus).subscribe((data:any) => {
+      this.restApi.getMethod('getActiveLesson/'+class_id).subscribe((resp:any) => {
+        for(var i=0; i<resp.data.length;i++){
+          document.getElementById('classlesson_'+class_id+'_'+lesson_id).classList.add('active');
+        }
+        alert(data.message);
+      });
+    })
+  }
+
+  closeClassLessonModal(){
+    this.displayClassLessonModal='none';
+    document.getElementsByTagName('body')[0].classList.remove('modal-open');
+    document.getElementsByTagName('html')[0].classList.remove('modal-open');
   }
 }
