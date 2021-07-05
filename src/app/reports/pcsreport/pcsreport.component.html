@@ -31,7 +31,8 @@
             <table class='table-bordered table' id="pcs-excel-table">
                 <thead>
                     <tr>
-                        <th>User</th> 
+                        <th>User</th>
+                        <th>SNS Name</th>
                         <th>Type</th>  
                         <th>Created On</th> 
                         <th>Name</th>
@@ -43,6 +44,12 @@
                     <tr> 
                         <td>
                             <input type='text' class='form-control filter-fld' id='member_name' [(ngModel)]='filter.member_name' (keyup)="filterList($event,'member_name')" placeholder='Your team Member Name' />
+                        </td>
+                        <td>
+                            <select id='srs_id' class='form-control filter-fld' [(ngModel)]='filter.srs_id' (change)="filterList($event,'srs_id')">
+                                <option value=''>Select the SNS Name</option>
+                                <option value='{{list.srs_id}}' *ngFor='let list of srslist'>{{list.srs_name}}</option>
+                            </select>
                         </td>
                         <td>
                             <select id='current_status' class='form-control filter-fld' [(ngModel)]='filter.current_status' (change)="filterList($event,'current_status')">

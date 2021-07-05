@@ -1,4 +1,5 @@
 <div class="backdrop" [ngStyle]="{'display':display}"></div>
+<div class="backdrop" [ngStyle]="{'display':statusModaldisplay}"></div>
 
 <div class="wrapper container">
     <div class="main">
@@ -40,7 +41,7 @@
                                                 </div>                                              
                                                 <div class='action-img-div'>
                                                     <div class="form-check form-switch">
-                                                        <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" [attr.checked]="user.status == 'Enable' ? true : null" (change)='changeStatus($event,user.user_id)' />
+                                                        <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" [attr.checked]="user.status == 'Enable' ? true : null" (change)='openStatusModal($event,user.user_id)' />
                                                     </div>
                                                 </div>
                                                 <div class='action-img-div' *ngIf='user.role_name != "Mentee"'>
@@ -137,8 +138,7 @@
             <div class="modal-body">
                 <h5 class='mb-3 card-header'>
                     <span *ngIf='!edit'>Add User</span>
-                    <span *ngIf='edit'>Edit User</span>
-                  
+                    <span *ngIf='edit'>Edit User</span>                 
                 </h5>
                 <input type='hidden' id='hidden_id' />
                 <div class='px-4'>
@@ -218,6 +218,31 @@
                                 <button id='update_btn' *ngIf='edit' class='btn btn-primary'>Update</button>
                                 <!-- [disabled]="f.invalid" (click)='updateUser($event);'  -->
                             </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div> 
+    </div>
+</div>
+
+<div id="statusUpdateModal" class="modal" role="dialog" [ngStyle]="{'display':statusModaldisplay}">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                <h5 class='mb-3 card-header'> Update User Status </h5>
+                <div class='px-4'>
+                    <span class='close modal-close' (click)='closeStatusModal(f)' data-dismiss="modal">&times;</span>
+                    <form role="form" #g="ngForm" (ngSubmit)="g.form.valid && changeStatus(g)"> 
+                        <div class='form-group'>
+                            <label for='statuschangereason'>Reason<span style="color: red;">*</span></label>
+                            <textarea id='statuschangereason' class='form-control' rows='5' placeholder='Reason to Activate/Deactivate the user' name='statuschangereason' [(ngModel)]='disableuser.description' #statuschangereason="ngModel" [ngClass]="{'invalid-data': statuschangereason.invalid && g.submitted, 'valid-data': statuschangereason.valid && g.submitted}" required></textarea>
+                            <div class="error_msg" *ngIf="statuschangereason.invalid && g.submitted">
+                                <small class="error_text"> Reason is required to activate / deactivate the user</small>
+                            </div>
+                        </div>
+                        <div class='form-group'>
+                            <button id='update_status_btn' class='btn btn-primary' >Update Status</button>
                         </div>
                     </form>
                 </div>

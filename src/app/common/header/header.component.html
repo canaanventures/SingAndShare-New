@@ -37,9 +37,9 @@
                 <li *ngIf="loggeduser && access.attendance_access == 1"><a class="nav-link" href='/attendance'>Attendance</a></li>
                 <li *ngIf="loggeduser"><a class="nav-link" href='/calendar'>Calendar</a></li>
                 <li *ngIf="loggeduser && access.blog_access == 1"><a class="nav-link" href='/addblog'>Blog</a></li>
-                <li class="dropdown" *ngIf="loggeduser && role_name == 'Admin'"><a style='color:#fff;'><span>Reports</span> <i class="bi bi-chevron-down"></i></a>
+                <li class="dropdown" *ngIf="loggeduser"><a style='color:#fff;'><span>Reports</span> <i class="bi bi-chevron-down"></i></a>
                     <ul>
-                        <li class="dropdown">
+                        <li class="dropdown" *ngIf="loggeduser && (role_name == 'Admin' || role_name == 'Captain')">
                             <a style='color:#000;'><span>Fellowship</span> <i class="bi bi-chevron-down"></i></a>
                             <ul>
                                 <li class="nav-link"><a href="/report/attendance">Attendance</a></li>
@@ -47,7 +47,7 @@
                                 <li class="nav-link"><a href="/report/topic">Fellowship Topic</a></li>
                             </ul>
                         </li>
-                        <li class="dropdown">
+                        <li class="dropdown" *ngIf="loggeduser && role_name == 'Admin'">
                             <a style='color:#000;'><span>Mentor</span> <i class="bi bi-chevron-down"></i></a>
                             <ul>
                                 <li class="nav-link"><a href="/report/mentor">List</a></li>
@@ -55,7 +55,7 @@
                                 <li class="nav-link"><a href="/report/non-active-mentor">Activity List</a></li>
                             </ul>
                         </li>
-                        <li class="dropdown">
+                        <li class="dropdown" *ngIf="loggeduser && role_name == 'Admin'">
                             <a style='color:#000;'><span>Mentee</span> <i class="bi bi-chevron-down"></i></a>
                             <ul>
                                 <li class="nav-link"><a href="/report/mentee">List</a></li>
@@ -63,9 +63,9 @@
                                 <li class="nav-link"><a href="/report/non-active-mentee">Activity List</a></li>
                             </ul>
                         </li>
-                        <li class="nav-link"><a href="/report/pcs">PCS</a></li>
-                        <li class="nav-link"><a href="/report/lms">LMS</a></li>
-                        <li class="nav-link"><a href="/report/events">Events</a></li>
+                        <li class="nav-link" *ngIf="loggeduser && role_name == 'Admin'"><a href="/report/pcs">PCS</a></li>
+                        <li class="nav-link" *ngIf="loggeduser && role_name == 'Admin'"><a href="/report/lms">LMS</a></li>
+                        <li class="nav-link" *ngIf="loggeduser && role_name == 'Admin'"><a href="/report/events">Events</a></li>
                     </ul>
                 </li>
                 

@@ -2,6 +2,7 @@ import { Component, OnInit, Input, NgModule } from '@angular/core';
 import { ActivatedRoute, Router } from "@angular/router";
 import { ApiService } from 'src/app/shared/app.service';
 import jwt_decode from "jwt-decode";
+import { state } from 'src/app/shared/app.state';
 import { NgForm } from '@angular/forms';
 
 @Component({
@@ -10,8 +11,8 @@ import { NgForm } from '@angular/forms';
   styleUrls: ['./profile.component.css']
 })
 export class ProfileComponent implements OnInit {
-  tk:any = {}; images =''; imageToShow;
-
+  tk:any = {}; images =''; imageToShow; first = true;
+  public option_str:any; city:any;
   @Input() email = {id:''};
   @Input() userprofile = {image_url:'',user_first_name:'', user_last_name:'', user_email_id:'', user_contact_number:'',user_address:'',user_pincode:'',user_city:'',user_state:'',role_name:'',user_id:''}
   @Input() reset = {password:'',email_id:'',confirmpassword:''}
@@ -21,17 +22,50 @@ export class ProfileComponent implements OnInit {
   ngOnInit(): void {
     this.tk = jwt_decode(sessionStorage.getItem('user_token'));
     this.userprofile.user_id = this.tk.user_id;
-    this.fetchUserDetails();
+    this.print_state();
   }
 
   fetchUserDetails(){
     this.email.id = this.tk.user_id;
     this.restApi.postMethod('getProfile',this.email).subscribe((resp:any) => {
       this.userprofile = resp.data[0];
+      this.city = resp.data[0].user_city;
       this.restApi.getImgMethod('getUserImg/'+this.tk.user_id).subscribe((resp:any) => {
         this.createImageFromBlob(resp);
+        const e = new Event("change");
+        const element = document.querySelector('#user_state')
+        element.dispatchEvent(e);
+        //this.print_state.onchange();
       })
     })
+  }
+
+  print_state(){
+    this.option_str = document.getElementById("user_state");
+    this.option_str.length=0;
+    this.option_str.options[0] = new Option('Select State','');
+    this.option_str.selectedIndex = 0;
+    for (var i=0; i< state.state_arr.length; i++) {
+      this.option_str.options[this.option_str.length] = new Option(state.state_arr[i], state.state_arr[i]);
+    }
+    this.fetchUserDetails();
+  }
+
+  print_city(event:Event){
+    let city_index:number = event.target["selectedIndex"];
+    this.option_str = document.getElementById("user_city");
+    this.option_str.length=0;
+    this.option_str.options[0] = new Option('Select City','');
+    this.option_str.selectedIndex = 0;
+    let city_arr = state.s_a[city_index].split("|");
+    for (var i=0; i<city_arr.length; i++) {
+      this.option_str.options[this.option_str.length] = new Option(city_arr[i],city_arr[i]);
+    }
+    if(this.first){
+      this.userprofile.user_city = this.city;
+      (<HTMLInputElement>document.getElementById('user_city')).value = this.city;
+      this.first = false;
+    }
   }
 
   selectImage(event){
