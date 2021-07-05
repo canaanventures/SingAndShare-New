@@ -11,8 +11,10 @@ import { NgForm } from '@angular/forms';
 })
 export class MenteeRegisterComponent implements OnInit {
   public decryptedInfo : any;
+  hide: boolean = true;
+  hideconfirm: boolean = true;
 
-  @Input() userdetails = {parent_id:'',user_first_name:'',user_last_name:'',user_email_id:'',user_password:'',user_contact_number:'',role_id:'',mentor_email_id:'',status:'',srs_id:''};
+  @Input() userdetails = {parent_id:'',user_first_name:'',user_last_name:'',user_email_id:'',user_password:'',user_confirm_password:'',user_contact_number:'',role_id:'',mentor_email_id:'',status:'',srs_id:''};
   constructor(public restApi: ApiService, public router: Router, public activatedroute:ActivatedRoute) { }
 
   ngOnInit(): void {
@@ -26,6 +28,14 @@ export class MenteeRegisterComponent implements OnInit {
     this.userdetails.user_last_name = this.decryptedInfo.last_name;
     this.userdetails.user_email_id = this.decryptedInfo.email_id;
     this.userdetails.mentor_email_id = this.decryptedInfo.mentor_email_id;
+  }
+
+  toggleFieldTextType() {
+    this.hide = !this.hide;
+  }
+
+  toggleFieldTextTypeConfirm() {
+    this.hideconfirm = !this.hideconfirm;
   }
 
   register(f:NgForm){

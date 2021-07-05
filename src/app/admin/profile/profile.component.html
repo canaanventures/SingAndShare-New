@@ -135,7 +135,12 @@
                                         <div class='col-md-6'>
                                             <div class='form-group'>
                                                 <label for='profile_new_password'>New Password<span style="color: red;">*</span></label>
-                                                <input type='text' class='form-control' placeholder='Enter your new Password' id='profile_new_password' [(ngModel)]='reset.password' name="profile_new_password" ngModel #profile_new_password='ngModel' [ngClass]="{'invalid-data': profile_new_password.invalid && g.submitted, 'valid-data': profile_new_password.valid && g.submitted}" required />
+                                                <div class="input-group">
+                                                <input type='password' class='form-control' placeholder='Enter your new Password' id='profile_new_password' [type]="hide ? 'password' : 'text'"  [(ngModel)]='reset.password' name="profile_new_password" ngModel #profile_new_password='ngModel' [ngClass]="{'invalid-data': profile_new_password.invalid && g.submitted, 'valid-data': profile_new_password.valid && g.submitted}" required />
+                                                <div class="input-group-addon">
+                                                    <i class="fa"  [ngClass]="{'fa-eye-slash': !hide, 'fa-eye': hide}"  aria-hidden="true" (click)="toggleFieldTextType()"></i>
+                                                      </div>
+                                                </div>
                                                 <div class="error_msg"
                                                 *ngIf="profile_new_password.invalid && g.submitted">
                                                     <small class="error_text"> Current Password is required</small>
@@ -145,10 +150,15 @@
                                         <div class='col-md-6'>
                                             <div class='form-group'>
                                                 <label for='profile_confirm_password'>Confirm New Password<span style="color: red;">*</span></label>
-                                                <input type='text' class='form-control' placeholder='Confirm your new Password' id='profile_confirm_password' [(ngModel)]='reset.confirmpassword' name="profile_confirm_password" ngModel #profile_confirm_password='ngModel' [ngClass]="{'invalid-data': profile_confirm_password.invalid && g.submitted, 'valid-data': profile_confirm_password.valid && g.submitted}" required/>
+                                                <div class="input-group">
+                                                <input type='password' class='form-control' placeholder='Confirm your new Password' id='profile_confirm_password' [(ngModel)]='reset.confirmpassword' [type]="hideconfirm ? 'password' : 'text'" name="profile_confirm_password" ngModel #profile_confirm_password='ngModel' [ngClass]="{'invalid-data': profile_confirm_password.invalid && g.submitted, 'valid-data': profile_confirm_password.valid && g.submitted}" required/>
+                                                <div class="input-group-addon">
+                                                    <i class="fa" [ngClass]="{'fa-eye-slash': !hideconfirm , 'fa-eye': hideconfirm }"   aria-hidden="true" (click)="toggleFieldTextType_confirm()"></i>
+                                                      </div>
+                                            </div>
                                                 <div class="error_msg"
                                                 *ngIf="profile_confirm_password.invalid && g.submitted">
-                                                    <small class="error_text"> Current Password is required</small>
+                                                    <small class="error_text"> Confirm Password is required</small>
                                                 </div>
                                             </div>
                                         </div>

@@ -10,9 +10,13 @@ import { NgForm } from '@angular/forms';
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.css']
 })
+
 export class ProfileComponent implements OnInit {
   tk:any = {}; images =''; imageToShow; first = true;
   public option_str:any; city:any;
+  hide: boolean = true;
+  hideconfirm: boolean = true;
+
   @Input() email = {id:''};
   @Input() userprofile = {image_url:'',user_first_name:'', user_last_name:'', user_email_id:'', user_contact_number:'',user_address:'',user_pincode:'',user_city:'',user_state:'',role_name:'',user_id:''}
   @Input() reset = {password:'',email_id:'',confirmpassword:''}
@@ -23,6 +27,14 @@ export class ProfileComponent implements OnInit {
     this.tk = jwt_decode(sessionStorage.getItem('user_token'));
     this.userprofile.user_id = this.tk.user_id;
     this.print_state();
+  }
+  
+  toggleFieldTextType() {
+    this.hide = !this.hide;
+  }
+
+  toggleFieldTextType_confirm() {
+    this.hideconfirm = !this.hideconfirm;
   }
 
   fetchUserDetails(){

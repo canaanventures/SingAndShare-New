@@ -5,6 +5,7 @@ import * as CryptoJS from 'crypto-js';
 import jwt_decode from "jwt-decode";
 import { NgForm } from '@angular/forms';
 
+
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -19,6 +20,7 @@ export class HeaderComponent implements OnInit {
   tk:any = {}; access; encryptInfo; role_name;
   classtoggle = false; f_nme; l_nme;
   emailPattern = "^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$";  
+  hide: boolean = true;
 
   @Input() userdetails = {email:'',pass_word:''};
   @Input() user = {user_id:''};
@@ -43,6 +45,10 @@ export class HeaderComponent implements OnInit {
       var deData= CryptoJS.AES.decrypt(decodeURIComponent(this.encryptInfo), 'secret key 123'); 
       this.access = JSON.parse(deData.toString(CryptoJS.enc.Utf8));
     }
+  }
+
+  toggleFieldTextType() {
+    this.hide = !this.hide;
   }
 
   userLogin(f:NgForm){

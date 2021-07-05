@@ -5,7 +5,7 @@
 <div class="super_container">
     <div class="blog_top_image">
         <div class="blog_top">
-            <swiper effect="coverflow" [config]="config">          
+            <swiper  [navigation]="true" effect="coverflow" [config]="config">          
                 <ng-template swiperSlide *ngFor="let slide of gallery">
                     <div class='swiper-img-div'>
                         <img [src]='slide.image_url' class='w-100 h-100' />
