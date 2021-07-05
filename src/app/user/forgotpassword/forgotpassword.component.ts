@@ -15,6 +15,8 @@ export class ForgotpasswordComponent implements OnInit {
   loading = false;
   submitted = false;
   returnUrl: string;
+  hide: boolean = true;
+  hideconfirm: boolean = true;
   
   constructor(public restApi: ApiService, private formBuilder: FormBuilder, public router: Router, public activatedroute:ActivatedRoute) { }
 
@@ -35,6 +37,15 @@ export class ForgotpasswordComponent implements OnInit {
       (<HTMLInputElement>document.getElementById('reset_email_id')).value = decryptedInfo.email_id;
     },1000)
   }
+
+  toggleFieldTextType() {
+    this.hide = !this.hide;
+  }
+
+  toggleFieldTextTypeConfirm() {
+    this.hideconfirm = !this.hideconfirm;
+  }
+
 
   get f() { return this.form.controls; }
 

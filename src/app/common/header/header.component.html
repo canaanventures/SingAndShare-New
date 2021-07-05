@@ -124,15 +124,19 @@
                         </div>
                     </div>
                     </div>
-                    <div class='form-group col-md-12'>
+                    <div class='form-group  col-md-12'>
                         <label for='your_password'>Password<span style="color: red;">*</span></label>
-                        <input type='password' class='form-control' id='your_password' name="pass_word" placeholder='Enter your Password' [(ngModel)]="userdetails.pass_word" #pass_word='ngModel'  [ngClass]="{'invalid-data': pass_word.invalid && f.submitted, 'valid-data': pass_word.valid && f.submitted}" required />
+                        <div class="input-group">
+                        <input type='password' class='form-control' id='your_password' name="pass_word" [type]="hide ? 'password' : 'text'" placeholder='Enter your Password' [(ngModel)]="userdetails.pass_word" #pass_word='ngModel'  [ngClass]="{'invalid-data': pass_word.invalid && f.submitted, 'valid-data': pass_word.valid && f.submitted}" required />
+                        <div class="input-group-addon">
+                        <i class="fa" [ngClass]="{'fa-eye-slash': !hide, 'fa-eye': hide}"   aria-hidden="true" (click)="toggleFieldTextType()"></i>
+                          </div>
+                        </div>
                         <div class="error_msg"
                         *ngIf="f.submitted && pass_word.invalid">
                         <div *ngIf="pass_word.errors.required">
                             <small class="error_text"> Password is required</small>
                         </div>
-                       
                     </div>
                     </div>
                     <div class='form-group col-md-12'>

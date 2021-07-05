@@ -29,7 +29,8 @@
 
             <owl-carousel-o [options]="customOptionsevents">
                 <ng-template carouselSlide *ngFor='let list of eventlist'>
-                    <img [src]='list.image_url' height="300vh" (click)='openEventRegister(list.event_id);' style='cursor:pointer;' />
+                    <img [src]='list.image_url' height="300vh" (click)='openEventRegister(list.event_id);'
+                        style='cursor:pointer;' />
                 </ng-template>
             </owl-carousel-o>
 
@@ -57,23 +58,26 @@
             <span class="section-divider"></span>
         </div>
     </div>
- <section id="home-abt-new">
-     <!-- -->
-        <div  class="container-fluid home-abt-nn d-flex justify-content-center align-items-center">
+    <section id="home-abt-new">
+        <!-- -->
+        <div class="container-fluid home-abt-nn d-flex justify-content-center align-items-center">
             <div class="row">
-                         <div class="column" style="width: 55%;"></div>
-                        
-                        <div class="card" style="border-radius: 10px;padding: 10px;width: 45%;" >
-                            <div></div>
-                                <div class="text-center">
-                                    <!-- <h3>Mission</h3> -->
-                                </div>
-                                <p class="m-0 about-text">Regular gathering of believers, worshipping God and deeper Bible studies are key highlights of Sing and Share. We focus on deliberately building relationships, sharing the good news, teaching the word of God, mentoring and coaching young people, building leaders and transforming communities....<span > <a href="/mission">more</a></span></p>
+                <div class="column" style="width: 55%;"></div>
+
+                <div class="card" style="border-radius: 10px;padding: 10px;width: 45%;">
+                    <div></div>
+                    <div class="text-center">
+                        <!-- <h3>Mission</h3> -->
+                    </div>
+                    <p class="m-0 about-text">Regular gathering of believers, worshipping God and deeper Bible studies
+                        are key highlights of Sing and Share. We focus on deliberately building relationships, sharing
+                        the good news, teaching the word of God, mentoring and coaching young people, building leaders
+                        and transforming communities....<span> <a href="/mission">more</a></span></p>
                 </div>
             </div>
         </div>
-</section>
- <!-- <section id="about-new" class="section-bg">
+    </section>
+    <!-- <section id="about-new" class="section-bg">
         <div class="container-fluid" data-aos="fade-up">
            
             <img src="assets/img/home_abt_new.jpg" width="100%" height="auto" alt="">
@@ -176,8 +180,10 @@
                     <owl-carousel-o [options]="customOptionsblog">
                         <ng-template class='blog-image-item' carouselSlide *ngFor='let list of bloglist'>
                             <div class='blog-image-box'>
-                                <img [src]="list.image_url" height="300vh" *ngIf='list.image_url' alt="news" style='cursor:pointer;' />
-                                <img src="../../../assets/img/no-img-found-medium.png" *ngIf='!list.image_url' alt="news" height="300vh" style='cursor:pointer;' />
+                                <img [src]="list.image_url" height="300vh" *ngIf='list.image_url' alt="news"
+                                    style='cursor:pointer;' />
+                                <img src="../../../assets/img/no-img-found-medium.png" *ngIf='!list.image_url'
+                                    alt="news" height="300vh" style='cursor:pointer;' />
                             </div>
                         </ng-template>
                         <ng-template class='blog-image-item' carouselSlide *ngIf='bloglist.length == 0'>
@@ -202,7 +208,7 @@
             </div>
             <!-- start of gallery -->
 
-         <!--
+            <!--
        <h3 class="text-center">Gallery Demo 2</h3> -->
             <!-- <swiper [effect]="'coverflow'" [grabCursor]="true" [centeredSlides]="true" [slidesPerView]="4"
                 [autoplay]="true" [loop]="true"
@@ -222,14 +228,18 @@
                 </ng-template>
             </swiper> -->
 
-            <swiper [effect]="'coverflow'" [grabCursor]="true" [centeredSlides]="true" [slidesPerView]="4" [autoplay]="true" [loop]="true" [coverflowEffect]="{rotate: 50,stretch: 0,depth: 100,modifier: 1,slideShadows: true}" [pagination]="true" class="mySwiper">
+            <swiper  [effect]="'coverflow'" [grabCursor]="true" [centeredSlides]="true"
+                [slidesPerView]="4" [autoplay]="true" [loop]="true"
+                [coverflowEffect]="{rotate: 50,stretch: 0,depth: 100,modifier: 1,slideShadows: true}"
+                [pagination]="true" class="mySwiper">
                 <ng-template swiperSlide *ngFor='let list of galleryitems'>
                     <a href='/gallery/{{list.event_id}}' style='cursor:pointer;'>
                         <img height="300vh" [src]='list.image_url' style='width:100%;' />
                     </a>
                 </ng-template>
+              
             </swiper>
-            
+
             <!-- end of gallery -->
 
             <!-- <div class="row no-gutters"> 
@@ -255,24 +265,29 @@
         <div class="container-fluid p-0" data-aos="fade-up">
             <div class="row">
                 <div class='col-md-3 contact-social '>
-                    <div class="contact-social h-100 justify-content-center align-items-center" style="background-color: #d8ffec;">
+                    <div class="contact-social h-100 justify-content-center align-items-center"
+                        style="background-color: #d8ffec;">
                         <div class="row ">
                             <div class="col-lg-12 col-md-12 col-sm-12 d-flex justify-content-center align-items-center">
-                                <a href="https://www.facebook.com/singNshare.co.in" target="_blank"> <img src="../../../assets/img/facebook.png" alt="social-link"></a>
-                                <a  href="https://youtube.com/channel/UCq9ktIpnlo8sTLsvJ4NqKCQ" target="_blank"> <img src="../../../assets/img/youtube.png" alt="social-link"></a>
-                               
-                                
+                                <a href="https://www.facebook.com/singNshare.co.in" target="_blank"> <img
+                                        src="../../../assets/img/facebook.png" alt="social-link"></a>
+                                <a href="https://youtube.com/channel/UCq9ktIpnlo8sTLsvJ4NqKCQ" target="_blank"> <img
+                                        src="../../../assets/img/youtube.png" alt="social-link"></a>
+
+
                             </div>
                         </div>
-                        <div class="row">  
-                           <div class="col-lg-12 col-md-12 col-sm-12 d-flex justify-content-center align-items-center">
-                            <a  href="https://www.instagram.com/sing_n_share/?utm_medium/" target="_blank"><img src="../../../assets/img/insta.png" alt="social-link"></a>
-                            <a href="mailto:sunil.dawson@gmail.com"><img src="../../../assets/img/email.png" alt="social-link"></a>
-                          </div>
-                       </div>
+                        <div class="row">
+                            <div class="col-lg-12 col-md-12 col-sm-12 d-flex justify-content-center align-items-center">
+                                <a href="https://www.instagram.com/sing_n_share/?utm_medium/" target="_blank"><img
+                                        src="../../../assets/img/insta.png" alt="social-link"></a>
+                                <a href="mailto:sunil.dawson@gmail.com"><img src="../../../assets/img/email.png"
+                                        alt="social-link"></a>
+                            </div>
+                        </div>
                     </div>
-                   
-                     </div>
+
+                </div>
                 <div class='col-md-4 contact-form'>
                     <div class='section-header clearfix'>
                         <h3 class="section-title text-center">Contact Us</h3>

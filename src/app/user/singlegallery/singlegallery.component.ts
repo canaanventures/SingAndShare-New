@@ -1,11 +1,11 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute, Router } from "@angular/router";
 import { ApiService } from 'src/app/shared/app.service';
-import SwiperCore, { EffectFade, Autoplay, Swiper } from 'swiper/core';
+import SwiperCore, {Navigation, EffectFade, Autoplay, Swiper } from 'swiper/core';
 import { SwiperOptions } from 'swiper';
 
-SwiperCore.use([EffectFade]);
-SwiperCore.use([Autoplay]);
+SwiperCore.use([ Navigation, EffectFade]);
+SwiperCore.use([  Autoplay]);
 
 @Component({
   selector: 'app-singlegallery',

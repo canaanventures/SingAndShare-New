@@ -4,9 +4,10 @@ import { ApiService } from 'src/app/shared/app.service';
 import { OwlOptions } from 'ngx-owl-carousel-o';
 import { SwiperComponent } from "swiper/angular";
 
+
 // import Swiper core and required modules
-import SwiperCore, { EffectCoverflow, Pagination } from "swiper/core";
-SwiperCore.use([EffectCoverflow, Pagination]);
+import SwiperCore, { Navigation, EffectCoverflow, Pagination } from "swiper/core";
+SwiperCore.use([Navigation,EffectCoverflow, Pagination]);
 
 @Component({
   selector: 'app-home',
@@ -39,6 +40,8 @@ export class HomeComponent implements OnInit {
       }
     }); */
   }
+
+
   customOptions: OwlOptions = {
     loop: true,
     // mouseDrag: true,
