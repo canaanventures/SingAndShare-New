@@ -44,7 +44,7 @@
             </div>
             </div>
             <div class="form-group col-lg-6">
-                <input type="text" name="visitor_contact_number" class="form-control" id="visitor_contact_number" placeholder="Your Phone" data-rule="minlen:10" data-msg="Phone number must have 10 chars" [(ngModel)]="visitorsdetails.visitor_contact_number" [ngClass]="{'invalid-data': visitor_contact_number.invalid && f.submitted, 'valid-data': visitor_contact_number.valid && f.submitted}" #visitor_contact_number="ngModel" pattern="^[0-9]*$" required />
+                <input type="text" name="visitor_contact_number" class="form-control" id="visitor_contact_number" placeholder="Your Phone" data-rule="minlen:10" data-msg="Phone number must have 10 chars" [(ngModel)]="visitorsdetails.visitor_contact_number" [ngClass]="{'invalid-data': visitor_contact_number.invalid && f.submitted, 'valid-data': visitor_contact_number.valid && f.submitted}" #visitor_contact_number="ngModel" pattern="[- +()0-9]+" required />
                 <div class="error_msg"
                 *ngIf="visitor_contact_number.errors && (visitor_contact_number.dirty || visitor_contact_number.touched || f.submitted)">
                 <div *ngIf="visitor_contact_number.errors.pattern">

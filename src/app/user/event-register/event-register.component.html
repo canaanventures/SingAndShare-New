@@ -1,7 +1,7 @@
- <input type='hidden' id='event_hidden_id' [(ngModel)]='registeruser.event_id' />
+<input type='hidden' id='event_hidden_id' [(ngModel)]='registeruser.event_id' />
 
-<form  role="form" #f="ngForm" (ngSubmit)="f.form.valid">
-    <!-- &&  submit(f)   verifyEmail($event);userEventRegister($event) -->
+<form  role="form" #f="ngForm" (ngSubmit)="submit(f)">
+    <!-- f.form.valid &&  submit(f)   verifyEmail(f);userEventRegister(f)  -->
     <div class='form-group hide-first col-md-2'>
         <label for='contact_sal'>Sal<span style="color: red;">*</span></label>
         <select class='form-control' id='contact_sal' name="contact_sal" [(ngModel)]='registeruser.contact_sal' #contact_sal='ngModel' [ngClass]="{'invalid-data': contact_sal.invalid && f.submitted, 'valid-data': contact_sal.valid && f.submitted}" required>
@@ -49,7 +49,7 @@
     </div>
     <div class='form-group hide-first col-md-6'>
         <label for='contact_number'>Contact Number<span style="color: red;">*</span></label>
-        <input type='text' class='form-control' id='contact_number' name="contact_number" [(ngModel)]='registeruser.contact_number' placeholder='Enter your Contact Number'  #contact_number='ngModel'  pattern="^[0-9]*$"
+        <input type='text' class='form-control' id='contact_number' name="contact_number" [(ngModel)]='registeruser.contact_number' placeholder='Enter your Contact Number'  #contact_number='ngModel'  pattern="[- +()0-9]+"
         [ngClass]="{'invalid-data': contact_number.invalid && f.submitted, 'valid-data': contact_number.valid && f.submitted}" required/>
         <div class="error_msg" *ngIf="contact_number.errors && (contact_number.dirty || contact_number.touched || f.submitted)">
             <div *ngIf="contact_number.errors.required">
@@ -98,13 +98,16 @@
     </div>
     <div class='form-group hide-first col-md-6'>
         <label for='event_register'> &nbsp; </label>
-        <button class='btn btn-primary'  id='event_register'  (click)='userEventRegister(f)'  >Event Register</button>
-          <!-- (click)='userEventRegister(f)'  -->
+       
+        <button class='btn btn-primary' *ngIf="isVerified"  id='event_register' >Event Register</button>
+          <!--(click)='userEventRegister(f)'  -->
     </div>
     <div class='form-group verify_email_div col-md-6'>
         <label for='verify_email_btn'> &nbsp; </label>
-        <button class='btn btn-primary'  id='verify_email_btn'   (click)='verifyEmail(f)' 
+        <button class='btn btn-primary' *ngIf="!isVerified" id='verify_email_btn' 
          >Verify Email</button>
         <!-- (click)='verifyEmail(f)'  -->
     </div>
 </form> 
+
+

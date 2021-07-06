@@ -182,7 +182,7 @@
                                                 </div>
                                                 <div class="form-group col-lg-6 mt-3 mt-lg-0">
                                                     <input type="text" name="contact" class="form-control" id="name"
-                                                        placeholder="Your Phone" data-rule="minlen:10"
+                                                        placeholder="Your Phone" data-rule="minlen:10" pattern="[- +()0-9]+"
                                                         data-msg="Phone number must have 10 chars" ngModel
                                                         #contact="ngModel"
                                                         [ngClass]="{'invalid-data': contact.invalid && f.submitted, 'valid-data': contact.valid && f.submitted}"
@@ -190,6 +190,9 @@
                                                     <div class="error_msg" *ngIf="contact.errors && (contact.dirty || contact.touched || f.submitted)">
                                                         <div *ngIf="contact.errors.required">
                                                             <small class="error_text">Contact Number is required</small>
+                                                        </div>
+                                                        <div *ngIf="contact.errors.pattern">
+                                                            <small class="error_text">Only Numbers allowed</small>
                                                         </div>
                                                       
                                                     </div>

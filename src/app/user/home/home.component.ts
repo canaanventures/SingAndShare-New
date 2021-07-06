@@ -148,8 +148,19 @@ export class HomeComponent implements OnInit {
     var el = document.getElementsByClassName('backdrop');
     for (var i = 0; i < el.length; i++) {
       Array.from(document.getElementsByClassName('backdrop') as HTMLCollectionOf<HTMLElement>)[i].style.display = 'block';
+     
     }
+    var el = document.getElementsByClassName('hide-first');
+    for (var i = 0; i < el.length; i++) {
+      Array.from(document.getElementsByClassName('hide-first') as HTMLCollectionOf<HTMLElement>)[i].style.display = 'none';      
+    }
+    (<HTMLInputElement>document.getElementById('contact_email_id')).removeAttribute('disabled');
+    this.resetForm()
   }
+  resetForm(){
+    this.verifyuser  = { user_email_id:'' };
+  }
+  
 
   closeEventRegister(){
     this.eventmodaldisplay = 'none';
