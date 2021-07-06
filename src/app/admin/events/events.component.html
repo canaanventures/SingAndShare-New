@@ -159,10 +159,13 @@
                         <div class='col-md-4'>
                             <div class='form-group'>
                                 <label for='cost_per_person'>Cost Per Head<span style="color: red;">*</span></label> 
-                                <input type='text' placeholder='Cost Per head' name='cost_per_person' class='form-control' id='cost_per_person' [(ngModel)]='addevent.cost_per_person' #cost_per_person= 'ngModel' [ngClass]="{'invalid-data': cost_per_person.invalid && f.submitted, 'valid-data': cost_per_person.valid && f.submitted}" required />
+                                <input type='text' placeholder='Cost Per head' name='cost_per_person' class='form-control' id='cost_per_person' [(ngModel)]='addevent.cost_per_person' #cost_per_person= 'ngModel' [ngClass]="{'invalid-data': cost_per_person.invalid && f.submitted, 'valid-data': cost_per_person.valid && f.submitted}" pattern="^[0-9]*$" required />
                                 <div class="error_msg" *ngIf="f.submitted && cost_per_person.invalid">
                                     <div *ngIf="cost_per_person.errors.required">
                                         <small class="error_text" >Cost Per Head is required</small> 
+                                    </div>
+                                    <div *ngIf="cost_per_person.errors.pattern">
+                                        <small class="error_text" >Only Numbers allowed</small> 
                                     </div>
                                 </div>
                             </div>

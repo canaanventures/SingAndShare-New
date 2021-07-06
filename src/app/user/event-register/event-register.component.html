@@ -49,7 +49,7 @@
     </div>
     <div class='form-group hide-first col-md-6'>
         <label for='contact_number'>Contact Number<span style="color: red;">*</span></label>
-        <input type='text' class='form-control' id='contact_number' name="contact_number" [(ngModel)]='registeruser.contact_number' placeholder='Enter your Contact Number'  #contact_number='ngModel'  pattern="^[0-9]*$"
+        <input type='text' class='form-control' id='contact_number' name="contact_number" [(ngModel)]='registeruser.contact_number' placeholder='Enter your Contact Number'  #contact_number='ngModel'  pattern="[- +()0-9]+"
         [ngClass]="{'invalid-data': contact_number.invalid && f.submitted, 'valid-data': contact_number.valid && f.submitted}" required/>
         <div class="error_msg" *ngIf="contact_number.errors && (contact_number.dirty || contact_number.touched || f.submitted)">
             <div *ngIf="contact_number.errors.required">
@@ -98,12 +98,13 @@
     </div>
     <div class='form-group hide-first col-md-6'>
         <label for='event_register'> &nbsp; </label>
-        <button class='btn btn-primary' *ngIf="!isVerified"   id='event_register'>Event Register</button>
+       
+        <button class='btn btn-primary' *ngIf="isVerified"  id='event_register' >Event Register</button>
           <!--(click)='userEventRegister(f)'  -->
     </div>
     <div class='form-group verify_email_div col-md-6'>
         <label for='verify_email_btn'> &nbsp; </label>
-        <button class='btn btn-primary' *ngIf="isVerified"  id='verify_email_btn'  
+        <button class='btn btn-primary' *ngIf="!isVerified" id='verify_email_btn' 
          >Verify Email</button>
         <!-- (click)='verifyEmail(f)'  -->
     </div>

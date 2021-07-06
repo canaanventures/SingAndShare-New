@@ -12,7 +12,7 @@ export class EventRegisterComponent implements OnInit {
   public resp: any;
   public option_str: any; eventmodaldisplay = 'none';
   emailPattern = "^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$";
-  isVerified:boolean=true;
+  isVerified:boolean=false;
 
   @Input() verifyuser = { email: '' };
   @Input() registeruser = { contact_sal: '', contact_first_name: '', contact_last_name: '', contact_email_id: '', contact_number: '', contact_state: '', contact_city: '', contact_address: '', contact_referrer: '', event_id: '' };
@@ -25,9 +25,7 @@ export class EventRegisterComponent implements OnInit {
   }
 
   submit(f:NgForm){
-    console.log('this is submit event')
-    //var e_status = localStorage.getItem('newemail_status')
-    if(this.isVerified == true){
+    if(this.isVerified == false){
       this.verifyEmail(f)
     }else{
       this.userEventRegister(f)
@@ -35,12 +33,12 @@ export class EventRegisterComponent implements OnInit {
   }
 
   verifyEmail(f: NgForm) {
-    console.log('this is verify email')
-    this.isVerified == true
+   // console.log('this is verify email')
     this.registeruser.event_id = (<HTMLInputElement>document.getElementById('event_hidden_id')).value;
     this.verifyuser.email = (<HTMLInputElement>document.getElementById('contact_email_id')).value;
     this.restApi.postMethod('checkUser', this.verifyuser).subscribe((resp:any) => {
      // console.log(resp);
+     this.isVerified =true;
       localStorage.setItem('newemail_status',resp.status)
      f.resetForm(f.value);
       if (resp.status == 201) {
@@ -51,14 +49,16 @@ export class EventRegisterComponent implements OnInit {
         }
         (<HTMLInputElement>document.getElementById('contact_email_id')).setAttribute('disabled', '');
       } else {
+        this.isVerified =false;
         this.insertInContactEvent(this.verifyuser.email);
-      }      
+      }  
+     
     })
   }
 
   userEventRegister(f: NgForm) {
+    //debugger;
     if(f.submitted){
-      this.isVerified == false;
       this.restApi.postMethod('registerUserForEvent', this.registeruser).subscribe((data: any) => {
         this.insertInContactEvent(this.registeruser.contact_email_id);
       })

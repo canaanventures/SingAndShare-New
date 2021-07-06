@@ -98,7 +98,7 @@
                                             <input type='text' id='meeting_link' class='form-control meeting_link'
                                                 name="meeting_link" 
                                                 (change)="includehttp($event)" placeholder='Meeting Link' />
-                                            <div *ngIf="checkedhttp == false">Meeting link must include http</div>
+                                            <div  style="color: red;" *ngIf="checkedhttp == false">Meeting link must include http</div>
                                             
                                           <!-- <div class="error_msg" *ngIf="meeting_link.errors && (meeting_link.dirty || meeting_link.touched || f.submitted)">
                                             </div>  -->

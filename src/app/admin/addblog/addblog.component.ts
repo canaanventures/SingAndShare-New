@@ -227,6 +227,7 @@ export class AddblogComponent implements OnInit {
       let cat = (<HTMLInputElement>document.getElementById('category')).value;
       this.restApi.postImgMethod('addBlogImg/'+title+'/'+cat,formData).subscribe((resp:any) => {
         console.log(resp)
+        //alert(resp.message)
         this.addEditedData(resp);
        this.closeBlogModal(f)
       })
