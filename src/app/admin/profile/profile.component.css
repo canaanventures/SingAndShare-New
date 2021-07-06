@@ -5,5 +5,5 @@
 .user-img-div{position:relative;padding:10px 15px;}
 .user-img-div .rounded-circle{width:100%;}
 #delete-icon{bottom: 25px;right: 55%;cursor:pointer;z-index:10;}
-#edit-icon{bottom: 25px;right: 30%;cursor:pointer;z-index:10;}
+#edit-icon{bottom: 25px;right:45%;cursor:pointer;z-index:10;}
 .rounded-circle{height:300px;}

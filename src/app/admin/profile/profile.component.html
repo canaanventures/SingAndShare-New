@@ -92,32 +92,33 @@
                                         </div>
                                         <div class='col-md-6'>
                                             <div class='form-group'>
-                                                <label for='user_city'>City<span style="color: red;">*</span></label>
-                                                <input type='text' class='form-control' placeholder='City' id='user_city' name="user_city" [(ngModel)]="userprofile.user_city" #user_city='ngModel' [ngClass]="{'invalid-data': user_city.invalid && f.submitted, 'valid-data': user_city.valid && f.submitted}" required />
-                                                <div class="error_msg" *ngIf="f.submitted && user_city.invalid">
-                                                    <div *ngIf="user_city.errors.required">
-                                                        <small class="error_text"> City is required</small>
-                                                    </div>
-                                                </div>
+                                                <label for='role_name'>Your Role</label>
+                                                <input type='text' class='form-control' placeholder='Your Role' id='role_name' name="role_name" [(ngModel)]='userprofile.role_name' readonly />
                                             </div>
                                         </div>
                                         <div class='col-md-6'>
                                             <div class='form-group'>
                                                 <label for='user_state'>State<span style="color: red;">*</span></label>
-                                                <input type='text' class='form-control' placeholder='State' id='user_state' name="user_state" [(ngModel)]="userprofile.user_state" #user_state='ngModel' [ngClass]="{'invalid-data': user_state.invalid && f.submitted, 'valid-data': user_state.valid && f.submitted}" required />
+                                                <select class='form-control'  id="user_state" [(ngModel)]='userprofile.user_state' (change)="print_city($event);" name="user_state" #user_state='ngModel' [ngClass]="{'invalid-data': user_state.invalid && f.submitted, 'valid-data': user_state.valid && f.submitted}" required> </select>
                                                 <div class="error_msg" *ngIf="f.submitted && user_state.invalid">
                                                     <div *ngIf="user_state.errors.required">
-                                                        <small class="error_text"> State is required</small>
+                                                        <small  class="error_text"> State is required</small>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class='col-md-6'>
                                             <div class='form-group'>
-                                                <label for='role_name'>Your Role</label>
-                                                <input type='text' class='form-control' placeholder='Your Role' id='role_name' name="role_name" [(ngModel)]='userprofile.role_name' readonly />
+                                                <label for='user_city'>City<span style="color: red;">*</span></label>
+                                                <select class='form-control'  id="user_city" [(ngModel)]='userprofile.user_city' name="user_city" #user_city='ngModel' [ngClass]="{'invalid-data': user_city.invalid && f.submitted, 'valid-data': user_city.valid && f.submitted}" required> </select>
+                                                <div class="error_msg" *ngIf="f.submitted && user_city.invalid">
+                                                    <div *ngIf="user_city.errors.required">
+                                                        <small  class="error_text"> City is required</small>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
+                                        
                                         <div class='col-md-12 mt-3'>
                                             <div class='form-group clearfix'>
                                                 <button id='update_profile' class="btn btn-primary btn-block float-right"  style='width:max-content;'>Update Your Profile</button>

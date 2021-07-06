@@ -17,12 +17,12 @@ export class UsersComponent implements OnInit {
   public userrole:any;
   display='none';
   emailPattern = "^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$";  
-  userlist :any = []; 
-  tk:any = {}; totalRecords:Number = 1; p: Number = 1; pageIndexes:any =[];
+  userlist :any = []; status_id;
+  tk:any = {}; totalRecords:Number = 1; p: Number = 1; pageIndexes:any =[]; statusModaldisplay='none'; 
   status; edit; srs_name = ''; role_nme; srslist:any = []; paginatecnt:Number;
 
   @Input() userdetails = {url:'',email:''}
-  @Input() disableuser = {modified_by_user_id:'',userid:'',status:''}
+  @Input() disableuser = {modified_by_user_id:'',userid:'',status:'',description:'',statusEnableDesc:'',statusDisableDesc:''}
   @Input() updateuser = {user_first_name:'',srs_id:'',user_last_name:'',user_email_id:'',mentee_email_id:'',role:'',role_id:'',mentor_email_id:'',user_id:'',modified_by:''}
   @Input() access = {user_id:'',blog_approve_access:false,blog_change_status_access:false,blog_access:false,calendar_add_access:false,calendar_access:false,attendance_access:false,event_access:false,user_access:false,sns_access:false,access_id:''}
   @Input() user = {user_id:''}
@@ -36,31 +36,51 @@ export class UsersComponent implements OnInit {
     this.role_nme = this.tk.role_name;
   }
 
-  changeStatus(event,id){
+  openStatusModal(event,id){
     (event.target.checked) ? this.status = "Enable" : this.status = "Disable";
-    this.disableuser.modified_by_user_id = this.tk.user_id;
-    this.disableuser.userid = id;
-    this.disableuser.status = this.status;
+    this.statusModaldisplay = 'block';
+    document.getElementsByTagName('body')[0].classList.add('modal-open');
+    document.getElementsByTagName('html')[0].classList.add('modal-open');
+    this.status_id = id;
+  }
 
+  closeStatusModal(f){
+    this.statusModaldisplay = 'none';
+    this.fetchUser(this.paginatecnt);
+    document.getElementsByTagName('body')[0].classList.remove('modal-open');
+    document.getElementsByTagName('html')[0].classList.remove('modal-open');
+    f.resetForm();
+  }
+
+  changeStatus(f){   
+    this.disableuser.modified_by_user_id = this.tk.user_id;
+    this.disableuser.userid = this.status_id;
+    this.disableuser.status = this.status;
+    if(this.status == 'Enable'){
+      this.disableuser.statusEnableDesc = this.disableuser.description;
+    }else{
+      this.disableuser.statusDisableDesc = this.disableuser.description;
+    }
     this.restApi.postMethod('changeUserStatus',this.disableuser).subscribe((data:any) => {
       this.fetchUser(this.paginatecnt);
-      alert("The status of the user has been changed successfully");
+      alert(data.message);
+      this.statusModaldisplay = 'none';
+      f.resetForm();
+      document.getElementsByTagName('body')[0].classList.remove('modal-open');
+      document.getElementsByTagName('html')[0].classList.remove('modal-open');
     })
   }
 
   submit(f: NgForm){
     if(this.edit==false){
       this.addUser(f);
-      console.log('i am add submit')
     }else{
       this.updateUser(f);
-      console.log('i am update submit')
     }
   
   }
 
   addUser(f:NgForm){
-  //  event.preventDefault();
     var obj = {
       "first_name":(<HTMLInputElement>document.getElementById('mentee_first_name')).value,
       "last_name":(<HTMLInputElement>document.getElementById('mentee_last_name')).value,

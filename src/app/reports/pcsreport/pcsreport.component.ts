@@ -7,7 +7,7 @@ import { ApiService } from 'src/app/shared/app.service';
   styleUrls: ['./pcsreport.component.css']
 })
 export class PcsreportComponent implements OnInit {
-  pcslist:any=[]; tofilter:any=[]; originalfilter:any=[];
+  pcslist:any=[]; tofilter:any=[]; originalfilter:any=[]; srslist:any=[];
 
   @Input() filter = {member_name:'',current_status:'',from_date:'',to_date:''}
 
@@ -22,13 +22,20 @@ export class PcsreportComponent implements OnInit {
       this.pcslist = resp.data;
       this.tofilter = resp.data;
       this.originalfilter = resp.data;
+      this.getSNSlist();
       //const count = array.reduce((acc, cur) => cur.id === id ? ++acc : acc, 0);
+    })
+  }
+
+  getSNSlist(){
+    this.restApi.getMethod('getSNSList').subscribe((resp:any) => {
+      this.srslist = resp.data;
     })
   }
 
   filterList(event,type){
     var result;
-    if(event.keyCode == 8 || event.keyCode == 46 || (type == 'current_status')){
+    if(event.keyCode == 8 || event.keyCode == 46 || (type == 'current_status') || (type == 'srs_id')){
       var el = Array.from(document.getElementsByClassName('filter-fld') as HTMLCollectionOf<HTMLElement>);
       let cnt = 0;
       for(var j=0; j<el.length ; j++){  
@@ -72,7 +79,7 @@ export class PcsreportComponent implements OnInit {
 
   exportData() {
     var table = document.getElementById("pcs-excel-table") as HTMLTableElement;
-    var rows =[]; var column1, column2, column3, column4, column5, column6;
+    var rows =[]; var column1, column2, column3, column4, column5, column6, column7;
     for(var i=0,row; row = table.rows[i];i++){
       column1 = row.cells[0].innerText;
       column2 = row.cells[1].innerText;
