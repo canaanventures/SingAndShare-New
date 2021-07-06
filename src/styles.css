@@ -1742,6 +1742,7 @@ label{font-weight:500!important;}
   z-index: 99999;
   background: rgba(232, 232, 232, 0.95);
 }
+.cover img{display:block;position:absolute;left:50%;top:50%}
 .preloader {
   position: fixed;
   width: 100%;

@@ -12,6 +12,7 @@ export class EventRegisterComponent implements OnInit {
   public resp: any;
   public option_str: any; eventmodaldisplay = 'none';
   emailPattern = "^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$";
+  isVerified:boolean=true;
 
   @Input() verifyuser = { email: '' };
   @Input() registeruser = { contact_sal: '', contact_first_name: '', contact_last_name: '', contact_email_id: '', contact_number: '', contact_state: '', contact_city: '', contact_address: '', contact_referrer: '', event_id: '' };
@@ -23,11 +24,25 @@ export class EventRegisterComponent implements OnInit {
     this.print_state();
   }
 
+  submit(f:NgForm){
+    console.log('this is submit event')
+    //var e_status = localStorage.getItem('newemail_status')
+    if(this.isVerified == true){
+      this.verifyEmail(f)
+    }else{
+      this.userEventRegister(f)
+    }
+  }
+
   verifyEmail(f: NgForm) {
+    console.log('this is verify email')
+    this.isVerified == true
     this.registeruser.event_id = (<HTMLInputElement>document.getElementById('event_hidden_id')).value;
     this.verifyuser.email = (<HTMLInputElement>document.getElementById('contact_email_id')).value;
     this.restApi.postMethod('checkUser', this.verifyuser).subscribe((resp:any) => {
-      f.resetForm(f.value);
+     // console.log(resp);
+      localStorage.setItem('newemail_status',resp.status)
+     f.resetForm(f.value);
       if (resp.status == 201) {
         (<HTMLInputElement>document.getElementById('verify_email_btn')).style.display = 'none';
         var el = document.getElementsByClassName('hide-first');
@@ -43,6 +58,7 @@ export class EventRegisterComponent implements OnInit {
 
   userEventRegister(f: NgForm) {
     if(f.submitted){
+      this.isVerified == false;
       this.restApi.postMethod('registerUserForEvent', this.registeruser).subscribe((data: any) => {
         this.insertInContactEvent(this.registeruser.contact_email_id);
       })
