@@ -58,7 +58,7 @@ export class EventRegisterComponent implements OnInit {
 
   userEventRegister(f: NgForm) {
     //debugger;
-    if(f.submitted){
+    if(f.status != 'INVALID'){
       this.restApi.postMethod('registerUserForEvent', this.registeruser).subscribe((data: any) => {
         this.insertInContactEvent(this.registeruser.contact_email_id);
       })

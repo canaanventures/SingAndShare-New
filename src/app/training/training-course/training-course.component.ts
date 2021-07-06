@@ -108,7 +108,7 @@ export class TrainingCourseComponent implements OnInit {
     }    
     this.course.modified_by = this.tk.user_id;
     this.restApi.postMethod('updateLMSCourse',this.course).subscribe((data:any) => {     
-      alert('Category Updated Successfully.');
+      alert(data.message);
       //this.fetchCourse();
       this.changePagination(this.paginatecnt);
       //this.resetForm();
@@ -124,7 +124,7 @@ export class TrainingCourseComponent implements OnInit {
     this.restApi.postMethod('changeLMSCourseStatus',this.course).subscribe((data:any) => {
       //this.fetchCourse();
       this.changePagination(this.paginatecnt);
-      alert("The status has been changed successfully");
+      alert(data.message);
     })
   }
 

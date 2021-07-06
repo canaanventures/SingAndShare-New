@@ -35,11 +35,10 @@ export class AttendanceComponent implements OnInit {
   }
 
   fetchSRSlist() {
-    this.restApi.getMethod('getBranches/all')
-      .subscribe((resp:any) => {
-        this.srslist = resp.data;
-        this.attendancedetails.srs_id = this.tk.srs_id;
-      });
+    this.restApi.getMethod('getBranches/all').subscribe((resp:any) => {
+      this.srslist = resp.data;
+      this.attendancedetails.srs_id = this.tk.srs_id;
+    });
   }
 
   addAttendance(f:NgForm) {
@@ -58,8 +57,7 @@ export class AttendanceComponent implements OnInit {
       }
       this.attendeesdtls.vals = b;
       this.restApi.postMethod('addAttendees',this.attendeesdtls).subscribe((resp:any) => {
-        alert('Attendance added successfully')
-        //alert(resp.message);
+        alert('Attendance added successfully');
         setTimeout(function(){
           location.reload();
         },1000)

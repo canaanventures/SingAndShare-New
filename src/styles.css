@@ -15,7 +15,7 @@
 
  quill-editor .ql-container .ql-editor{height:200px}
 
-
+ body{overflow:hidden}
 @font-face {
   font-family: "CMGSans-MediumItalic";
   src: local("CMGSans-MediumItalic"), url(./assets/fonts/CMGSans/ExtendedSetStyles/CMGSans-MediumItalic.ttf) format("truetype");
