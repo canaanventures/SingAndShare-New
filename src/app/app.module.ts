@@ -68,7 +68,8 @@ import { EventreportComponent } from './reports/eventreport/eventreport.componen
 import { MentorNonActiveReportComponent } from './reports/mentor-non-active-report/mentor-non-active-report.component';
 import { MenteeNonActiveReportComponent } from './reports/mentee-non-active-report/mentee-non-active-report.component';
 import { CustomValidatorDirective } from './shared/app.validator';
-
+import {NgxGalleryModule} from '@kolkov/ngx-gallery';
+//import { NgxGalleryModule } from 'ngx-gallery';
 FullCalendarModule.registerPlugins([ // register FullCalendar plugins
   dayGridPlugin,
   //interactionPlugin
@@ -145,7 +146,9 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     CarouselModule,
     SwiperModule,
     ScrollingModule,
-    QuillModule.forRoot()
+    QuillModule.forRoot(),
+    NgxGalleryModule
+    //NgxGalleryModule
     //NgxSpinnerModule
   ],
   providers: [

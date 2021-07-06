@@ -1,28 +1,48 @@
 <style>
-    .blog_top{margin-top:75px;}
+    .blog_top {
+        margin-top: 75px;
+    }
 </style>
 
 <div class="super_container">
     <div class="blog_top_image">
-        <div class="blog_top">
-            <swiper  [navigation]="true" effect="coverflow" [config]="config">          
+        <div class="blog_top gallery-wrapper">
+            
+
+            <!-- <ngx-gallery [options]="galleryOptions" [images]="temp" class="ngx-gallery"></ngx-gallery> -->
+             <swiper style="--swiper-navigation-color: #fff;--swiper-pagination-color: #fff" [loop]="true" [spaceBetween]="10" [thumbs]="{ swiper: thumbsSwiper }"
+      class="mySwiper2" [navigation]="true" effect="coverflow" [config]="config">
                 <ng-template swiperSlide *ngFor="let slide of gallery">
                     <div class='swiper-img-div'>
                         <img [src]='slide.image_url' class='w-100 h-100' />
+                        
                         <div class='home-bg-green'></div>
                     </div>
                 </ng-template>
             </swiper>
+            <swiper (swiper)="thumbsSwiper = $event" [loop]="true" [spaceBetween]="10" [slidesPerView]="4"
+                [freeMode]="true" [watchSlidesVisibility]="true" [watchSlidesProgress]="true" class="mySwiper">
+                <ng-template swiperSlide *ngFor="let slide of gallery">
+                    <div class='swiper-img-thumbnail'>
+                        <img [src]='slide.image_url' class='w-100 h-100' />
+
+                        <div class='home-bg-green'></div>
+                    </div>
+                </ng-template>
+            </swiper> 
+
         </div>
     </div>
     <div class="blog_container">
         <div class="container">
+
             <div class="row blog_content_row">
                 <div class="col">
                     <div class="blog_content">
                         <div class="blog_post_title_container">
                             <div class="blog_title"><a href="#">{{gallery[0].event_name}}</a></div>
-                            <div class="blog_category">Event was held on {{gallery[0].event_start_date | date:'dd MMMM, yyyy'}}</div>
+                            <div class="blog_category">Event was held on {{gallery[0].event_start_date | date:'dd MMMM,
+                                yyyy'}}</div>
                         </div>
                         <div class="blog_text">
                             <p [innerHTML]='gallery[0].description'></p>
@@ -33,3 +53,5 @@
         </div>
     </div>
 </div>
+
+
