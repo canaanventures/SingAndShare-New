@@ -11,11 +11,12 @@ import { Router } from '@angular/router';
   templateUrl: './addblog.component.html',
   styleUrls: ['./addblog.component.css']
 })
+
 export class AddblogComponent implements OnInit {
   tk:any = {};
   htmlContent:any = String;
   bloglist:any = []; blogCatlist:any = [];
-  public displayBlog='none';categorydisplay='none';
+  displayBlog='none'; categorydisplay='none';
   edit_id = '';
   blogtype = 'add';
   public form : any;

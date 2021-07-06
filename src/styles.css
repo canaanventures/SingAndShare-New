@@ -10,12 +10,13 @@
 --------------------------------------------------------------*/
 
 @import '~quill/dist/quill.core.css';
- @import '~quill/dist/quill.bubble.css';
- @import '~quill/dist/quill.snow.css';
+@import '~quill/dist/quill.bubble.css';
+@import '~quill/dist/quill.snow.css';
 
- quill-editor .ql-container .ql-editor{height:200px}
+quill-editor .ql-container .ql-editor{height:200px}
+body{overflow:hidden}
+.action-active-icons{width:35px;margin-left:15px;cursor:pointer;}
 
- body{overflow:hidden}
 @font-face {
   font-family: "CMGSans-MediumItalic";
   src: local("CMGSans-MediumItalic"), url(./assets/fonts/CMGSans/ExtendedSetStyles/CMGSans-MediumItalic.ttf) format("truetype");

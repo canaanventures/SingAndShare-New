@@ -18,7 +18,10 @@
                 </div>  
                 <div class='form-group col-md-3'>
                     <label for='download_excel' class='w-100'> &nbsp; </label>
-                    <span id='download_excel' class='float-right' (click)="exportData()"><i class="fa fa-file-excel-o" aria-hidden="true"></i></span>
+                    <!-- span id='download_excel' class='float-right' (click)="exportData()"><i class="fa fa-file-excel-o" aria-hidden="true"></i></span> -->
+                    <img src='../../../assets/img/pdf.png' class='action-active-icons float-right' (click)="generatePDF()" />
+                    <img src='../../../assets/img/print.png' class='action-active-icons float-right' (click)="printPageArea()" />
+                    <img src='../../../assets/img/excel.png' class='action-active-icons float-right' (click)="exportData()" />
                 </div>                   
             </div>
         </div>
@@ -27,7 +30,7 @@
                 <h3 class='chart_msg'>No Data to be displayed</h3>
             </div>
         </div>
-        <div class='row' *ngIf='originalfilter.length > 0'>
+        <div class='row' *ngIf='originalfilter.length > 0' id='printable_box'>
             <table class='table-bordered table' id="pcs-excel-table">
                 <thead>
                     <tr>
@@ -39,7 +42,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr> 
+                    <tr class='excel-hide'> 
                         <td>
                             <select id='srs_id' class='form-control filter-fld' [(ngModel)]='filter.srs_id' (change)="filterList($event,'srs_id')">
                                 <option value=''>Select the SNS Name</option>
@@ -58,7 +61,7 @@
                         <td> </td>
                     </tr>
 
-                    <tr *ngIf='attendancelist.length == 0 && originalfilter.length > 0'>
+                    <tr class='excel-hide' *ngIf='attendancelist.length == 0 && originalfilter.length > 0'>
                         <td colspan='5'>
                             <h3 class='chart_msg'>No Match Found</h3>
                         </td>

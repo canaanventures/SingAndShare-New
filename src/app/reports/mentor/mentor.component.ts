@@ -1,5 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ApiService } from 'src/app/shared/app.service';
+import {jsPDF} from 'jspdf';
+import html2canvas from 'html2canvas';
 
 @Component({
   selector: 'app-mentor',
@@ -72,17 +74,19 @@ export class MentorComponent implements OnInit {
     var table = document.getElementById("mentor-excel-table") as HTMLTableElement;
     var rows =[]; var column1, column2, column3, column4, column5, column6, column7, column8, column9, column10;
     for(var i=0,row; row = table.rows[i];i++){
-      column1 = row.cells[0].innerText;
-      column2 = row.cells[1].innerText;
-      column3 = row.cells[2].innerText;
-      column4 = row.cells[3].innerText;
-      column5 = row.cells[4].innerText;
-      column6 = row.cells[5].innerText;
-      column7 = row.cells[6].innerText;
-      column8 = row.cells[7].innerText;
-      column9 = row.cells[8].innerText;
-      column10 = row.cells[9].innerText;
-      rows.push([column1,column2,column3,column4,column5,column6,column7,column8,column9,column10]);
+      if(!table.rows[i].classList.contains('excel-hide')){
+        column1 = row.cells[0].innerText;
+        column2 = row.cells[1].innerText;
+        column3 = row.cells[2].innerText;
+        column4 = row.cells[3].innerText;
+        column5 = row.cells[4].innerText;
+        column6 = row.cells[5].innerText;
+        column7 = row.cells[6].innerText;
+        column8 = row.cells[7].innerText;
+        column9 = row.cells[8].innerText;
+        column10 = row.cells[9].innerText;
+        rows.push([column1,column2,column3,column4,column5,column6,column7,column8,column9,column10]);
+      }  
     }
     var csvContent = "data:text/csv;charset=utf-8,";
     rows.forEach(function(rowArray){
@@ -92,7 +96,7 @@ export class MentorComponent implements OnInit {
     var encodedUri = encodeURI(csvContent);
     var link = document.createElement("a");
     link.setAttribute("href", encodedUri);
-    link.setAttribute("download", "mentors_report.csv");
+    link.setAttribute("download", "mentors-report.csv");
     document.body.appendChild(link);
     link.click();
   }
@@ -117,5 +121,33 @@ export class MentorComponent implements OnInit {
     this.mentorlist = this.originalfilter;
     this.tofilter = this.originalfilter;
     this.filter = {mentee_name:'',user_contact_number:'',user_email_id:'',user_address:'',user_city:'',user_state:'',srs_name:'',mentor_name:'',status:'',from_date:'',to_date:''}
+  }
+
+  printPageArea(){
+    window.print();
+  }
+
+  generatePDF() {
+    var data = document.getElementById('printable_box');
+    html2canvas(data).then(canvas => {
+      debugger;
+      var imgWidth = 208;
+      var pageHeight = 295;
+      var imgHeight = canvas.height * imgWidth / canvas.width;
+      var heightLeft = imgHeight;
+      const contentDataURL = canvas.toDataURL('image/png')
+      let pdf = new jsPDF('p', 'mm', 'a4');
+      var position = 0;
+      pdf.addImage(contentDataURL, 'PNG', 0, position, imgWidth, imgHeight);
+      heightLeft -= pageHeight;
+
+      while (heightLeft >= 0) {
+        position = heightLeft - imgHeight;
+        pdf.addPage();
+        pdf.addImage(contentDataURL, 'PNG', 0, position, imgWidth, imgHeight);
+        heightLeft -= pageHeight;
+      }
+      pdf.save('mentor-report.pdf');
+    });
   }
 }

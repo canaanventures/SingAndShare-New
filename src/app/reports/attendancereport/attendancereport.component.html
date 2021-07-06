@@ -1,32 +1,4 @@
 <div class='container-fluid report-container'>
-    <!-- <div class='row'>
-        <div class='col-md-3 form-group'>
-            <label for='type'>Select Type</label>
-            <select class='form-control' id='type' [(ngModel)]='report.type'>
-                <option>Select type</option>
-                <option value='attendance'>Attendance</option>
-            </select>
-        </div>
-        <div class='col-md-3 form-group'>
-            <label for='month'>Select Month</label>
-            <input type='month' id='month' class='form-control' placeholder='Select the Month' [(ngModel)]='report.val' />
-        </div>
-        <div class='col-md-6'>
-            <label for='search_report' class='w-100'> &nbsp; </label>
-            <button class='btn btn-primary' id='search_report' (click)='getAttendace();' style='margin-right:10px;'>Display Graph</button>
-        </div>
-    </div>
-    <div class='row' *ngIf='graphresp.length == 0'>
-        <div class='col-md-12 p-0'>
-            <h3 class='chart_msg'>No Graph to be displayed.</h3>
-        </div>
-    </div>
-    <div class='row' *ngIf='graphresp.length > 0'>
-        <div class='col-md-12 p-0'>
-            <google-chart id='report_chart' #chart [title]="title" [type]="type" [data]="data" [options]="options" [height]="height" style='width:100%;'> </google-chart>
-        </div>
-    </div> -->
-
     <div class="card-body h-100 mt-3">
         <div class='row'>
             <div class='col-md-12 p-0 mt-3'>
@@ -45,7 +17,10 @@
                 </div>  
                 <div class='form-group col-md-3'>
                     <label for='download_excel' class='w-100'> &nbsp; </label>
-                    <span id='download_excel' class='float-right' (click)="exportData()"><i class="fa fa-file-excel-o" aria-hidden="true"></i></span>
+                    <img src='../../../assets/img/pdf.png' class='action-active-icons float-right' (click)="generatePDF()" />
+                    <img src='../../../assets/img/print.png' class='action-active-icons float-right' (click)="printPageArea()" />
+                    <img src='../../../assets/img/excel.png' class='action-active-icons float-right' (click)="exportData()" />
+                    <!-- <span id='download_excel' class='float-right' (click)="exportData()"><i class="fa fa-file-excel-o" aria-hidden="true"></i></span> -->
                 </div>                   
             </div>
         </div>
@@ -54,7 +29,7 @@
                 <h3 class='chart_msg'>No Data to be displayed</h3>
             </div>
         </div>
-        <div class='row' *ngIf='originalfilter.length > 0'>
+        <div class='row' *ngIf='originalfilter.length > 0' id='printable_box'>
             <table class='table-bordered table' id="pcs-excel-table">
                 <thead>
                     <tr>
@@ -68,7 +43,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr> 
+                    <tr class='excel-hide'> 
                         <td>
                             <input type='text' class='form-control filter-fld' id='users_name' [(ngModel)]='filter.users_name' (keyup)="filterList($event,'users_name')" placeholder="Your Team member's Name" />
                         </td>
@@ -97,7 +72,7 @@
                         <td> </td>
                     </tr>
 
-                    <tr *ngIf='attendancelist.length == 0 && originalfilter.length > 0'>
+                    <tr class='excel-hide' *ngIf='attendancelist.length == 0 && originalfilter.length > 0'>
                         <td colspan='7'>
                             <h3 class='chart_msg'>No Match Found</h3>
                         </td>
