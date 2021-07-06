@@ -87,8 +87,7 @@ export class PcsreportComponent implements OnInit {
       column4 = row.cells[3].innerText;
       column5 = row.cells[4].innerText;
       column6 = row.cells[5].innerText;
-      column7 = row.cells[6].innerText;
-      rows.push([column1,column2,column3,column4,column5,column6,column7]);
+      rows.push([column1,column2,column3,column4,column5,column6]);
     }
     var csvContent = "data:text/csv;charset=utf-8,";
     rows.forEach(function(rowArray){
