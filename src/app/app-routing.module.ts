@@ -24,6 +24,7 @@ import { TrainingClassComponent } from './training/training-class/training-class
 import { GalleryComponent } from './user/gallery/gallery.component';
 import { SinglegalleryComponent } from './user/singlegallery/singlegallery.component';
 import { AttendancereportComponent } from './reports/attendancereport/attendancereport.component';
+import { AvgAttendanceComponent } from './reports/avg-attendance/avg-attendance.component';
 import { MenteeComponent } from './reports/mentee/mentee.component';
 import { MentorComponent } from './reports/mentor/mentor.component';
 import { PcsreportComponent } from './reports/pcsreport/pcsreport.component';
@@ -72,7 +73,8 @@ const routes: Routes = [
   { path: "report/fellowship", component: MeetingcountComponent },
   { path: "report/new-mentors", component: NewMentorsComponent },
   { path: "report/lms", component: LmsreportComponent },
-  { path: "report/events", component: EventreportComponent}
+  { path: "report/events", component: EventreportComponent},
+  { path: "report/attendance-avg", component: AvgAttendanceComponent }
 ];
 
 @NgModule({

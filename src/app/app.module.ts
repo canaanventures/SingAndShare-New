@@ -68,6 +68,7 @@ import { EventreportComponent } from './reports/eventreport/eventreport.componen
 import { MentorNonActiveReportComponent } from './reports/mentor-non-active-report/mentor-non-active-report.component';
 import { MenteeNonActiveReportComponent } from './reports/mentee-non-active-report/mentee-non-active-report.component';
 import { CustomValidatorDirective } from './shared/app.validator';
+import { AvgAttendanceComponent } from './reports/avg-attendance/avg-attendance.component';
 
 FullCalendarModule.registerPlugins([ // register FullCalendar plugins
   dayGridPlugin,
@@ -118,7 +119,8 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     EventreportComponent,
     MentorNonActiveReportComponent,
     MenteeNonActiveReportComponent,
-    CustomValidatorDirective
+    CustomValidatorDirective,
+    AvgAttendanceComponent
   ],
   imports: [
     BrowserModule,
