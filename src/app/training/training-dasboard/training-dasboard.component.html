@@ -49,9 +49,9 @@
                     <div class='class-container' *ngFor='let dtls of details'>
                         <h5 class='class-nme-div' (click)='toggleClass(dtls.class_id)'> 
                             <span>{{dtls.class_name}}</span>
-                            <label class='label label-default mr-10' [ngClass]="dtls.document_url ? 'active' : 'inactive'" (click)='downloadPDF(dtls.class_id,dtls.document_url)'>
+                            <!--<label class='label label-default mr-10' [ngClass]="dtls.document_url ? 'active' : 'inactive'" (click)='downloadPDF(dtls.class_id,dtls.document_url)'>
                                 <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
-                            </label>
+                            </label> -->
                             <label class='label label-success' [ngClass]="dtls.connection_link ? 'active' : 'inactive'" (click)='openLink(dtls.connection_link)' >
                                 <i class="fa fa-link" aria-hidden="true"></i>
                             </label>

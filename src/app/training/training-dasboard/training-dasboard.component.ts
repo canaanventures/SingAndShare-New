@@ -19,7 +19,7 @@ export class TrainingDasboardComponent implements OnInit {
     this.fetchUpcomingCourse();
   }
 
-  fetchUpcomingCourse(){
+  fetchUpcomingCourse(){ 
     this.restApi.getMethod('getUpComingCourseForMentees/'+this.tk.user_id).subscribe((resp:any) => {
       this.courselist = resp.data;
       this.restApi.getMethod('getOnGoingCourseForMentees/'+this.tk.user_id).subscribe((resptwo:any) => {

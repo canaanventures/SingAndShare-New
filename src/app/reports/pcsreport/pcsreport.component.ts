@@ -52,7 +52,7 @@ export class PcsreportComponent implements OnInit {
       }      
     }else{
       result = this.tofilter.filter(function(item){
-        if(item[type].toLowerCase().indexOf(event.target.value.toLowerCase()) > -1){
+        if(String(item[type]).toLowerCase().indexOf(String(event.target.value).toLowerCase()) > -1){
           return item;
         }
       })
@@ -70,7 +70,7 @@ export class PcsreportComponent implements OnInit {
     for(var j=0; j<el.length ; j++){     
       if((el[j] as HTMLInputElement).value != ''){
         for(var i=0; i<arr.length; i++){
-          if(arr[i][el[j].id].toLowerCase().indexOf((el[j] as HTMLInputElement).value.toLowerCase()) > -1){
+          if(String(arr[i][el[j].id]).toLowerCase().indexOf(String((el[j] as HTMLInputElement).value).toLowerCase()) > -1){
             list.push(arr[i]);
           }
         }
@@ -90,7 +90,8 @@ export class PcsreportComponent implements OnInit {
         column4 = row.cells[3].innerText;
         column5 = row.cells[4].innerText;
         column6 = row.cells[5].innerText;
-        rows.push([column1,column2,column3,column4,column5,column6]);
+        column7 = row.cells[6].innerText;
+        rows.push([column1,column2,column3,column4,column5,column6,column7]);
       }
     }
     var csvContent = "data:text/csv;charset=utf-8,";

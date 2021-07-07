@@ -1,7 +1,7 @@
 <div class="backdrop" [ngStyle]="{'display':displayClassModal}"></div>
 <div class="backdrop" [ngStyle]="{'display':displayClassLessonModal}"></div>
 
-<div class="wrapper container mb-5">
+<div class="wrapper container-fluid mb-5">
     <div class="main">
         <main class="content">
             <h1 class="h3 mb-3">
@@ -21,6 +21,7 @@
                                     <tr>
                                         <th>Course</th>
                                         <th>Class Name</th>
+                                        <th>Created On</th>
                                         <th>Start date</th>
                                         <th>End Date</th>
                                         <th>Status</th>
@@ -36,6 +37,7 @@
                                     <tr>
                                         <td>{{list.course_name}}</td>
                                         <td>{{list.class_name}}</td>
+                                        <td>{{list.class_created_on}}</td>
                                         <td>{{list.start_date | date:'dd/MM/yyyy, h:mm a'}}</td>
                                         <td>{{list.end_date | date:'dd/MM/yyyy, h:mm a'}}</td>
                                         <td>
