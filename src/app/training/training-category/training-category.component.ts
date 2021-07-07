@@ -157,6 +157,7 @@ export class TrainingCategoryComponent implements OnInit {
     let cnt;
     if(event == 'load'){cnt = 1;}else{cnt=event}
     this.restApi.getMethod('getPaginatedCategory/'+cnt).subscribe((resp:any) => {
+      console.log(resp)
       this.catlist = resp.data.data;
       if(event == 'load'){
         let total = resp.data.total[0].total, num = total/10, arr = [];

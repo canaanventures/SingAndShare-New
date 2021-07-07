@@ -34,6 +34,7 @@ export class TrainingCourseComponent implements OnInit {
   fetchCourse(){
     this.restApi.getMethod('getLMSCourse/all').subscribe((resp:any) => {
       this.courselist = resp.data;
+      
     });
   }
 
