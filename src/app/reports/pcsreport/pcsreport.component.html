@@ -35,6 +35,7 @@
                 <thead>
                     <tr>
                         <th>User</th>
+                        <th>SNS Name</th>
                         <th>Type</th>  
                         <th>Created On</th> 
                         <th>Name</th>
@@ -69,13 +70,14 @@
                     </tr>
 
                     <tr class='excel-hide' *ngIf='pcslist.length == 0 && originalfilter.length > 0'>
-                        <td colspan='6'>
+                        <td colspan='7'>
                             <h3 class='chart_msg'>No Match Found</h3>
                         </td>
                     </tr>
 
                     <tr *ngFor="let list of pcslist"> 
                         <td>{{ list.member_name }}</td>
+                        <td>{{ list.srs_name }}</td>
                         <td>{{ list.current_status }}</td>
                         <td>{{ list.created_on | date:'dd-MM-yyyy' }}</td> 
                         <td>{{ list.name_of_user }}</td>
