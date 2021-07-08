@@ -10,26 +10,29 @@
             
 
             <!-- <ngx-gallery [options]="galleryOptions" [images]="temp" class="ngx-gallery"></ngx-gallery> -->
-             <swiper style="--swiper-navigation-color: #fff;--swiper-pagination-color: #fff" [loop]="true" [spaceBetween]="10" [thumbs]="{ swiper: thumbsSwiper }"
-      class="mySwiper2" [navigation]="true" effect="coverflow" [config]="config">
-                <ng-template swiperSlide *ngFor="let slide of gallery">
-                    <div class='swiper-img-div'>
-                        <img [src]='slide.image_url' class='w-100 h-100' />
-                        
-                        <div class='home-bg-green'></div>
-                    </div>
-                </ng-template>
-            </swiper>
-            <swiper (swiper)="thumbsSwiper = $event" [loop]="true" [spaceBetween]="10" [slidesPerView]="4"
-                [freeMode]="true" [watchSlidesVisibility]="true" [watchSlidesProgress]="true" class="mySwiper">
-                <ng-template swiperSlide *ngFor="let slide of gallery">
-                    <div class='swiper-img-thumbnail'>
-                        <img [src]='slide.image_url' class='w-100 h-100' />
-
-                        <div class='home-bg-green'></div>
-                    </div>
-                </ng-template>
-            </swiper> 
+            
+                <swiper style="--swiper-navigation-color: #fff;--swiper-pagination-color: #fff" [loop]="true" [spaceBetween]="10" [thumbs]="{ swiper: thumbsSwiper }"
+                class="mySwiper2" [navigation]="true" effect="coverflow" [config]="config">
+                          <ng-template swiperSlide *ngFor="let slide of gallery">
+                              <div class='swiper-img-div'>
+                                  <img [src]='slide.image_url' class='w-100 h-100' />
+                                  
+                                  <div class='home-bg-green'></div>
+                              </div>
+                          </ng-template>
+                      </swiper>
+                      <swiper (swiper)="thumbsSwiper = $event" [loop]="true" [spaceBetween]="10" [slidesPerView]="4"
+                          [freeMode]="true" [watchSlidesVisibility]="true" [watchSlidesProgress]="true" class="mySwiper">
+                          <ng-template swiperSlide *ngFor="let slide of gallery">
+                              <div class='swiper-img-thumbnail'>
+                                  <img [src]='slide.image_url' class='w-100 h-100' />
+          
+                                  <div class='home-bg-green'></div>
+                              </div>
+                          </ng-template>
+                      </swiper> 
+          
+            
 
         </div>
     </div>

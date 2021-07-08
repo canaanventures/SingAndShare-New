@@ -8,9 +8,7 @@
     width: 300px;
     height: 300px;
 }
-#home-slider{
-    /* height:100vh; */
-}
+
 .product-screens{
     position: relative;
     width: 100%;
@@ -66,60 +64,37 @@
 
 .title a{color:black;}
 .title a:hover{color:#1dc8cd;}
+.owl-theme .owl-nav {
+    display: none !important;} 
 
-@media (max-width:1000px){
-    #home_banner{object-fit: fill!important;height:auto;}
-    #home-slider,.product-screens{height:auto;}
-}
-
-@media (max-width:767px){
-    .blog-image{position:unset;margin-top:15px;}
-    #contact .section-header .section-title{text-align:center;}
-    #contact .section-header .section-divider{float: none;margin: 0 auto;margin-bottom: 30px;}
-
-}
-
-@media only screen and (max-width: 600px){
-    .home-abt-nn{
-        /* height: 120vh !important; */
+    .owl-carousel .owl-stage{display: flex;flex-wrap: wrap;}
+    .blog-image-item {
+        display: flex;
+        flex: 1 0 auto;
+        height: 450px;
     }
-    .about-text {
-        padding-top: 0px !important;
-        font-size: 11px !important;
-        height: 27vh !important;
+    .blog-image-box {
+        position: relative;
+        overflow: hidden;
+        padding:0 5px;
+        /* margin-bottom: 80px; *//*This is optional*/
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
     }
-    .contact-form, .contact-address {
-      
-        padding: 42px;
-    }
-   
-}
 
-/* Medium devices (landscape tablets, 768px and up) */
-@media only screen and (min-width: 768px) {
-    /* .about-text {
-        padding-top: 3px !important;
-        font-size: 14px !important;
-        height: 36vh;
+.bimg{height:301px}
+
+/* .home-abt{
+    background-image: url(../../../assets/img/sns-abt.png);background-repeat:no-repeat;width: 100%; background-position: center;background-position-x: left;background-repeat: no-repeat;
+} */
+
+/* .about-card{
+    position: absolute;
+    top: 23%;
+    left: -8%;
+    border-radius: 10px;padding: 10px;
     } */
-  }
-  @media (min-width: 576px){
-    .modal-dialog {
-        max-width: 800px;
-        margin: 1.75rem auto;
-    }
-    }
-  
-/* Small devices (portrait tablets and large phones, 600px and up) */
-@media only screen and (min-width: 600px) {
-    .about-text {
-        padding-top: 3px !important;
-        font-size: 17px !important;
-        height: 36vh;
-    }
-  }
-
-
 
 @import "~swiper/swiper";
 @import "~swiper/components/effect-coverflow/effect-coverflow";
@@ -152,35 +127,109 @@
  
 }
 /*  height: 69vh; */
-#home-abt-new{
-    background-image: url(../../../assets/img/abt-neww.png);
-   margin-bottom: -40px;margin-top: -43px;width: 100%; background-position: center;background-position-x: left;background-repeat: no-repeat;
+
+
+/* .home-abt-nn{
+  height: 80vh;
+} */
+
+/* @media only screen and (min-width: 768px) {
+    #home-abt-n{
+        background-size: cover;
+    }
+
+} */
+
+
+
+@media only screen and (max-width: 600px){
+    .abt-img img{width:87%}
+    .abt-card {
+        position: absolute;
+        top: 4%;
+        /* left: -8%; */
+        right: 26%;
+        border-radius: 10px;
+        padding: 4px;
+    }
+    .home-abt-nn{
+        height: 64vh;
+    }
+    .about-text {
+        padding-top: 0px !important;
+        font-size: 7px !important;
+        height: 30vh !important;
+    }
+    .contact-form, .contact-address {
+      
+        padding: 42px;
+    }
+    #firststep{
+        height: 40vh !important;
+        margin-top: 100px;
+       }
+   
 }
 
-.home-abt-nn{
-  height: 80vh;
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+    .abt-img img {width:100%}
+    .abt-card{
+        position: absolute;
+        top: 11%;
+        left: -8%;
+        border-radius: 10px;padding: 10px;
+        }
+    .bimg img{height:301px}
+  }
+  @media (min-width: 576px){
+    .modal-dialog {
+        max-width: 800px;
+        margin: 1.75rem auto;
+    }
+    }
+  
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 600px) {
+    /* .about-text {
+        padding-top: 3px !important;
+        font-size: 17px !important;
+        height: 36vh;
+    }
+    */
+  }
+
+  @media (max-width:1000px){
+    #home_banner{object-fit: fill!important;height:auto;}
+    #home-slider,.product-screens{height:auto;}
+    .bimg{height:301px}
 }
+
+@media (max-width:767px){
+    .blog-image{position:unset;margin-top:15px;}
+    #contact .section-header .section-title{text-align:center;}
+    #contact .section-header .section-divider{float: none;margin: 0 auto;margin-bottom: 30px;}
+    .bimg{height:301px}
+}
+
+
 
 /* Extra large devices (large laptops and desktops, 1200px and up) */
 @media only screen and (min-width: 1200px) {
+    .abt-img img {width:100%}
+    .abt-card{
+    position: absolute;
+    top: 23%;
+    left: -8%;
+    border-radius: 10px;padding: 10px;
+    }
     .about-text{
-        padding-top:20px !important; font-size: 23px !important; height: 36vh;
+        padding-top:20px !important; font-size: 23px !important; height: 37vh;
+    }
+    .home-abt-nn{
+        height: 60vh;
     }
 }
 
-.owl-carousel .owl-stage{display: flex;flex-wrap: wrap;}
-.blog-image-item {
-    display: flex;
-    flex: 1 0 auto;
-    height: 450px;
-}
-.blog-image-box {
-    position: relative;
-    overflow: hidden;
-    padding:0 5px;
-    /* margin-bottom: 80px; *//*This is optional*/
-    display: flex;
-    flex-direction: column;
-    align-items: stretch;
-}
+
 
