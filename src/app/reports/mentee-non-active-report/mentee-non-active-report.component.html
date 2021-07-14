@@ -1,1 +1,92 @@
-<p>mentee-non-active-report works!</p>
+<div class='container report-container'>
+    <h3 class='modal-title'>Mentee Activity Report</h3>
+    <div class="card-body h-100 mt-3">
+        <div class='row'>
+            <div class='col-md-12 p-0 mt-3'>
+                <div class='form-group col-md-3'>
+                    <label for='from_date'>From Date</label>
+                    <input type='datetime-local' id='from_date' class='form-control' [(ngModel)]='filterdate.from_date' placeholder='From Date' (change)='fromDateChange();' />
+                </div>
+                <div class='form-group col-md-3'>
+                    <label for='to_date'>To Date</label>
+                    <input type='datetime-local' id='to_date' class='form-control' [(ngModel)]='filterdate.to_date' placeholder='To Date' />
+                </div>
+                <div class='form-group col-md-3'>
+                    <label for='test' class='w-100'> &nbsp; </label>
+                    <button class='btn btn-primary' id='btn_datefilter' (click)='filterDate();'>Filter</button>
+                    <button class='btn bg-orange' id='btn_resetfilter' (click)='reset();'>Reset</button>
+                </div>  
+                <div class='form-group col-md-3'>
+                    <label for='download_excel' class='w-100'> &nbsp; </label>
+                    <!-- <span id='download_excel' class='float-right' (click)="exportData()"><i class="fa fa-file-excel-o" aria-hidden="true"></i></span> -->
+                    <img src='../../../assets/img/pdf.png' class='action-active-icons float-right' (click)="generatePDF()" />
+                    <img src='../../../assets/img/print.png' class='action-active-icons float-right' (click)="printPageArea()" />
+                    <img src='../../../assets/img/excel.png' class='action-active-icons float-right' (click)="exportData()" />
+                </div>                   
+            </div>
+        </div>
+        <div class='row' *ngIf='originalfilter.length == 0'>
+            <div class='col-md-12 p-0'>
+                <h3 class='chart_msg'>No Data to be displayed</h3>
+            </div>
+        </div>
+        <div class='row' *ngIf='originalfilter.length > 0' id='printable_box'>
+            <table class='table-bordered table' id="pcs-excel-table">
+                <thead>
+                    <tr>
+                        <th>Mentee Name</th>
+                        <th>SNS Name</th>                        
+                        <th>Current Status</th>
+                        <th>Status</th>
+                        <th>Created On</th>
+                        <th>Modified On</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class='excel-hide'> 
+                        <td>
+                            <input type='text' class='form-control filter-fld' id='mentee_name' [(ngModel)]='filter.mentee_name' (keyup)="filterList($event,'mentee_name')" placeholder="Mentee's Name" />
+                        </td>
+                        <td>
+                            <input type='text' class='form-control filter-fld' id='srs_name' [(ngModel)]='filter.srs_name' (keyup)="filterList($event,'srs_name')" placeholder="SNS Name" />
+                        </td>
+                        <td>
+                            <input type='text' class='form-control filter-fld' id='current_status' [(ngModel)]='filter.current_status' (keyup)="filterList($event,'current_status')" placeholder="Activity Type" />
+                        </td>
+                        <td>
+                            <select id='status' class='form-control filter-fld' [(ngModel)]='filter.status' (change)="filterList($event,'status')">
+                                <option value=''>Select Status</option>
+                                <option value='Y'>
+                                    <span class='label label-success'>Enable</span>
+                                </option>
+                                <option value='N'>
+                                    <span class='label label-danger'>Disable</span>
+                                </option>
+                            </select>
+                        </td>
+                        <td> </td>
+                        <td> </td>
+                    </tr>
+
+                    <tr class='excel-hide' *ngIf='attendancelist.length == 0 && originalfilter.length > 0'>
+                        <td colspan='6'>
+                            <h3 class='chart_msg'>No Match Found</h3>
+                        </td>
+                    </tr>
+
+                    <tr *ngFor="let list of attendancelist">
+                        <td>{{ list.mentee_name }}</td>
+                        <td>{{ list.srs_name }}</td>
+                        <td>{{ list.current_status }}</td>
+                        <td>
+                            <span class='label label-success' *ngIf='list.status == "Y"'>Enable</span>
+                            <span class='label label-danger' *ngIf='list.status == "N"'>Disable</span>
+                        </td>
+                        <td>{{ list.created_on | date:'dd-MM-yyyy hh:mm' }}</td>
+                        <td>{{ list.modified_date | date:'dd-MM-yyyy hh:mm' }}</td>
+                    </tr> 
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
