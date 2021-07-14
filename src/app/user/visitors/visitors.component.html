@@ -3,7 +3,7 @@
     <form  role="form" #f="ngForm" (ngSubmit)="f.form.valid && visitorDetails(f)">
         <div class="row">
             <div class="form-group col-lg-6">
-                <input type="text" name="visitor_name" class="form-control" id="visitor_name" placeholder="Your Name" [(ngModel)]="visitorsdetails.visitor_name" #visitor_name="ngModel" [ngClass]="{'invalid-data': visitor_name.invalid && f.submitted, 'valid-data': visitor_name.valid && f.submitted}" required>
+                <input type="text" name="visitor_name" class="form-control" id="visitor_name" placeholder="Your Name*" [(ngModel)]="visitorsdetails.visitor_name" #visitor_name="ngModel" [ngClass]="{'invalid-data': visitor_name.invalid && f.submitted, 'valid-data': visitor_name.valid && f.submitted}" required>
                 <div class="error_msg"
                 *ngIf="visitor_name.errors && (visitor_name.dirty || visitor_name.touched || f.submitted)">
                 <div *ngIf="visitor_name.errors.required">
@@ -13,7 +13,7 @@
             
             </div>
             <div class="form-group col-lg-6">
-                <input type="email" class="form-control" name="visitor_email_id" id="visitor_email_id"  placeholder="Your Email" data-rule="email" data-msg="Please enter a valid email" [(ngModel)]="visitorsdetails.visitor_email_id" #visitor_email_id="ngModel" [pattern]="emailPattern" [ngClass]="{'invalid-data':visitor_email_id.invalid && f.submitted, 'valid-data':visitor_email_id.valid && f.submitted}" required />
+                <input type="email" class="form-control" name="visitor_email_id" id="visitor_email_id"  placeholder="Your Email*" data-rule="email" data-msg="Please enter a valid email" [(ngModel)]="visitorsdetails.visitor_email_id" #visitor_email_id="ngModel" [pattern]="emailPattern" [ngClass]="{'invalid-data':visitor_email_id.invalid && f.submitted, 'valid-data':visitor_email_id.valid && f.submitted}" required />
                 <div class="error_msg"
                 *ngIf="visitor_email_id.errors && (visitor_email_id.dirty || visitor_email_id.touched || f.submitted)">
                 <div *ngIf="visitor_email_id.errors.required">
@@ -29,7 +29,7 @@
         <div class="row">
             <div class="form-group col-lg-6">
                 <select class="form-control" name="visitor_subject" id='visitor_subject' [(ngModel)]="visitorsdetails.visitor_subject" #visitor_subject="ngModel" [ngClass]="{'invalid-data': visitor_subject.invalid && f.submitted, 'valid-data': visitor_subject.valid && f.submitted}" required>
-                    <option value="">--I want to--</option>
+                    <option value="">--I want to--*</option>
                     <option>attend fellowship/events</option>
                     <option>join a Bible study group</option>
                     <option>Know more</option>
@@ -44,7 +44,7 @@
             </div>
             </div>
             <div class="form-group col-lg-6">
-                <input type="text" name="visitor_contact_number" class="form-control" id="visitor_contact_number" placeholder="Your Phone" data-rule="minlen:10" data-msg="Phone number must have 10 chars" [(ngModel)]="visitorsdetails.visitor_contact_number" [ngClass]="{'invalid-data': visitor_contact_number.invalid && f.submitted, 'valid-data': visitor_contact_number.valid && f.submitted}" #visitor_contact_number="ngModel" pattern="[- +()0-9]+" required />
+                <input type="text" name="visitor_contact_number" class="form-control" id="visitor_contact_number" placeholder="Your Phone*" data-rule="minlen:10" data-msg="Phone number must have 10 chars" [(ngModel)]="visitorsdetails.visitor_contact_number" [ngClass]="{'invalid-data': visitor_contact_number.invalid && f.submitted, 'valid-data': visitor_contact_number.valid && f.submitted}" #visitor_contact_number="ngModel" pattern="[- +()0-9]+" required />
                 <div class="error_msg"
                 *ngIf="visitor_contact_number.errors && (visitor_contact_number.dirty || visitor_contact_number.touched || f.submitted)">
                 <div *ngIf="visitor_contact_number.errors.pattern">
@@ -57,7 +57,7 @@
             </div>
         </div>
         <div class="form-group">
-            <textarea class="form-control" name="message" rows="5" id='message' placeholder="Message" [(ngModel)]="visitorsdetails.message" [ngClass]="{'invalid-data': message.invalid && f.submitted, 'valid-data': message.valid && f.submitted}" #message="ngModel" required></textarea>
+            <textarea class="form-control" name="message" rows="5" id='message' placeholder="Message*" [(ngModel)]="visitorsdetails.message" [ngClass]="{'invalid-data': message.invalid && f.submitted, 'valid-data': message.valid && f.submitted}" #message="ngModel" required></textarea>
             <div class="error_msg"
                 *ngIf="message.errors && (message.dirty || message.touched || f.submitted)">
                 <div *ngIf="message.errors.required">
