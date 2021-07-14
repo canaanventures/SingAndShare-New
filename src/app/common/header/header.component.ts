@@ -19,7 +19,7 @@ export class HeaderComponent implements OnInit {
   classApplied = false;
   tk:any = {}; access; encryptInfo; role_name;
   classtoggle = false; f_nme; l_nme;
-  emailPattern = "^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$";  
+  emailPattern = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$";  
   hide: boolean = true;
 
   @Input() userdetails = {email:'',pass_word:''};

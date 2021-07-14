@@ -11,7 +11,7 @@ SwiperCore.use([EffectFade]);
 })
 export class FirststepComponent implements OnInit {
 
-  emailPattern = "^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"; 
+  emailPattern = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$"; 
 
   constructor() { }
 

@@ -19,6 +19,7 @@ import {NgxPaginationModule} from 'ngx-pagination';
 import { CarouselModule } from 'ngx-owl-carousel-o';
 import {ScrollingModule} from '@angular/cdk/scrolling'
 import { QuillModule } from 'ngx-quill'
+import { NgScrollbarModule, NG_SCROLLBAR_OPTIONS } from 'ngx-scrollbar';
 //import { SwiperModule } from "swiper/angular";
 //import { NgxSpinnerModule } from "ngx-spinner";
 
@@ -148,6 +149,7 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     CarouselModule,
     SwiperModule,
     ScrollingModule,
+    NgScrollbarModule,
     QuillModule.forRoot()
   ],
   providers: [
