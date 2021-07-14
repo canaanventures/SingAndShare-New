@@ -12,7 +12,7 @@ export class VisitorsComponent implements OnInit {
   @Input() visitorsdetails = {visitor_name:'', visitor_email_id:'', visitor_subject:'', visitor_contact_number:'',message:''}
 
   submitted :boolean = false;
-  emailPattern = "^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$";  
+  emailPattern = "^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$";  
 
   constructor(public restApi: ApiService) { }
 
@@ -22,6 +22,10 @@ export class VisitorsComponent implements OnInit {
   onFormSubmit() {
     console.log("Full Address");  
   }
+
+  changeemail(event) {
+    console.log(event.type);
+}
 
   visitorDetails(f:NgForm) {
   	this.submitted = true;

@@ -20,6 +20,7 @@ import { CarouselModule } from 'ngx-owl-carousel-o';
 import {ScrollingModule} from '@angular/cdk/scrolling';
 import { QuillModule } from 'ngx-quill';
 import { OrgchartModule } from '@dabeng/ng-orgchart';
+import { NgScrollbarModule, NG_SCROLLBAR_OPTIONS } from 'ngx-scrollbar';
 //import { SwiperModule } from "swiper/angular";
 //import { NgxSpinnerModule } from "ngx-spinner";
 

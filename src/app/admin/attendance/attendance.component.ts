@@ -34,6 +34,8 @@ export class AttendanceComponent implements OnInit {
     this.getMentorEmail();
   }
 
+  
+
   fetchSRSlist() {
     this.restApi.getMethod('getBranches/all').subscribe((resp:any) => {
       this.srslist = resp.data;
@@ -66,7 +68,36 @@ export class AttendanceComponent implements OnInit {
   }
 
   todo = [];
+  todo_new =[];
   done = [];
+
+  move(item){
+    //debugger;
+    console.log('Moving items between lists',item);
+     if (this.todo.indexOf(item.user_id) === -1) {
+      this.todo.splice(this.todo.indexOf(item), 1);
+      this.todo_new.push(item);
+      console.log(this.todo_new)
+    } else {
+      this.todo_new.splice(this.todo_new.indexOf(item), 1);
+      this.todo.push(item);
+    }
+    
+  }
+
+  moveanother(item){
+    //debugger;
+    console.log('Moving items between lists',item);
+     if (this.todo_new.indexOf(item.user_id) === -1) {
+      this.todo_new.splice(this.todo.indexOf(item), 1);
+      this.todo.unshift(item);
+      console.log(this.todo)
+    } else {
+      this.todo_new.splice(this.todo_new.indexOf(item), 1);
+      this.todo.push(item);
+    }
+    
+  }
 
   drop(event: CdkDragDrop<string[]>,type:any) {
     if (event.previousContainer === event.container) {
