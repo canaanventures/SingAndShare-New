@@ -88,9 +88,9 @@ export class HeaderComponent implements OnInit {
     this.displayLogin='none';
     document.getElementsByTagName('body')[0].classList.remove('modal-open');
     document.getElementsByTagName('html')[0].classList.add('modal-open');
-    setTimeout(()=>{
+    /* setTimeout(()=>{
       location.reload();
-    },1000)
+    },1000) */
   }
   fpwd(){
     this.loginshow = false;
