@@ -17,8 +17,9 @@ import { ShareButtonsModule } from 'ngx-sharebuttons/buttons';
 import { ShareIconsModule } from 'ngx-sharebuttons/icons';
 import {NgxPaginationModule} from 'ngx-pagination';
 import { CarouselModule } from 'ngx-owl-carousel-o';
-import {ScrollingModule} from '@angular/cdk/scrolling'
-import { QuillModule } from 'ngx-quill'
+import {ScrollingModule} from '@angular/cdk/scrolling';
+import { QuillModule } from 'ngx-quill';
+import { OrgchartModule } from '@dabeng/ng-orgchart';
 import { NgScrollbarModule, NG_SCROLLBAR_OPTIONS } from 'ngx-scrollbar';
 //import { SwiperModule } from "swiper/angular";
 //import { NgxSpinnerModule } from "ngx-spinner";
@@ -71,6 +72,7 @@ import { MenteeNonActiveReportComponent } from './reports/mentee-non-active-repo
 import { CustomValidatorDirective } from './shared/app.validator';
 
 import { AvgAttendanceComponent } from './reports/avg-attendance/avg-attendance.component';
+import { OrganizationalReportComponent } from './reports/organizational-report/organizational-report.component';
 
 FullCalendarModule.registerPlugins([ // register FullCalendar plugins
   dayGridPlugin,
@@ -122,7 +124,8 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     MentorNonActiveReportComponent,
     MenteeNonActiveReportComponent,
     CustomValidatorDirective,
-    AvgAttendanceComponent
+    AvgAttendanceComponent,
+    OrganizationalReportComponent
   ],
   imports: [
     BrowserModule,
@@ -149,7 +152,7 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     CarouselModule,
     SwiperModule,
     ScrollingModule,
-    NgScrollbarModule,
+    OrgchartModule,
     QuillModule.forRoot()
   ],
   providers: [

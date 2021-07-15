@@ -285,7 +285,6 @@ export class EventsComponent implements OnInit {
   // <i class='fa fa-times cancel-img' aria-hidden='true' (click)='removeFile($event)' style='position: absolute;top:-5px;right:5px;'></i>
 
   removeFile(e) {
-    debugger;
     //var file = $(this).data("file");
     for (var i = 0; i < this.storedFiles.length; i++) {
       if (this.storedFiles[i].name) { // === file
@@ -293,12 +292,19 @@ export class EventsComponent implements OnInit {
         break;
       }
     }
-    debugger;
     //$(this).parent().remove();
   }
 
   closegalModal(){
     this.gallerydisplay = 'none';
+    document.getElementById('preview_main_img').innerHTML = '';
+    document.getElementById('preview_gallery_img').innerHTML = '';
+    document.getElementById('dummymainelem').innerHTML = '';
+    document.getElementById('dummyelem').innerHTML = '';
+    (<HTMLInputElement>document.getElementById('event_gallery_img')).value = '';
+    (<HTMLInputElement>document.getElementById('event_main_img')).value = '';
+    this.mainimages = '';
+    this.images = [];
   }
 
   selectMainImage(e){

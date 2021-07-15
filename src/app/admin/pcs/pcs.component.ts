@@ -58,6 +58,7 @@ export class PcsComponent implements OnInit {
   getPCS(type,mode){
     this.restApi.getMethod('getPCS/'+this.tk.user_id+'/'+type).subscribe((resp:any) => {
       //console.log(resp) // list of data
+      debugger;
       this.temp = resp
       if(type == 'all' && mode != 'view'){
         this.checklist = resp.data;
@@ -76,6 +77,15 @@ export class PcsComponent implements OnInit {
   backToList(){
     this.displayDtls = 'none';
     this.displayform = 'block';
+    setTimeout(function(){
+      this.option_str = document.getElementById("contact_state");
+      this.option_str.length=0;
+      this.option_str.options[0] = new Option('Select State','');
+      this.option_str.selectedIndex = 0;
+      for (var i=0; i< state.state_arr.length; i++) {
+        this.option_str.options[this.option_str.length] = new Option(state.state_arr[i], state.state_arr[i]);
+      }
+    },100)
   }
 
   ChangePCSStatus(event,id){
@@ -137,8 +147,7 @@ export class PcsComponent implements OnInit {
     this.restApi.getMethod('getPaginatedPCS/'+this.tk.user_id+'/'+cnt).subscribe((resp:any) => {
       this.checklist = resp.data.data;
       if(event == 'load'){
-        this.print_state();
-       
+        this.print_state();      
        }
        let total = resp.data.total[0].total, num = total/10, arr = [];
        for(var i=0;i<num;i++){
