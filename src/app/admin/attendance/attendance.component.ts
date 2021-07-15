@@ -153,7 +153,7 @@ export class AttendanceComponent implements OnInit {
 
   addUser(g:NgForm){
     //event.preventDefault();
-    console.log(g.value)
+   // console.log(g.value)
     var obj = {
       "first_name": this.user.mentee_first_name,
       "last_name": this.user.mentee_last_name,
