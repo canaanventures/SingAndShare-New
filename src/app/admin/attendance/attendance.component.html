@@ -188,60 +188,49 @@
                     <span class='close modal-close' (click)='closeModal(g)' data-dismiss="modal">&times;</span>
                 </h5>
                 <div class='row px-4'>
-                    <form role="form" #g="ngForm" (ngSubmit)="g.form.valid && addUser(g) ">
+                    <form  role="form" #g="ngForm" (ngSubmit)="g.form.valid && addUser(g);">
                         <div class='col-md-6'>
                             <div class='form-group'>
-                                <label for='mentee_first_name'>First Name</label>
-                                <input type='text' placeholder='First Name' class='form-control' id='mentee_first_name'
-                                    name="mentee_first_name" [(ngModel)]='user.mentee_first_name'
-                                    #mentee_first_name="ngModel"
-                                    [ngClass]="{'invalid-data': mentee_first_name.invalid && g.submitted, 'valid-data': mentee_first_name.valid && g.submitted}"
-                                    pattern="^[0-9]*$" required />
+                                <label for='mentee_first_name'>First Name<span style="color: red;">*</span></label>
+                                <input type='text' id='mentee_first_name' class='form-control' placeholder='First Name' [(ngModel)]='user.mentee_first_name' name="mentee_first_name" #mentee_first_name='ngModel' [ngClass]="{'invalid-data': mentee_first_name.invalid && g.submitted, 'valid-data': mentee_first_name.valid && g.submitted}" required />
                                 <div class="error_msg" *ngIf="g.submitted && mentee_first_name.invalid">
                                     <div *ngIf="mentee_first_name.errors.required">
-                                        <small class="error_text">First Name is required</small>
+                                        <small  class="error_text"> First Name is required</small>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class='col-md-6'>
                             <div class='form-group'>
-                                <label for='mentee_last_name'>Last Name</label>
-                                <input type='text' placeholder='Last Name' class='form-control' id='mentee_last_name'
-                                    name="mentee_last_name" [(ngModel)]='user.mentee_last_name'
-                                    #mentee_last_name="ngModel"
-                                    [ngClass]="{'invalid-data': mentee_last_name.invalid && g.submitted, 'valid-data': mentee_last_name.valid && g.submitted}"
-                                    pattern="^[0-9]*$" required />
+                                <label for='mentee_first_name'>Last Name<span style="color: red;">*</span></label>
+                                <input type='text' id='mentee_last_name' class='form-control' placeholder='Last Name' [(ngModel)]='user.mentee_last_name' name="mentee_last_name" #mentee_last_name='ngModel' [ngClass]="{'invalid-data': mentee_last_name.invalid && g.submitted, 'valid-data': mentee_last_name.valid && g.submitted}" required />
                                 <div class="error_msg" *ngIf="g.submitted && mentee_last_name.invalid">
                                     <div *ngIf="mentee_last_name.errors.required">
-                                        <small class="error_text">Last Name is required</small>
+                                        <small  class="error_text">Last Name is required</small>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class='col-md-6'>
                             <div class='form-group'>
-                                <label for='mentee_email_id'>Email ID</label>
-                                <input type='text' placeholder='Email ID' class='form-control' id='mentee_email_id'
-                                    name="mentee_email_id" [(ngModel)]='user.mentee_email_id' #mentee_email_id="ngModel"
-                                    [ngClass]="{'invalid-data': mentee_email_id.invalid && g.submitted, 'valid-data': mentee_email_id.valid && g.submitted}"
-                                    pattern="^[0-9]*$" required />
+                                <label for='mentee_email_id'>Email Id<span style="color: red;">*</span></label>
+                                <input type='text' id='mentee_email_id' class='form-control' placeholder='Email Id' [(ngModel)]='user.mentee_email_id' name="mentee_email_id" #mentee_email_id='ngModel' [ngClass]="{'invalid-data': mentee_email_id.invalid && g.submitted, 'valid-data': mentee_email_id.valid && g.submitted}" required />
                                 <div class="error_msg" *ngIf="g.submitted && mentee_email_id.invalid">
                                     <div *ngIf="mentee_email_id.errors.required">
-                                        <small class="error_text">Email Id is required</small>
+                                        <small  class="error_text">Last Name is required</small>
                                     </div>
                                 </div>
-
                             </div>
                         </div>
+                        
                         <div class='col-md-6'>
                             <div class='form-group'>
                                 <label for='mentor_email_id'>Mentor Email Id</label>
-                                <select class='form-control' id='mentor_email_id' name="parent_id"
-                                    (change)='mentorEmailDropdown($event)' [(ngModel)]='user.parent_id'
-                                    #parent_id='ngModel'
+                                <select class='form-control' id='parent_id' name="parent_id"
+                                    (change)='mentorEmailDropdown($event)' [(ngModel)]='user.parent_id' #parent_id='ngModel'
                                     [ngClass]="{'invalid-data': parent_id.invalid && g.submitted, 'valid-data': parent_id.valid && g.submitted}"
-                                    required>
+                                    required
+                                   >
                                     <option value=''>Select Mentor</option>
                                     <option value='75'>dummy@admin.com</option>
                                     <option value='{{list.user_id}}' *ngFor="let list of mentor">{{list.user_email_id}}
@@ -256,11 +245,12 @@
                         </div>
                         <div class='col-md-6'>
                             <div class='form-group'>
-                                <button id='submit_btn' class='btn btn-primary'>Submit</button>
-                                <!-- (click)='addUser($event)' -->
+                                <label for='submit_btn_add'> &nbsp; </label>                        
+                                <button id='submit_btn_add' class='btn btn-primary bg-orange' >Submit</button>
                             </div>
                         </div>
                     </form>
+                 
                 </div>
             </div>
         </div>

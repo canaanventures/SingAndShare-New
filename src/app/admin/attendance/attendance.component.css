@@ -13,6 +13,8 @@
     background-color: #E9ECEF;
     padding: 15px;
     border-radius: 5px;
+    overflow-y: auto;
+    height: 390px;
   }
   
   .item-list {
