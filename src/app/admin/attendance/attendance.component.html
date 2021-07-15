@@ -135,17 +135,7 @@
                         <div class="col-md-6">
                             <div class="drag-container">
                                 <div class="section-heading">Members <span id='user_cnt'>{{total}}</span></div>
-                                <!-- <ng-scrollbar class="virtual-scroll" thumbClass="white-scrollbars">
-                                    <cdk-virtual-scroll-viewport scrollViewport itemSize="50" class="example-viewport">
-                                        <div *cdkVirtualFor="let item of todo" class="example-item"><div class="form-check">
-                                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" (click)="move(item)">
-                                            <label class="form-check-label" for="flexCheckDefault">
-                                                 {{item.user_first_name}} {{item.user_last_name}}
-                                            </label>
-                                          </div></div>
-                                    </cdk-virtual-scroll-viewport>
-                                </ng-scrollbar> -->
-                                <div *ngFor="let item of todo" >
+                                <div  *ngFor="let item of todo">
                                 <div class="form-check">
                                         <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" (click)="move(item)">
                                         <label class="form-check-label" for="flexCheckDefault">
@@ -153,23 +143,15 @@
                                         </label>
                                       </div>
                                     </div>
+                                    </div>
                             </div>
-                        </div>
+                        
                         <div class="col-md-6">
                             <div class="drag-container">
                                 <div class="section-heading">Presentees <span id='present_cnt'>{{attendees}}</span>
                                 </div>
-                                <!-- <ng-scrollbar class="virtual-scroll" thumbClass="white-scrollbars">
-                                    <cdk-virtual-scroll-viewport scrollViewport itemSize="50" class="example-viewport">
-                                        <div *cdkVirtualFor="let item of todo_new" class="example-item"> <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" (click)="moveanother(item)">
-                                            <label class="form-check-label" for="flexCheckDefault">
-                                                 {{item.user_first_name}} {{item.user_last_name}}
-                                            </label>
-                                          </div></div>
-                                    </cdk-virtual-scroll-viewport>
-                                </ng-scrollbar> -->
-                                <div  *ngFor="let item of todo_new">
+                               
+                                 <div  *ngFor="let item of todo_new">
                                 <div class="form-check">
                                     <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" (click)="moveanother(item)">
                                     <label class="form-check-label" for="flexCheckDefault">
@@ -177,7 +159,7 @@
                                     </label>
                                   </div>
                                 </div>
-                               
+                                
                                 <!-- <div cdkDropList #pendingList="cdkDropList" [cdkDropListData]="todo" [cdkDropListConnectedTo]="[doneList]" class="item-list" (cdkDropListDropped)="drop($event,'user')">
                                     <div class="item-box" *ngFor="let item of todo" title="{{item.user_email_id}}" cdkDrag>{{item.user_first_name}} {{item.user_last_name}}</div>
                                 </div> -->
@@ -190,8 +172,9 @@
                             </div>
                         </div>
                     </div>
+                    </div>
                 </div>
-            </div>
+           
         </main>
     </div>
 </div>
