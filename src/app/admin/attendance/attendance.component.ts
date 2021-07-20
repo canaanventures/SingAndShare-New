@@ -65,6 +65,10 @@ export class AttendanceComponent implements OnInit {
     });
   }
 
+  addEventType(g:NgForm){
+    console.log(g.value)
+  }
+
   todo = [];
   todo_new =[];
   done = [];
@@ -147,6 +151,7 @@ export class AttendanceComponent implements OnInit {
 
   addUser(g:NgForm){
     //event.preventDefault();
+   // console.log(g.value)
     var obj = {
       "first_name": this.user.mentee_first_name,
       "last_name": this.user.mentee_last_name,
