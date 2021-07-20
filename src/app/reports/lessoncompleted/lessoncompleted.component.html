@@ -1,0 +1,67 @@
+<div class='container report-container'>
+    <div class="card-body h-100">
+        <div class='row'>
+            <div class='col-md-12 p-0 mt-3'>
+                <h4 id='report_chart_msg' class='col-md-6'> Lesson Completion Report </h4>
+                <div class='form-group col-md-3 float-right'>
+                    <label for='download_excel' class='w-100'> &nbsp; </label>
+                    <img src='../../../assets/img/pdf.png' class='action-active-icons float-right' (click)="generatePDF()" />
+                    <img src='../../../assets/img/print.png' class='action-active-icons float-right' (click)="printPageArea()" />
+                    <img src='../../../assets/img/excel.png' class='action-active-icons float-right' (click)="exportData()" />
+                </div>                   
+            </div>
+        </div>
+        <div class='row' *ngIf='originalfilter.length == 0'>
+            <div class='col-md-12 p-0'>
+                <h3 class='chart_msg'>No Data to be displayed</h3>
+            </div>
+        </div>
+        <div class='row' *ngIf='originalfilter.length > 0' id='printable_box'>
+            <table class='table-bordered table' id="mentee-excel-table">
+                <thead>
+                    <tr>
+                        <th>Class Name</th> 
+                        <th>Lesson Name</th>  
+                        <th>Mentor Name</th> 
+                        <th>Mentee Name</th>
+                        <th>Lesson Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class='excel-hide'> 
+                        <td>
+                            <input type='text' class='form-control filter-fld' id='Class_Name' [(ngModel)]='filter.Class_Name' (keyup)="filterList($event,'Class_Name')" placeholder='Class Name' />
+                        </td>
+                        <td>
+                            <input type='text' id='Lesson_name' class='form-control filter-fld' [(ngModel)]='filter.Lesson_name' (keyup)="filterList($event,'Lesson_name')" placeholder='Lesson Name' />
+                        </td>
+                        <td>
+                            <input type='text' id='Mentor_Name' class='form-control filter-fld' [(ngModel)]='filter.Mentor_Name' placeholder='Mentor Name' (keyup)="filterList($event,'Mentor_Name')" />
+                        </td> 
+                        <td>
+                            <input type='text' id='Mentee_Name' class='form-control filter-fld' [(ngModel)]='filter.Mentee_Name' placeholder='Mentee Name' (keyup)="filterList($event,'Mentee_Name')" />
+                        </td>
+                        <td> </td>
+                    </tr>
+
+                    <tr class='excel-hide' *ngIf='menteelist.length == 0 && originalfilter.length > 0'>
+                        <td colspan='5'>
+                            <h3 class='chart_msg'>No Matches Found</h3>
+                        </td>
+                    </tr>
+
+                    <tr *ngFor="let list of menteelist"> 
+                        <td>{{ list.Class_Name }}</td>
+                        <td>{{ list.Lesson_name }}</td>
+                        <td>{{ list.Mentor_Name }}</td> 
+                        <td>{{ list.Mentee_Name }}</td>
+                        <td>
+                            <span class='label label-success' *ngIf='list.lesson_status == "Y"'> Enable </span>
+                            <span class='label label-danger' *ngIf='list.lesson_status == "N"'> Disable </span>
+                        </td>
+                    </tr> 
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

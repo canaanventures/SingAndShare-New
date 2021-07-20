@@ -78,6 +78,7 @@
                                                     <td [ngClass] = "evntlist.status == 'Enable' ? 'icon-success' : 'icon-danger'">
                                                         <div class='action-img-div'>
                                                             <img src='assets/img/gallery.png' class='action-img' (click)='openGallery(evntlist.event_id);' />
+                                                            <span [ngClass]="(evntlist.count_img > 0) ? 'badge  badge-success' : 'badge badge-secondary'">{{evntlist.count_img}}</span>
                                                         </div>
                                                         <div class='action-img-div'>
                                                             <img src='assets/img/delete.png' class='action-img' (click)='deleteGallery(evntlist.event_id);' />

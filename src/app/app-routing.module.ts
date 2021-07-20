@@ -34,9 +34,11 @@ import { NewMentorsComponent } from './reports/new-mentors/new-mentors.component
 import { LmsreportComponent } from './reports/lmsreport/lmsreport.component';
 import { TopicreportComponent } from './reports/topicreport/topicreport.component';
 import { EventreportComponent } from './reports/eventreport/eventreport.component';
+import { LessoncompletedComponent } from './reports/lessoncompleted/lessoncompleted.component';
 import { MentorNonActiveReportComponent } from './reports/mentor-non-active-report/mentor-non-active-report.component';
 import { MenteeNonActiveReportComponent } from './reports/mentee-non-active-report/mentee-non-active-report.component';
 import { OrganizationalReportComponent } from './reports/organizational-report/organizational-report.component';
+import { OrganizationalTreeComponent } from './reports/organizational-tree/organizational-tree.component';
 
 const routes: Routes = [
   { path: "", redirectTo: "home", pathMatch: "full"  },
@@ -76,7 +78,9 @@ const routes: Routes = [
   { path: "report/lms", component: LmsreportComponent },
   { path: "report/events", component: EventreportComponent},
   { path: "report/attendance-avg", component: AvgAttendanceComponent },
-  { path:"report/organization", component: OrganizationalReportComponent }
+  { path:"report/organization", component: OrganizationalTreeComponent },
+  { path:"report/organization-tree", component: OrganizationalTreeComponent },
+  { path:"report/lesson-completed", component:LessoncompletedComponent }
 ];
 
 @NgModule({
