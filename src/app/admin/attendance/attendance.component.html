@@ -35,14 +35,17 @@
                                 <div class='col-md-12'>
                                     <div class='form-group'>
                                         <label for='total_members'>Topic Name</label>
-                                        <input type='text' class='form-control' placeholder='Name of the Topic'
+                                        <input type='text' class='form-control' placeholder='Name of the Topic'  pattern="[a-zA-Z0-9]+(?:\s+[a-zA-Z]+)*$" 
                                             id='topic_name' name='topic_name' [(ngModel)]='attendancedetails.topic_name'
                                             #topic_name='ngModel'
                                             [ngClass]="{'invalid-data': topic_name.invalid && f.submitted, 'valid-data': topic_name.valid && f.submitted}"
                                             required />
-                                        <div class="error_msg" *ngIf="f.submitted && topic_name.invalid">
+                                        <div class="error_msg" *ngIf="topic_name.errors && (topic_name.dirty || topic_name.touched || f.submitted)">
                                             <div *ngIf="topic_name.errors.required">
                                                 <small class="error_text">Topic Name is required</small>
+                                            </div>
+                                            <div *ngIf="topic_name.errors.pattern">
+                                                <small class="error_text">Topic Name is invalid</small>
                                             </div>
                                         </div>
                                     </div>
@@ -50,14 +53,17 @@
                                 <div class='col-md-12'>
                                     <div class='form-group'>
                                         <label for='total_members'>Speaker Name</label>
-                                        <input type='text' class='form-control' placeholder='Name of the Speaker'
+                                        <input type='text' class='form-control' placeholder='Name of the Speaker' pattern="[a-zA-Z0-9]+(?:\s+[a-zA-Z]+)*$" 
                                             id='speaker_name' name='speaker_name'
                                             [(ngModel)]='attendancedetails.speaker_name' #speaker_name='ngModel'
                                             [ngClass]="{'invalid-data': speaker_name.invalid && f.submitted, 'valid-data': speaker_name.valid && f.submitted}"
                                             required />
-                                        <div class="error_msg" *ngIf="f.submitted && speaker_name.invalid">
+                                        <div class="error_msg" *ngIf="speaker_name.errors && (speaker_name.dirty || speaker_name.touched || f.submitted)">
                                             <div *ngIf="speaker_name.errors.required">
                                                 <small class="error_text">Speaker Name is required</small>
+                                            </div>
+                                            <div *ngIf="speaker_name.errors.pattern">
+                                                <small class="error_text">Speaker Name is invalid</small>
                                             </div>
                                         </div>
                                     </div>

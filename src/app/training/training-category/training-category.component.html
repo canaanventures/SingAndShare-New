@@ -18,10 +18,13 @@
                                 <div class='col-md-12'>
                                     <div class='form-group'>
                                         <label for='category_name'>Category Name<span style="color: red;">*</span></label>
-                                        <input type='text' class='form-control' placeholder='Enter Category Name' id='category_name' name="category_name" [(ngModel)]='category.category_name' #category_name='ngModel' [ngClass]="{'invalid-data': category_name.invalid && f.submitted, 'valid-data': category_name.valid && f.submitted}" required/>
-                                        <div class="error_msg" *ngIf="f.submitted && category_name.invalid">
+                                        <input type='text' class='form-control' placeholder='Enter Category Name' id='category_name' name="category_name" [(ngModel)]='category.category_name' pattern="[a-zA-Z0-9]+(?:\s+[a-zA-Z]+)*$"  #category_name='ngModel' [ngClass]="{'invalid-data': category_name.invalid && f.submitted, 'valid-data': category_name.valid && f.submitted}" required/>
+                                        <div class="error_msg" *ngIf="category_name.errors && (category_name.dirty || category_name.touched || f.submitted)">
                                             <div *ngIf="category_name.errors.required">
                                                 <small class="error_text"> Category Name is required</small>
+                                            </div>
+                                            <div *ngIf="category_name.errors.pattern">
+                                                <small class="error_text"> Category Name is invalid</small>
                                             </div>
                                         </div>
                                     </div>

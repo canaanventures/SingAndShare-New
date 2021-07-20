@@ -94,11 +94,14 @@
                         <img [src]='imageToShow' class='col-md-4'  *ngIf='edit' />
                         <div class="form-group col-md-4">
                             <label for="title">Title<span style="color: red;">*</span></label>
-                            <input type="text" name='title' class="form-control" id='title' value="" placeholder='Enter the title of the blog' [(ngModel)]='editblog.title'  #title='ngModel'  [ngClass]="{'invalid-data': title.invalid && f.submitted, 'valid-data': title.valid && f.submitted}"  required />
+                            <input type="text" name='title' class="form-control" id='title' value="" placeholder='Enter the title of the blog' pattern="[a-zA-Z0-9]+(?:\s+[a-zA-Z]+)*$"  [(ngModel)]='editblog.title'  #title='ngModel'  [ngClass]="{'invalid-data': title.invalid && f.submitted, 'valid-data': title.valid && f.submitted}"  required />
                             <div class="error_msg"
-                            *ngIf="f.submitted && title.invalid">
+                            *ngIf="title.errors && (title.dirty || title.touched || f.submitted)">
                                 <div *ngIf="title.errors.required">
                                     <small class="error_text" >Blog Title is required</small> 
+                                </div>
+                                <div *ngIf="title.errors.pattern">
+                                    <small class="error_text" >Blog Title is invalid</small> 
                                 </div>
                             </div>
                         </div>
@@ -179,10 +182,13 @@
                         <div class='col-md-12'>
                             <div class='form-group'>
                                 <label for='blog_category_name'>Blog Category Name</label>
-                                <input type='text' id='blog_category_name' class='form-control' placeholder='Add Blog Category Name' [(ngModel)]='addcat.category_name' name="category_name" #category_name='ngModel' [ngClass]="{'invalid-data': category_name.invalid && g.submitted, 'valid-data': category_name.valid && g.submitted}" required />
-                                <div class="error_msg" *ngIf="g.submitted && category_name.invalid">
+                                <input type='text' id='blog_category_name' class='form-control' placeholder='Add Blog Category Name' [(ngModel)]='addcat.category_name' name="category_name" pattern="[a-zA-Z0-9]+(?:\s+[a-zA-Z]+)*$"  #category_name='ngModel' [ngClass]="{'invalid-data': category_name.invalid && g.submitted, 'valid-data': category_name.valid && g.submitted}" required />
+                                <div class="error_msg" *ngIf="category_name.errors && (category_name.dirty || category_name.touched || g.submitted)">
                                     <div *ngIf="category_name.errors.required">
                                         <small class="error_text" >Blog Category Name is required</small> 
+                                    </div>
+                                    <div *ngIf="category_name.errors.pattern">
+                                        <small class="error_text" >Blog Category Name is invalid</small> 
                                     </div>
                                 </div>
                             </div>
