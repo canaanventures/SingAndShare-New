@@ -73,6 +73,8 @@ import { CustomValidatorDirective } from './shared/app.validator';
 
 import { AvgAttendanceComponent } from './reports/avg-attendance/avg-attendance.component';
 import { OrganizationalReportComponent } from './reports/organizational-report/organizational-report.component';
+import { LessoncompletedComponent } from './reports/lessoncompleted/lessoncompleted.component';
+import { OrganizationalTreeComponent } from './reports/organizational-tree/organizational-tree.component';
 
 FullCalendarModule.registerPlugins([ // register FullCalendar plugins
   dayGridPlugin,
@@ -125,7 +127,9 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     MenteeNonActiveReportComponent,
     CustomValidatorDirective,
     AvgAttendanceComponent,
-    OrganizationalReportComponent
+    OrganizationalReportComponent,
+    LessoncompletedComponent,
+    OrganizationalTreeComponent
   ],
   imports: [
     BrowserModule,

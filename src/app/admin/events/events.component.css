@@ -10,3 +10,5 @@
 #galleryModal{overflow-y:auto;}
 #preview_gallery_img{padding-right:0;}
 .icon-danger .action-img-div img{opacity:0.5;pointer-events: none;}
+.badge{font-size: 9px;padding: 2px 4px;}
+.badge-success{background-color: #5cb85c;}

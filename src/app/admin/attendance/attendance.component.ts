@@ -34,8 +34,6 @@ export class AttendanceComponent implements OnInit {
     this.getMentorEmail();
   }
 
-  
-
   fetchSRSlist() {
     this.restApi.getMethod('getBranches/all').subscribe((resp:any) => {
       this.srslist = resp.data;

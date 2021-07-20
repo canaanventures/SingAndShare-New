@@ -3,6 +3,7 @@ import { ApiService } from 'src/app/shared/app.service';
 import jwt_decode from "jwt-decode";
 import {CdkDragDrop, moveItemInArray, transferArrayItem} from '@angular/cdk/drag-drop';
 import { NgForm } from '@angular/forms';
+import { AcroFormPushButton } from 'jspdf';
 
 @Component({
   selector: 'app-training-class',
@@ -25,6 +26,7 @@ export class TrainingClassComponent implements OnInit {
   @Input() class = {cat_id:'',class_type:'',class_name:'',start_date:'',end_date:'',connection_link:'',created_by:'',description:'',modified_by:'',course_id:'',instructor_id:'',row_id:'',class_status:''}
   @Input() menteedtls = {vals:[],class_id:''}
   @Input() updatelessonstatus = {class_id:'',lesson_id:'',instructor_id:'',lesson_status:''};
+  @Input() uplssstatus = {dtls:[]}
   @Input() code = {course_name:'',class_start_date_mon_yr:''}
 
   constructor(public restApi: ApiService) { }
@@ -294,14 +296,32 @@ export class TrainingClassComponent implements OnInit {
     this.morerow.push(this.cnt);
   }
 
-  updateLessonStatus(lesson_id,class_id){
-    this.updatelessonstatus.class_id = class_id; 
-    this.updatelessonstatus.lesson_id = lesson_id;
-    this.updatelessonstatus.instructor_id = this.tk.user_id;
-    this.updatelessonstatus.lesson_status = 'Y';
-    this.restApi.postMethod('updateLessonStatus',this.updatelessonstatus).subscribe((data:any) => {
-      this.fetchLmsClassLesson(class_id,'update',lesson_id);
-      alert(data.message);
+  updateLessonStatus(lesson_id,class_id){  
+    this.restApi.getMethod('getMenteeIDForClass/'+class_id).subscribe((resp:any) => {
+      if(resp.data.length > 0){
+        let b = [];
+        var a = new Date(), month = (a.getMonth()+1), mon = '', dte = a.getDate(), dt = '';
+        month < 10 ? mon = "0"+month : mon = String(month);
+        dte < 10 ? dt = "0"+dte : dt = String(dte);
+        var reqdte = a.getFullYear()+'-'+mon+'-'+dt+' '+a.getHours()+':'+a.getMinutes()+':'+a.getSeconds();       
+        for(var i=0; i<resp.data.length; i++){
+          let arr = [];
+          arr.push(Number(class_id));
+          arr.push(Number(lesson_id));
+          arr.push(this.tk.user_id);
+          arr.push('Y');
+          arr.push(resp.data[i].mentee_id);
+          arr.push(reqdte);
+          b.push(arr);
+        }
+        this.uplssstatus.dtls = b;
+        this.restApi.postMethod('updateLessonMenteeStatus',this.uplssstatus).subscribe((data:any) => {
+          this.fetchLmsClassLesson(class_id,'update',lesson_id);
+          alert(data.message);
+        })  
+      }else{
+        alert('Kindly add Mentee to this class to update the status');
+      }
     })
   }
 

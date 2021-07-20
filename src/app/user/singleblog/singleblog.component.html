@@ -13,7 +13,7 @@
                             <div class="blog_category"><a href="#">{{blog.category_name}}</a></div>
                             <div class="blog_title">{{blog.title}}</div>
                             <share-buttons 
-                                [include]="['facebook','linkedin','messenger','whatsapp','email']"
+                                [include]="['facebook','linkedin','twitter','whatsapp','email']"
                                 [url]= fburl
                                 [image] = imageToShow 
                                 [title] = blog.title 
@@ -26,7 +26,7 @@
                         </div>
                         <div class="blog_post_footer d-flex flex-lg-row flex-column align-items-lg-center align-items-start justify-content-start">
                             <div class="blog_post_author d-flex flex-row align-items-center justify-content-start">
-                                <div class="author_image"><div><img src="../../../assets/img/avatar2.png" alt="" class='w-100 h-100'></div></div>
+                                <div class="author_image"><div><img src="../../../assets/img/user.png" alt="" class='w-100 h-100'></div></div>
                                 <div class="author_info">
                                     <ul>
                                         <li><a href="#"> {{blog.user_first_name}} {{blog.user_last_name}}</a></li>
@@ -36,6 +36,33 @@
                             </div>
                         </div>
                     </div>
+                </div>
+            </div>
+
+            <div class="row comments" *ngIf='comment.length > 0'>
+                <div class="col-lg-12 offset-lg-3">
+                    <div class="comments_title mb-4">Comments <span>( {{comment.length}} )</span></div>
+                    <div class="comments_container">
+                        <ul class="comments_list">
+                            <li class="comment" *ngFor='let list of comment'>
+                                <div class="comment_content">
+                                    <div class="comment_title_container d-flex flex-row align-items-center justify-content-start">
+                                        <div class="comment_image"><div><img src="../../../assets/img/user.png" alt=""></div></div>
+                                        <div class="comment_info">
+                                            <div class="comment_name"><a href="#">{{list.name}}</a></div>
+                                            <div class="comment_time">{{list.added_on | date:'dd/MM/yyyy'}}</div>
+                                        </div>
+                                    </div>
+                                    <div class="comment_text">
+                                        <p>{{list.blog_comment}}</p>
+                                    </div>
+                                </div>
+                            </li>                           
+                        </ul>
+                    </div>
+                    <!-- <div class="comments_more">
+                        <div class="comments_more_button"><a href="#">load more</a></div>
+                    </div> -->
                 </div>
             </div>
 
@@ -84,33 +111,6 @@
                         <!-- </div> -->
                         </form>
                     </div>
-                </div>
-            </div>
-
-            <div class="row comments" *ngIf='comment.length > 0'>
-                <div class="col-lg-12 offset-lg-3">
-                    <div class="comments_title mb-4">Comments <span>( {{comment.length}} )</span></div>
-                    <div class="comments_container">
-                        <ul class="comments_list">
-                            <li class="comment" *ngFor='let list of comment'>
-                                <div class="comment_content">
-                                    <div class="comment_title_container d-flex flex-row align-items-center justify-content-start">
-                                        <div class="comment_image"><div><img src="../../../assets/img/avatar2.png" alt=""></div></div>
-                                        <div class="comment_info">
-                                            <div class="comment_name"><a href="#">{{list.name}}</a></div>
-                                            <div class="comment_time">{{list.added_on | date:'dd/MM/yyyy'}}</div>
-                                        </div>
-                                    </div>
-                                    <div class="comment_text">
-                                        <p>{{list.blog_comment}}</p>
-                                    </div>
-                                </div>
-                            </li>                           
-                        </ul>
-                    </div>
-                    <!-- <div class="comments_more">
-                        <div class="comments_more_button"><a href="#">load more</a></div>
-                    </div> -->
                 </div>
             </div>
         </div>

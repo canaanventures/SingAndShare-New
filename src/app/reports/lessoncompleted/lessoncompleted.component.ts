@@ -4,34 +4,24 @@ import {jsPDF} from 'jspdf';
 import html2canvas from 'html2canvas';
 
 @Component({
-  selector: 'app-eventreport',
-  templateUrl: './eventreport.component.html',
-  styleUrls: ['./eventreport.component.css']
+  selector: 'app-lessoncompleted',
+  templateUrl: './lessoncompleted.component.html',
+  styleUrls: ['./lessoncompleted.component.css']
 })
-export class EventreportComponent implements OnInit {
-  title:any; 
-  type:'ComboChart'; 
-  data:any=[];
-  options:any={}; 
-  width:any; membertype = 'member';
-  height:any; lmsdisplay = false;
-  tk:any={}; graphresp:any=[];
-  attendancelist:any=[]; tofilter:any=[]; originalfilter:any=[]; srslist:any=[];
+export class LessoncompletedComponent implements OnInit {
+  menteelist:any=[]; tofilter:any=[]; originalfilter:any=[];
 
-  monthArr = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
-
-  @Input() filter = {event_name:'',venue_name:'',EventType:''}
-  @Input() filterdate = {from_date:'',to_date:''}
+  @Input() filter = {mentee_name:'',user_contact_number:'',user_email_id:'',user_address:'',user_city:'',user_state:'',srs_name:'',mentor_name:'',status:'',from_date:'',to_date:''}
 
   constructor(public restApi: ApiService) { }
 
   ngOnInit(): void {
-    this.getEventlist();
+    this.getMenteeList();
   }
 
-  getEventlist(){
-    this.restApi.getMethod('getEventMemberReportList').subscribe((resp:any) => {
-      this.attendancelist = resp.data;
+  getMenteeList(){
+    this.restApi.getMethod('getMenteeCompletedReport').subscribe((resp:any) => {
+      this.menteelist = resp.data;
       this.tofilter = resp.data;
       this.originalfilter = resp.data;
     })
@@ -39,7 +29,7 @@ export class EventreportComponent implements OnInit {
 
   filterList(event,type){
     var result;
-    if((event.keyCode == 8 || event.keyCode == 46) || (type == 'srs_id')){
+    if(event.keyCode == 8 || event.keyCode == 46 || (type == 'status')){
       var el = Array.from(document.getElementsByClassName('filter-fld') as HTMLCollectionOf<HTMLElement>);
       let cnt = 0;
       for(var j=0; j<el.length ; j++){  
@@ -54,14 +44,14 @@ export class EventreportComponent implements OnInit {
       }      
     }else{
       result = this.tofilter.filter(function(item){
-        if(String(item[type]).toLowerCase().indexOf(String(event.target.value).toLowerCase()) > -1){
+        if(item[type].toLowerCase().indexOf(event.target.value.toLowerCase()) > -1){
           return item;
         }
       })
     }
   
     this.tofilter = result;
-    this.attendancelist = result;
+    this.menteelist = result;
   }
 
   valFilter(){
@@ -72,7 +62,7 @@ export class EventreportComponent implements OnInit {
     for(var j=0; j<el.length ; j++){     
       if((el[j] as HTMLInputElement).value != ''){
         for(var i=0; i<arr.length; i++){
-          if(String(arr[i][el[j].id]).toLowerCase().indexOf(String((el[j] as HTMLInputElement).value).toLowerCase()) > -1){
+          if(arr[i][el[j].id].toLowerCase().indexOf((el[j] as HTMLInputElement).value.toLowerCase()) > -1){
             list.push(arr[i]);
           }
         }
@@ -82,16 +72,17 @@ export class EventreportComponent implements OnInit {
   }
 
   exportData() {
-    var table = document.getElementById("pcs-excel-table") as HTMLTableElement;
-    var rows =[]; var column1, column2, column3, column4;
+    var table = document.getElementById("mentee-excel-table") as HTMLTableElement;
+    var rows =[]; var column1, column2, column3, column4, column5;
     for(var i=0,row; row = table.rows[i];i++){
       if(!table.rows[i].classList.contains('excel-hide')){
         column1 = row.cells[0].innerText;
         column2 = row.cells[1].innerText;
         column3 = row.cells[2].innerText;
         column4 = row.cells[3].innerText;
-        rows.push([column1,column2,column3,column4]);
-      }
+        column5 = row.cells[4].innerText;
+        rows.push([column1, column2, column3, column4, column5]);
+      }    
     }
     var csvContent = "data:text/csv;charset=utf-8,";
     rows.forEach(function(rowArray){
@@ -101,28 +92,31 @@ export class EventreportComponent implements OnInit {
     var encodedUri = encodeURI(csvContent);
     var link = document.createElement("a");
     link.setAttribute("href", encodedUri);
-    link.setAttribute("download", "event-report.csv");
+    link.setAttribute("download", "lesson-completed-report.csv");
     document.body.appendChild(link);
     link.click();
   }
 
   filterDate(){
-    this.restApi.postMethod('getEventReportListByDate',this.filterdate).subscribe((resp:any) => {
-      this.attendancelist = resp.data;
-      this.tofilter = resp.data;
-      this.originalfilter = resp.data;
+    let arr = this.originalfilter; let f_date = this.filter.from_date; let t_date = this.filter.to_date;
+    let result = arr.filter(function(item){
+      if(new Date(f_date) <= new Date(item.modified_on) && new Date(t_date) >= new Date(item.modified_on)){
+        return item;
+      }
     })
+    this.menteelist = result;
+    this.tofilter = result;
   }
 
   fromDateChange(){
-    (<HTMLInputElement>document.getElementById("to_date")).min = this.filterdate.from_date;
-    this.filterdate.to_date = this.filterdate.from_date;
+    (<HTMLInputElement>document.getElementById("to_date")).min = this.filter.from_date;
+    this.filter.to_date = this.filter.from_date;
   }
 
   reset(){
-    this.filter = {event_name:'',venue_name:'',EventType:''}
-    this.filterdate = {from_date:'',to_date:''}
-    this.getEventlist();
+    this.menteelist = this.originalfilter;
+    this.tofilter = this.originalfilter;
+    this.filter = {mentee_name:'',user_contact_number:'',user_email_id:'',user_address:'',user_city:'',user_state:'',srs_name:'',mentor_name:'',status:'',from_date:'',to_date:''}
   }
 
   printPageArea(){
@@ -132,7 +126,6 @@ export class EventreportComponent implements OnInit {
   generatePDF() {
     var data = document.getElementById('printable_box');
     html2canvas(data).then(canvas => {
-      debugger;
       var imgWidth = 208;
       var pageHeight = 295;
       var imgHeight = canvas.height * imgWidth / canvas.width;
@@ -149,17 +142,7 @@ export class EventreportComponent implements OnInit {
         pdf.addImage(contentDataURL, 'PNG', 0, position, imgWidth, imgHeight);
         heightLeft -= pageHeight;
       }
-      pdf.save('events-report.pdf');
+      pdf.save('lesson-completed-report.pdf');
     });
-  }
-
-  membersType(event){
-    let url;
-    (event.target.value == 'member') ? url = 'getEventMemberReportList' : url = 'getEventAllUsersReportList';
-    this.restApi.getMethod(url).subscribe((resp:any) => {
-      this.attendancelist = resp.data;
-      this.tofilter = resp.data;
-      this.originalfilter = resp.data;
-    })
   }
 }

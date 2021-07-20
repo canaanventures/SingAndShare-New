@@ -17,7 +17,7 @@ export class AddblogComponent implements OnInit {
   htmlContent:any = String;
   bloglist:any = []; blogCatlist:any = [];
   displayBlog='none'; categorydisplay='none';
-  edit_id = '';
+  edit_id = ''; reqblogid;
   blogtype = 'add';
   public form : any;
   public formelem : any;
@@ -173,6 +173,7 @@ export class AddblogComponent implements OnInit {
     this.displayBlog='block';
     this.edit = false;
     document.getElementsByTagName('body')[0].classList.add('modal-open');
+    document.getElementsByTagName('html')[0].classList.add('modal-open');
     this.blogtype = 'add';
     this.blog.description = '';
     (<HTMLInputElement>document.getElementById('title')).value = '';
@@ -183,12 +184,14 @@ export class AddblogComponent implements OnInit {
     this.displayBlog='none';
     this.categorydisplay='none';
     document.getElementsByTagName('body')[0].classList.remove('modal-open');
+    document.getElementsByTagName('html')[0].classList.remove('modal-open');
     this.edit_id = '';
   }
 
   closeCommentModal(){
     this.commentdisplay='none';
     document.getElementsByTagName('body')[0].classList.remove('modal-open');
+    document.getElementsByTagName('html')[0].classList.remove('modal-open');
   }
 
   editBlog(id){
@@ -214,6 +217,7 @@ export class AddblogComponent implements OnInit {
           this.createImageFromBlob(resp);
           this.displayBlog='block';
           document.getElementsByTagName('body')[0].classList.add('edit-modal-open');
+          document.getElementsByTagName('html')[0].classList.add('edit-modal-open');
         }
       });
     });
@@ -256,6 +260,7 @@ export class AddblogComponent implements OnInit {
       //this.closeBlogModal(f);
       this.changePagination(this.paginatecnt);
       document.getElementsByTagName('body')[0].classList.remove('edit-modal-open');
+      document.getElementsByTagName('html')[0].classList.remove('edit-modal-open');
       this.images = '';
     })
   }
@@ -263,6 +268,7 @@ export class AddblogComponent implements OnInit {
   openCatModal(){
     this.categorydisplay='block';
     document.getElementsByTagName('body')[0].classList.add('modal-open');
+    document.getElementsByTagName('html')[0].classList.add('modal-open');
   }
 
   getBlogCat(){
@@ -284,10 +290,12 @@ export class AddblogComponent implements OnInit {
 
   commentModal(id,type){
     this.restApi.getMethod('getComments/disapprove/'+id).subscribe((resp:any) => {
+      this.reqblogid = id;
       this.commentlist = resp.data;
       if(!type){
         this.commentdisplay = 'block';
         document.getElementsByTagName('body')[0].classList.add('modal-open');
+        document.getElementsByTagName('html')[0].classList.add('modal-open');
       }
     });
   }
@@ -297,7 +305,7 @@ export class AddblogComponent implements OnInit {
     this.updatecomm.approval_status = type;
     this.updatecomm.comment_id = id;
     this.restApi.postMethod('commentStatusChange',this.updatecomm).subscribe((resp:any) => {
-      this.commentModal(id,'update');
+      this.commentModal(this.reqblogid,'update');
     })
   }
 
