@@ -75,6 +75,7 @@ import { AvgAttendanceComponent } from './reports/avg-attendance/avg-attendance.
 import { OrganizationalReportComponent } from './reports/organizational-report/organizational-report.component';
 import { LessoncompletedComponent } from './reports/lessoncompleted/lessoncompleted.component';
 import { OrganizationalTreeComponent } from './reports/organizational-tree/organizational-tree.component';
+import { CKEditorModule } from 'ng2-ckeditor';
 
 FullCalendarModule.registerPlugins([ // register FullCalendar plugins
   dayGridPlugin,
@@ -157,7 +158,8 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     SwiperModule,
     ScrollingModule,
     OrgchartModule,
-    QuillModule.forRoot()
+    QuillModule.forRoot(), 
+    CKEditorModule
   ],
   providers: [
     ApiService

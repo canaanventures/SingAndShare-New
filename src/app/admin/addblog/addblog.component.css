@@ -21,3 +21,5 @@
 .angular-editor-toolbar{font-size:14px!important;padding:.2rem;}
 .angular-editor-toolbar button{margin:10px!important;padding:5px;border-radius:5px;}
 #addPostModal .modal-lg{max-width: 90%;width: 90%;}
+
+.view-blog{height:674px; overflow-y: auto; overflow-x: hidden}

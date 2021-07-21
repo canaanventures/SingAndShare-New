@@ -131,7 +131,9 @@
                         </div>
                         <div class="form-group col-md-12">
                             <label for="description">Blog<span style="color: red;">*</span></label>
-                            <angular-editor id='description' name='blog_description' [config]="editorConfig" [(ngModel)]="editblog.description" #description="ngModel" [ngClass]="{'invalid-data': description.invalid && f.submitted, 'valid-data': description.valid && f.submitted}"  required  ></angular-editor>
+                            <!-- <angular-editor id='description' name='blog_description' [config]="editorConfig" [(ngModel)]="editblog.description" #description="ngModel" [ngClass]="{'invalid-data': description.invalid && f.submitted, 'valid-data': description.valid && f.submitted}"  required  ></angular-editor> -->
+                            
+                            <ckeditor id='description' name='blog_description' [config]="config" [(ngModel)]="editblog.description" #description="ngModel" [ngClass]="{'invalid-data': description.invalid && f.submitted, 'valid-data': description.valid && f.submitted}"  required  debounce="500"></ckeditor>
                             <!-- <quill-editor  [style]="{height:'200px'}"
                             placeholder="Enter Text"
                             [modules]="quillConfig"
@@ -241,7 +243,7 @@
 
 <div class="modal" id="viewBlogModal" [ngStyle]="{'display':viewBlogModal}">
     <div class="modal-dialog modal-lg">
-        <div class="modal-content">
+        <div class="modal-content view-blog">
             <div class="modal-header bg-primary text-white">
                 <h5 class="modal-title">View Blog</h5>
                 <button class="close" data-dismiss="modal"(click)='closeViewModal();'> <span>&times;</span> </button>
