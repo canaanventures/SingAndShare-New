@@ -162,6 +162,34 @@
                                             </div>
                                             <div class="row">
                                                 <div class="form-group col-lg-6">
+                                                    <input type="text" name="state" class="form-control" id="state"
+                                                        placeholder="Your state" data-rule="minlen:4"
+                                                        data-msg="Please enter at least 4 chars" ngModel #state="ngModel"
+                                                        [ngClass]="{'invalid-data': state.invalid && f.submitted, 'valid-data': state.valid && f.submitted}"
+                                                        required />
+                                                    <!-- <div class="error_msg" *ngIf="state.invalid && f.submitted"> -->
+                                                        <div class="error_msg" *ngIf="state.errors && (state.dirty || state.touched || f.submitted)">
+                                                            <div *ngIf="state.errors.required">
+                                                                <small class="error_text">State is required</small>
+                                                            </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group col-lg-6">
+                                                    <input type="text" name="city" class="form-control" id="city"
+                                                        placeholder="Your city" data-rule="minlen:4"
+                                                        data-msg="Please enter at least 4 chars" ngModel #city="ngModel"
+                                                        [ngClass]="{'invalid-data': city.invalid && f.submitted, 'valid-data': city.valid && f.submitted}"
+                                                        required />
+                                                    <!-- <div class="error_msg" *ngIf="city.invalid && f.submitted"> -->
+                                                        <div class="error_msg" *ngIf="city.errors && (city.dirty || city.touched || f.submitted)">
+                                                            <div *ngIf="city.errors.required">
+                                                                <small class="error_text">City is required</small>
+                                                            </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="form-group col-lg-6">
                                                     <select class="form-control" name="subject" ngModel
                                                         #subject="ngModel"
                                                         [ngClass]="{'invalid-data': subject.invalid && f.submitted, 'valid-data': subject.valid && f.submitted}"

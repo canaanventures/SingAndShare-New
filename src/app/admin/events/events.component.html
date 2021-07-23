@@ -290,7 +290,7 @@
         <div class="modal-content">
             <div class="modal-body">
                 <form id='blog_form' name='addBlogForm'>
-                    <h5 class='mb-3 card-header'> Add Event Gallery Image <span class='close modal-close' (click)='closegalModal()' data-dismiss="modal">&times;</span> </h5>
+                    <h5 class='mb-3 card-header'> Add Event Gallery Image <span class='close modal-close' (click)='closegalModal(h)' data-dismiss="modal">&times;</span> </h5>
                     <div class='px-4'>
                         <form  role="form" #h="ngForm" (ngSubmit)="h.form.valid && addGallery(h) ">
                             <div class='col-md-12'>
@@ -307,10 +307,19 @@
                             <div id='dummymainelem'></div>
                             <div class='col-md-12' id='preview_main_img'> </div>
                             <div class='col-md-12 mt-3'>
-                                <div class='form-group'>
+                                 <div class='form-group'>
                                     <label for='event_gallery_img'>Event Gallery Image<span style="color: red;">*</span></label>
-                                    <input type='file' multiple id='event_gallery_img' class='form-control' (change)='handleFileSelect($event)' name='multiple_images' ngModel #multiple_images='ngModel' [ngClass]="{'invalid-data': multiple_images.invalid && h.submitted, 'valid-data': multiple_images.valid && h.submitted}" required />
+                                    <input type='file' multiple id='event_gallery_img' class='form-control' (change)="onSelectFile($event,h)" name='multiple_images' [(ngModel)]='eventtype.multiple_images' #multiple_images='ngModel' [ngClass]="{'invalid-data': multiple_images.invalid && h.submitted, 'valid-data': multiple_images.valid && h.submitted}" required />
+                                   
+                                    <div class="img_prv" *ngFor='let url of imageurls; let i = index'>
+                                       
+                                        <img  [src]="url.base64String" id='event_gallery_img_prv' height="200" width="200px" style="margin: 3px;" > 
+                                        <a (click)="removeImage(i)" class="btn btn-xs btn-danger"> <span>&times;</span></a>
+                                        
+                                    </div>
+                                   <br/>
                                     <div class="error_msg" *ngIf="multiple_images.invalid && h.submitted">
+                                       
                                         <small class="error_text" >Event Gallery Image is required</small> 
                                     </div>
                                 </div>

@@ -24,7 +24,7 @@ export class EventsComponent implements OnInit {
   tk:any = {}; storedFiles:any = []; images:any=[]; galleryid; mainimages; eventimages;
 
   @Input() registeruser = {contact_sal:'',contact_first_name:'', contact_last_name:'', contact_email_id:'', contact_number:'',contact_state:'',contact_city:'',contact_address:'',contact_referrer:'',event_id:''};
-  @Input() eventtype = {event_type:'',created_by_user_id:''}
+  @Input() eventtype = {event_type:'',multiple_images:'',created_by_user_id:''}
   @Input() addevent = {event_id:'',event_name:'',event_start_date:'', event_end_date:'', cost_per_person:'', venue_name:'',description:'',event_type_id:'',created_by_user_id:'',modified_user_id:'',imgurl:'',status:'',connection_link:''}; // ,event_status_id:''
 
   constructor(public restApi: ApiService) { }
@@ -262,6 +262,42 @@ export class EventsComponent implements OnInit {
     this.gallerydisplay = 'block';
     this.galleryid = id;
   }
+ 
+  imageurls =[];
+  base64String: string;
+  name: string;
+  imagePath: string;
+ 
+  // removeImageEdit(i, imagepath) {
+  //   this.imageDeleteFrom.value.id = i;
+  //   this.imageDeleteFrom.value.ImagePath = imagepath;
+  // }
+
+  removeImage(i) {
+    this.imageurls.splice(i, 1);
+    this.images.splice(i, 1);
+    console.log(this.images)
+   // (<HTMLInputElement>document.getElementById('event_gallery_img')).value= "";
+   
+  }
+  onSelectFile(event,h:NgForm) {
+    if (event.target.files && event.target.files[0]) {
+      var filesAmount = event.target.files;
+      for (let i = 0; i < filesAmount.length; i++) {
+        this.images.push(filesAmount[i]);
+        var reader = new FileReader();
+        reader.onload = (event: any) => {
+         this.imageurls.push({ base64String: event.target.result, });
+        // this.eventtype.multiple_images = this.images
+        // console.log(h.controls.multiple_images.value)
+       
+        }
+        reader.readAsDataURL(event.target.files[i]);
+      }
+    }
+  }
+
+
 
   handleFileSelect(e){
     if(e.target.files.length > 0){
@@ -273,7 +309,7 @@ export class EventsComponent implements OnInit {
         var reader = new FileReader();
         var node = document.getElementById('preview_gallery_img');
         reader.onload = function(e) {
-          html = "<div class='preview-img-div' style='width:150px;height:150px;margin:10px 0;position:relative;'><img src=\"" + e.target.result + "\" data-file='" + f.name + "' class='selFile w-100 h-100' title='Click to remove'> </div>"; 
+          html = "<div class='preview-img-div' style='width:150px;height:150px;margin:10px 0;position:relative;'><img src=\"" + e.target.result + "\" data-file='" + f.name + "' class='selFile w-100 h-100' title='Click to remove'></div>"; 
           var txt3 = document.getElementById("dummyelem");
           txt3.innerHTML = html;
           node.appendChild(txt3.firstChild);
@@ -295,7 +331,7 @@ export class EventsComponent implements OnInit {
     //$(this).parent().remove();
   }
 
-  closegalModal(){
+  closegalModal(h:NgForm){
     this.gallerydisplay = 'none';
     document.getElementById('preview_main_img').innerHTML = '';
     document.getElementById('preview_gallery_img').innerHTML = '';
@@ -305,6 +341,7 @@ export class EventsComponent implements OnInit {
     (<HTMLInputElement>document.getElementById('event_main_img')).value = '';
     this.mainimages = '';
     this.images = [];
+    h.resetForm()
   }
 
   selectMainImage(e){
@@ -337,6 +374,7 @@ export class EventsComponent implements OnInit {
   }
 
   addGallery(h:NgForm){
+ //   debugger;
     //event.preventDefault();
     const formData = new FormData();
     for (var i = 0; i < this.images.length; i++) { 
@@ -346,7 +384,7 @@ export class EventsComponent implements OnInit {
       const formData = new FormData();
       formData.append("image", this.mainimages);
       this.restApi.postImgMethod('addGalleryMainImg/'+this.galleryid,formData).subscribe((resp:any) => {
-        this.closegalModal();
+        this.closegalModal(h);
         alert(resp.message);
       });
     })

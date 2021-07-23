@@ -142,8 +142,8 @@
                             <div class="drag-container">
                                 <div class="section-heading">Members <span id='user_cnt'>{{total}}</span></div>
                                 <div  *ngFor="let item of todo">
-                                <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" (click)="move(item)">
+                                <div class="form-check" title="{{item.user_email_id}}">
+                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" (click)="move(item)" >
                                         <label class="form-check-label" for="flexCheckDefault">
                                              {{item.user_first_name}} {{item.user_last_name}}
                                         </label>
@@ -157,8 +157,8 @@
                                 <div class="section-heading">Presentees <span id='present_cnt'>{{attendees}}</span>
                                 </div>
                                
-                                 <div  *ngFor="let item of todo_new">
-                                <div class="form-check">
+                                 <div  *ngFor="let item of todo_new" >
+                                <div class="form-check" title="{{item.user_email_id}}">
                                     <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" (click)="moveanother(item)">
                                     <label class="form-check-label" for="flexCheckDefault">
                                          {{item.user_first_name}} {{item.user_last_name}}
