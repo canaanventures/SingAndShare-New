@@ -10,7 +10,7 @@ import { state } from 'src/app/shared/app.state';
   styleUrls: ['./visitors.component.css']
 })
 export class VisitorsComponent implements OnInit {
-  @Input() visitorsdetails = {visitor_name:'', visitor_email_id:'', visitor_subject:'', visitor_contact_number:'', visitor_state:'', visitor_city:'',message:''}
+  @Input() visitorsdetails = {visitor_name:'', visitor_email_id:'', visitor_subject:'', visitor_contact_number:'', visitor_state:'', visitor_city:'',visitor_pincode:'',message:''}
 
   submitted :boolean = false;
   emailPattern = "^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$";  

@@ -2,7 +2,7 @@
     <div class="card-body h-100">
         <div class='row'>
             <div class='col-md-12 p-0 mt-3'>
-                <h4 id='report_chart_msg' class='col-md-2'> PCS Report </h4>
+                <h4 id='report_chart_msg' class='col-md-2'> No-ACTIVITY </h4>
                 <div class='form-group col-md-2'>
                     <label for='from_date'>From Date</label>
                     <input type='datetime-local' id='from_date' class='form-control' [(ngModel)]='filter.from_date' placeholder='From Date' (change)='fromDateChange();' />
@@ -58,8 +58,8 @@
                             <select id='current_status' class='form-control filter-fld' [(ngModel)]='filter.current_status' (change)="filterList($event,'current_status')">
                                 <option value=''>Select the Name</option>
                                 <option value='Praying'>Praying</option>
-                                <option value='Sharing Gospel - Accepted'>Sharing Gospel - Accepted</option>
-                                <option value='Sharing Gospel - Rejected'>Sharing Gospel - Rejected</option>
+                                <option value='Shared Gospel - Accepted'>Sharing Gospel- Accepted</option>
+                                <option value='Shared Gospel - Rejected'>Sharing Gospel - Rejected</option>
                                 <option value='Started Bible Study'>Started Bible Study</option>
                             </select>
                         </td>

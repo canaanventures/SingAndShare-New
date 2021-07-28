@@ -4,6 +4,7 @@ import { ApiService } from 'src/app/shared/app.service';
 import jwt_decode from "jwt-decode";
 import { state } from 'src/app/shared/app.state';
 import { NgForm } from '@angular/forms';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
 @Component({
   selector: 'app-profile',
@@ -18,7 +19,7 @@ export class ProfileComponent implements OnInit {
   hideconfirm: boolean = true;
 
   @Input() email = {id:''};
-  @Input() userprofile = {image_url:'',user_first_name:'', user_last_name:'', user_email_id:'', user_contact_number:'',user_address:'',user_pincode:'',user_city:'',user_state:'',role_name:'',user_id:''}
+  @Input() userprofile = {image_url:'',user_first_name:'', user_last_name:'', user_email_id:'', user_contact_number:'',user_address:'',user_pincode:'',user_city:'',user_state:'',role_name:'',user_id:'', user_gender:'',user_dateofacceptingchrist:'',user_dateofbirth:'',user_jobtitle:'',user_school:'',user_nameofchurch:'',user_iam:''}
   @Input() reset = {password:'',email_id:'',confirmpassword:''}
 
   constructor(public restApi: ApiService) { }
@@ -139,10 +140,16 @@ export class ProfileComponent implements OnInit {
 
   resetPassword(g:NgForm){
     //event.preventDefault();
+    console.log(this.reset.password,this.reset.confirmpassword)
+   if(this.reset.password == this.reset.confirmpassword){
     this.reset.email_id = this.tk.email;
     this.restApi.postMethod('resetPassword',this.reset).subscribe((resp:any) => {
       alert(resp.message);
-      this.reset.password = '';this.reset.confirmpassword = '';
+      g.resetForm()
+    //  this.reset.password = '';this.reset.confirmpassword = '';
     })
+  }else{
+    alert('Password and Confirm Password donot match.. Please try again.')
+  }
   }
 }

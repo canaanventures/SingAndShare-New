@@ -161,7 +161,7 @@
                                                 </div>
                                             </div>
                                             <div class="row">
-                                                <div class="form-group col-lg-6">
+                                                <div class="form-group col-lg-4">
                                                     <input type="text" name="state" class="form-control" id="state"
                                                         placeholder="Your state" data-rule="minlen:4"
                                                         data-msg="Please enter at least 4 chars" ngModel #state="ngModel"
@@ -174,7 +174,7 @@
                                                             </div>
                                                     </div>
                                                 </div>
-                                                <div class="form-group col-lg-6">
+                                                <div class="form-group col-lg-4">
                                                     <input type="text" name="city" class="form-control" id="city"
                                                         placeholder="Your city" data-rule="minlen:4"
                                                         data-msg="Please enter at least 4 chars" ngModel #city="ngModel"
@@ -185,6 +185,23 @@
                                                             <div *ngIf="city.errors.required">
                                                                 <small class="error_text">City is required</small>
                                                             </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group col-lg-4 mt-3 mt-lg-0">
+                                                    <input type="text" name="pincode" class="form-control" id="name"
+                                                        placeholder="Your Pincode"  pattern="[- +()0-9]+"
+                                                        data-msg="Pincode must have 6 chars" ngModel
+                                                        #pincode="ngModel"
+                                                        [ngClass]="{'invalid-data': pincode.invalid && f.submitted, 'valid-data': pincode.valid && f.submitted}"
+                                                        required />
+                                                    <div class="error_msg" *ngIf="pincode.errors && (pincode.dirty || pincode.touched || f.submitted)">
+                                                        <div *ngIf="pincode.errors.required">
+                                                            <small class="error_text">Pincode Number is required</small>
+                                                        </div>
+                                                        <div *ngIf="pincode.errors.pattern">
+                                                            <small class="error_text">Only Numbers allowed</small>
+                                                        </div>
+                                                      
                                                     </div>
                                                 </div>
                                             </div>
