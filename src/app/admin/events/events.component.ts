@@ -273,7 +273,7 @@ export class EventsComponent implements OnInit {
         var reader = new FileReader();
         var node = document.getElementById('preview_gallery_img');
         reader.onload = function(e) {
-          html = "<div class='preview-img-div' style='width:150px;height:150px;margin:10px 0;position:relative;'><img src=\"" + e.target.result + "\" data-file='" + f.name + "' class='selFile w-100 h-100' title='Click to remove'> </div>"; 
+          html = "<div class='preview-img-div' style='width:150px;height:150px;margin:10px 0;position:relative;'><img src=\"" + e.target.result + "\" data-file='" + f.name + "' class='selFile w-100 h-100' title='Click to remove'> <span class='close-gallery' style='position:absolute;top:0;right:0;z-index:1052;'>x</span> </div>";
           var txt3 = document.getElementById("dummyelem");
           txt3.innerHTML = html;
           node.appendChild(txt3.firstChild);
@@ -285,6 +285,7 @@ export class EventsComponent implements OnInit {
   // <i class='fa fa-times cancel-img' aria-hidden='true' (click)='removeFile($event)' style='position: absolute;top:-5px;right:5px;'></i>
 
   removeFile(e) {
+    debugger;
     //var file = $(this).data("file");
     for (var i = 0; i < this.storedFiles.length; i++) {
       if (this.storedFiles[i].name) { // === file
