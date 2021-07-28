@@ -7,7 +7,7 @@
         </div>       
         <h5 class='mb-3 card-header'>Mentee Register</h5>
         <div class='row px-4'>
-            <form role="form" #f="ngForm" (ngSubmit)="f.form.valid && register(f)">
+            <form role="form" #f="ngForm" (ngSubmit)="f.form.valid && register()">
                 <div class='col-md-6'>
                     <div class='form-group'>
                         <label for='mentee_reg_first_name'>First Name<span style="color: red;">*</span></label>
@@ -95,12 +95,143 @@
                     <div class='form-group'>
                         <label for='mentee_reg_contact_number'>Contact Number<span style="color: red;">*</span></label> 
                         <input type='text' placeholder='Your Contact Number' class='form-control' id='mentee_reg_contact_number' [(ngModel)]="userdetails.user_contact_number"
-                        #user_contact_number='ngModel' name="user_contact_number"
+                        #user_contact_number='ngModel' pattern="^[0-9]" name="user_contact_number"
                         [ngClass]="{'invalid-data': user_contact_number.invalid && f.submitted, 'valid-data': user_contact_number.valid && f.submitted}"
                         required />
                         <div class="error_msg" *ngIf="f.submitted && user_contact_number.invalid">
                             <div *ngIf="user_contact_number.errors.required">
                                 <small class="error_text"> Contact Number is required</small>
+                            </div>
+                            <div *ngIf="user_contact_number.errors.pattern">
+                                <small class="error_text"> Only Numbers allowed</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class='col-md-6'>
+                    <div class='form-group'>
+                        <label for='user_contact_number'>Date of Birth<span style="color: red;">*</span></label>
+                        <input type='date' class='form-control' placeholder='Date of Birth' name='user_dateofbirth' id='user_dateofbirth' [(ngModel)]="userdetails.user_dateofbirth" #user_dateofbirth='ngModel' [ngClass]="{'invalid-data': user_dateofbirth.invalid && f.submitted, 'valid-data': user_dateofbirth.valid && f.submitted}"required />
+                        <div class="error_msg" *ngIf="f.submitted && user_dateofbirth.invalid">
+                            <div *ngIf="user_dateofbirth.errors.required">
+                                <small class="error_text"> Date of Birth is required</small>
+                            </div>
+                        </div>
+                    </div>
+                </div> 
+                <div class='col-md-6'>
+                    <div class='form-group'>
+                        <label for='user_contact_number'>Date of Accepting Christ <span style="color: red;">*</span></label>
+                        <input type='date' class='form-control' placeholder='Date of Accepting Christ' name='user_dateofacceptingchrist' id='user_dateofacceptingchrist' [(ngModel)]="userdetails.user_dateofacceptingchrist" #user_dateofacceptingchrist='ngModel' [ngClass]="{'invalid-data': user_dateofacceptingchrist.invalid && f.submitted, 'valid-data': user_dateofacceptingchrist.valid && f.submitted}"required />
+                        <div class="error_msg" *ngIf="f.submitted && user_dateofacceptingchrist.invalid">
+                            <div *ngIf="user_dateofacceptingchrist.errors.required">
+                                <small class="error_text"> Date of Accepting Christ is required</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                 <div class='col-md-6'>
+                    <div class='form-group'>
+                        <label for='user_gender'>Gender<span style="color: red;">*</span></label>
+                        <select class='form-control'  id="user_gender" [(ngModel)]='userdetails.user_gender' name="user_gender" #user_gender='ngModel' [ngClass]="{'invalid-data': user_gender.invalid && f.submitted, 'valid-data': user_gender.valid && f.submitted}" required>
+                        <option value='male'>Male</option>
+                        <option value='female'>Female</option>
+                      </select>
+                        <div class="error_msg" *ngIf="f.submitted && user_gender.invalid">
+                            <div *ngIf="user_gender.errors.required">
+                                <small  class="error_text"> Gender is required</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class='col-md-6'>
+                    <div class='form-group'>
+                        <label for='user_iam'>I am..<span style="color: red;">*</span></label>
+                        <input type='text' class='form-control' placeholder='I am..' name='user_iam' id='user_iam' [(ngModel)]="userdetails.user_iam" #user_iam='ngModel' [ngClass]="{'invalid-data': user_iam.invalid && f.submitted, 'valid-data': user_iam.valid && f.submitted}"required />
+                        <div class="error_msg" *ngIf="f.submitted && user_iam.invalid">
+                            <div *ngIf="user_iam.errors.required">
+                                <small class="error_text"> I am is required</small>
+                            </div>
+                        </div>
+                    </div>
+                </div> 
+                <div class='col-md-6'>
+                    <div class='form-group'>
+                        <label for='user_contact_number'>Job Title / Studying Class <span style="color: red;">*</span></label>
+                        <input type='text' class='form-control' placeholder='Job Title / Studying Class' name='user_jobtitle' id='user_jobtitle' [(ngModel)]="userdetails.user_jobtitle" #user_jobtitle='ngModel' [ngClass]="{'invalid-data': user_jobtitle.invalid && f.submitted, 'valid-data': user_jobtitle.valid && f.submitted}"required />
+                        <div class="error_msg" *ngIf="f.submitted && user_jobtitle.invalid">
+                            <div *ngIf="user_jobtitle.errors.required">
+                                <small class="error_text"> Job Title / Studying Class is required</small>
+                            </div>
+                        </div>
+                    </div>
+                </div> 
+                 <div class='col-md-6'>
+                    <div class='form-group'>
+                        <label for='user_contact_number'>Name of School/College/Institution/Company <span style="color: red;">*</span></label>
+                        <input type='text' class='form-control' placeholder='Name of School/College/Institution/Company' name='user_school' id='user_school' [(ngModel)]="userdetails.user_school" #user_school='ngModel' [ngClass]="{'invalid-data': user_school.invalid && f.submitted, 'valid-data': user_school.valid && f.submitted}"required />
+                        <div class="error_msg" *ngIf="f.submitted && user_school.invalid">
+                            <div *ngIf="user_school.errors.required">
+                                <small class="error_text"> Name of School/College/Institution/Company is required</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class='col-md-6'>
+                    <div class='form-group'>
+                        <label for='user_nameofchurch'>Name of Church / Fellowship <span style="color: red;">*</span></label>
+                        <input type='text' class='form-control' placeholder='Name of Church / Fellowship' name='user_church' id='user_church' [(ngModel)]="userdetails.user_church" #user_church='ngModel' [ngClass]="{'invalid-data': user_church.invalid && f.submitted, 'valid-data': user_church.valid && f.submitted}"required />
+                        <div class="error_msg" *ngIf="f.submitted && user_church.invalid">
+                            <div *ngIf="user_church.errors.required">
+                                <small class="error_text"> Name of Church / Fellowship is required</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>  
+                
+                <div class='col-md-4'>
+                    <div class='form-group'>
+                        <label for='user_state'>State<span style="color: red;">*</span></label>
+                        <select class='form-control'  id="user_state" [(ngModel)]='userdetails.user_state' (change)="print_city($event);" name="user_state" #user_state='ngModel' [ngClass]="{'invalid-data': user_state.invalid && f.submitted, 'valid-data': user_state.valid && f.submitted}" required> </select>
+                        <div class="error_msg" *ngIf="f.submitted && user_state.invalid">
+                            <div *ngIf="user_state.errors.required">
+                                <small  class="error_text"> State is required</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class='col-md-4'>
+                    <div class='form-group'>
+                        <label for='user_city'>City<span style="color: red;">*</span></label>
+                        <select class='form-control'  id="user_city" [(ngModel)]='userdetails.user_city' name="user_city" #user_city='ngModel' [ngClass]="{'invalid-data': user_city.invalid && f.submitted, 'valid-data': user_city.valid && f.submitted}" required> </select>
+                        <div class="error_msg" *ngIf="f.submitted && user_city.invalid">
+                            <div *ngIf="user_city.errors.required">
+                                <small  class="error_text"> City is required</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class='col-md-4'>
+                    <div class='form-group'>
+                        <label for='user_pincode'>Pincode<span style="color: red;">*</span></label>
+                        <input type='text' class='form-control' placeholder='Pincode' name='user_church' id='user_pincode' pattern="^[0-9]" [(ngModel)]="userdetails.user_pincode" #user_pincode='ngModel' [ngClass]="{'invalid-data': user_pincode.invalid && f.submitted, 'valid-data': user_pincode.valid && f.submitted}"required />
+                        <div class="error_msg" *ngIf="f.submitted && user_pincode.invalid">
+                            <div *ngIf="user_pincode.errors.required">
+                                <small class="error_text"> Pincode is required</small>
+                            </div>
+                            <div *ngIf="user_pincode.errors.pattern">
+                                <small class="error_text"> Only Numbers allowed</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class='col-md-12'>
+                    <div class='form-group'>
+                        <label for='user_address'>Address<span style="color: red;">*</span></label>
+                        <textarea type='text' class='form-control'  name="user_address" id='user_address' placeholder='Address' rows='3' [(ngModel)]="userdetails.user_address" #user_address='ngModel' [ngClass]="{'invalid-data': user_address.invalid && f.submitted, 'valid-data': user_address.valid && f.submitted}"required></textarea>
+                        <div class="error_msg" *ngIf="f.submitted && user_address.invalid">
+                            <div *ngIf="user_address.errors.required">
+                                <small class="error_text"> Address is required</small>
                             </div>
                         </div>
                     </div>

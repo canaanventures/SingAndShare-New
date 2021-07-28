@@ -30,6 +30,7 @@ export class NewMentorsComponent implements OnInit {
 
   filterList(event,type){
     var result;
+    
     if(event.keyCode == 8 || event.keyCode == 46 || (type == 'status')){
       var el = Array.from(document.getElementsByClassName('filter-fld') as HTMLCollectionOf<HTMLElement>);
       let cnt = 0;
@@ -58,6 +59,7 @@ export class NewMentorsComponent implements OnInit {
   }
 
   valFilter(){
+    debugger;
     var el = Array.from(document.getElementsByClassName('filter-fld') as HTMLCollectionOf<HTMLElement>);
     this.tofilter = [];
     var arr = this.originalfilter;

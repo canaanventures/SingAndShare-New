@@ -309,7 +309,8 @@
                 <div class='col-md-4 contact-form'>
                     <div class='section-header clearfix'>
                         <h3 class="section-title text-center">Contact Us</h3>
-                        <span class="section-divider"></span>
+                        <!-- <p><span class="section-divider"></span></p> -->
+                        
                     </div>
                     <app-visitors></app-visitors>
                 </div>
@@ -327,7 +328,11 @@
         <div class="modal-content">
             <div class="modal-body clearfix">
                 <span class='close modal-close' (click)='closeEventRegister()'>&times;</span>
-                <app-event-register> </app-event-register>
+                <app-event-register></app-event-register>
+                <div >
+                    <img class='event-modal-img' height='100px' [src]='imageToShow' alt='event image'/>
+                </div>
+                
             </div>
         </div>
     </div>

@@ -45,7 +45,7 @@ export class SingleblogComponent implements OnInit {
     let param = this.activatedroute.snapshot.params;
     this.addcomm.blog_id = param.blog_id;
     this.restApi.postMethod('addComment',this.addcomm).subscribe((resp:any) => {
-      alert("Your comment has been posted successfully.");
+      alert("Thanks for you comment, your comment will be posted shortly.");
       f.resetForm();
      // this.addcomm = {name:'', email_id:'', blog_comment:'', blog_id:''};
     })

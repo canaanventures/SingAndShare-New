@@ -25,6 +25,40 @@
             </div>
             
             </div>
+            <div class="form-group col-lg-4">
+                <input type="text" name="visitor_state" class="form-control" id="visitor_state" placeholder="Your State*" [(ngModel)]="visitorsdetails.visitor_state" #visitor_state="ngModel" [ngClass]="{'invalid-data': visitor_state.invalid && f.submitted, 'valid-data': visitor_state.valid && f.submitted}" required>
+                <div class="error_msg"
+                *ngIf="visitor_state.errors && (visitor_state.dirty || visitor_state.touched || f.submitted)">
+                <div *ngIf="visitor_state.errors.required">
+                    <small class="error_text" >State is required</small> 
+                </div>
+            </div>
+            
+            </div>
+            <div class="form-group col-lg-4">
+                <input type="text" name="visitor_city" class="form-control" id="visitor_city" placeholder="Your city*" [(ngModel)]="visitorsdetails.visitor_city" #visitor_city="ngModel" [ngClass]="{'invalid-data': visitor_city.invalid && f.submitted, 'valid-data': visitor_city.valid && f.submitted}" required>
+                <div class="error_msg"
+                *ngIf="visitor_city.errors && (visitor_city.dirty || visitor_city.touched || f.submitted)">
+                <div *ngIf="visitor_city.errors.required">
+                    <small class="error_text" >City is required</small> 
+                </div>
+            </div>
+            
+            </div>
+            <div class="form-group col-lg-4">
+                <input type="text" name="visitor_pincode" class="form-control" id="visitor_pincode" placeholder="Your pincode*" [(ngModel)]="visitorsdetails.visitor_pincode" #visitor_pincode="ngModel" [ngClass]="{'invalid-data': visitor_pincode.invalid && f.submitted, 'valid-data': visitor_pincode.valid && f.submitted}" pattern="[- +()0-9]+" required>
+                <div class="error_msg"
+                *ngIf="visitor_pincode.errors && (visitor_pincode.dirty || visitor_pincode.touched || f.submitted)">
+                <div *ngIf="visitor_pincode.errors.required">
+                    <small class="error_text" >Pincode is required</small> 
+                </div>
+                <div *ngIf="visitor_pincode.errors.pattern">
+                    <small class="error_text" >Only Numbers allowed</small> 
+                </div>
+            </div>
+            
+            </div>
+            
         </div>
         <div class="row">
             <div class="form-group col-lg-6">

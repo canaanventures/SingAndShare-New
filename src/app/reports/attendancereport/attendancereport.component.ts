@@ -22,7 +22,7 @@ export class AttendancereportComponent implements OnInit {
   monthArr = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
 
   @Input() report = {type:'',val:'',srs_id:''}
-  @Input() filter = {users_name:'',attendance_status:'',captain_name:''}
+  @Input() filter = {users_name:'',attendance_status:'',captain_name:'', count:''}
   @Input() filterdate = {from_date:'',to_date:''}
 
   constructor(public restApi: ApiService) { }
@@ -207,7 +207,7 @@ export class AttendancereportComponent implements OnInit {
   }
 
   reset(){
-    this.filter = {users_name:'',attendance_status:'',captain_name:''}
+    this.filter = {users_name:'',attendance_status:'',captain_name:'',count:''}
     this.filterdate = {from_date:'',to_date:''}
     this.restApi.getMethod('getAttendanceReportList').subscribe((resp:any) => {
       this.attendancelist = resp.data;

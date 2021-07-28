@@ -17,7 +17,7 @@
                                     <div class='form-group'>
                                         <label for='name'>Name <span style="color: red;">*</span></label>
                                         <input type='text' class='form-control' placeholder='Name of the Person' id='name'[(ngModel)]='pcs.name_of_user' name="name_of_user"
-                                        #name_of_user= 'ngModel' [ngClass]="{'invalid-data': name_of_user.invalid && f.submitted, 'valid-data': name_of_user.valid && f.submitted}" pattern="^[a-zA-Z]+$" required />
+                                        #name_of_user= 'ngModel' [ngClass]="{'invalid-data': name_of_user.invalid && f.submitted, 'valid-data': name_of_user.valid && f.submitted}" pattern="[a-zA-Z]+(?:\s+[a-zA-Z]+)*$" required />
                                         <div class="error_msg"
                                             *ngIf="name_of_user.errors && (name_of_user.dirty || name_of_user.touched || f.submitted)">
                                             <div *ngIf="name_of_user.errors.required">

@@ -44,9 +44,11 @@ export class LessoncompletedComponent implements OnInit {
       }      
     }else{
       result = this.tofilter.filter(function(item){
+        if(item[type]){
         if(item[type].toLowerCase().indexOf(event.target.value.toLowerCase()) > -1){
           return item;
         }
+      }
       })
     }
   
@@ -62,9 +64,11 @@ export class LessoncompletedComponent implements OnInit {
     for(var j=0; j<el.length ; j++){     
       if((el[j] as HTMLInputElement).value != ''){
         for(var i=0; i<arr.length; i++){
+          if(arr[i][el[j].id]){
           if(arr[i][el[j].id].toLowerCase().indexOf((el[j] as HTMLInputElement).value.toLowerCase()) > -1){
             list.push(arr[i]);
           }
+        }
         }
       }
     }

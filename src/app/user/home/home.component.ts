@@ -22,6 +22,7 @@ export class HomeComponent implements OnInit {
   public display='none'; eventmodaldisplay = 'none';
   bloglist:any = []; galleryitems:any=[]; eventlist:any=[];
   imageToShow: any;
+  modalimage:any;
   
   @Input() verifyuser = {user_email_id:''};
   
@@ -145,6 +146,7 @@ export class HomeComponent implements OnInit {
     document.getElementsByTagName('html')[0].classList.add('modal-open');
     document.getElementById('event_register_modal').style.display = 'block';
     (<HTMLInputElement>document.getElementById('event_hidden_id')).value = id;
+   
     var el = document.getElementsByClassName('backdrop');
     for (var i = 0; i < el.length; i++) {
       Array.from(document.getElementsByClassName('backdrop') as HTMLCollectionOf<HTMLElement>)[i].style.display = 'block';
@@ -156,6 +158,16 @@ export class HomeComponent implements OnInit {
     }
     (<HTMLInputElement>document.getElementById('contact_email_id')).removeAttribute('disabled');
     this.resetForm()
+    //console.log('event image id',id)
+    this.restApi.getImgMethod('getEventImg/'+id).subscribe((resp:any) => {
+      this.createImageFromBlob(resp);
+
+     // console.log('event image res',resp)
+     // this.modalimage=resp;
+      
+    });
+
+
   }
   resetForm(){
     this.verifyuser  = { user_email_id:'' };

@@ -1801,7 +1801,7 @@ label{font-weight:500!important;}
 .pace.pace-inactive {
   display: none;
 }
-.form-check-input:checked{background-color: #1ddba5;border-color: #1dc9ca;}
+.form-check-input:checked{background-color: #1ddba5;border-color: #1dc9ca;cursor: pointer;}
 .edit-modal-open .modal{overflow-y:auto;}
 .form-control.ng-invalid.ng-touched {border:1px solid red;}
 .fc-daygrid-body{

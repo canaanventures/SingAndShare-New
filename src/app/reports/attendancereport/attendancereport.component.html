@@ -69,6 +69,9 @@
                                 <option value='A'>Absent</option>
                             </select>
                         </td>
+                        <td>
+                            <input type='text' class='form-control filter-fld' id='count' [(ngModel)]='filter.count' (keyup)="filterList($event,'count')" placeholder="Your Count" />
+                        </td>
                         <td> </td>
                     </tr>
 

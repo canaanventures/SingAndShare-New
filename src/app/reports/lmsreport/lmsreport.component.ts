@@ -72,10 +72,16 @@ export class LmsreportComponent implements OnInit {
   }
 
   filterDate(){
+   // debugger;
     let arr = this.originalfilter; let f_date = this.filter.from_date; let t_date = this.filter.to_date; let result = [];
     let status = this.filter.class_status;
     if(status == ''){
-      result = arr;
+     //result = arr;
+     alert('Status cannot be empty')
+    }else if (f_date == ''){
+      alert('From date cannot be empty')
+     }else if (t_date == ''){
+      alert('To date cannot be empty')
     }else{
       result = arr.filter(function(item){
         if(status == 'progress'){

@@ -149,21 +149,32 @@
                         <div class='col-md-6'>
                             <div class='form-group'>
                                 <label for='mentee_first_name'>First Name<span style="color: red;">*</span></label>
-                                <input type='text' placeholder='First Name' class='form-control' id='mentee_first_name' name="user_first_name" [(ngModel)]="updateuser.user_first_name" #user_first_name="ngModel" [ngClass]="{'invalid-data': user_first_name.invalid && f.submitted, 'valid-data': user_first_name.valid && f.submitted}" required/>
+                                <input type='text' placeholder='First Name' class='form-control' id='mentee_first_name' name="user_first_name" pattern="[a-zA-Z0-9]+(?:\s+[a-zA-Z]+)*$" [(ngModel)]="updateuser.user_first_name" #user_first_name="ngModel" [ngClass]="{'invalid-data': user_first_name.invalid && f.submitted, 'valid-data': user_first_name.valid && f.submitted}" required/>
                                 <div class="error_msg" *ngIf="user_first_name.errors && (user_first_name.dirty || user_first_name.touched || f.submitted)">
-                                    <small class="error_text"> First Name is required</small>
+                                    <!-- <small class="error_text"> First Name is required</small> -->
+                                    <div *ngIf="user_first_name.errors.required">
+                                        <small class="error_text" >First Name is required </small>                                        
+                                    </div>
+                                    <div *ngIf="user_first_name.errors.pattern">
+                                        <small class="error_text" >First Name is invalid </small>                                        
+                                    </div>
                                 </div>
                             </div>
                         </div>
                         <div class='col-md-6'>
                             <div class='form-group'>
                                 <label for='mentee_last_name'>Last Name<span style="color: red;">*</span></label>                      
-                                <input type='text' placeholder='Last Name' class='form-control' id='mentee_last_name' name="user_last_name" [(ngModel)]="updateuser.user_last_name"  #user_last_name="ngModel" 
+                                <input type='text' placeholder='Last Name' class='form-control' id='mentee_last_name' name="user_last_name" [(ngModel)]="updateuser.user_last_name"  #user_last_name="ngModel"  pattern="[a-zA-Z0-9]+(?:\s+[a-zA-Z]+)*$" 
                                 [ngClass]="{'invalid-data': user_last_name.invalid && f.submitted, 'valid-data': user_last_name.valid && f.submitted}"
                                 required />
                                 <div class="error_msg"
-                                *ngIf="user_last_name.invalid && f.submitted">
-                                    <small class="error_text"> Last Name is required</small>
+                                *ngIf="user_last_name.errors && (user_last_name.dirty || user_last_name.touched || f.submitted)">
+                                <div *ngIf="user_last_name.errors.required">
+                                    <small class="error_text" >Last Name is required </small>                                        
+                                </div>
+                                <div *ngIf="user_last_name.errors.pattern">
+                                    <small class="error_text" >Last Name is invalid </small>                                        
+                                </div>
                                 </div>
                             </div>
                         </div>

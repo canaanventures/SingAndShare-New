@@ -37,6 +37,7 @@ export class PcsreportComponent implements OnInit {
 
   filterList(event,type){
     var result;
+   
     if(event.keyCode == 8 || event.keyCode == 46 || (type == 'current_status') || (type == 'srs_id')){
       var el = Array.from(document.getElementsByClassName('filter-fld') as HTMLCollectionOf<HTMLElement>);
       let cnt = 0;
@@ -63,6 +64,7 @@ export class PcsreportComponent implements OnInit {
   }
 
   valFilter(){
+   
     var el = Array.from(document.getElementsByClassName('filter-fld') as HTMLCollectionOf<HTMLElement>);
     this.tofilter = [];
     var arr = this.originalfilter;

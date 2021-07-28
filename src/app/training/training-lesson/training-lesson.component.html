@@ -13,16 +13,19 @@
                                         <label for='category_name'>Category Name <span
                                                 style="color: red;">*</span></label>
                                         <select class='form-control' id='category_name' [(ngModel)]='lesson.category_id'
-                                            (change)='fetchCourse()' #category_id="ngModel" name="category_id"
+                                            (change)='fetchCourse()' #category_id="ngModel" name="category_id" pattern="[a-zA-Z0-9]+(?:\s+[a-zA-Z]+)*$"
                                             [ngClass]="{'invalid-data': category_id.invalid && f.submitted, 'valid-data': category_id.valid && f.submitted}"
                                             required>
                                             <option value=''>Select Category Name</option>
                                             <option value='{{list.row_id}}' *ngFor='let list of catlist'>
                                                 {{list.category_name}}</option>
                                         </select>
-                                        <div class="error_msg" *ngIf="f.submitted && category_id.invalid">
+                                        <div class="error_msg" *ngIf="category_id.errors && (category_id.dirty || category_id.touched || f.submitted)">
                                             <div *ngIf="category_id.errors.required">
                                                 <small class="error_text"> Category Name is required</small>
+                                            </div>
+                                            <div *ngIf="category_id.errors.pattern">
+                                                <small class="error_text"> Category Name is invalid</small>
                                             </div>
                                         </div>
                                     </div>
@@ -31,7 +34,7 @@
                                     <div class='form-group'>
                                         <label for='course_id'>Course Name<span style="color: red;">*</span></label>
                                         <select class='form-control' id='course_id' [(ngModel)]='lesson.course_id'
-                                            #course_id="ngModel" name="course_id"
+                                            #course_id="ngModel" name="course_id" 
                                             [ngClass]="{'invalid-data': course_id.invalid && f.submitted, 'valid-data': course_id.valid && f.submitted}"
                                             required>
                                             <option value=''>Select Course Name</option>
@@ -51,13 +54,16 @@
                                     <div class='form-group'>
                                         <label for='lesson_name'>Lesson Name<span style="color: red;">*</span></label>
                                         <input type='text' class='form-control' placeholder='Select Lesson Name'
-                                            id='lesson_name' [(ngModel)]='lesson.lesson_name' #lesson_name="ngModel"
+                                            id='lesson_name' [(ngModel)]='lesson.lesson_name' #lesson_name="ngModel" pattern="[a-zA-Z0-9]+(?:\s+[a-zA-Z]+)*$"
                                             name="lesson_name"
                                             [ngClass]="{'invalid-data': lesson_name.invalid && f.submitted, 'valid-data': lesson_name.valid && f.submitted}"
                                             required />
-                                        <div class="error_msg" *ngIf="f.submitted && lesson_name.invalid">
+                                        <div class="error_msg" *ngIf="lesson_name.errors && (lesson_name.dirty || lesson_name.touched || f.submitted)">
                                             <div *ngIf="lesson_name.errors.required">
                                                 <small class="error_text"> Lesson Name is required</small>
+                                            </div>
+                                            <div *ngIf="lesson_name.errors.pattern">
+                                                <small class="error_text"> Lesson Name is invalid</small>
                                             </div>
                                         </div>
                                     </div>

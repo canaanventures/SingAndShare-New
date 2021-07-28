@@ -43,9 +43,12 @@ export class MentorComponent implements OnInit {
         result = this.valFilter();
       }
     }else{
+
       result = this.tofilter.filter(function(item){
-        if(item[type].toLowerCase().indexOf(event.target.value.toLowerCase()) > -1){
-          return item;
+        if(item[type]){
+          if(item[type].toLowerCase().indexOf(event.target.value.toLowerCase()) > -1){
+            return item;
+          }
         }
       })
     }
@@ -61,9 +64,12 @@ export class MentorComponent implements OnInit {
     for(var j=0; j<el.length ; j++){     
       if((el[j] as HTMLInputElement).value != ''){
         for(var i=0; i<arr.length; i++){
-          if(arr[i][el[j].id].toLowerCase().indexOf((el[j] as HTMLInputElement).value.toLowerCase()) > -1){
-            list.push(arr[i]);
-          }
+          if(arr[i][el[j].id]){
+            if(arr[i][el[j].id].toLowerCase().indexOf((el[j] as HTMLInputElement).value.toLowerCase()) > -1){
+              list.push(arr[i]);
+            }
+         }
+         
         }
       }
     }
@@ -111,6 +117,7 @@ export class MentorComponent implements OnInit {
     this.mentorlist = result;
     this.tofilter = result;
   }
+  
 
   fromDateChange(){
     (<HTMLInputElement>document.getElementById("to_date")).min = this.filter.from_date;

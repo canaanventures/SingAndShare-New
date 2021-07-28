@@ -1,10 +1,11 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { AngularEditorConfig } from '@kolkov/angular-editor';
 import { ApiService } from 'src/app/shared/app.service';
 import * as CryptoJS from 'crypto-js';
 import jwt_decode from "jwt-decode";
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
+//import { CKEditorComponent } from 'ng2-ckeditor';
 
 @Component({
   selector: 'app-addblog',
@@ -13,6 +14,29 @@ import { Router } from '@angular/router';
 })
 
 export class AddblogComponent implements OnInit {
+  config = {
+    uiColor: '#ffffff',
+    toolbarGroups: [{ name: 'clipboard', groups: ['clipboard', 'undo'] },
+    { name: 'editing', groups: ['find', 'selection', 'spellchecker'] },
+    { name: 'links' }, { name: 'insert' },
+    { name: 'document', groups: ['mode', 'document', 'doctools'] },
+    { name: 'basicstyles', groups: ['basicstyles', 'cleanup'] },
+    { name: 'paragraph', groups: ['list', 'indent', 'blocks', 'align'] },
+    { name: 'styles' },
+    { name: 'colors' }],
+    skin: 'kama',
+    resize_enabled: false,
+    removePlugins: 'elementspath,save,magicline',
+    extraPlugins: 'divarea,smiley,justify,indentblock,colordialog',
+    colorButton_foreStyle: {
+       element: 'font',
+       attributes: { 'color': '#(color)' }
+    },
+    height: 188,
+    removeDialogTabs: 'image:advanced;link:advanced',
+    removeButtons: 'Subscript,Superscript,Anchor,Source,Table',
+    format_tags: 'p;h1;h2;h3;pre;div'
+ }
   tk:any = {};
   htmlContent:any = String;
   bloglist:any = []; blogCatlist:any = [];
@@ -461,6 +485,7 @@ export class AddblogComponent implements OnInit {
   onBlur = () =>{
     console.log("Blurred");
   }
+ 
 
 
 }

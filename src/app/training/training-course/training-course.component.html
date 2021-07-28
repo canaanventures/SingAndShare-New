@@ -18,24 +18,28 @@
                                 <div class='col-md-12'>
                                     <div class='form-group'>
                                         <label for='category_name'>Category Name<span style="color: red;">*</span></label>
-                                        <select class='form-control' id='category_name' [(ngModel)]='course.category_id' name="category_id" #category_id= 'ngModel' [ngClass]="{'invalid-data': category_id.invalid && f.submitted, 'valid-data': category_id.valid && f.submitted}" required>
+                                        <select class='form-control' id='category_name' [(ngModel)]='course.category_id' name="category_id"   #category_id= 'ngModel' [ngClass]="{'invalid-data': category_id.invalid && f.submitted, 'valid-data': category_id.valid && f.submitted}" required>
                                             <option value=''>Select Category Name</option>
                                             <option value='{{list.row_id}}' *ngFor='let list of catlist'>{{list.category_name}}</option>
                                         </select>
-                                        <div class="error_msg" *ngIf="f.submitted && category_id.invalid">
+                                        <div class="error_msg" *ngIf="category_id.errors && (category_id.dirty || category_id.touched || f.submitted)">
                                             <div *ngIf="category_id.errors.required">
                                                 <small class="error_text"> Category Name is required</small>
                                             </div>
+                                           
                                         </div>
                                     </div>
                                 </div>
                                 <div class='col-md-12'>
                                     <div class='form-group'>
                                         <label for='course_name'>Course Name<span style="color: red;">*</span></label>
-                                        <input type='text' class='form-control' placeholder='Select Course Name' id='course_name' [(ngModel)]='course.course_name' name="course_name" #course_name= 'ngModel' [ngClass]="{'invalid-data': course_name.invalid && f.submitted, 'valid-data': course_name.valid && f.submitted}" required/>
-                                        <div class="error_msg" *ngIf="f.submitted && course_name.invalid">
+                                        <input type='text' class='form-control' pattern="[a-zA-Z0-9]+(?:\s+[a-zA-Z]+)*$" placeholder='Select Course Name' id='course_name' [(ngModel)]='course.course_name' name="course_name" #course_name= 'ngModel' [ngClass]="{'invalid-data': course_name.invalid && f.submitted, 'valid-data': course_name.valid && f.submitted}" required/>
+                                        <div class="error_msg" *ngIf="course_name.errors && (course_name.dirty || course_name.touched || f.submitted)">
                                             <div *ngIf="course_name.errors.required">
                                                 <small class="error_text"> Course Name is required</small>
+                                            </div>
+                                            <div *ngIf="course_name.errors.pattern">
+                                                <small class="error_text"> Course Name is invalid</small>
                                             </div>
                                         </div>
                                     </div>
