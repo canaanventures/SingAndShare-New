@@ -13,7 +13,7 @@
                                         <label for='category_name'>Category Name <span
                                                 style="color: red;">*</span></label>
                                         <select class='form-control' id='category_name' [(ngModel)]='lesson.category_id'
-                                            (change)='fetchCourse()' #category_id="ngModel" name="category_id" pattern="[a-zA-Z0-9]+(?:\s+[a-zA-Z]+)*$"
+                                            (change)="fetchCourse()" #category_id="ngModel" name="category_id" pattern="[a-zA-Z0-9]+(?:\s+[a-zA-Z]+)*$"
                                             [ngClass]="{'invalid-data': category_id.invalid && f.submitted, 'valid-data': category_id.valid && f.submitted}"
                                             required>
                                             <option value=''>Select Category Name</option>
@@ -32,7 +32,7 @@
                                 </div>
                                 <div class='col-md-6'>
                                     <div class='form-group'>
-                                        <label for='course_id'>Course Name<span style="color: red;">*</span></label>
+                                        <label for='course_id'>Course Name<span style="color: red;">*</span></label> {{lesson.course_id}}
                                         <select class='form-control' id='course_id' [(ngModel)]='lesson.course_id'
                                             #course_id="ngModel" name="course_id" 
                                             [ngClass]="{'invalid-data': course_id.invalid && f.submitted, 'valid-data': course_id.valid && f.submitted}"

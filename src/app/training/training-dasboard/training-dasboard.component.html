@@ -49,9 +49,6 @@
                     <div class='class-container' *ngFor='let dtls of details'>
                         <h5 class='class-nme-div' (click)='toggleClass(dtls.class_id)'> 
                             <span>{{dtls.class_name}}</span>
-                            <!--<label class='label label-default mr-10' [ngClass]="dtls.document_url ? 'active' : 'inactive'" (click)='downloadPDF(dtls.class_id,dtls.document_url)'>
-                                <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
-                            </label> -->
                             <label class='label label-success' [ngClass]="dtls.connection_link ? 'active' : 'inactive'" (click)='openLink(dtls.connection_link)' >
                                 <i class="fa fa-link" aria-hidden="true"></i>
                             </label>
@@ -59,14 +56,28 @@
                         </h5>
                         <div class='class-div-hide' id='row_{{dtls.class_id}}'>
                             <h3 class='mentee-status-msg' *ngIf='menteestatus=="N"'>You have been removed from this class</h3>
-                            <div class='lessons-details'>
+                            <div class='lessons-details' *ngIf='menteestatus!="N"'>
                                 <p class='class-desc'>{{dtls.description}}</p>
                                 <div class='lesson-dtls' *ngFor='let lessondtls of lesson'>
-                                    <h6>
-                                        {{lessondtls.lesson_name}}
+                                    <h6 (click)='toggleLessonClass(lessondtls.row_id)'>
+                                        {{lessondtls.lesson_name}}                                       
                                         <label class='label float-right' style='display:none;' id='lesson_{{lessondtls.row_id}}_{{dtls.class_id}}'> Completed </label>
                                     </h6>
-                                    <p>{{lessondtls.lesson_description}}</p>
+                                    <div class='lesson-div-hide' id='lessondiv_{{lessondtls.row_id}}'>
+                                        <p style='margin-bottom:10px;padding:10px 0;'>{{lessondtls.lesson_description}}</p>
+                                        <h5 *ngIf='arrPDF.length > 0'>PDFs for {{lessondtls.lesson_name}}</h5>
+                                        <div class='doclist' *ngIf='arrPDF.length > 0'>
+                                            <label class='label label-default mr-10 active' (click)='downloadLessonPDF(doclist.lesson_id, doclist.pdf_path)' *ngFor='let doclist of docsList'>
+                                                <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
+                                            </label>
+                                        </div>
+                                        <h5 *ngIf='arrLink.length > 0' style='margin-top:10px;'>Links for {{lessondtls.lesson_name}}</h5>
+                                        <div class='doclist' *ngIf='arrLink.length > 0'>
+                                            <label class='label label-success active' (click)='openLink(doclist.meeting_url)' *ngFor='let doclist of docsList'>
+                                                <i class="fa fa-link" aria-hidden="true"></i>
+                                            </label>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>

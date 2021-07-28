@@ -477,7 +477,7 @@ export class TrainingClassComponent implements OnInit {
         resp1.data[i].class_id = id;
       }
       this.class_lesson = resp1.data;
-      this.restApi.getMethod('getActiveLesson/'+id).subscribe((resp:any) => {
+      this.restApi.getMethod('getActiveAllLesson/'+id).subscribe((resp:any) => {
         for(var i=0; i<resp.data.length;i++){
           document.getElementById('classlesson_'+id+'_'+resp.data[i].lesson_id).classList.add('active');
         }
@@ -495,9 +495,13 @@ export class TrainingClassComponent implements OnInit {
       this.updatelessonstatus.lesson_status = 'Y';
     }
     this.restApi.postMethod('updateLessonStatus',this.updatelessonstatus).subscribe((data:any) => {
-      this.restApi.getMethod('getActiveLesson/'+class_id).subscribe((resp:any) => {
+      this.restApi.getMethod('getActiveAllLesson/'+class_id).subscribe((resp:any) => {
+        let elem = document.getElementsByClassName('lesson-class-list_'+class_id);
+        for(var i=0; i<elem.length; i++){
+          elem[i].classList.remove('active');
+        }
         for(var i=0; i<resp.data.length;i++){
-          document.getElementById('classlesson_'+class_id+'_'+lesson_id).classList.add('active');
+          document.getElementById('classlesson_'+class_id+'_'+resp.data[i].lesson_id).classList.add('active');
         }
         alert(data.message);
       });

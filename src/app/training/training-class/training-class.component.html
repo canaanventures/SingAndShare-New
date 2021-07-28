@@ -322,7 +322,7 @@
                     <div class='row'>
                         <div class='lesson-box'>
                             <div class='col-md-4' *ngFor='let lesslist of class_lesson'>
-                                <div class='lesson-class-list clearfix' id='classlesson_{{lesslist.class_id}}_{{lesslist.row_id}}' (click)='updateClassLessonStatus(lesslist.row_id,lesslist.class_id);'>
+                                <div class='lesson-class-list lesson-class-list_{{lesslist.class_id}} clearfix' id='classlesson_{{lesslist.class_id}}_{{lesslist.row_id}}' (click)='updateClassLessonStatus(lesslist.row_id,lesslist.class_id);'>
                                     <span>{{lesslist.lesson_name}}</span> 
                                     <span><i class="fa fa-check" aria-hidden="true" ></i></span>
                                 </div>

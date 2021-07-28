@@ -8,7 +8,7 @@
 .course-name{display: block;display: -webkit-box !important;max-width: 100%;height:20px;font-size: 14px;line-height:1.6;-webkit-line-clamp:1;-webkit-box-orient: vertical;overflow: hidden;text-overflow: ellipsis;margin-bottom:10px;}
 .course-action{margin-top:10px;}
 .class-nme-div{background-color:#f8f8f8;padding: 20px;border-top-left-radius:5px;border-top-right-radius:5px;border:#f8f8f8;margin:20px 0 0;cursor:pointer;border-bottom:1px solid #e0e0e0;}
-.class-div-hide{display:none;padding:20px;border:1px solid #f8f8f8;border-bottom-left-radius:5px;border-bottom-right-radius:5px;}
+.class-div-hide,.lesson-div-hide{display:none;padding:20px;border:1px solid #f8f8f8;border-bottom-left-radius:5px;border-bottom-right-radius:5px;}
 .class-nme-div span{text-transform:capitalize;font-weight:600;margin-right:20px;}
 .class-nme-div label.active,.class-nme-div label.inactive{border-radius: 50%;padding: 6px 9px;font-size: 13px;cursor:pointer;background-color: #630460;}
 label.inactive{pointer-events: none;opacity: 0.2;}
@@ -19,3 +19,4 @@ label.inactive{pointer-events: none;opacity: 0.2;}
 .course-card{margin-bottom: 25px;}
 .label-success{padding: 3px 5px;}
 .menteestatus{text-align:center;color:crimson;}
+.lesson-dtls h6{margin-bottom: 8px;}

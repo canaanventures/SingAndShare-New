@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ApiService } from 'src/app/shared/app.service';
 import jwt_decode from "jwt-decode";
+import { AcroFormPushButton } from 'jspdf';
 
 @Component({
   selector: 'app-training-dasboard',
@@ -11,6 +12,7 @@ export class TrainingDasboardComponent implements OnInit {
   tk:any = {}; courselist:any = []; imageToShow; pdfurl; ongoinglist:any=[]; lessonstatus:any=[];
   displayMenteeModal = false; displayTable = true;
   details:any=[]; lesson:any=[]; menteestatus='';
+  docsList:any=[]; arrLink:any=[]; arrPDF:any=[];
 
   constructor (public restApi: ApiService) { }
 
@@ -57,6 +59,15 @@ export class TrainingDasboardComponent implements OnInit {
     });
   }
 
+  downloadLessonPDF(id,url){   
+    let arr = url.split('/');
+    let len = arr.length;
+    this.pdfurl = arr[len-1];
+    this.restApi.getImgMethod('downloadLessonPDF/'+id).subscribe((data:any) => {
+      this.downloadFile(data);
+    });
+  }
+
   downloadFile(blob){
     const link = document.createElement('a');
     link.href = URL.createObjectURL(blob);
@@ -82,6 +93,26 @@ export class TrainingDasboardComponent implements OnInit {
         }
         document.getElementById('row_'+id).style.display = 'block';
       })
+    })
+  }
+
+  toggleLessonClass(id){
+    this.restApi.getMethod('getDocsForLesson/'+id).subscribe((resp:any) => {
+        this.docsList = resp.data;
+        var classlen = document.getElementsByClassName('lesson-div-hide');
+        for(let i=0;i<classlen.length;i++){
+          (document.getElementsByClassName("lesson-div-hide")[i] as HTMLElement).style.display = 'none'
+        }
+        document.getElementById('lessondiv_'+id).style.display = 'block';
+        this.arrLink = []; this.arrPDF = [];
+        for(var i=0; i<resp.data.length; i++){
+          if(resp.data[i].meeting_url){
+            this.arrLink.push(resp.data[i].meeting_url)
+          }
+          if(resp.data[i].pdf_path){
+            this.arrPDF.push(resp.data[i].pdf_path)
+          }
+        }
     })
   }
 }

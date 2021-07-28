@@ -13,7 +13,7 @@ import { NgForm } from '@angular/forms';
 export class TrainingLessonComponent implements OnInit {
   imageToShow: any; images: any = []; catlist: any = []; courselist: any = []; lessonlist: any = [];
   tk: any = {}; edit = false; docurl: any = []; files: any; cnt = 0;
-
+  lessoncourse_id = '';
   totalRecords: Number = 1; p: Number = 1; pageIndexes: any = []; paginatecnt: Number;
 
   @Input() lesson = { docdata: [], course_id: '', category_id: '', lesson_name: '', lesson_description: '', row_id: '', lesson_image_url: '', created_by: '', lesson_status: '', modified_by: '' }
@@ -25,8 +25,6 @@ export class TrainingLessonComponent implements OnInit {
   ngOnInit(): void {
     this.tk = jwt_decode(sessionStorage.getItem('user_token'));
     this.fetchCategory();
-    //this.fetchCourse();
-    //this.fetchLesson();
     this.changePagination('load');
   }
 
@@ -92,15 +90,19 @@ export class TrainingLessonComponent implements OnInit {
     this.edit = true;
     this.lesson.row_id = id;
     this.restApi.getMethod('getLMSLesson/' + id).subscribe((resp: any) => {
-      this.lesson = resp.data.data[0];
       this.docurl = resp.data.list;
       this.lesson.category_id = resp.data.data[0].category_id;
-      this.fetchCourse();
+      this.restApi.getMethod('getLMSCourseOnCat/' + this.lesson.category_id).subscribe((courseresp: any) => {
+        this.courselist = courseresp.data;
+        this.lesson = resp.data.data[0];
+        setTimeout(function(){
+          (<HTMLInputElement>document.getElementById('course_id')).value = resp.data.data[0].course_id;
+        },100)
+      });
     });
   }
 
   updateLesson(f: NgForm) {
-    //  event.preventDefault();
     this.lesson.modified_by = this.tk.user_id;
     let arr = this.docurl;
     this.lesson.docdata = this.docurl;
@@ -150,11 +152,9 @@ export class TrainingLessonComponent implements OnInit {
   } */
 
   addFld() {
-   // debugger;
     if (!this.files) {
        alert("upload the document")
     return false
-     //console.log('empty')
     }
     this.cnt++
     this.docurl.push({

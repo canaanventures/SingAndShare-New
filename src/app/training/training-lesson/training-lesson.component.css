@@ -3,7 +3,7 @@
 .card-header{font-weight:600;}
 .action-img{width:20px;}
 .action-img-div{display:inline-block;}
-.switch{margin-left:20px;}
+.switch{margin:0 8px 0;width:15px;}
 .form-switch .form-check-input:focus,#blog-image:focus{outline: 0; box-shadow: none;}
 .add-fld{width: max-content;position: absolute;background-color: #1dcac8;color: #fff;padding: 7px 10px;border-radius: 50%;box-shadow: 0 0 6px #ccc;cursor: pointer;top:0;right: -18px;z-index:10;}
 #docx-box{position:relative;}

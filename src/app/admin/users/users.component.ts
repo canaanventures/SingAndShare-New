@@ -17,7 +17,7 @@ export class UsersComponent implements OnInit {
   public userrole:any;
   display='none';
   emailPattern = "^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$";  
-  userlist :any = []; status_id;
+  userlist :any = []; status_id; userfilterlist:any=[]; filter= false;
   tk:any = {}; totalRecords:Number = 1; p: Number = 1; pageIndexes:any =[]; statusModaldisplay='none'; 
   status; edit; srs_name = ''; role_nme; srslist:any = []; paginatecnt:Number;
 
@@ -26,6 +26,7 @@ export class UsersComponent implements OnInit {
   @Input() updateuser = {user_first_name:'',srs_id:'',user_last_name:'',user_email_id:'',mentee_email_id:'',role:'',role_id:'',mentor_email_id:'',user_id:'',modified_by:''}
   @Input() access = {user_id:'',blog_approve_access:false,blog_change_status_access:false,blog_access:false,calendar_add_access:false,calendar_access:false,attendance_access:false,event_access:false,user_access:false,sns_access:false,access_id:''}
   @Input() user = {user_id:''}
+  @Input() search = {name:'',mentor_name:'',sns:''}
 
   constructor(public restApi: ApiService, public router: Router) { }
 
@@ -118,10 +119,9 @@ export class UsersComponent implements OnInit {
   }
 
   fetchSRSlist() {
-    this.restApi.getMethod('getBranches/adduser')
-      .subscribe((resp:any) => {
-        this.srslist = resp.data;
-      });
+    this.restApi.getMethod('getBranches/adduser').subscribe((resp:any) => {
+      this.srslist = resp.data;
+    });
   }
 
   nextClick(){
@@ -151,6 +151,7 @@ export class UsersComponent implements OnInit {
     }
    
     this.restApi.getMethod(apiurl).subscribe((resp:any) => {
+      this.filter= false;
       this.userlist = resp.data.data;
       this.tk = jwt_decode(sessionStorage.getItem('user_token'));
       if(event == 'load'){
@@ -172,6 +173,18 @@ export class UsersComponent implements OnInit {
     });
   }
 
+  filterUser(){
+    this.restApi.postMethod('filterUserList',this.search).subscribe((resp:any) => {
+      this.userfilterlist = resp.data;
+      this.filter= true;
+    })
+  }
+
+  resetFilter(){
+    this.search = {name:'',mentor_name:'',sns:''};
+    this.fetchUser('load');
+  }
+
   openModal(){
     this.edit = false;
     this.display='block';
@@ -189,8 +202,7 @@ export class UsersComponent implements OnInit {
 
   editUser(id:any){
     this.edit = true;
-    this.restApi.getMethod('getUsers/'+id)
-      .subscribe((resp:any) => {
+    this.restApi.getMethod('getUsers/'+id).subscribe((resp:any) => {
         // (<HTMLInputElement>document.getElementById('mentee_first_name')).value = resp.data[0].user_first_name;
         // (<HTMLInputElement>document.getElementById('mentee_last_name')).value = resp.data[0].user_last_name;
         // (<HTMLInputElement>document.getElementById('mentee_email_id')).value = resp.data[0].user_email_id;
@@ -210,7 +222,6 @@ export class UsersComponent implements OnInit {
 
   updateUser(f:NgForm){
     this.edit = true;
-    console.log('hello i am update')
     //event.preventDefault();
     this.updateuser.user_first_name = (<HTMLInputElement>document.getElementById('mentee_first_name')).value;
     this.updateuser.user_last_name = (<HTMLInputElement>document.getElementById('mentee_last_name')).value;
@@ -227,7 +238,6 @@ export class UsersComponent implements OnInit {
     }else{
       this.updateuser.srs_id = this.tk.srs_id;
     }
-    console.log(this.updateuser)
 
     this.restApi.postMethod('updateUser',this.updateuser).subscribe((data:{}) => {
     this.fetchUser(this.paginatecnt);
