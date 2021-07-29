@@ -52,6 +52,7 @@
                                                 </div>
                                                 <div class='action-img-div'>
                                                     <i class="fa fa-comments-o" aria-hidden="true" style='color:#630460;margin-left:10px;' (click)=[commentModal(blog.blog_id)]></i>
+                                                    <span [ngClass]="(blog.comment_count > 0) ? 'badge  badge-success' : 'badge badge-secondary'">{{blog.comment_count}}</span>
                                                 </div>
                                                 <div class='action-img-div'>
                                                     <i class="fa fa-eye" aria-hidden="true" style='color:#d9534f;margin-left:10px;' (click)='viewModal(blog.blog_id)'></i>

@@ -21,5 +21,7 @@
 .angular-editor-toolbar{font-size:14px!important;padding:.2rem;}
 .angular-editor-toolbar button{margin:10px!important;padding:5px;border-radius:5px;}
 #addPostModal .modal-lg{max-width: 90%;width: 90%;}
-
+.badge{font-size: 9px;padding: 2px 4px;position: absolute;top: 0;right: -15px;}
+.badge-success{background-color: #5cb85c;}
 .view-blog{height:674px; overflow-y: auto; overflow-x: hidden}
+.action-img-div{position: relative;}

@@ -147,7 +147,7 @@ export class EventsComponent implements OnInit {
   }
   
   updateEventData(f:NgForm){
-   console.log('??????????',(<HTMLInputElement>document.getElementById('event_start_date')).value)
+    console.log('??????????',(<HTMLInputElement>document.getElementById('event_start_date')).value)
     this.addevent.modified_user_id = this.tk.user_id;
     this.addevent.event_start_date = this.changeDateFormat((<HTMLInputElement>document.getElementById('event_start_date')).value);
     console.log('##########',this.addevent.event_start_date)
@@ -321,6 +321,7 @@ export class EventsComponent implements OnInit {
   // <i class='fa fa-times cancel-img' aria-hidden='true' (click)='removeFile($event)' style='position: absolute;top:-5px;right:5px;'></i>
 
   removeFile(e) {
+    debugger;
     //var file = $(this).data("file");
     for (var i = 0; i < this.storedFiles.length; i++) {
       if (this.storedFiles[i].name) { // === file

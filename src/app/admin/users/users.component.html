@@ -9,10 +9,36 @@
                     User Details
                     <button class='btn btn-primary float-right' (click)='openModal()'>Add User</button>
                 </h1>
+
+                <div class="row" *ngIf='tk.role_name == "Admin"'>
+                    <div class="col-md-12 clearfix col-xl-12 p-0">
+                        <div class='form-group col-md-3 float-left'>
+                            <label for='search_name'>Name</label>
+                            <input type='text' class='form-control' id='search_name' [(ngModel)]='search.name' placeholder="Enter the User's Name" />
+                        </div>
+                        <div class='form-group col-md-3 float-left'>
+                            <label for='search_mentor_name'>Mentor's Name</label>
+                            <input type='text' class='form-control' id='search_mentor_name' [(ngModel)]='search.mentor_name' placeholder="Enter the Mentor's Name" />
+                        </div>
+                        <div class='form-group col-md-3 float-left'>
+                            <label for='search_sns'>Mentor's Name</label>
+                            <select id='search_sns' class='form-control' [(ngModel)]='search.sns'>
+                                <option value=''>Select SNS Name</option>
+                                <option [value]='list.srs_id' *ngFor='let list of srslist'>{{list.srs_name}}</option>
+                            </select>
+                        </div>
+                        <div class='form-group col-md-3 float-left'>
+                            <label for='filter' class='w-100'>&nbsp;</label>
+                            <button class='btn btn-primary' id='filter' (click)='filterUser()'>Filter</button>
+                            <button class='btn bg-orange' id='reset' style='margin-left:10px;' (click)="resetFilter()">Reset</button>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="row">
                     <div class="col-md-12 col-xl-12">
                         <div class="card">
-                            <div class="card-body h-100">
+                            <div class="card-body h-100" *ngIf='!filter'>
                                 <table class='table-bordered table'>
                                     <thead>
                                         <tr>
@@ -123,6 +149,112 @@
                                     </li>
                                     <li class="page-item"><a (click)="nextClick()" class="page-link">Next</a></li>
                                 </ul>
+                            </div>
+
+                            <div class="card-body h-100" *ngIf='filter && tk.role_name == "Admin"'>
+                                <table class='table-bordered table'>
+                                    <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Joining Date</th>
+                                            <th>User Type</th>
+                                            <th>Mentor</th>
+                                            <th>SNS Name</th>
+                                            <th>Status</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody *ngFor="let user of userfilterlist">
+                                        <tr>
+                                            <td>{{user.user_first_name}} {{user.user_last_name}}</td>
+                                            <td>{{user.user_created_date  | date:'dd/MM/yyyy'}}</td>
+                                            <td>{{user.role_name}}</td>
+                                            <td *ngIf='user.mentor_name'>{{user.mentor_name}}</td>
+                                            <td *ngIf='!user.mentor_name'>-</td>
+                                            <td *ngIf='user.srs_name'>{{user.srs_name}}</td>
+                                            <td *ngIf='!user.srs_name'>-</td>
+                                            <td><span [ngClass] = "user.status == 'Enable' ? 'label label-success' : 'label label-danger'"> {{user.status}} </span></td>
+                                            <td *ngIf='tk.role_name == "Admin"'>
+                                                <div class='action-img-div'>
+                                                    <img src='assets/img/edit.png' class='action-img' (click)='editUser(user.user_id);' />
+                                                </div>                                              
+                                                <div class='action-img-div'>
+                                                    <div class="form-check form-switch">
+                                                        <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" [attr.checked]="user.status == 'Enable' ? true : null" (change)='openStatusModal($event,user.user_id)' />
+                                                    </div>
+                                                </div>
+                                                <div class='action-img-div' *ngIf='user.role_name != "Mentee"'>
+                                                    <img src='assets/img/access.png' class='action-img' (click)='toggleAccess(user.user_id);' />
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr id='row{{user.user_id}}' class='table-hidden-row' *ngIf='user.role_name != "Mentee"'>
+                                            <td colspan='7'>
+                                                <div class='row px-3'>
+                                                    <div class="star01 s3">
+                                                        <div class="checkbox">
+                                                            <input type="checkbox" class="faChkStr chk_{{user.user_id}}" name="access_check" id="sns_access" [(ngModel)]="access.sns_access" [checked]="access.sns_access == '1'">
+                                                            <label for="sns_access"> &nbsp; SNS</label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="star01 s3">
+                                                        <div class="checkbox">
+                                                            <input type="checkbox" class="faChkStr chk_{{user.user_id}}" name="access_check" id="user_access" [(ngModel)]="access.user_access" [checked]="access.user_access == '1'">
+                                                            <label for="user_access"> &nbsp; User</label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="star01 s3">
+                                                        <div class="checkbox">
+                                                            <input type="checkbox" class="faChkStr chk_{{user.user_id}}" name="access_check" id="event_access" [(ngModel)]="access.event_access" [checked]="access.event_access == '1'">
+                                                            <label for="event_access"> &nbsp; Event</label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="star01 s3">
+                                                        <div class="checkbox">
+                                                            <input type="checkbox" class="faChkStr chk_{{user.user_id}}" name="access_check" id="attendance_access" [(ngModel)]="access.attendance_access" [checked]="access.attendance_access == '1'">
+                                                            <label for="attendance_access"> &nbsp; Attendance</label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="star01 s3">
+                                                        <div class="checkbox">
+                                                            <input type="checkbox" class="faChkStr chk_{{user.user_id}}" name="access_check" id="calendar_access" [(ngModel)]="access.calendar_access" [checked]="access.calendar_access == '1'">
+                                                            <label for="calendar_access"> &nbsp; Calendar</label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="star01 s3">
+                                                        <div class="checkbox">
+                                                            <input type="checkbox" class="faChkStr chk_{{user.user_id}}" name="access_check" id="calendar_add_access" [(ngModel)]="access.calendar_add_access" [checked]="access.calendar_add_access == '1'">
+                                                            <label for="calendar_add_access"> &nbsp; Calendar Add</label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="star01 s3">
+                                                        <div class="checkbox">
+                                                            <input type="checkbox" class="faChkStr chk_{{user.user_id}}" name="access_check" id="blog_access" [(ngModel)]="access.blog_access" [checked]="access.blog_access == '1'">
+                                                            <label for="blog_access"> &nbsp; Blog</label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="star01 s3">
+                                                        <div class="checkbox">
+                                                            <input type="checkbox" class="faChkStr chk_{{user.user_id}}" name="access_check" id="blog_status_access" [(ngModel)]="access.blog_change_status_access" [checked]="access.blog_change_status_access == '1'">
+                                                            <label for="blog_status_access"> &nbsp; Blog Status</label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="star01 s3">
+                                                        <div class="checkbox">
+                                                            <input type="checkbox" class="faChkStr chk_{{user.user_id}}" name="access_check" id="blog_approve_access" [(ngModel)]="access.blog_approve_access" [checked]="access.blog_approve_access == '1'">
+                                                            <label for="blog_approve_access"> &nbsp; Blog Approve</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class='row'>
+                                                    <div class='col-md-12'>
+                                                        <button id='assign_btn' class='btn btn-primary w-auto' (click)='assignAccess(user.user_id,access.access_id)'>Assign</button>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </div>

@@ -7,7 +7,7 @@
 .table-hidden-row{display:none;border:0}
 .table-hidden-row td{border:0;}
 
-
+#reset{color:#fff;margin-left:10px;}
 .star01 {width: max-content;margin:0px 10px 5px 0;border: 0;display: inline-block;}
 .star01 .checkbox, .star01 .radio {margin: 5px 0px;}
 .star01 input.faChkStr {width: 58px;height: 35px;margin-top: 0px;}
