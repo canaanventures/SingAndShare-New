@@ -72,9 +72,11 @@ export class TopicreportComponent implements OnInit {
       }      
     }else{
       result = this.tofilter.filter(function(item){
+        if(item[type]){
         if(String(item[type]).toLowerCase().indexOf(String(event.target.value).toLowerCase()) > -1){
           return item;
         }
+      }
       })
     }
   
@@ -90,9 +92,11 @@ export class TopicreportComponent implements OnInit {
     for(var j=0; j<el.length ; j++){     
       if((el[j] as HTMLInputElement).value != ''){
         for(var i=0; i<arr.length; i++){
+          if(arr[i][el[j].id]){
           if(String(arr[i][el[j].id]).toLowerCase().indexOf(String((el[j] as HTMLInputElement).value).toLowerCase()) > -1){
             list.push(arr[i]);
           }
+        }
         }
       }
     }
