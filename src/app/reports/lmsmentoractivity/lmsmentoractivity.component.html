@@ -1,0 +1,79 @@
+<div class='container report-container'>
+    <div class="card-body h-100">
+        <div class='row'>
+            <div class='col-md-12 p-0 mt-3'>
+                <h4 id='report_chart_msg' class='col-md-6'> Mentor Non Activity Report </h4>
+                <div class='form-group col-md-3 float-right'>
+                    <label for='download_excel' class='w-100'> &nbsp; </label>
+                    <img src='../../../assets/img/pdf.png' class='action-active-icons float-right' (click)="generatePDF()" />
+                    <img src='../../../assets/img/print.png' class='action-active-icons float-right' (click)="printPageArea()" />
+                    <img src='../../../assets/img/excel.png' class='action-active-icons float-right' (click)="exportData()" />
+                </div>                   
+            </div>
+        </div>
+        <div class='row'>
+            <div class='col-md-12 p-0 mt-3'>
+                <div class='form-group col-md-2'>
+                    <label for='from_date'>From Date</label>
+                    <input type='datetime-local' id='from_date' class='form-control' [(ngModel)]='search.from_date' placeholder='From Date' (change)='fromDateChange();' />
+                </div>
+                <div class='form-group col-md-2'>
+                    <label for='to_date'>To Date</label>
+                    <input type='datetime-local' id='to_date' class='form-control' [(ngModel)]='search.to_date' placeholder='To Date' />
+                </div>
+                <div class='form-group col-md-2'>
+                    <label for='btn_datefilter' class='w-100'> &nbsp; </label>
+                    <button class='btn btn-primary' id='btn_datefilter' (click)='filterDate();'>Filter</button>
+                    <button class='btn bg-orange' id='btn_resetfilter' (click)='reset();'>Reset</button>
+                </div>
+            </div>
+        </div>
+        <div class='row' *ngIf='originalfilter.length == 0'>
+            <div class='col-md-12 p-0'>
+                <h3 class='chart_msg'>No Data to be displayed</h3>
+            </div>
+        </div>
+        <div class='row' *ngIf='originalfilter.length > 0' id='printable_box'>
+            <table class='table-bordered table' id="mentee-excel-table">
+                <thead>
+                    <tr>
+                        <th>Mentor Name</th> 
+                        <th>Class Name</th>  
+                        <th>Start Date</th> 
+                        <th>End Date</th>
+                        <th>SNS</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class='excel-hide'> 
+                        <td>
+                            <input type='text' class='form-control filter-fld' id='mentor' [(ngModel)]='filter.mentor' (keyup)="filterList($event,'mentor')" placeholder='Mentor Name' />
+                        </td>
+                        <td>
+                            <input type='text' id='class_name' class='form-control filter-fld' [(ngModel)]='filter.class_name' (keyup)="filterList($event,'class_name')" placeholder='Class Name' />
+                        </td>
+                        <td> </td> 
+                        <td> </td>
+                        <td> 
+                            <input type='text' class='form-control filter-fld' id='srs_name' [(ngModel)]='filter.srs_name' (keyup)="filterList($event,'srs_name')" placeholder='SNS Name'/>
+                        </td>
+                    </tr>
+
+                    <tr class='excel-hide' *ngIf='activitylist.length == 0 && originalfilter.length > 0'>
+                        <td colspan='5'>
+                            <h3 class='chart_msg'>No Matches Found</h3>
+                        </td>
+                    </tr>
+
+                    <tr *ngFor="let list of activitylist"> 
+                        <td>{{ list.mentor }}</td>
+                        <td>{{ list.class_name }}</td>
+                        <td>{{ list.start_date | date:'dd-MM-yyyy' }}</td> 
+                        <td>{{ list.end_date | date:'dd-MM-yyyy' }}</td>
+                        <td>{{ list.srs_name }}</td>
+                    </tr> 
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

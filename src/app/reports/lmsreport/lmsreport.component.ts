@@ -72,31 +72,19 @@ export class LmsreportComponent implements OnInit {
   }
 
   filterDate(){
-   // debugger;
-    let arr = this.originalfilter; let f_date = this.filter.from_date; let t_date = this.filter.to_date; let result = [];
-    let status = this.filter.class_status;
-    if(status == ''){
-     //result = arr;
-     alert('Status cannot be empty')
-    }else if (f_date == ''){
-      alert('From date cannot be empty')
-     }else if (t_date == ''){
-      alert('To date cannot be empty')
+    if(!this.filter.class_status){
+     alert('Please select the Status')
+    }else if (!this.filter.from_date){
+      alert('Please select the From Date')
+    }else if (!this.filter.to_date){
+      alert('Please select the To Date')
     }else{
-      result = arr.filter(function(item){
-        if(status == 'progress'){
-          if((new Date(f_date) <= new Date(item.end_date) && new Date(t_date) >= new Date(item.end_date)) || (new Date(f_date) <= new Date(item.start_date) && new Date(t_date) < new Date(item.end_date))){
-            return item;
-          }
-        }else if(status == 'complete'){
-          if(new Date(f_date) > new Date(item.end_date)){
-            return item;
-          }
-        }  
+      this.restApi.postMethod('getLMSFilterReportList',this.filter).subscribe((resp:any) => {
+        this.lmsclass = resp.data;
+        this.tofilter = resp.data;
+        this.originalfilter = resp.data;
       })
     }
-    this.lmsclass = result;
-    this.tofilter = result;
   }
 
   fromDateChange(){
@@ -105,8 +93,7 @@ export class LmsreportComponent implements OnInit {
   }
 
   reset(){
-    this.lmsclass = this.originalfilter;
-    this.tofilter = this.originalfilter;
+    this.getlmsclass();
     this.filter = {course_name:'',class_name:'',category_name:'',instructor_name:'',from_date:'',to_date:'',class_status:''}
   }
 

@@ -76,6 +76,9 @@ import { OrganizationalReportComponent } from './reports/organizational-report/o
 import { LessoncompletedComponent } from './reports/lessoncompleted/lessoncompleted.component';
 import { OrganizationalTreeComponent } from './reports/organizational-tree/organizational-tree.component';
 import { CKEditorModule } from 'ng2-ckeditor';
+import { LmsmentoractivityComponent } from './reports/lmsmentoractivity/lmsmentoractivity.component';
+import { LmsmenteeactivityComponent } from './reports/lmsmenteeactivity/lmsmenteeactivity.component';
+import { MentordashboardComponent } from './training/mentordashboard/mentordashboard.component';
 
 FullCalendarModule.registerPlugins([ // register FullCalendar plugins
   dayGridPlugin,
@@ -130,7 +133,10 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     AvgAttendanceComponent,
     OrganizationalReportComponent,
     LessoncompletedComponent,
-    OrganizationalTreeComponent
+    OrganizationalTreeComponent,
+    LmsmentoractivityComponent,
+    LmsmenteeactivityComponent,
+    MentordashboardComponent
   ],
   imports: [
     BrowserModule,

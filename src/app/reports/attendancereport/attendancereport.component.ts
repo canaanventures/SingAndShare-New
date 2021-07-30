@@ -23,17 +23,17 @@ export class AttendancereportComponent implements OnInit {
 
   @Input() report = {type:'',val:'',srs_id:''}
   @Input() filter = {users_name:'',attendance_status:'',captain_name:'', count:''}
-  @Input() filterdate = {from_date:'',to_date:''}
+  @Input() filterdate = {from_date:'', to_date:'', attendance_status:''}
 
   constructor(public restApi: ApiService) { }
 
   ngOnInit(): void {
-    this.graphInit();
+    //this.graphInit();
     this.tk = jwt_decode(sessionStorage.getItem('user_token'));
     this.report.srs_id = this.tk.srs_id;
     this.report.type = 'attendance';
     this.report.val = '2021-05';
-    this.getAttendace();
+    //this.getAttendace();
     this.getAttendancelist();
   }
 
@@ -194,11 +194,19 @@ export class AttendancereportComponent implements OnInit {
   }
 
   filterDate(){
-    this.restApi.postMethod('getAttendanceReportListByDate',this.filterdate).subscribe((resp:any) => {
-      this.attendancelist = resp.data;
-      this.tofilter = resp.data;
-      this.originalfilter = resp.data;
-    })
+    if(!this.filterdate.from_date){
+      alert("Please select the From date");
+    }else if(!this.filterdate.to_date){
+      alert("Please select the To date");
+    }else if(!this.filterdate.attendance_status){
+      alert("Please select the Attendance Status");
+    }else{
+      this.restApi.postMethod('getAttendanceReportListByDate',this.filterdate).subscribe((resp:any) => {
+        this.attendancelist = resp.data;
+        this.tofilter = resp.data;
+        this.originalfilter = resp.data;
+      })
+    }
   }
 
   fromDateChange(){
@@ -208,7 +216,7 @@ export class AttendancereportComponent implements OnInit {
 
   reset(){
     this.filter = {users_name:'',attendance_status:'',captain_name:'',count:''}
-    this.filterdate = {from_date:'',to_date:''}
+    this.filterdate = {from_date:'', to_date:'', attendance_status:''}
     this.restApi.getMethod('getAttendanceReportList').subscribe((resp:any) => {
       this.attendancelist = resp.data;
       this.tofilter = resp.data;

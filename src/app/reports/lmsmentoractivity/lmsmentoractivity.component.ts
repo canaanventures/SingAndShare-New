@@ -4,27 +4,27 @@ import {jsPDF} from 'jspdf';
 import html2canvas from 'html2canvas';
 
 @Component({
-  selector: 'app-new-members',
-  templateUrl: './new-members.component.html',
-  styleUrls: ['./new-members.component.css']
+  selector: 'app-lmsmentoractivity',
+  templateUrl: './lmsmentoractivity.component.html',
+  styleUrls: ['./lmsmentoractivity.component.css']
 })
-export class NewMembersComponent implements OnInit {
-  userlist:any=[]; tofilter:any=[]; originalfilter:any=[];
+export class LmsmentoractivityComponent implements OnInit {
+  activitylist:any=[]; tofilter:any=[]; originalfilter:any=[];
 
-  @Input() filter = {user_name:'',user_email_id:'',user_contact_number:'',role_name:'',mentor_name:'',srs_name:'',status:'',to_date:'',from_date:''}
+  @Input() filter = {mentor:'', class_name:'', srs_name:''}
+  @Input() search = {from_date:'', to_date:''}
 
   constructor(public restApi: ApiService) { }
 
   ngOnInit(): void {
-    this.getUserList();
+    this.getList();
   }
 
-  getUserList(){
-    this.restApi.getMethod('getNewMenteeReportList').subscribe((resp:any) => {
-      this.userlist = resp.data;
+  getList(){
+    this.restApi.getMethod('getLMSMentorActivityReportList').subscribe((resp:any) => {
+      this.activitylist = resp.data;
       this.tofilter = resp.data;
       this.originalfilter = resp.data;
-      //const count = array.reduce((acc, cur) => cur.id === id ? ++acc : acc, 0);
     })
   }
 
@@ -46,15 +46,15 @@ export class NewMembersComponent implements OnInit {
     }else{
       result = this.tofilter.filter(function(item){
         if(item[type]){
-          if(item[type].toLowerCase().indexOf(event.target.value.toLowerCase()) > -1){
-            return item;
-          }
+        if(item[type].toLowerCase().indexOf(event.target.value.toLowerCase()) > -1){
+          return item;
         }
+      }
       })
     }
   
     this.tofilter = result;
-    this.userlist = result;
+    this.activitylist = result;
   }
 
   valFilter(){
@@ -66,10 +66,10 @@ export class NewMembersComponent implements OnInit {
       if((el[j] as HTMLInputElement).value != ''){
         for(var i=0; i<arr.length; i++){
           if(arr[i][el[j].id]){
-            if(arr[i][el[j].id].toLowerCase().indexOf((el[j] as HTMLInputElement).value.toLowerCase()) > -1){
-              list.push(arr[i]);
-            }
+          if(arr[i][el[j].id].toLowerCase().indexOf((el[j] as HTMLInputElement).value.toLowerCase()) > -1){
+            list.push(arr[i]);
           }
+        }
         }
       }
     }
@@ -77,8 +77,8 @@ export class NewMembersComponent implements OnInit {
   }
 
   exportData() {
-    var table = document.getElementById("pcs-excel-table") as HTMLTableElement;
-    var rows =[]; var column1, column2, column3, column4, column5, column6, column7;
+    var table = document.getElementById("mentee-excel-table") as HTMLTableElement;
+    var rows =[]; var column1, column2, column3, column4, column5;
     for(var i=0,row; row = table.rows[i];i++){
       if(!table.rows[i].classList.contains('excel-hide')){
         column1 = row.cells[0].innerText;
@@ -86,10 +86,8 @@ export class NewMembersComponent implements OnInit {
         column3 = row.cells[2].innerText;
         column4 = row.cells[3].innerText;
         column5 = row.cells[4].innerText;
-        column6 = row.cells[5].innerText;
-        column7 = row.cells[6].innerText;
-        rows.push([column1,column2,column3,column4,column5,column6, column7]);
-      }
+        rows.push([column1, column2, column3, column4, column5]);
+      }    
     }
     var csvContent = "data:text/csv;charset=utf-8,";
     rows.forEach(function(rowArray){
@@ -99,29 +97,9 @@ export class NewMembersComponent implements OnInit {
     var encodedUri = encodeURI(csvContent);
     var link = document.createElement("a");
     link.setAttribute("href", encodedUri);
-    link.setAttribute("download", "new-mentee-report.csv");
+    link.setAttribute("download", "LMS-Mentor-Activity-Report.csv");
     document.body.appendChild(link);
     link.click();
-  }
-
-  filterDate(){
-    this.restApi.postMethod('getNewMenteeFilterReportList',this.filter).subscribe((resp:any) => {
-      this.userlist = resp.data;
-      this.tofilter = resp.data;
-      this.originalfilter = resp.data;
-      this.filter = {user_name:'',user_email_id:'',user_contact_number:'',role_name:'',mentor_name:'',srs_name:'',status:'',to_date:'',from_date:''}
-    })
-
-  }
-
-  fromDateChange(){
-    (<HTMLInputElement>document.getElementById("to_date")).min = this.filter.from_date;
-    this.filter.to_date = this.filter.from_date;
-  }
-
-  reset(){
-    this.getUserList();
-    this.filter = {user_name:'',user_email_id:'',user_contact_number:'',role_name:'',mentor_name:'',srs_name:'',status:'',from_date:'',to_date:''}
   }
 
   printPageArea(){
@@ -147,7 +125,35 @@ export class NewMembersComponent implements OnInit {
         pdf.addImage(contentDataURL, 'PNG', 0, position, imgWidth, imgHeight);
         heightLeft -= pageHeight;
       }
-      pdf.save('new-mentee-report.pdf');
+      pdf.save('LMS-Mentor-Activity-Report.pdf');
     });
+  }
+
+  filterDate(){
+    this.search.from_date = this.convertDate(this.search.from_date);
+    this.search.to_date = this.convertDate(this.search.to_date);
+    this.restApi.postMethod('getLMSFilterMentorActivityReportList',this.search).subscribe((resp:any) => {
+      this.activitylist = resp.data;
+      this.tofilter = resp.data;
+      this.originalfilter = resp.data;
+    })
+  }
+
+  convertDate(el){
+    let dte = new Date(el), mon, dt;
+    (dte.getDate()<10) ? dt = "0"+dte.getDate() : dt = dte.getDate();
+    ((dte.getMonth()+1) < 10) ? mon = "0"+(dte.getMonth()+1) : mon = (dte.getMonth()+1);
+    return dt+'-'+mon+'-'+dte.getFullYear()+' '+dte.getHours()+':'+dte.getMinutes()+':'+dte.getSeconds();
+  }
+
+  reset(){
+    this.filter = {mentor:'', class_name:'', srs_name:''}
+    this.search = {from_date:'', to_date:''}
+    this.getList();
+  }
+
+  fromDateChange(){
+    (<HTMLInputElement>document.getElementById("to_date")).min = this.search.from_date;
+    this.search.to_date = this.search.from_date;
   }
 }

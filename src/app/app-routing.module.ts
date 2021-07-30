@@ -39,6 +39,9 @@ import { MentorNonActiveReportComponent } from './reports/mentor-non-active-repo
 import { MenteeNonActiveReportComponent } from './reports/mentee-non-active-report/mentee-non-active-report.component';
 import { OrganizationalReportComponent } from './reports/organizational-report/organizational-report.component';
 import { OrganizationalTreeComponent } from './reports/organizational-tree/organizational-tree.component';
+import { LmsmentoractivityComponent } from './reports/lmsmentoractivity/lmsmentoractivity.component';
+import { LmsmenteeactivityComponent } from './reports/lmsmenteeactivity/lmsmenteeactivity.component';
+import { MentordashboardComponent } from './training/mentordashboard/mentordashboard.component';
 
 const routes: Routes = [
   { path: "", redirectTo: "home", pathMatch: "full"  },
@@ -59,6 +62,7 @@ const routes: Routes = [
   { path: "register/:encodedurl", component: MenteeRegisterComponent },
   { path: "forgot-password/:encodedurl", component: ForgotpasswordComponent },
   { path: "training/dasboard", component: TrainingDasboardComponent},
+  { path: "training/mentor/dasboard", component: MentordashboardComponent},
   { path: "training/category", component: TrainingCategoryComponent},
   { path: "training/course", component: TrainingCourseComponent},
   { path: "training/lesson", component: TrainingLessonComponent},
@@ -80,7 +84,9 @@ const routes: Routes = [
   { path: "report/attendance-avg", component: AvgAttendanceComponent },
   { path:"report/organization", component: OrganizationalTreeComponent },
   { path:"report/organization-tree", component: OrganizationalTreeComponent },
-  { path:"report/lesson-completed", component:LessoncompletedComponent }
+  { path:"report/lesson-completed", component:LessoncompletedComponent },
+  { path:"report/lms-mentor-activity", component: LmsmentoractivityComponent },
+  { path:"report/lms-mentee-activity", component:LmsmenteeactivityComponent }
 ];
 
 @NgModule({

@@ -5,5 +5,5 @@ export const url = Object.freeze({
     apiurl : "https://korban-api.herokuapp.com/"
 })
 
-/*apiurl : 'https://singshare-api.padahjobs.com/'
+/* apiurl : 'https://singshare-api.padahjobs.com/'
 apiurl : 'http://localhost:3000/' */

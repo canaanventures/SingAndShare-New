@@ -2,13 +2,21 @@
     <div class="card-body h-100 mt-3">
         <div class='row'>
             <div class='col-md-12 p-0 mt-3'>
-                <div class='form-group col-md-3'>
+                <div class='form-group col-md-2'>
                     <label for='from_date'>From Date</label>
                     <input type='datetime-local' id='from_date' class='form-control' [(ngModel)]='filterdate.from_date' placeholder='From Date' (change)='fromDateChange();' />
                 </div>
-                <div class='form-group col-md-3'>
+                <div class='form-group col-md-2'>
                     <label for='to_date'>To Date</label>
                     <input type='datetime-local' id='to_date' class='form-control' [(ngModel)]='filterdate.to_date' placeholder='To Date' />
+                </div>
+                <div class='form-group col-md-2'>
+                    <label for='attnd_status'>Status</label>
+                    <select id='attnd_status' class='form-control' [(ngModel)]='filterdate.attendance_status'>
+                        <option value=''>Attendance Status</option>
+                        <option value='P'>Present</option>
+                        <option value='A'>Absent</option>
+                    </select>
                 </div>
                 <div class='form-group col-md-3'>
                     <label for='test' class='w-100'> &nbsp; </label>
@@ -62,13 +70,7 @@
                                 <option value='{{list.srs_id}}' *ngFor='let list of srslist'>{{list.srs_name}}</option>
                             </select>
                         </td>                       
-                        <td>
-                            <select id='attendance_status' class='form-control filter-fld' [(ngModel)]='filter.attendance_status' (change)="filterList($event,'attendance_status')">
-                                <option value=''>Attendance Status</option>
-                                <option value='P'>Present</option>
-                                <option value='A'>Absent</option>
-                            </select>
-                        </td>
+                        <td> </td>
                         <td>
                             <input type='text' class='form-control filter-fld' id='count' [(ngModel)]='filter.count' (keyup)="filterList($event,'count')" placeholder="Your Count" />
                         </td>
