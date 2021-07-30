@@ -83,7 +83,8 @@
 
                 <li class="dropdown" *ngIf="loggeduser"><a style='color:#fff;'><span>Training</span> <i class="bi bi-chevron-down"></i></a>
                     <ul>
-                        <li class="nav-link"><a href="/training/dasboard">Dashboard</a></li>
+                        <li class="nav-link" *ngIf="role_name == 'Mentee'"><a href="/training/dasboard">Dashboard</a></li>
+                        <li class="nav-link" *ngIf="role_name == 'Mentor'"><a href="/training/mentor/dasboard">Dashboard</a></li>
                         <li class="nav-link" *ngIf="role_name == 'Admin'"><a href="/training/category">Category</a></li>
                         <li class="nav-link" *ngIf="role_name == 'Admin'"><a href="/training/course">Course</a></li>
                         <li class="nav-link" *ngIf="role_name == 'Admin'"><a href="/training/lesson">Lesson</a></li>

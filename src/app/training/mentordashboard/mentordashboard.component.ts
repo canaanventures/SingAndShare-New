@@ -22,9 +22,9 @@ export class MentordashboardComponent implements OnInit {
   }
 
   fetchUpcomingCourse(){ 
-    this.restApi.getMethod('getUpComingCourseForMentees/'+this.tk.user_id).subscribe((resp:any) => {
+    this.restApi.getMethod('getUpComingCourseForMentors/'+this.tk.user_id).subscribe((resp:any) => {
       this.courselist = resp.data;
-      this.restApi.getMethod('getOnGoingCourseForMentees/'+this.tk.user_id).subscribe((resptwo:any) => {
+      this.restApi.getMethod('getOnGoingCourseForMentors/'+this.tk.user_id).subscribe((resptwo:any) => {
         this.ongoinglist = resptwo.data;
       });
     });
@@ -37,7 +37,7 @@ export class MentordashboardComponent implements OnInit {
   openCourseDtls(id){
     this.displayTable = false;
     this.displayMenteeModal = true;
-    this.restApi.getMethod('getCourseDetailsForMentees/'+id+'/'+this.tk.user_id).subscribe((resp:any) => {
+    this.restApi.getMethod('getCourseDetailsForMentor/'+id+'/'+this.tk.user_id).subscribe((resp:any) => {
       this.details = resp.data;
       this.restApi.getMethod('getLessonsForMentees/'+id).subscribe((resptwo:any) => {
         this.lesson = resptwo.data;
@@ -78,21 +78,18 @@ export class MentordashboardComponent implements OnInit {
     setTimeout(() => URL.revokeObjectURL(link.href), 7000);
   }
   
-  toggleClass(id){
-    this.restApi.getMethod('getMenteeStatusForClass/'+id+'/'+this.tk.user_id).subscribe((resp:any) => {
-      this.menteestatus = resp.data[0].mentee_status;
-      this.restApi.getMethod('getLessonsActivityForMentees/'+id).subscribe((lessondata:any) => {
-        let lessonstatus = lessondata.data;
-        for(var i=0;i<lessonstatus.length;i++){
-          document.getElementById('lesson_'+lessonstatus[i].lesson_id+'_'+id).style.display = 'block';
-          document.getElementById('lesson_'+lessonstatus[i].lesson_id+'_'+id).classList.add('label-success');
-        }
-        var classlen = document.getElementsByClassName('class-div-hide');
-        for(let i=0;i<classlen.length;i++){
-          (document.getElementsByClassName("class-div-hide")[i] as HTMLElement).style.display = 'none'
-        }
-        document.getElementById('row_'+id).style.display = 'block';
-      })
+  toggleClass(id){  
+    this.restApi.getMethod('getLessonsActivityForMentees/'+id).subscribe((lessondata:any) => {
+      let lessonstatus = lessondata.data;
+      for(var i=0;i<lessonstatus.length;i++){
+        document.getElementById('lesson_'+lessonstatus[i].lesson_id+'_'+id).style.display = 'block';
+        document.getElementById('lesson_'+lessonstatus[i].lesson_id+'_'+id).classList.add('label-success');
+      }
+      var classlen = document.getElementsByClassName('class-div-hide');
+      for(let i=0;i<classlen.length;i++){
+        (document.getElementsByClassName("class-div-hide")[i] as HTMLElement).style.display = 'none'
+      }
+      document.getElementById('row_'+id).style.display = 'block';
     })
   }
 

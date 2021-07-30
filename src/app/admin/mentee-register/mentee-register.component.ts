@@ -18,6 +18,7 @@ export class MenteeRegisterComponent implements OnInit {
   public option_str:any; city:any;
 
   @Input() userdetails = {parent_id:'',user_first_name:'',user_last_name:'',user_email_id:'',user_password:'',user_confirm_password:'',user_contact_number:'',role_id:'',mentor_email_id:'',status:'',srs_id:'', user_dateofbirth:'',user_dateofacceptingchrist:'',user_gender:'',user_iam:'',user_jobtitle:'',user_school:'',user_church:'',user_address:'',user_city:'',user_state:'',user_pincode:''};
+  
   constructor(public restApi: ApiService, public router: Router, public activatedroute:ActivatedRoute) { }
 
   ngOnInit(): void {
@@ -42,7 +43,6 @@ export class MenteeRegisterComponent implements OnInit {
     for (var i=0; i< state.state_arr.length; i++) {
       this.option_str.options[this.option_str.length] = new Option(state.state_arr[i], state.state_arr[i]);
     }
-    this.register();
   }
 
   print_city(event:Event){
