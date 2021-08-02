@@ -2,6 +2,7 @@
 .report-container{margin-top:100px;}
 #report_chart_msg{text-align: center;margin-top:20px;}
 #download_excel{background-color: #ff3030;color: #fff;padding: 5px 9px;border-radius: 50%;font-size: 15px;cursor: pointer;margin-left: 8px;}
-#btn_resetfilter{color:#fff;margin-left:10px;}
+#btn_resetfilter{color:#fff;margin:0 10px;}
 h4#report_chart_msg{margin: 18px 0 0;font-size: 20px;text-align: left;}
 h3.chart_msg{text-align: center;margin-top: 45px;color: #de5d47;font-weight: 500;}
+.btn-header-green{background-color: #1ddba5; border-color: #1ddca4; margin-right: 10px;color:#fff;}

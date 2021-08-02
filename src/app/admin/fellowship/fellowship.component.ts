@@ -67,7 +67,6 @@ export class FellowshipComponent implements OnInit {
 
   viewEvent(param){
     this.restApi.getMethod('getEvents/'+param.event.id).subscribe((resp:any) => {
-      console.log(resp)
       this.event = resp.data[0];
       this.event.event_start_date = this.formatDateTime(resp.data[0].event_start_date);
       this.event.event_end_date = this.formatDateTime(resp.data[0].event_end_date);
@@ -77,7 +76,6 @@ export class FellowshipComponent implements OnInit {
       this.typeisevent = true;
       this.restApi.getImgMethod('getBlogImg/'+param.event.id).subscribe((resp:any) => {
         (resp.status == 201) ? this.imageToShow = '' : this.createImageFromBlob(resp);
-        console.log(resp)
       });
     });
 
@@ -122,17 +120,32 @@ export class FellowshipComponent implements OnInit {
             groupId: 'calendar'
           })
         }
-        this.calendarOptions = {
-          initialView: 'dayGridMonth',
-          eventClick:(arg) =>{
-            if(arg.event.groupId == 'event'){
-              this.viewEvent(arg);
-            }else{
-              this.viewCalendar(arg);
-            }
-          },
-          events: this.eventlist
-        };
+
+        this.restApi.getMethod('getBirthday/all').subscribe((resp:any) => {
+          let arr = resp.data;
+  
+          for(var i=0;i<arr.length;i++){
+            let reqdte = this.formatDate(arr[i].event_start_date)
+            this.eventlist.push({
+              id: arr[i].calendar_id,
+              title: arr[i].event_name,
+              date: reqdte,
+              groupId: 'calendar'
+            })
+          }
+
+          this.calendarOptions = {
+            initialView: 'dayGridMonth',
+            eventClick:(arg) =>{
+              if(arg.event.groupId == 'event'){
+                this.viewEvent(arg);
+              }else{
+                this.viewCalendar(arg);
+              }
+            },
+            events: this.eventlist
+          };
+        })
       });
     })
   }

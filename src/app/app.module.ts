@@ -79,6 +79,7 @@ import { CKEditorModule } from 'ng2-ckeditor';
 import { LmsmentoractivityComponent } from './reports/lmsmentoractivity/lmsmentoractivity.component';
 import { LmsmenteeactivityComponent } from './reports/lmsmenteeactivity/lmsmenteeactivity.component';
 import { MentordashboardComponent } from './training/mentordashboard/mentordashboard.component';
+import { LessonscompletedComponent } from './reports/lessonscompleted/lessonscompleted.component';
 
 FullCalendarModule.registerPlugins([ // register FullCalendar plugins
   dayGridPlugin,
@@ -136,7 +137,8 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     OrganizationalTreeComponent,
     LmsmentoractivityComponent,
     LmsmenteeactivityComponent,
-    MentordashboardComponent
+    MentordashboardComponent,
+    LessonscompletedComponent
   ],
   imports: [
     BrowserModule,

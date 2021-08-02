@@ -4,14 +4,14 @@ import {jsPDF} from 'jspdf';
 import html2canvas from 'html2canvas';
 
 @Component({
-  selector: 'app-lessoncompleted',
-  templateUrl: './lessoncompleted.component.html',
-  styleUrls: ['./lessoncompleted.component.css']
+  selector: 'app-lessonscompleted',
+  templateUrl: './lessonscompleted.component.html',
+  styleUrls: ['./lessonscompleted.component.css']
 })
-export class LessoncompletedComponent implements OnInit {
+export class LessonscompletedComponent implements OnInit {
   menteelist:any=[]; tofilter:any=[]; originalfilter:any=[];
 
-  @Input() filter = {mentee_name:'',user_contact_number:'',user_email_id:'',user_address:'',user_city:'',user_state:'',srs_name:'',mentor_name:'',status:'',from_date:'',to_date:''}
+  @Input() filter = {Classes:'',mentor:'',Mentee:'',from_date:'',to_date:''}
 
   constructor(public restApi: ApiService) { }
 
@@ -20,7 +20,7 @@ export class LessoncompletedComponent implements OnInit {
   }
 
   getMenteeList(){
-    this.restApi.getMethod('getMenteeCompletedReport').subscribe((resp:any) => {
+    this.restApi.getMethod('getMenteeLessonCompletedReport').subscribe((resp:any) => {
       this.menteelist = resp.data;
       this.tofilter = resp.data;
       this.originalfilter = resp.data;
@@ -45,13 +45,12 @@ export class LessoncompletedComponent implements OnInit {
     }else{
       result = this.tofilter.filter(function(item){
         if(item[type]){
-        if(item[type].toLowerCase().indexOf(event.target.value.toLowerCase()) > -1){
-          return item;
+          if(item[type].toLowerCase().indexOf(event.target.value.toLowerCase()) > -1){
+            return item;
+          }
         }
-      }
       })
-    }
-  
+    }  
     this.tofilter = result;
     this.menteelist = result;
   }
@@ -65,10 +64,10 @@ export class LessoncompletedComponent implements OnInit {
       if((el[j] as HTMLInputElement).value != ''){
         for(var i=0; i<arr.length; i++){
           if(arr[i][el[j].id]){
-          if(arr[i][el[j].id].toLowerCase().indexOf((el[j] as HTMLInputElement).value.toLowerCase()) > -1){
-            list.push(arr[i]);
+            if(arr[i][el[j].id].toLowerCase().indexOf((el[j] as HTMLInputElement).value.toLowerCase()) > -1){
+              list.push(arr[i]);
+            }
           }
-        }
         }
       }
     }
@@ -77,15 +76,14 @@ export class LessoncompletedComponent implements OnInit {
 
   exportData() {
     var table = document.getElementById("mentee-excel-table") as HTMLTableElement;
-    var rows =[]; var column1, column2, column3, column4, column5;
+    var rows =[]; var column1, column2, column3, column4;
     for(var i=0,row; row = table.rows[i];i++){
       if(!table.rows[i].classList.contains('excel-hide')){
         column1 = row.cells[0].innerText;
         column2 = row.cells[1].innerText;
         column3 = row.cells[2].innerText;
         column4 = row.cells[3].innerText;
-        column5 = row.cells[4].innerText;
-        rows.push([column1, column2, column3, column4, column5]);
+        rows.push([column1, column2, column3, column4]);
       }    
     }
     var csvContent = "data:text/csv;charset=utf-8,";
@@ -96,20 +94,17 @@ export class LessoncompletedComponent implements OnInit {
     var encodedUri = encodeURI(csvContent);
     var link = document.createElement("a");
     link.setAttribute("href", encodedUri);
-    link.setAttribute("download", "lesson-status-report.csv");
+    link.setAttribute("download", "lesson-completed-report.csv");
     document.body.appendChild(link);
     link.click();
   }
 
   filterDate(){
-    let arr = this.originalfilter; let f_date = this.filter.from_date; let t_date = this.filter.to_date;
-    let result = arr.filter(function(item){
-      if(new Date(f_date) <= new Date(item.modified_on) && new Date(t_date) >= new Date(item.modified_on)){
-        return item;
-      }
+    this.restApi.getMethod('getMenteeNullLessonCompletedReport').subscribe((resp:any) => {
+      this.menteelist = resp.data;
+      this.tofilter = resp.data;
+      this.originalfilter = resp.data;
     })
-    this.menteelist = result;
-    this.tofilter = result;
   }
 
   fromDateChange(){
@@ -120,7 +115,7 @@ export class LessoncompletedComponent implements OnInit {
   reset(){
     this.menteelist = this.originalfilter;
     this.tofilter = this.originalfilter;
-    this.filter = {mentee_name:'',user_contact_number:'',user_email_id:'',user_address:'',user_city:'',user_state:'',srs_name:'',mentor_name:'',status:'',from_date:'',to_date:''}
+    this.filter = {Classes:'',mentor:'',Mentee:'',from_date:'',to_date:''}
   }
 
   printPageArea(){
@@ -146,7 +141,7 @@ export class LessoncompletedComponent implements OnInit {
         pdf.addImage(contentDataURL, 'PNG', 0, position, imgWidth, imgHeight);
         heightLeft -= pageHeight;
       }
-      pdf.save('lesson-status-report.pdf');
+      pdf.save('lesson-completed-report.pdf');
     });
   }
 }

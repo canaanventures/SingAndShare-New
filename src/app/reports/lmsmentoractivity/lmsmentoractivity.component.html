@@ -1,31 +1,33 @@
 <div class='container report-container'>
     <div class="card-body h-100">
         <div class='row'>
-            <div class='col-md-12 p-0 mt-3'>
-                <h4 id='report_chart_msg' class='col-md-6'> Mentor Non Activity Report </h4>
-                <div class='form-group col-md-3 float-right'>
-                    <label for='download_excel' class='w-100'> &nbsp; </label>
-                    <img src='../../../assets/img/pdf.png' class='action-active-icons float-right' (click)="generatePDF()" />
-                    <img src='../../../assets/img/print.png' class='action-active-icons float-right' (click)="printPageArea()" />
-                    <img src='../../../assets/img/excel.png' class='action-active-icons float-right' (click)="exportData()" />
-                </div>                   
+            <div class='col-md-12 p-0 mt-3 mb-4'>
+                <h4 id='report_chart_msg'> Mentor Non Activity Report </h4>                  
             </div>
         </div>
         <div class='row'>
-            <div class='col-md-12 p-0 mt-3'>
-                <div class='form-group col-md-2'>
+            <div class='col-md-9 p-0 mt-3'>
+                <div class='form-group col-md-3 pl-0' style='padding-left:0;'>
                     <label for='from_date'>From Date</label>
                     <input type='datetime-local' id='from_date' class='form-control' [(ngModel)]='search.from_date' placeholder='From Date' (change)='fromDateChange();' />
                 </div>
-                <div class='form-group col-md-2'>
+                <div class='form-group col-md-3'>
                     <label for='to_date'>To Date</label>
                     <input type='datetime-local' id='to_date' class='form-control' [(ngModel)]='search.to_date' placeholder='To Date' />
                 </div>
-                <div class='form-group col-md-2'>
+                <div class='form-group col-md-6'>
                     <label for='btn_datefilter' class='w-100'> &nbsp; </label>
                     <button class='btn btn-primary' id='btn_datefilter' (click)='filterDate();'>Filter</button>
                     <button class='btn bg-orange' id='btn_resetfilter' (click)='reset();'>Reset</button>
+                    <button class='btn btn-header-green' id='btn_nullfilter' (click)='nullData();'>No Start</button>
                 </div>
+            </div>
+            <div class='p-0 mt-3 col-md-3'>
+                <label for='download_excel' class='w-100'> &nbsp; </label>
+                <!-- <span id='download_excel' class='float-right' (click)="exportData()"><i class="fa fa-file-excel-o" aria-hidden="true"></i></span> -->
+                <img src='../../../assets/img/pdf.png' class='action-active-icons float-right' (click)="generatePDF()" />
+                <img src='../../../assets/img/print.png' class='action-active-icons float-right' (click)="printPageArea()" />
+                <img src='../../../assets/img/excel.png' class='action-active-icons float-right' (click)="exportData()" />
             </div>
         </div>
         <div class='row' *ngIf='originalfilter.length == 0'>
@@ -47,7 +49,7 @@
                 <tbody>
                     <tr class='excel-hide'> 
                         <td>
-                            <input type='text' class='form-control filter-fld' id='mentor' [(ngModel)]='filter.mentor' (keyup)="filterList($event,'mentor')" placeholder='Mentor Name' />
+                            <input type='text' class='form-control filter-fld' id='Mentee' [(ngModel)]='filter.Mentee' (keyup)="filterList($event,'Mentee')" placeholder='Mentor Name' />
                         </td>
                         <td>
                             <input type='text' id='class_name' class='form-control filter-fld' [(ngModel)]='filter.class_name' (keyup)="filterList($event,'class_name')" placeholder='Class Name' />
@@ -66,7 +68,7 @@
                     </tr>
 
                     <tr *ngFor="let list of activitylist"> 
-                        <td>{{ list.mentor }}</td>
+                        <td>{{ list.Mentee }}</td>
                         <td>{{ list.class_name }}</td>
                         <td>{{ list.start_date | date:'dd-MM-yyyy' }}</td> 
                         <td>{{ list.end_date | date:'dd-MM-yyyy' }}</td>

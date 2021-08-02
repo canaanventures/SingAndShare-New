@@ -130,9 +130,17 @@ export class LmsmentoractivityComponent implements OnInit {
   }
 
   filterDate(){
-    this.search.from_date = this.convertDate(this.search.from_date);
-    this.search.to_date = this.convertDate(this.search.to_date);
+    /* this.search.from_date = this.convertDate(this.search.from_date);
+    this.search.to_date = this.convertDate(this.search.to_date); */
     this.restApi.postMethod('getLMSFilterMentorActivityReportList',this.search).subscribe((resp:any) => {
+      this.activitylist = resp.data;
+      this.tofilter = resp.data;
+      this.originalfilter = resp.data;
+    })
+  }
+
+  nullData(){
+    this.restApi.getMethod('getLMSMentorNullActivityReportList').subscribe((resp:any) => {
       this.activitylist = resp.data;
       this.tofilter = resp.data;
       this.originalfilter = resp.data;

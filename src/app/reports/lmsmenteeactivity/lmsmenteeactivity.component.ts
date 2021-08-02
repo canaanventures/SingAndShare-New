@@ -28,6 +28,14 @@ export class LmsmenteeactivityComponent implements OnInit {
     })
   }
 
+  nullData(){
+    this.restApi.getMethod('getLMSMenteeNullActivityReportList').subscribe((resp:any) => {
+      this.activitylist = resp.data;
+      this.tofilter = resp.data;
+      this.originalfilter = resp.data;
+    })
+  }
+
   filterList(event,type){
     var result;
     if(event.keyCode == 8 || event.keyCode == 46 || (type == 'status')){
@@ -51,8 +59,7 @@ export class LmsmenteeactivityComponent implements OnInit {
           }
         }
       })
-    }
-  
+    } 
     this.tofilter = result;
     this.activitylist = result;
   }
@@ -83,7 +90,7 @@ export class LmsmenteeactivityComponent implements OnInit {
 
   exportData() {
     var table = document.getElementById("mentee-excel-table") as HTMLTableElement;
-    var rows =[]; var column1, column2, column3, column4, column5;
+    var rows =[]; var column1, column2, column3, column4, column5, column6;
     for(var i=0,row; row = table.rows[i];i++){
       if(!table.rows[i].classList.contains('excel-hide')){
         column1 = row.cells[0].innerText;
@@ -91,7 +98,8 @@ export class LmsmenteeactivityComponent implements OnInit {
         column3 = row.cells[2].innerText;
         column4 = row.cells[3].innerText;
         column5 = row.cells[4].innerText;
-        rows.push([column1, column2, column3, column4, column5]);
+        column6 = row.cells[4].innerText;
+        rows.push([column1, column2, column3, column4, column5, column6]);
       }    
     }
     var csvContent = "data:text/csv;charset=utf-8,";
@@ -135,9 +143,9 @@ export class LmsmenteeactivityComponent implements OnInit {
   }
 
   filterDate(){
-    this.search.from_date = this.convertDate(this.search.from_date);
-    this.search.to_date = this.convertDate(this.search.to_date);
-    this.restApi.postMethod('getLMSMenteeActivityReportList',this.search).subscribe((resp:any) => {
+    /* this.search.from_date = this.convertDate(this.search.from_date);
+    this.search.to_date = this.convertDate(this.search.to_date); */
+    this.restApi.postMethod('getLMSFilterMenteeActivityReportList',this.search).subscribe((resp:any) => {
       this.activitylist = resp.data;
       this.tofilter = resp.data;
       this.originalfilter = resp.data;
