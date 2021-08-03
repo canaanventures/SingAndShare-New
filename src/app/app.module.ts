@@ -80,6 +80,7 @@ import { LmsmentoractivityComponent } from './reports/lmsmentoractivity/lmsmento
 import { LmsmenteeactivityComponent } from './reports/lmsmenteeactivity/lmsmenteeactivity.component';
 import { MentordashboardComponent } from './training/mentordashboard/mentordashboard.component';
 import { LessonscompletedComponent } from './reports/lessonscompleted/lessonscompleted.component';
+import { TestComponent } from './user/test/test.component';
 
 FullCalendarModule.registerPlugins([ // register FullCalendar plugins
   dayGridPlugin,
@@ -138,7 +139,8 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     LmsmentoractivityComponent,
     LmsmenteeactivityComponent,
     MentordashboardComponent,
-    LessonscompletedComponent
+    LessonscompletedComponent,
+    TestComponent
   ],
   imports: [
     BrowserModule,

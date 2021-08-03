@@ -124,7 +124,7 @@ padding: 0;
   height: 90px;
   transition: all 0.5s;
   z-index: 997;
-  background: linear-gradient(45deg, #1de099, #1dc8cd);
+  /* background: linear-gradient(45deg, #1de099, #1dc8cd); */
 }
 
 #header.header-transparent {
@@ -195,8 +195,10 @@ padding: 0;
   justify-content: space-between;
   /* font-family: "CMGSans-Bold"; */
   font-family: "Montserrat", sans-serif;
-  color: rgba(255, 255, 255, 0.8);
-  font-size: 15px;
+  /* color: rgba(255, 255, 255, 0.8); */
+  color: black;
+  font-size: 16px;
+  font-weight: 600;
   padding: 0 2px;
   white-space: nowrap;
   transition: 0.3s;

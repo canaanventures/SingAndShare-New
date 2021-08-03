@@ -43,10 +43,12 @@ import { LmsmentoractivityComponent } from './reports/lmsmentoractivity/lmsmento
 import { LmsmenteeactivityComponent } from './reports/lmsmenteeactivity/lmsmenteeactivity.component';
 import { MentordashboardComponent } from './training/mentordashboard/mentordashboard.component';
 import { LessonscompletedComponent } from './reports/lessonscompleted/lessonscompleted.component';
+import { TestComponent } from './user/test/test.component';
 
 const routes: Routes = [
   { path: "", redirectTo: "home", pathMatch: "full"  },
   { path: "home", component: HomeComponent },
+  { path: "test", component: TestComponent },
   { path: "believe", component: BelieveComponent },
   { path: "firststep", component: FirststepComponent },
   { path: "mission", component: MissionComponent },

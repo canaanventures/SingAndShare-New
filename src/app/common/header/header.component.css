@@ -10,6 +10,7 @@
 #user-action hr{margin:10px 0;}
 .header-transparent ul li a{color:#630460;font-weight:500;}
 .navbar ul.active{display:block;}
+
 #name_initials{opacity: 1;border: 3px solid #fff;color: #fff;border-radius: 50%;padding:9px;font-weight: 600;margin-left: 15px;letter-spacing: 2px;text-transform: uppercase;}
 header{padding-top: 10px;}
 .tooltip {position: relative;display: inline-block;border-bottom: 1px dotted black;} 
@@ -20,7 +21,8 @@ header{padding-top: 10px;}
 @media (max-width: 767px){
     #header #logo img {max-height: 75px;}
     #navbar{position:relative;}
-    #navbar ul{position: absolute;right: 0;top: 100%;background: linear-gradient( 45deg,#1de099,#1dc8cd);width: 200px;}
+    #navbar ul{position: absolute;right: 0;top: 100%;width: 200px;background-color: white;}
+    /* background: linear-gradient( 45deg,#1de099,#1dc8cd); */
     #navbar ul li a{color:#616161;font-weight:500;font-size:13px;}
     .navbar > ul > li{padding:15px;}
     #header-user-icon{margin-right: 20px;}
@@ -36,3 +38,6 @@ header{padding-top: 10px;}
     background-size:cover;
     background-image:url('https://images.unsplash.com/photo-1470434151738-dc5f4474c239?dpr=1&auto=format&crop=entropy&fit=crop&w=1500&h=1000&q=80&cs=tinysrgb');
 }
+
+
+
